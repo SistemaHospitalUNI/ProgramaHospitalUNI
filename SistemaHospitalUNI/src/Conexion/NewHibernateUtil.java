@@ -20,12 +20,12 @@ import org.hibernate.cfg.Configuration;
  */
 public class NewHibernateUtil {
 
-   private static SessionFactory sessionFactory = null;
+    private static SessionFactory sessionFactory = null;
 
     public static SessionFactory conexion(String login, String Contraseña, String Puerto, String IP) {
         try {
             try {
-                Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:" + Puerto + "/NombreBaseDatos", login, Contraseña);
+                Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:" + Puerto + "/SistemaHospital", login, Contraseña);
                 conexion.close();
             } catch (SQLException e) {
                 return null;
@@ -33,10 +33,33 @@ public class NewHibernateUtil {
             sessionFactory = (SessionFactory) new Configuration()
                     .setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect")
                     .setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver")
-                    .setProperty("hibernate.connection.url", "jdbc:mysql://localhost:" + Puerto + "/proyectobasedatos2")
+                    .setProperty("hibernate.connection.url", "jdbc:mysql://localhost:" + Puerto + "/SistemaHospital")
                     .setProperty("hibernate.connection.username", login)
                     .setProperty("hibernate.connection.password", Contraseña)
-                    .addResource("POJO/Medico.hbm.xml")
+                    .addResource("Pojo/Sector.hbm.xml")
+                    .addResource("Pojo/FacturaConsulta.hbm.xml")
+                    .addResource("Pojo/Receta.hbm.xml")
+                    .addResource("Pojo/Paciente.hbm.xml")
+                    .addResource("Pojo/MedicoHorarioMedico.hbm.xml")
+                    .addResource("Pojo/Paciente16.hbm.xml")
+                    .addResource("Pojo/Examen.hbm.xml")
+                    .addResource("Pojo/Consulta.hbm.xml")
+                    .addResource("Pojo/AlergiaMedicamento.hbm.xml")
+                    .addResource("Pojo/PadecimientoEc.hbm.xml")
+                    .addResource("Pojo/PadecimientoAm.hbm.xml")
+                    .addResource("Pojo/DetalleFactpro.hbm.xml")
+                    .addResource("Pojo/DetalleFactura.hbm.xml")
+                    .addResource("Pojo/ProcedimientosEspeciales.hbm.xml")
+                    .addResource("Pojo/HorarioMedico.hbm.xml")
+                    .addResource("Pojo/Diagnostico.hbm.xml")
+                    .addResource("Pojo/EnfermedadCronica.hbm.xml")
+                    .addResource("Pojo/Cita.hbm.xml")
+                    .addResource("Pojo/FacturaExamen.hbm.xml")
+                    .addResource("Pojo/FacturaProcedimiento.hbm.xml")
+                    .addResource("Pojo/CatalogoExamen.hbm.xml")
+                    .addResource("Pojo/Medico.hbm.xml")
+                    .addResource("Pojo/Cajero.hbm.xml")
+                    .addResource("Pojo/DetalleConsulta.hbm.xml")
                     .buildSessionFactory();
 
         } catch (HibernateException ex) {

@@ -403,5 +403,10 @@ public class DAO {
         s.close();
         return lstSector;
     }
-//------------- Fin Metodo Listar Tablas -------------------------------------
+//------------- Fin Metodos Listar Tablas -------------------------------------
+    
+//------------- Inicio Metodos Guardar Objetos --------------------------------
+    
+
+//------------- Fin Metodos Guardar Objetos ----------------------------------- 
 }
