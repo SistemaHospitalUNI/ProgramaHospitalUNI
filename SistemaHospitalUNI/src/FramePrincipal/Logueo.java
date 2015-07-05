@@ -216,9 +216,8 @@ public class Logueo extends javax.swing.JFrame {
             sf = NewHibernateUtil.conexion("root", "lacb2208", "3306", "localhost");
             if (sf != null) {
                 JOptionPane.showMessageDialog(this, "Hola " + txtUsuario.getText() + " se ha conectado con exito a la base de datos!!", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
-                SistemaPrincipal pf = new SistemaPrincipal(sf);
-                // pf.inicializar(user[1].toString(),user[4].toString());
-                pf.setVisible(true);
+                SistemaPrincipal sisPrin = new SistemaPrincipal(sf);
+                sisPrin.setVisible(true);
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Revise su usuario y contraseña", "error en la coneccion", JOptionPane.ERROR_MESSAGE);
