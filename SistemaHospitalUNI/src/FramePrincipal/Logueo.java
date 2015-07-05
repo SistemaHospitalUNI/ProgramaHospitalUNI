@@ -5,17 +5,42 @@
  */
 package FramePrincipal;
 
+import Conexion.DAO;
+import Conexion.NewHibernateUtil;
+import Decoracion.Animacion;
+import MenuSistema.SistemaPrincipal;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 /**
  *
  * @author crdzbird
  */
 public class Logueo extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Logueo
-     */
+    private static SessionFactory sf;
+    private static Session s;
+
     public Logueo() {
         initComponents();
+        InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Salir");
+        ActionMap actionMap = getRootPane().getActionMap();
+        actionMap.put("Salir", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnSalirActionPerformed(e);
+            }
+        });
     }
 
     /**
@@ -26,58 +51,181 @@ public class Logueo extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnInicio = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        txtUsuario = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
+        btnVerPassword = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setAlwaysOnTop(true);
+        setMinimumSize(new java.awt.Dimension(453, 151));
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Principal Login", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 3, 14))); // NOI18N
+        jPanel1.setMinimumSize(new java.awt.Dimension(453, 151));
+        jPanel1.setPreferredSize(new java.awt.Dimension(453, 151));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
+        jPanel2.setMinimumSize(new java.awt.Dimension(313, 121));
+        jPanel2.setPreferredSize(new java.awt.Dimension(313, 109));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
-        jButton2.setText("jButton2");
-        jPanel3.add(jButton2);
+        jPanel3.setMinimumSize(new java.awt.Dimension(186, 48));
+        jPanel3.setPreferredSize(new java.awt.Dimension(186, 48));
 
-        jButton3.setText("jButton3");
-        jPanel3.add(jButton3);
+        btnInicio.setText("Iniciar Sesion");
+        btnInicio.setPreferredSize(new java.awt.Dimension(130, 38));
+        btnInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInicioActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnInicio);
 
-        jPanel2.add(jPanel3, new java.awt.GridBagConstraints());
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnSalir);
 
-        jLabel2.setText("jLabel2");
-        jPanel2.add(jLabel2, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 3);
+        jPanel2.add(jPanel3, gridBagConstraints);
 
-        jLabel3.setText("jLabel3");
-        jPanel2.add(jLabel3, new java.awt.GridBagConstraints());
+        jLabel2.setText("Usuario:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 3);
+        jPanel2.add(jLabel2, gridBagConstraints);
 
-        jTextField1.setText("jTextField1");
-        jPanel2.add(jTextField1, new java.awt.GridBagConstraints());
+        jLabel3.setText("Password:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 3);
+        jPanel2.add(jLabel3, gridBagConstraints);
 
-        jPasswordField1.setText("jPasswordField1");
-        jPanel2.add(jPasswordField1, new java.awt.GridBagConstraints());
+        txtUsuario.setText("root");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 3);
+        jPanel2.add(txtUsuario, gridBagConstraints);
 
-        jButton1.setText("jButton1");
-        jPanel2.add(jButton1, new java.awt.GridBagConstraints());
+        txtPassword.setText("lacb2208");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 3);
+        jPanel2.add(txtPassword, gridBagConstraints);
 
-        jPanel1.add(jPanel2, new java.awt.GridBagConstraints());
+        btnVerPassword.setText("Ver");
+        btnVerPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnVerPasswordMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnVerPasswordMouseReleased(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 3);
+        jPanel2.add(btnVerPassword, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        jPanel1.add(jPanel2, gridBagConstraints);
 
         jLabel1.setText("jLabel1");
-        jPanel1.add(jLabel1, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        jPanel1.add(jLabel1, gridBagConstraints);
+
+        /*
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+        */
+        getContentPane().add(Animacion.gradiente(jPanel1, .3f, Color.blue, Color.white), java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnVerPasswordMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerPasswordMousePressed
+        // TODO add your handling code here:
+        txtPassword.setEchoChar('\0');
+    }//GEN-LAST:event_btnVerPasswordMousePressed
+
+    private void btnVerPasswordMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerPasswordMouseReleased
+        // TODO add your handling code here:
+        txtPassword.setEchoChar('\u25cf');
+    }//GEN-LAST:event_btnVerPasswordMouseReleased
+
+    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        // TODO add your handling code here:
+        Ejecutar();
+    }//GEN-LAST:event_btnInicioActionPerformed
+
+    private void validarEntrada() {
+        if (txtUsuario.getText().isEmpty() || txtPassword.getPassword().length == 0) {
+            if (btnInicio.isEnabled()) {
+                btnInicio.setEnabled(false);
+            }
+
+        } else {
+            if (!btnInicio.isEnabled()) {
+                btnInicio.setEnabled(true);
+            }
+        }
+    }
+
+    private void Ejecutar() {
+        if (txtUsuario.getText().length() == 0 || txtPassword.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Atencion, se deben llenar todos "
+                    + "los campos para continuar", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } else {
+            sf = NewHibernateUtil.conexion("root", "lacb2208", "3306", "localhost");
+            if (sf != null) {
+                JOptionPane.showMessageDialog(this, "Hola " + txtUsuario.getText() + " se ha conectado con exito a la base de datos!!", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
+                SistemaPrincipal pf = new SistemaPrincipal(sf);
+                // pf.inicializar(user[1].toString(),user[4].toString());
+                pf.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Revise su usuario y contraseña", "error en la coneccion", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -115,16 +263,16 @@ public class Logueo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnInicio;
+    private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnVerPassword;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

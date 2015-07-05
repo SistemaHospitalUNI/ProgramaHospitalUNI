@@ -406,7 +406,47 @@ public class DAO {
 //------------- Fin Metodos Listar Tablas -------------------------------------
     
 //------------- Inicio Metodos Guardar Objetos --------------------------------
+    public static boolean GuardarAlergiaMedicamento(String nombre, String descr) {
+        s = sf.openSession();
+        AlergiaMedicamento alergiaMed = new AlergiaMedicamento();
+        alergiaMed.setNombre(nombre);
+        alergiaMed.setDescripcion(descr);
+        s.beginTransaction();
+        s.save(alergiaMed);
+        s.getTransaction().commit();
+        s.close();
+        return true;
+    }
     
+    public static boolean GuardarCajero(String nombre, String apellido,String cedula,
+            byte[] foto) {
+        s = sf.openSession();
+        Cajero cajero = new Cajero();
+        cajero.setNombre(nombre);
+        cajero.setApellido(apellido);
+        cajero.setCedula(cedula);
+        cajero.setFoto(foto);
+        s.beginTransaction();
+        s.save(cajero);
+        s.getTransaction().commit();
+        s.close();
+        return true;
+    }
+    
+    public static boolean GuardarCita(int idMedico,int idPaciente, String fecha,String hora,String estado) {
+        s = sf.openSession();
+        Cita cita = new Cita();
+        cita.setMedico((Medico) s.get(Medico.class, idMedico));
+        cita.setIdPaciente((Paciente) s.get(Paciente.class, idPaciente));
+        cita.setFecha(java.sql.Date.valueOf(fecha));
+        cita.setHora(java.sql.Time.valueOf(hora));
+        cita.setEstado(estado);
+        s.beginTransaction();
+        s.save(cita);
+        s.getTransaction().commit();
+        s.close();
+        return true;
+    }
 
 //------------- Fin Metodos Guardar Objetos ----------------------------------- 
 }

@@ -12,7 +12,7 @@ public class Cita  implements java.io.Serializable {
 
      private Integer idCita;
      private Medico medico;
-     private int idPaciente;
+     private Paciente idPaciente;
      private Date fecha;
      private Date hora;
      private String estado;
@@ -20,7 +20,7 @@ public class Cita  implements java.io.Serializable {
     public Cita() {
     }
 
-    public Cita(Medico medico, int idPaciente, Date fecha, Date hora, String estado) {
+    public Cita(Medico medico, Paciente idPaciente, Date fecha, Date hora, String estado) {
        this.medico = medico;
        this.idPaciente = idPaciente;
        this.fecha = fecha;
@@ -42,11 +42,11 @@ public class Cita  implements java.io.Serializable {
     public void setMedico(Medico medico) {
         this.medico = medico;
     }
-    public int getIdPaciente() {
+    public Paciente getIdPaciente() {
         return this.idPaciente;
     }
     
-    public void setIdPaciente(int idPaciente) {
+    public void setIdPaciente(Paciente idPaciente) {
         this.idPaciente = idPaciente;
     }
     public Date getFecha() {
