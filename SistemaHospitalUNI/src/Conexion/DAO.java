@@ -437,7 +437,7 @@ public class DAO {
         s = sf.openSession();
         Cita cita = new Cita();
         cita.setMedico((Medico) s.get(Medico.class, idMedico));
-        cita.setIdPaciente((Paciente) s.get(Paciente.class, idPaciente));
+        cita.setPaciente((Paciente) s.get(Paciente.class, idPaciente));
         cita.setFecha(java.sql.Date.valueOf(fecha));
         cita.setHora(java.sql.Time.valueOf(hora));
         cita.setEstado(estado);

@@ -1,5 +1,5 @@
 package Pojo;
-// Generated Jul 5, 2015 7:44:36 AM by Hibernate Tools 4.3.1
+// Generated Jul 5, 2015 1:46:36 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -20,6 +20,7 @@ public class Paciente  implements java.io.Serializable {
      private String direccion;
      private Set padecimientoEcs = new HashSet(0);
      private Set facturaProcedimientos = new HashSet(0);
+     private Set citas = new HashSet(0);
      private Set facturaExamens = new HashSet(0);
 
     public Paciente() {
@@ -33,7 +34,7 @@ public class Paciente  implements java.io.Serializable {
         this.telefono = telefono;
         this.direccion = direccion;
     }
-    public Paciente(Sector sector, String nombre, String apellido, byte[] foto, String telefono, String direccion, Set padecimientoEcs, Set facturaProcedimientos, Set facturaExamens) {
+    public Paciente(Sector sector, String nombre, String apellido, byte[] foto, String telefono, String direccion, Set padecimientoEcs, Set facturaProcedimientos, Set citas, Set facturaExamens) {
        this.sector = sector;
        this.nombre = nombre;
        this.apellido = apellido;
@@ -42,6 +43,7 @@ public class Paciente  implements java.io.Serializable {
        this.direccion = direccion;
        this.padecimientoEcs = padecimientoEcs;
        this.facturaProcedimientos = facturaProcedimientos;
+       this.citas = citas;
        this.facturaExamens = facturaExamens;
     }
    
@@ -107,6 +109,13 @@ public class Paciente  implements java.io.Serializable {
     
     public void setFacturaProcedimientos(Set facturaProcedimientos) {
         this.facturaProcedimientos = facturaProcedimientos;
+    }
+    public Set getCitas() {
+        return this.citas;
+    }
+    
+    public void setCitas(Set citas) {
+        this.citas = citas;
     }
     public Set getFacturaExamens() {
         return this.facturaExamens;
