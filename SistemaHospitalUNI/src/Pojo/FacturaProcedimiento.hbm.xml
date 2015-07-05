@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 5, 2015 7:44:37 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojo.FacturaProcedimiento" table="Factura_procedimiento" catalog="SistemaHospital" optimistic-lock="version">
+        <id name="idFactpro" type="java.lang.Integer">
+            <column name="id_factpro" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="cajero" class="Pojo.Cajero" fetch="select">
+            <column name="id_cajero" not-null="true" />
+        </many-to-one>
+        <many-to-one name="paciente" class="Pojo.Paciente" fetch="select">
+            <column name="id_paciente" not-null="true" />
+        </many-to-one>
+        <property name="fecha" type="date">
+            <column name="fecha" length="10" not-null="true" />
+        </property>
+        <property name="total" type="float">
+            <column name="total" precision="12" scale="0" not-null="true" />
+        </property>
+        <set name="detalleFactpros" table="Detalle_factpro" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_fact" not-null="true" />
+            </key>
+            <one-to-many class="Pojo.DetalleFactpro" />
+        </set>
+    </class>
+</hibernate-mapping>

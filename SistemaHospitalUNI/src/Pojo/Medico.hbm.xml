@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 5, 2015 7:44:37 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojo.Medico" table="Medico" catalog="SistemaHospital" optimistic-lock="version">
+        <id name="idMedico" type="java.lang.Integer">
+            <column name="id_medico" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="50" not-null="true" />
+        </property>
+        <property name="apellido" type="string">
+            <column name="apellido" length="50" not-null="true" />
+        </property>
+        <property name="foto" type="binary">
+            <column name="foto" />
+        </property>
+        <property name="especialidad" type="string">
+            <column name="especialidad" length="100" not-null="true" />
+        </property>
+        <property name="cedula" type="string">
+            <column name="cedula" length="18" not-null="true" />
+        </property>
+        <set name="citas" table="Cita" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_medico" not-null="true" />
+            </key>
+            <one-to-many class="Pojo.Cita" />
+        </set>
+        <set name="medicoHorarioMedicos" table="Medico_HorarioMedico" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_medico" not-null="true" />
+            </key>
+            <one-to-many class="Pojo.MedicoHorarioMedico" />
+        </set>
+    </class>
+</hibernate-mapping>

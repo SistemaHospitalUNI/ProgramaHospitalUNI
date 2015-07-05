@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 5, 2015 7:44:37 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojo.MedicoHorarioMedico" table="Medico_HorarioMedico" catalog="SistemaHospital" optimistic-lock="version">
+        <id name="idMedicoHorariomedico" type="java.lang.Integer">
+            <column name="id_medico_horariomedico" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="medico" class="Pojo.Medico" fetch="select">
+            <column name="id_medico" not-null="true" />
+        </many-to-one>
+        <property name="dia" type="date">
+            <column name="dia" length="10" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

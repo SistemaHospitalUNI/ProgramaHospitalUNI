@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 5, 2015 7:44:37 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojo.Paciente" table="Paciente" catalog="SistemaHospital" optimistic-lock="version">
+        <id name="idPaciente" type="java.lang.Integer">
+            <column name="id_paciente" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="sector" class="Pojo.Sector" fetch="select">
+            <column name="id_sector" not-null="true" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="nombre" length="50" not-null="true" />
+        </property>
+        <property name="apellido" type="string">
+            <column name="apellido" length="50" not-null="true" />
+        </property>
+        <property name="foto" type="binary">
+            <column name="foto" />
+        </property>
+        <property name="telefono" type="string">
+            <column name="telefono" length="15" not-null="true" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="direccion" length="200" not-null="true" />
+        </property>
+        <set name="padecimientoEcs" table="Padecimiento_EC" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_paciente" not-null="true" />
+            </key>
+            <one-to-many class="Pojo.PadecimientoEc" />
+        </set>
+        <set name="facturaProcedimientos" table="Factura_procedimiento" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_paciente" not-null="true" />
+            </key>
+            <one-to-many class="Pojo.FacturaProcedimiento" />
+        </set>
+        <set name="facturaExamens" table="FacturaExamen" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_paciente" not-null="true" />
+            </key>
+            <one-to-many class="Pojo.FacturaExamen" />
+        </set>
+    </class>
+</hibernate-mapping>
