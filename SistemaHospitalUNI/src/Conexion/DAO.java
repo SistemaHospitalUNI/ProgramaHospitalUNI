@@ -418,8 +418,7 @@ public class DAO {
         return true;
     }
 
-    public static boolean GuardarCajero(String nombre, String apellido, String cedula,
-            byte[] foto) {
+    public static boolean GuardarCajero(String nombre, String apellido, String cedula, byte[] foto) {
         s = sf.openSession();
         Cajero cajero = new Cajero();
         cajero.setNombre(nombre);
