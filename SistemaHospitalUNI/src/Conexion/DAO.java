@@ -404,7 +404,7 @@ public class DAO {
         return lstSector;
     }
 //------------- Fin Metodos Listar Tablas -------------------------------------
-    
+
 //------------- Inicio Metodos Guardar Objetos --------------------------------
     public static boolean GuardarAlergiaMedicamento(String nombre, String descr) {
         s = sf.openSession();
@@ -417,8 +417,8 @@ public class DAO {
         s.close();
         return true;
     }
-    
-    public static boolean GuardarCajero(String nombre, String apellido,String cedula,
+
+    public static boolean GuardarCajero(String nombre, String apellido, String cedula,
             byte[] foto) {
         s = sf.openSession();
         Cajero cajero = new Cajero();
@@ -432,8 +432,8 @@ public class DAO {
         s.close();
         return true;
     }
-    
-    public static boolean GuardarCita(int idMedico,int idPaciente, String fecha,String hora,String estado) {
+
+    public static boolean GuardarCita(int idMedico, int idPaciente, String fecha, String hora, String estado) {
         s = sf.openSession();
         Cita cita = new Cita();
         cita.setMedico((Medico) s.get(Medico.class, idMedico));
