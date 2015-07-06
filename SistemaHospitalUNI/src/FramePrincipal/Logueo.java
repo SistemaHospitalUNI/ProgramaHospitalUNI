@@ -9,15 +9,21 @@ import Conexion.DAO;
 import Conexion.NewHibernateUtil;
 import Decoracion.Animacion;
 import MenuSistema.SistemaPrincipal;
+import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaBlueLightLookAndFeel;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import javax.swing.UIManager;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -282,20 +288,11 @@ public class Logueo extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
+            UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
+        }  catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Logueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Logueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Logueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Logueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(Logueo.class.getName()).log(Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

@@ -6,11 +6,17 @@
 package MenuSistema;
 
 import FramePrincipal.Logueo;
+import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaBlueLightLookAndFeel;
 import java.awt.Frame;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Box;
 import org.hibernate.SessionFactory;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 /**
  *
@@ -24,6 +30,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
     private static SessionFactory sf;
     
     public SistemaPrincipal(SessionFactory sf) {
+        
         initComponents();
         SistemaPrincipal.sf = sf;
         menuUsuario.setText(Logueo.getUser());
@@ -57,11 +64,11 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 705, Short.MAX_VALUE)
+            .addGap(0, 717, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 421, Short.MAX_VALUE)
+            .addGap(0, 424, Short.MAX_VALUE)
         );
 
         getContentPane().add(jDesktopPane1, java.awt.BorderLayout.CENTER);
@@ -70,8 +77,9 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenuBar1.setMinimumSize(new java.awt.Dimension(2, 2));
         jMenuBar1.setPreferredSize(new java.awt.Dimension(623, 53));
 
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436172510_12.File.png"))); // NOI18N
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436181702_vector_65_13.png"))); // NOI18N
         jMenu1.setText("   Archivo");
+        jMenu1.setMargin(new java.awt.Insets(0, 0, 0, 20));
 
         jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436173501_Doctor.png"))); // NOI18N
         jMenu5.setText("Médico");
@@ -88,12 +96,12 @@ public class SistemaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436172566_13.Clipboard.png"))); // NOI18N
+        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436182029_my-reports.png"))); // NOI18N
         jMenu4.setText("   Reportes");
         jMenu4.setMargin(new java.awt.Insets(0, 40, 0, 0));
         jMenuBar1.add(jMenu4);
 
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436172659_server_information.png"))); // NOI18N
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436182141_Information.png"))); // NOI18N
         jMenu2.setText("   Info");
         jMenu2.setMargin(new java.awt.Insets(0, 40, 0, 0));
         jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -109,8 +117,9 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenu3.setMargin(new java.awt.Insets(0, 40, 0, 0));
         jMenuBar1.add(jMenu3);
 
-        menuUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1434275796_users.png"))); // NOI18N
+        menuUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436182236_preferences-contact-list.png"))); // NOI18N
         menuUsuario.setText("   Usuario");
+        menuUsuario.setMargin(new java.awt.Insets(0, 20, 0, 0));
         menuUsuario.setPreferredSize(new java.awt.Dimension(113, 51));
 
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1434275747_Delete.png"))); // NOI18N
@@ -155,21 +164,21 @@ public class SistemaPrincipal extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SistemaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SistemaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SistemaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+          
+         UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
+           
+//            }
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(SistemaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        } catch (ParseException ex) {
+            Logger.getLogger(SistemaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+    
         //</editor-fold>
 
         /* Create and display the form */
