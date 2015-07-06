@@ -69,6 +69,11 @@ public class Logueo extends javax.swing.JFrame {
         setAlwaysOnTop(true);
         setMinimumSize(new java.awt.Dimension(453, 151));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Principal Login", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 3, 14))); // NOI18N
         jPanel1.setMinimumSize(new java.awt.Dimension(453, 151));
@@ -132,7 +137,7 @@ public class Logueo extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 3);
         jPanel2.add(txtUsuario, gridBagConstraints);
 
-        txtPassword.setText("lacb2208");
+        txtPassword.setText("1234");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
@@ -141,7 +146,7 @@ public class Logueo extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 3);
         jPanel2.add(txtPassword, gridBagConstraints);
 
-        btnVerPassword.setText("Ver");
+        btnVerPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436171051_eye-24.png"))); // NOI18N
         btnVerPassword.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btnVerPasswordMousePressed(evt);
@@ -160,7 +165,7 @@ public class Logueo extends javax.swing.JFrame {
         gridBagConstraints.gridx = 1;
         jPanel1.add(jPanel2, gridBagConstraints);
 
-        jLabel1.setText("jLabel1");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1434271999_personal.png"))); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
@@ -173,6 +178,7 @@ public class Logueo extends javax.swing.JFrame {
         getContentPane().add(Animacion.gradiente(jPanel1, .3f, Color.blue, Color.white), java.awt.BorderLayout.CENTER);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -193,7 +199,12 @@ public class Logueo extends javax.swing.JFrame {
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
         // TODO add your handling code here:
         Ejecutar();
+        intentos++;
     }//GEN-LAST:event_btnInicioActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        System.exit(0);
+    }//GEN-LAST:event_formWindowClosing
 
     private void validarEntrada() {
         if (txtUsuario.getText().isEmpty() || txtPassword.getPassword().length == 0) {
@@ -207,20 +218,55 @@ public class Logueo extends javax.swing.JFrame {
             }
         }
     }
+    
+    public void esperar (int segundos) {
+
+        try {
+
+            Thread.sleep (segundos*1000);
+               
+           this.btnInicio.setEnabled(true);
+           this.btnVerPassword.setEnabled(true);
+        } catch (Exception e) {
+             System.out.println("error");
+        }
+        
+    }
+    
+    public static String getUser(){
+        return txtUsuario.getText();
+    }
+    
+    int intentos = 0;
 
     private void Ejecutar() {
+
+        if(intentos == 3){
+                      this.btnInicio.setEnabled(false);
+                this.btnVerPassword.setEnabled(false);
+
+            JOptionPane.showMessageDialog(this, "Numero de intentos maximos, intente en 1 min",
+                    "Espere por favor",JOptionPane.WARNING_MESSAGE);
+            
+                esperar(60);
+               
+                intentos = 0;
+           
+            return;
+        }
+        
         if (txtUsuario.getText().length() == 0 || txtPassword.getText().length() == 0) {
             JOptionPane.showMessageDialog(null, "Atencion, se deben llenar todos "
                     + "los campos para continuar", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
-            sf = NewHibernateUtil.conexion("root", "lacb2208", "3306", "localhost");
+            sf = NewHibernateUtil.conexion(txtUsuario.getText(), txtPassword.getText(), "3306", "localhost");
             if (sf != null) {
                 JOptionPane.showMessageDialog(this, "Hola " + txtUsuario.getText() + " se ha conectado con exito a la base de datos!!", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
                 SistemaPrincipal sisPrin = new SistemaPrincipal(sf);
                 sisPrin.setVisible(true);
                 this.dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "Revise su usuario y contraseña", "error en la coneccion", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Revise su usuario y contraseña", "error en la conexion", JOptionPane.ERROR_MESSAGE);
             }
 
         }
@@ -272,6 +318,6 @@ public class Logueo extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPasswordField txtPassword;
-    private javax.swing.JTextField txtUsuario;
+    public static javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

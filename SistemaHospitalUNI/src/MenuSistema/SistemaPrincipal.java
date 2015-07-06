@@ -5,8 +5,12 @@
  */
 package MenuSistema;
 
+import FramePrincipal.Logueo;
+import java.awt.Frame;
 import javax.swing.Box;
 import org.hibernate.SessionFactory;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,6 +26,8 @@ public class SistemaPrincipal extends javax.swing.JFrame {
     public SistemaPrincipal(SessionFactory sf) {
         initComponents();
         SistemaPrincipal.sf = sf;
+        menuUsuario.setText(Logueo.getUser());
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -33,46 +39,109 @@ public class SistemaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
+        menuUsuario = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jMenuBar1.setAlignmentY(0.0F);
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 705, Short.MAX_VALUE)
+        );
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 421, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(jDesktopPane1, java.awt.BorderLayout.CENTER);
+
         jMenuBar1.setMaximumSize(new java.awt.Dimension(623, 32769));
         jMenuBar1.setMinimumSize(new java.awt.Dimension(2, 2));
         jMenuBar1.setPreferredSize(new java.awt.Dimension(623, 53));
 
-        jMenu1.setText("File");
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436172510_12.File.png"))); // NOI18N
+        jMenu1.setText("   Archivo");
+
+        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436173501_Doctor.png"))); // NOI18N
+        jMenu5.setText("Médico");
+
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1434286944_file_add.png"))); // NOI18N
+        jMenuItem4.setText("Agregar Médico");
+        jMenu5.add(jMenuItem4);
+
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Imagenes.png"))); // NOI18N
+        jMenuItem5.setText("Horario Médico");
+        jMenu5.add(jMenuItem5);
+
+        jMenu1.add(jMenu5);
+
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436172566_13.Clipboard.png"))); // NOI18N
+        jMenu4.setText("   Reportes");
+        jMenu4.setMargin(new java.awt.Insets(0, 40, 0, 0));
+        jMenuBar1.add(jMenu4);
+
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436172659_server_information.png"))); // NOI18N
+        jMenu2.setText("   Info");
+        jMenu2.setMargin(new java.awt.Insets(0, 40, 0, 0));
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Usuario");
-        jMenu3.setPreferredSize(new java.awt.Dimension(113, 51));
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436172711_help-browser.png"))); // NOI18N
+        jMenu3.setText("    Ayuda");
+        jMenu3.setActionCommand("   Ayuda");
+        jMenu3.setMargin(new java.awt.Insets(0, 40, 0, 0));
+        jMenuBar1.add(jMenu3);
+
+        menuUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1434275796_users.png"))); // NOI18N
+        menuUsuario.setText("   Usuario");
+        menuUsuario.setPreferredSize(new java.awt.Dimension(113, 51));
+
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1434275747_Delete.png"))); // NOI18N
+        jMenuItem1.setText("Cerrar Sesión");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        menuUsuario.add(jMenuItem1);
 
         jMenuBar1.add(Box.createHorizontalGlue());
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(menuUsuario);
 
         setJMenuBar(jMenuBar1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 545, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 283, Short.MAX_VALUE)
-        );
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+       JOptionPane.showMessageDialog(this, "Programa Realizado por: \n  -Cristhian Aguirre\n  -Luis Cardoza\n  -Rossel Morales \nBase de datos II 2015",
+               "Información de la Aplicación", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jMenu2MouseClicked
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+       
+        new Logueo().setVisible(true);
+        this.dispose();
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     
     
@@ -112,9 +181,16 @@ public class SistemaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenu menuUsuario;
     // End of variables declaration//GEN-END:variables
 }
