@@ -6,6 +6,7 @@
 package MenuSistema;
 
 import FramePrincipal.Logueo;
+import InternalFrames.PacienteAgregar;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaBlueLightLookAndFeel;
 import java.awt.Frame;
@@ -15,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.Box;
 import org.hibernate.SessionFactory;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -52,6 +54,8 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
@@ -93,6 +97,20 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenu5.add(jMenuItem5);
 
         jMenu1.add(jMenu5);
+
+        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436247377_8.png"))); // NOI18N
+        jMenu6.setText("Paciente");
+
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1434286944_file_add.png"))); // NOI18N
+        jMenuItem2.setText("Agregar Paciente");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem2);
+
+        jMenu1.add(jMenu6);
 
         jMenuBar1.add(jMenu1);
 
@@ -151,6 +169,30 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         this.dispose();
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+    
+    public boolean activo(Object object){
+        
+        JInternalFrame[] activos = this.jDesktopPane1.getAllFrames();
+
+        boolean mostrar=true;
+
+        for (int a=0;a<jDesktopPane1.getComponentCount();a++){    
+            if( object.getClass().isInstance( jDesktopPane1.getComponent(a) )){
+             
+                mostrar=false;
+            }
+        }
+        return mostrar;
+    }
+    
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+       PacienteAgregar pa = new PacienteAgregar();
+        if(activo(pa)){
+           this.jDesktopPane1.add(pa);
+            pa.setVisible(true);
+        }
+        
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     
     
@@ -196,8 +238,10 @@ public class SistemaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenu menuUsuario;
