@@ -5,6 +5,7 @@
  */
 package Camara;
 
+import Decoracion.RedimensionarImagen;
 import Medicos.FrameMedicos;
 import com.googlecode.javacv.FrameGrabber;
 import com.googlecode.javacv.OpenCVFrameGrabber;
@@ -14,6 +15,7 @@ import static com.googlecode.javacv.cpp.opencv_core.cvFlip;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -45,6 +47,28 @@ public class Camara extends javax.swing.JInternalFrame {
         this.frMedicos = frMedicos;
     }
 
+    public void GuardarMetodoGrabber() {
+        try {
+
+            Icon icono = lblPic.getIcon();
+            RedimensionarImagen redimImagen = new RedimensionarImagen();
+
+            if (this.frMedicos != null) {
+                icono = redimImagen.imageToIcon(redimImagen.iconToBufferedImage(icono).getScaledInstance(frMedicos.lblImagen.getWidth(), frMedicos.lblImagen.getHeight(), 0));
+                frMedicos.imagenMedico = img.getBufferedImage();
+                frMedicos.lblImagen.setIcon(icono);
+                frMedicos.lblImagen.setText(null);
+            }
+            this.CerrarCamara();
+            this.dispose();
+
+        } catch (Exception e) {
+            System.out.println("" + e.getMessage());
+            System.out.println("+ " + e.getCause());
+            JOptionPane.showMessageDialog(null, "Error al guardar la foto", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
     public static BufferedImage resize(BufferedImage bufferedImage, int newW, int newH) {
         try {
             int w = bufferedImage.getWidth();
@@ -111,16 +135,16 @@ public class Camara extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblPic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPic, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,9 +154,9 @@ public class Camara extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 11, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addContainerGap())
         );
 
         pack();
@@ -154,7 +178,7 @@ public class Camara extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        //GuardarMetodoGrabber();
+        GuardarMetodoGrabber();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened

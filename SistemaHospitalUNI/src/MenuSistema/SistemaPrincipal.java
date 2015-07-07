@@ -10,8 +10,6 @@ import InternalFrames.PacienteAgregar;
 import InternalFrames.SectorAgregar;
 import Medicos.FrameMedicos;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
-import de.javasoft.plaf.synthetica.SyntheticaBlueLightLookAndFeel;
-import java.awt.Frame;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
