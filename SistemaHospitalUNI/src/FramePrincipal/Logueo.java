@@ -144,6 +144,11 @@ public class Logueo extends javax.swing.JFrame {
         jPanel2.add(txtUsuario, gridBagConstraints);
 
         txtPassword.setText("1234");
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyPressed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
@@ -211,6 +216,15 @@ public class Logueo extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         System.exit(0);
     }//GEN-LAST:event_formWindowClosing
+
+    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
+       
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            Ejecutar();
+            intentos++;
+       }
+       
+    }//GEN-LAST:event_txtPasswordKeyPressed
 
     private void validarEntrada() {
         if (txtUsuario.getText().isEmpty() || txtPassword.getPassword().length == 0) {
