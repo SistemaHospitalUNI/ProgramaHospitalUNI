@@ -17,9 +17,7 @@
         <property name="apellido" type="string">
             <column name="apellido" length="50" not-null="true" />
         </property>
-        <property name="foto" type="binary">
-            <column name="foto" />
-        </property>
+       
         <property name="telefono" type="string">
             <column name="telefono" length="15" not-null="true" />
         </property>

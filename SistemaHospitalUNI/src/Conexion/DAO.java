@@ -24,8 +24,13 @@ import Pojo.ProcedimientosEspeciales;
 import Pojo.Receta;
 import Pojo.Sector;
 import java.util.List;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -37,7 +42,7 @@ public class DAO {
     private static Session s;
 
     public DAO(SessionFactory sf) {
-        DAO.sf = sf;
+        this.sf = sf;
     }
 
 //------------- METODOS DE BUSQUEDA UNICA --------------------------------------
@@ -397,10 +402,10 @@ public class DAO {
         return lstReceta;
     }
 
-    public static List<Sector> Listar_Sectores() {
+    public  List<Sector> Listar_Sectores() {
         s = sf.openSession();
         List<Sector> lstSector = (List<Sector>) s.createQuery("from Sector").list();
-        s.close();
+
         return lstSector;
     }
 //------------- Fin Metodos Listar Tablas -------------------------------------
@@ -446,6 +451,27 @@ public class DAO {
         s.close();
         return true;
     }
-
+    
+    public boolean guardarSector(String barrio,String distrito){
+        
+        try{
+            
+            s = sf.openSession();
+            Transaction t = s.beginTransaction();
+            Sector sector = new Sector();
+            sector.setBarrio(barrio);
+            sector.setDistrito(distrito);
+            s.save(sector);
+            t.commit();
+    
+            
+            return true;
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return false;
+    }
+    
+   
 //------------- Fin Metodos Guardar Objetos ----------------------------------- 
 }

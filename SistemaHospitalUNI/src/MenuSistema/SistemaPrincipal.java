@@ -7,6 +7,7 @@ package MenuSistema;
 
 import FramePrincipal.Logueo;
 import InternalFrames.PacienteAgregar;
+import InternalFrames.SectorAgregar;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaBlueLightLookAndFeel;
 import java.awt.Frame;
@@ -56,13 +57,20 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         menuUsuario = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -111,6 +119,20 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenu6.add(jMenuItem2);
 
         jMenu1.add(jMenu6);
+
+        jMenu7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436257228_Street-View.png"))); // NOI18N
+        jMenu7.setText("Sector");
+
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1434286944_file_add.png"))); // NOI18N
+        jMenuItem3.setText("Agregar Sector");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem3);
+
+        jMenu1.add(jMenu7);
 
         jMenuBar1.add(jMenu1);
 
@@ -186,13 +208,35 @@ public class SistemaPrincipal extends javax.swing.JFrame {
     }
     
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-       PacienteAgregar pa = new PacienteAgregar();
+       PacienteAgregar pa = new PacienteAgregar(sf);
         if(activo(pa)){
            this.jDesktopPane1.add(pa);
             pa.setVisible(true);
         }
         
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+       SectorAgregar pa = new SectorAgregar(sf);
+        if(activo(pa)){
+           this.jDesktopPane1.add(pa);
+            pa.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        
+        int resultado = JOptionPane.showConfirmDialog(this, "Hay una sesion abierta, ¿Desea cerrarla?",
+                "Sesion Abierta",JOptionPane.YES_NO_OPTION);
+        if(resultado == JOptionPane.YES_OPTION){
+            
+            new Logueo().setVisible(true);
+            this.dispose();
+            sf.close();
+            
+        }
+        
+    }//GEN-LAST:event_formWindowClosing
 
     
     
@@ -239,9 +283,11 @@ public class SistemaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenu menuUsuario;

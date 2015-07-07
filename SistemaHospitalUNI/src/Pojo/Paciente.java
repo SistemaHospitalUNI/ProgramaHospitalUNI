@@ -15,7 +15,6 @@ public class Paciente  implements java.io.Serializable {
      private Sector sector;
      private String nombre;
      private String apellido;
-     private byte[] foto;
      private String telefono;
      private String direccion;
      private Set padecimientoEcs = new HashSet(0);
@@ -34,11 +33,11 @@ public class Paciente  implements java.io.Serializable {
         this.telefono = telefono;
         this.direccion = direccion;
     }
-    public Paciente(Sector sector, String nombre, String apellido, byte[] foto, String telefono, String direccion, Set padecimientoEcs, Set facturaProcedimientos, Set citas, Set facturaExamens) {
+    public Paciente(Sector sector, String nombre, String apellido, String telefono, String direccion, Set padecimientoEcs, Set facturaProcedimientos, Set citas, Set facturaExamens) {
        this.sector = sector;
        this.nombre = nombre;
        this.apellido = apellido;
-       this.foto = foto;
+
        this.telefono = telefono;
        this.direccion = direccion;
        this.padecimientoEcs = padecimientoEcs;
@@ -75,13 +74,7 @@ public class Paciente  implements java.io.Serializable {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
-    public byte[] getFoto() {
-        return this.foto;
-    }
-    
-    public void setFoto(byte[] foto) {
-        this.foto = foto;
-    }
+
     public String getTelefono() {
         return this.telefono;
     }
