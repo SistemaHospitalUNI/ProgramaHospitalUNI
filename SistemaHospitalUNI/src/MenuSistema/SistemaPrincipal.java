@@ -8,6 +8,7 @@ package MenuSistema;
 import FramePrincipal.Logueo;
 import InternalFrames.PacienteAgregar;
 import InternalFrames.SectorAgregar;
+import Medicos.FrameMedicos;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaBlueLightLookAndFeel;
 import java.awt.Frame;
@@ -52,6 +53,9 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenu8 = new javax.swing.JMenu();
+        jMenu9 = new javax.swing.JMenu();
+        jMenu10 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -86,18 +90,32 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         getContentPane().add(jDesktopPane1, java.awt.BorderLayout.CENTER);
 
         jMenuBar1.setMaximumSize(new java.awt.Dimension(623, 32769));
-        jMenuBar1.setMinimumSize(new java.awt.Dimension(2, 2));
         jMenuBar1.setPreferredSize(new java.awt.Dimension(623, 53));
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436181702_vector_65_13.png"))); // NOI18N
         jMenu1.setText("   Archivo");
         jMenu1.setMargin(new java.awt.Insets(0, 0, 0, 20));
 
+        jMenu8.setText("Especialidad");
+
+        jMenu9.setText("Nueva Especialidad");
+        jMenu8.add(jMenu9);
+
+        jMenu10.setText("Ver Especialidades");
+        jMenu8.add(jMenu10);
+
+        jMenu1.add(jMenu8);
+
         jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436173501_Doctor.png"))); // NOI18N
         jMenu5.setText("Médico");
 
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1434286944_file_add.png"))); // NOI18N
         jMenuItem4.setText("Agregar Médico");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem4);
 
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Imagenes.png"))); // NOI18N
@@ -238,6 +256,15 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_formWindowClosing
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        FrameMedicos fm = new FrameMedicos(sf);
+        if(activo(fm)){
+           this.jDesktopPane1.add(fm);
+            fm.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     
     
     /**
@@ -278,12 +305,15 @@ public class SistemaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;

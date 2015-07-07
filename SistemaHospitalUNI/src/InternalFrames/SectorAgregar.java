@@ -284,9 +284,8 @@ public class SectorAgregar extends javax.swing.JInternalFrame {
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        DAO dao = new DAO(this.sf);
-        boolean comprobar = dao.guardarSector(txtBarrio.getText(),
-                jcbDistrito.getSelectedItem().toString());
-        if(comprobar){
+        int comprobar = dao.guardarSector(txtBarrio.getText(),jcbDistrito.getSelectedItem().toString());
+        if(comprobar!=-1){
             JOptionPane.showMessageDialog(this, "Sector Guardado con exito!"
                     ,"Mensaje de Informacion",JOptionPane.INFORMATION_MESSAGE);
              llenarTabla(tablaSector);

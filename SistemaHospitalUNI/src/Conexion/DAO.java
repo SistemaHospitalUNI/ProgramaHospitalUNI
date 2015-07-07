@@ -24,13 +24,9 @@ import Pojo.ProcedimientosEspeciales;
 import Pojo.Receta;
 import Pojo.Sector;
 import java.util.List;
-import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -452,24 +448,22 @@ public class DAO {
         return true;
     }
     
-    public boolean guardarSector(String barrio,String distrito){
-        
+    public int guardarSector(String barrio,String distrito){
         try{
-            
+            int ss;
             s = sf.openSession();
             Transaction t = s.beginTransaction();
             Sector sector = new Sector();
             sector.setBarrio(barrio);
             sector.setDistrito(distrito);
-            s.save(sector);
+            ss =(int) s.save(sector);//Retorna el ID con el que guardo            
             t.commit();
-    
-            
-            return true;
+           // return true;
+            return ss;// ss contiene el ID del objeto que se guarda en la base de datos
         }catch(Exception ex){
             System.out.println(ex.getMessage());
+            return -1;
         }
-        return false;
     }
     
    

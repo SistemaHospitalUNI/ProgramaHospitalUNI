@@ -5,7 +5,6 @@
  */
 package InternalFrames;
 
-import Conexion.DAO;
 import Pojo.Paciente;
 import Pojo.Sector;
 import java.util.Iterator;

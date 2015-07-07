@@ -12,7 +12,8 @@ Create Table Padecimiento_AM(
 	id_padecimientoam Int primary key auto_increment not null,
     id_paciente int,
     id_alergia int not null,
-    Foreign key (id_alergia) references AlergiaMedicamento(id_alergia)
+    Foreign key (id_alergia) references AlergiaMedicamento(id_alergia),
+    Foreign key (id_paciente) references Paciente(id_paciente)
 );
 
 Create Table Paciente_16(
@@ -34,7 +35,6 @@ Create Table Paciente(
     foreign key (id_sector)references Sector(id_sector),
     nombre varchar(50)not null,
     apellido varchar(50)not null,
-    foto longblob,
     telefono varchar(15)not null,
     direccion varchar(200)not null,
     check(telefono like '2''[0-9]''[0-9]''[0-9]''[0-9]''[0-9]''[0-9]')
@@ -61,7 +61,7 @@ Create Table Medico(
     apellido varchar(50)not null,
     foto longblob,
     especialidad varchar(100)not null,
-	cedula varchar(18)not null
+	cedula varchar(18)not null,
     check (cedula like '[0-9]''[0-9]''[0-9]''-''[0-9]''[0-9]''[0-9]''[0-9]''[0-9]''[0-9]''-''[0-9]''[0-9]''[0-9]''[0-9]''[A-Z]')
 );
 
@@ -71,7 +71,7 @@ Create Table Cita(
     id_paciente int not null,
     fecha date not null,
     hora time not null,
-    estado varchar(100)not null,
+    estado boolean not null,
     foreign key (id_medico)references Medico(id_medico)
 );
 
