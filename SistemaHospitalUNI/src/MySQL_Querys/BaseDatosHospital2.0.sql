@@ -73,7 +73,7 @@ Create Table Medico(
     foto longblob,
     id_especialidad int not null,
 	cedula varchar(18)unique not null,
-    foreign key (id_especialidad)references Especialidad(id_especialidad)
+    foreign key (id_especialidad)references Especialidad(id_especialidad),
     check (cedula like '[0-9]''[0-9]''[0-9]''-''[0-9]''[0-9]''[0-9]''[0-9]''[0-9]''[0-9]''-''[0-9]''[0-9]''[0-9]''[0-9]''[A-Z]')
 );
 
@@ -119,7 +119,8 @@ Create Table Catalogo_Examen(
 	id_examen int primary key auto_increment not null,
     nombre varchar(50)not null,
     descripcion varchar(200)not null,
-    precio float not null
+    precio float not null,
+    estado boolean not null default true
 );
 
 Create Table Cajero(
@@ -128,7 +129,9 @@ Create Table Cajero(
     apellido varchar(50)not null,
     cedula varchar(18)not null,
     check (cedula like '[0-9]''[0-9]''[0-9]''-''[0-9]''[0-9]''[0-9]''[0-9]''[0-9]''[0-9]''-''[0-9]''[0-9]''[0-9]''[0-9]''[A-Z]'),
+    estado boolean not null default true,
     foto longblob
+    
 );
 
 Create Table FacturaExamen(
@@ -171,9 +174,8 @@ Create Table ProcedimientosEspeciales(
 	id_proc int primary key auto_increment not null,
     nombre varchar(100)not null,
     descripcion varchar(200)not null,
-    id_factura int not null,
-    foreign key(id_factura)references FacturaConsulta(id_factura),
-    precio float not null
+    precio float not null,
+    estado boolean not null default true
 );
 
 Create Table Detalle_factpro(

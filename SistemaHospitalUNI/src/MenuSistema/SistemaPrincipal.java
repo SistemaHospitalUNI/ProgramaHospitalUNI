@@ -6,8 +6,7 @@
 package MenuSistema;
 
 import FramePrincipal.Logueo;
-import InternalFrames.PacienteAgregar;
-import InternalFrames.SectorAgregar;
+import InternalFrames.*;
 import Medicos.FrameMedicos;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import java.text.ParseException;
@@ -30,15 +29,15 @@ public class SistemaPrincipal extends javax.swing.JFrame {
      * Creates new form SistemaPrincipal
      */
     private static SessionFactory sf;
-    
     public SistemaPrincipal(SessionFactory sf) {
-        
         initComponents();
         SistemaPrincipal.sf = sf;
         menuUsuario.setText(Logueo.getUser());
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.jDesktopPane1.setBorder(new ImagenFondo());
     }
-
+    
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,13 +60,20 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu11 = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenu12 = new javax.swing.JMenu();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         menuUsuario = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Sistema Consultorio");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -94,8 +100,10 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenu1.setText("   Archivo");
         jMenu1.setMargin(new java.awt.Insets(0, 0, 0, 20));
 
+        jMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/diagram_v2_26.png"))); // NOI18N
         jMenu8.setText("Especialidad");
 
+        jMenu9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
         jMenu9.setText("Nueva Especialidad");
         jMenu8.add(jMenu9);
 
@@ -107,7 +115,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436173501_Doctor.png"))); // NOI18N
         jMenu5.setText("Médico");
 
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1434286944_file_add.png"))); // NOI18N
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
         jMenuItem4.setText("Agregar Médico");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,7 +124,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         });
         jMenu5.add(jMenuItem4);
 
-        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Imagenes.png"))); // NOI18N
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x_office_calendar.png"))); // NOI18N
         jMenuItem5.setText("Horario Médico");
         jMenu5.add(jMenuItem5);
 
@@ -125,7 +133,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436247377_8.png"))); // NOI18N
         jMenu6.setText("Paciente");
 
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1434286944_file_add.png"))); // NOI18N
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
         jMenuItem2.setText("Agregar Paciente");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,7 +147,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenu7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436257228_Street-View.png"))); // NOI18N
         jMenu7.setText("Sector");
 
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1434286944_file_add.png"))); // NOI18N
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
         jMenuItem3.setText("Agregar Sector");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,6 +157,43 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenu7.add(jMenuItem3);
 
         jMenu1.add(jMenu7);
+
+        jMenu11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/hacer-una-lista-icono-7189-32.png"))); // NOI18N
+        jMenu11.setText("Catálogo Laboratorio");
+
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
+        jMenuItem6.setText("Exámenes");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu11.add(jMenuItem6);
+
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
+        jMenuItem7.setText("Procedimientos Especiales");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu11.add(jMenuItem7);
+
+        jMenu1.add(jMenu11);
+
+        jMenu12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/man_black.png"))); // NOI18N
+        jMenu12.setText("Cajero");
+
+        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
+        jMenuItem8.setText("Agregar Cajero");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu12.add(jMenuItem8);
+
+        jMenu1.add(jMenu12);
 
         jMenuBar1.add(jMenu1);
 
@@ -186,6 +231,9 @@ public class SistemaPrincipal extends javax.swing.JFrame {
             }
         });
         menuUsuario.add(jMenuItem1);
+
+        jMenuItem9.setText("Configurar");
+        menuUsuario.add(jMenuItem9);
 
         jMenuBar1.add(Box.createHorizontalGlue());
 
@@ -263,6 +311,30 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+      ProcEsp ce = new ProcEsp(sf);
+        if(activo(ce)){
+           this.jDesktopPane1.add(ce);
+            ce.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+     C_Examenes ce = new C_Examenes(sf);
+        if(activo(ce)){
+           this.jDesktopPane1.add(ce);
+            ce.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+          Cajero ce = new Cajero(sf);
+        if(activo(ce)){
+           this.jDesktopPane1.add(ce);
+            ce.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
     
     
     /**
@@ -304,6 +376,8 @@ public class SistemaPrincipal extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
+    private javax.swing.JMenu jMenu11;
+    private javax.swing.JMenu jMenu12;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -318,6 +392,12 @@ public class SistemaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenu menuUsuario;
     // End of variables declaration//GEN-END:variables
+
+
 }

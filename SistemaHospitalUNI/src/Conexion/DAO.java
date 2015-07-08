@@ -5,25 +5,10 @@
  */
 package Conexion;
 
-import Pojo.AlergiaMedicamento;
-import Pojo.Cajero;
-import Pojo.CatalogoExamen;
-import Pojo.Cita;
-import Pojo.Consulta;
-import Pojo.Diagnostico;
-import Pojo.EnfermedadCronica;
-import Pojo.Examen;
-import Pojo.HorarioMedico;
-import Pojo.Medico;
-import Pojo.MedicoHorarioMedico;
-import Pojo.Paciente;
-import Pojo.Paciente16;
-import Pojo.PadecimientoAm;
-import Pojo.PadecimientoEc;
-import Pojo.ProcedimientosEspeciales;
-import Pojo.Receta;
-import Pojo.Sector;
+import Pojo.*;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -36,7 +21,7 @@ public class DAO {
 
     private static SessionFactory sf;
     private static Session s;
-
+    
     public DAO(SessionFactory sf) {
         this.sf = sf;
     }
@@ -293,9 +278,9 @@ public class DAO {
         return lstCajero;
     }
 
-    public static List<CatalogoExamen> Listar_CatalogoExamen() {
+    public List<CatalogoExamen> Listar_CatalogoExamen() {
         s = sf.openSession();
-        List<CatalogoExamen> lstCatalogoExamen = (List<CatalogoExamen>) s.createQuery("from Catalogo_Examen").list();
+        List<CatalogoExamen> lstCatalogoExamen = (List<CatalogoExamen>) s.createQuery("from CatalogoExamen").list();
         s.close();
         return lstCatalogoExamen;
     }
@@ -465,7 +450,42 @@ public class DAO {
             return -1;
         }
     }
+   
+    public int GuardarCatalogoExamen(CatalogoExamen c){
+         try{
+            int ss;
+            s = sf.openSession();
+            Transaction t = s.beginTransaction();
+            ss =(int) s.save(c);//Retorna el ID con el que guardo            
+            t.commit();
+           // return true;
+            return ss;// ss contiene el ID del objeto que se guarda en la base de datos
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return -1;
+        }
     
+    }
    
 //------------- Fin Metodos Guardar Objetos ----------------------------------- 
+//    public DefaultTableModel TablaCatalogoExamen(){
+//try{
+//    s = sf.openSession();
+//    t= s.beginTransaction();
+//    String col[]={"Nombre","Precio","Descripcion"};
+//    m.setColumnIdentifiers(col);
+//        listaCatalogo = (List<CatalogoExamen>) s.createQuery("from Catalogo_Examen").list();
+//        for(CatalogoExamen c : listaCatalogo){
+//        String vector[]={c.getNombre(),String.valueOf(c.getPrecio()),c.getDescripcion()};
+//        m.addRow(vector);
+//        vector=null;
+//        }
+//        t.commit();
+//        s.close();
+//            }catch(Exception e){JOptionPane.showMessageDialog(null, "Error Al cargar tabla");
+//            System.out.println(""+e.getMessage());}
+//
+//    return m;
+//    
+//}
 }
