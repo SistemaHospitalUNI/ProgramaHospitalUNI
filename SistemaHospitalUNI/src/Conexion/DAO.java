@@ -8,6 +8,7 @@ package Conexion;
 import Pojo.*;
 import java.util.Date;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -381,7 +382,7 @@ public class DAO {
         return lstPadecimientoEc;
     }
 
-    public static List<ProcedimientosEspeciales> Listar_ProcedimientosEspeciales() {
+    public List<ProcedimientosEspeciales> Listar_ProcedimientosEspeciales() {
         s = sf.openSession();
         List<ProcedimientosEspeciales> lstProcedimientosEspeciales = (List<ProcedimientosEspeciales>) s.createQuery("from ProcedimientosEspeciales").list();
         s.close();
@@ -538,6 +539,21 @@ public class DAO {
         }
 
     }
+     public  int GuardarProcedimiento(ProcedimientosEspeciales c) {
+        try {
+            int ss;
+            s = sf.openSession();
+            Transaction t = s.beginTransaction();
+            ss = (int) s.save(c);//Retorna el ID con el que guardo            
+            t.commit();
+            // return true;
+            return ss;// ss contiene el ID del objeto que se guarda en la base de datos
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return -1;
+        }
+
+    }
 
     public static int GuardarMedico(int idEspecialidad, String nombre, String SNombre, String Apellido, String SApellido, byte[] fotos, String cedula) {
         try {
@@ -576,24 +592,5 @@ public class DAO {
     }
 
 //------------- Fin Metodos Guardar Objetos ----------------------------------- 
-//    public DefaultTableModel TablaCatalogoExamen(){
-//try{
-//    s = sf.openSession();
-//    t= s.beginTransaction();
-//    String col[]={"Nombre","Precio","Descripcion"};
-//    m.setColumnIdentifiers(col);
-//        listaCatalogo = (List<CatalogoExamen>) s.createQuery("from Catalogo_Examen").list();
-//        for(CatalogoExamen c : listaCatalogo){
-//        String vector[]={c.getNombre(),String.valueOf(c.getPrecio()),c.getDescripcion()};
-//        m.addRow(vector);
-//        vector=null;
-//        }
-//        t.commit();
-//        s.close();
-//            }catch(Exception e){JOptionPane.showMessageDialog(null, "Error Al cargar tabla");
-//            System.out.println(""+e.getMessage());}
-//
-//    return m;
-//    
-//}
+
 }

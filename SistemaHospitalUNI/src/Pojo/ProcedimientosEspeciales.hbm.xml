@@ -8,9 +8,6 @@
             <column name="id_proc" />
             <generator class="identity" />
         </id>
-        <many-to-one name="facturaConsulta" class="Pojo.FacturaConsulta" fetch="select">
-            <column name="id_factura" not-null="true" />
-        </many-to-one>
         <property name="nombre" type="string">
             <column name="nombre" length="100" not-null="true" />
         </property>

@@ -12,7 +12,6 @@ public class ProcedimientosEspeciales  implements java.io.Serializable {
 
 
      private Integer idProc;
-     private FacturaConsulta facturaConsulta;
      private String nombre;
      private String descripcion;
      private float precio;
@@ -21,64 +20,55 @@ public class ProcedimientosEspeciales  implements java.io.Serializable {
     public ProcedimientosEspeciales() {
     }
 
-	
-    public ProcedimientosEspeciales(FacturaConsulta facturaConsulta, String nombre, String descripcion, float precio) {
-        this.facturaConsulta = facturaConsulta;
+    public ProcedimientosEspeciales(Integer idProc, String nombre, String descripcion, float precio) {
+        this.idProc = idProc;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
     }
-    public ProcedimientosEspeciales(FacturaConsulta facturaConsulta, String nombre, String descripcion, float precio, Set detalleFactpros) {
-       this.facturaConsulta = facturaConsulta;
-       this.nombre = nombre;
-       this.descripcion = descripcion;
-       this.precio = precio;
-       this.detalleFactpros = detalleFactpros;
-    }
-   
+
     public Integer getIdProc() {
-        return this.idProc;
+        return idProc;
     }
-    
+
     public void setIdProc(Integer idProc) {
         this.idProc = idProc;
     }
-    public FacturaConsulta getFacturaConsulta() {
-        return this.facturaConsulta;
-    }
-    
-    public void setFacturaConsulta(FacturaConsulta facturaConsulta) {
-        this.facturaConsulta = facturaConsulta;
-    }
+
     public String getNombre() {
-        return this.nombre;
+        return nombre;
     }
-    
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
     public String getDescripcion() {
-        return this.descripcion;
+        return descripcion;
     }
-    
+
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
     public float getPrecio() {
-        return this.precio;
+        return precio;
     }
-    
+
     public void setPrecio(float precio) {
         this.precio = precio;
     }
+
     public Set getDetalleFactpros() {
-        return this.detalleFactpros;
+        return detalleFactpros;
     }
-    
+
     public void setDetalleFactpros(Set detalleFactpros) {
         this.detalleFactpros = detalleFactpros;
     }
 
+	
+   
 
 
 

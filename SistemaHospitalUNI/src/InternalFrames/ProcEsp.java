@@ -5,6 +5,11 @@
  */
 package InternalFrames;
 
+import Conexion.DAO;
+import Pojo.ProcedimientosEspeciales;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import org.hibernate.SessionFactory;
 
 /**
@@ -20,8 +25,23 @@ public class ProcEsp extends javax.swing.JInternalFrame {
     public ProcEsp(SessionFactory s) {
         initComponents();
         this.sf=s;
+        LlenarTabla();
     }
 
+    public void LlenarTabla(){
+    DefaultTableModel dft = new DefaultTableModel();
+    dft.addColumn("Nombre");
+    dft.addColumn("Precio");
+    dft.addColumn("Descripcion");
+       DAO d = new DAO(sf);
+    List<ProcedimientosEspeciales> lista = d.Listar_ProcedimientosEspeciales();
+    for(ProcedimientosEspeciales pe: lista){
+        String vector[] ={pe.getNombre(),String.valueOf(pe.getPrecio()),pe.getDescripcion()};
+       dft.addRow(vector);
+       vector=null;
+    }
+    this.jTable1.setModel(dft);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,6 +65,8 @@ public class ProcEsp extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+
+        setClosable(true);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(0, 0, 0)));
 
@@ -169,7 +191,34 @@ public class ProcEsp extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    
+    if(this.jTextField1.getText().equals("")|| this.jTextField2.getText().equals("")||this.jTextArea1.getText().equals("")){
+      JOptionPane.showMessageDialog(this,"Complete todos los campos","Error",JOptionPane.ERROR_MESSAGE);
+      }
+      else{
+          String name = this.jTextField1.getText();
+          try{
+          float prec= Float.parseFloat(this.jTextField2.getText());
+          String desc= this.jTextArea1.getText();
+      
+          ProcedimientosEspeciales ce = new ProcedimientosEspeciales();
+          DAO d = new DAO(sf);
+          ce.setNombre(name); ce.setPrecio(prec); ce.setDescripcion(desc);
+          int res= d.GuardarProcedimiento(ce);
+          
+          if(res!=-1){
+              JOptionPane.showMessageDialog(this,"Registro Guardado");
+              this.jTextField1.setText("");
+              this.jTextField2.setText("");
+              this.jTextArea1.setText("");
+              LlenarTabla();
+          }
+          else{
+              JOptionPane.showMessageDialog(this,"Error al guardar registro","Error",JOptionPane.ERROR_MESSAGE);
+          }
+          
+           }catch(NumberFormatException w){JOptionPane.showMessageDialog(this,"Dato en el campo -Precio- incorrecto");}
+         
+      }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
