@@ -173,6 +173,19 @@ public class DAO {
         return null;
     }
 
+    public static Especialidades busquedaEspecialidades(int id) {
+        s = sf.openSession();
+        List<Especialidades> lstEspecialidades = (List<Especialidades>) s.createQuery("from Especialidades").list();
+        for (Especialidades esp : lstEspecialidades) {
+            if (id == esp.getIdEspecialidad) {
+                s.close();
+                return esp;
+            }
+        }
+        s.close();
+        return null;
+    }
+
     public static EnfermedadCronica busquedaEnfermedadCronicaId(int id) {
         s = sf.openSession();
         List<EnfermedadCronica> lstEnfermedadCronica = (List<EnfermedadCronica>) s.createQuery("from Enfermedad_Cronica").list();
@@ -335,6 +348,13 @@ public class DAO {
         return lstExamen;
     }
 
+    public static List<Especialidades> Listar_Especialidades() {
+        s = sf.openSession();
+        List<Especialidades> lstEspecialidades = (List<Especialidades>) s.createQuery("from Especialidades").list();
+        s.close();
+        return lstEspecialidades;
+    }
+
     public static List<HorarioMedico> Listar_HorarioMedico() {
         s = sf.openSession();
         List<HorarioMedico> lstHorarioMedico = (List<HorarioMedico>) s.createQuery("from HorarioMedico").list();
@@ -398,7 +418,7 @@ public class DAO {
         return lstReceta;
     }
 
-    public  List<Sector> Listar_Sectores() {
+    public List<Sector> Listar_Sectores() {
         s = sf.openSession();
         List<Sector> lstSector = (List<Sector>) s.createQuery("from Sector").list();
 
@@ -447,25 +467,28 @@ public class DAO {
         s.close();
         return true;
     }
-    
-    public int guardarSector(String barrio,String distrito){
-        try{
+
+    public int guardarSector(String barrio, String distrito) {
+        try {
             int ss;
             s = sf.openSession();
             Transaction t = s.beginTransaction();
             Sector sector = new Sector();
             sector.setBarrio(barrio);
             sector.setDistrito(distrito);
-            ss =(int) s.save(sector);//Retorna el ID con el que guardo            
+            ss = (int) s.save(sector);//Retorna el ID con el que guardo            
             t.commit();
-           // return true;
+            // return true;
             return ss;// ss contiene el ID del objeto que se guarda en la base de datos
-        }catch(Exception ex){
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
             return -1;
         }
     }
     
-   
+    public int guardarHorario(int idMedico,boolean lunes, boolean martes, boolean miercoles, boolean jueves, boolean viernes, boolean sabado, boolean domingo){
+        return 1;
+    }
+
 //------------- Fin Metodos Guardar Objetos ----------------------------------- 
 }

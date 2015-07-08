@@ -100,6 +100,7 @@ public class Camara extends javax.swing.JInternalFrame {
                 formInternalFrameOpened(evt);
             }
             public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosing(evt);
             }
             public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -184,6 +185,11 @@ public class Camara extends javax.swing.JInternalFrame {
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         // TODO add your handling code here:
     }//GEN-LAST:event_formInternalFrameOpened
+
+    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+        // TODO add your handling code here:
+        this.CerrarCamara();
+    }//GEN-LAST:event_formInternalFrameClosing
 
     public void CerrarCamara() {
         try {
