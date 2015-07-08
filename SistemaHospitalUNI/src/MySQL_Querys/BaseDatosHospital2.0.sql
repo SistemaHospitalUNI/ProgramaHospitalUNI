@@ -39,7 +39,6 @@ Create Table Padecimiento_AM(
 Create Table Paciente_16(
 	id_paciente int primary key auto_increment not null,
     cedula varchar(18)not null,
-    foto longblob,
     check (cedula like '[0-9]''[0-9]''[0-9]''-''[0-9]''[0-9]''[0-9]''[0-9]''[0-9]''[0-9]''-''[0-9]''[0-9]''[0-9]''[0-9]''[A-Z]')
 );
 
