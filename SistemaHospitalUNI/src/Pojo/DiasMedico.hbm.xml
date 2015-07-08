@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 8, 2015 6:12:55 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojo.DiasMedico" table="DiasMedico" catalog="SistemaHospital" optimistic-lock="version">
+        <id name="idDiaMedico" type="java.lang.Integer">
+            <column name="id_diaMedico" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="medico" class="Pojo.Medico" fetch="select">
+            <column name="id_Medico" not-null="true" unique="true" />
+        </many-to-one>
+        <property name="lunes" type="boolean">
+            <column name="Lunes" not-null="true" />
+        </property>
+        <property name="martes" type="boolean">
+            <column name="Martes" not-null="true" />
+        </property>
+        <property name="miercoles" type="boolean">
+            <column name="Miercoles" not-null="true" />
+        </property>
+        <property name="jueves" type="boolean">
+            <column name="Jueves" not-null="true" />
+        </property>
+        <property name="viernes" type="boolean">
+            <column name="Viernes" not-null="true" />
+        </property>
+        <property name="sabado" type="boolean">
+            <column name="Sabado" not-null="true" />
+        </property>
+        <property name="domingo" type="boolean">
+            <column name="Domingo" not-null="true" />
+        </property>
+        <set name="horarioMedicos" table="HorarioMedico" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_diaMedico" not-null="true" />
+            </key>
+            <one-to-many class="Pojo.HorarioMedico" />
+        </set>
+    </class>
+</hibernate-mapping>

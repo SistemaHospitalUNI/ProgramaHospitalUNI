@@ -119,19 +119,6 @@ public class DAO {
         return null;
     }
 
-    public static MedicoHorarioMedico busquedaMedicoHorarioMedicoId(int id) {
-        s = sf.openSession();
-        List<MedicoHorarioMedico> lstMedicoHorarioMedico = (List<MedicoHorarioMedico>) s.createQuery("from Medico_HorarioMedico").list();
-        for (MedicoHorarioMedico medHormed : lstMedicoHorarioMedico) {
-            if (id == medHormed.getIdMedicoHorariomedico()) {
-                s.close();
-                return medHormed;
-            }
-        }
-        s.close();
-        return null;
-    }
-
     public static HorarioMedico busquedaHorarioMedicoId(int id) {
         s = sf.openSession();
         List<HorarioMedico> lstHorarioMedico = (List<HorarioMedico>) s.createQuery("from HorarioMedico").list();
@@ -158,11 +145,11 @@ public class DAO {
         return null;
     }
 
-    public static Especialidades busquedaEspecialidades(int id) {
+    public static Especialidad busquedaEspecialidades(int id) {
         s = sf.openSession();
-        List<Especialidades> lstEspecialidades = (List<Especialidades>) s.createQuery("from Especialidades").list();
-        for (Especialidades esp : lstEspecialidades) {
-            if (id == esp.getIdEspecialidad) {
+        List<Especialidad> lstEspecialidades = (List<Especialidad>) s.createQuery("from Especialidad").list();
+        for (Especialidad esp : lstEspecialidades) {
+            if (id == esp.getIdEspecialidad()) {
                 s.close();
                 return esp;
             }
@@ -333,9 +320,9 @@ public class DAO {
         return lstExamen;
     }
 
-    public static List<Especialidades> Listar_Especialidades() {
+    public static List<Especialidad> Listar_Especialidades() {
         s = sf.openSession();
-        List<Especialidades> lstEspecialidades = (List<Especialidades>) s.createQuery("from Especialidades").list();
+        List<Especialidad> lstEspecialidades = (List<Especialidad>) s.createQuery("from Especialidad").list();
         s.close();
         return lstEspecialidades;
     }
@@ -352,13 +339,6 @@ public class DAO {
         List<Medico> lstMedico = (List<Medico>) s.createQuery("from Medico").list();
         s.close();
         return lstMedico;
-    }
-
-    public static List<MedicoHorarioMedico> Listar_MedicoHorarioMedico() {
-        s = sf.openSession();
-        List<MedicoHorarioMedico> prov = (List<MedicoHorarioMedico>) s.createQuery("from Medico_HorarioMedico").list();
-        s.close();
-        return prov;
     }
 
     public static List<Paciente> Listar_Pacientes() {
@@ -437,7 +417,7 @@ public class DAO {
         s.close();
         return true;
     }
-
+/*
     public static boolean GuardarCita(int idMedico, int idPaciente, String fecha, String hora, String estado) {
         s = sf.openSession();
         Cita cita = new Cita();
@@ -452,7 +432,7 @@ public class DAO {
         s.close();
         return true;
     }
-
+*/
     public int guardarSector(String barrio, String distrito) {
         try {
             int ss;
