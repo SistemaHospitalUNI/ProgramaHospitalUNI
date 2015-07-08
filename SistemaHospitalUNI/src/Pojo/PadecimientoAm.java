@@ -1,5 +1,5 @@
 package Pojo;
-// Generated Jul 5, 2015 1:46:36 PM by Hibernate Tools 4.3.1
+// Generated Jul 8, 2015 6:12:54 AM by Hibernate Tools 4.3.1
 
 
 
@@ -11,7 +11,7 @@ public class PadecimientoAm  implements java.io.Serializable {
 
      private Integer idPadecimientoam;
      private AlergiaMedicamento alergiaMedicamento;
-     private Integer idPaciente;
+     private Paciente paciente;
 
     public PadecimientoAm() {
     }
@@ -20,9 +20,9 @@ public class PadecimientoAm  implements java.io.Serializable {
     public PadecimientoAm(AlergiaMedicamento alergiaMedicamento) {
         this.alergiaMedicamento = alergiaMedicamento;
     }
-    public PadecimientoAm(AlergiaMedicamento alergiaMedicamento, Integer idPaciente) {
+    public PadecimientoAm(AlergiaMedicamento alergiaMedicamento, Paciente paciente) {
        this.alergiaMedicamento = alergiaMedicamento;
-       this.idPaciente = idPaciente;
+       this.paciente = paciente;
     }
    
     public Integer getIdPadecimientoam() {
@@ -39,12 +39,12 @@ public class PadecimientoAm  implements java.io.Serializable {
     public void setAlergiaMedicamento(AlergiaMedicamento alergiaMedicamento) {
         this.alergiaMedicamento = alergiaMedicamento;
     }
-    public Integer getIdPaciente() {
-        return this.idPaciente;
+    public Paciente getPaciente() {
+        return this.paciente;
     }
     
-    public void setIdPaciente(Integer idPaciente) {
-        this.idPaciente = idPaciente;
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 
 

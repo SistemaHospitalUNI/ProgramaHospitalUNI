@@ -1,5 +1,5 @@
 package Pojo;
-// Generated Jul 5, 2015 1:46:36 PM by Hibernate Tools 4.3.1
+// Generated Jul 8, 2015 6:12:54 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -19,8 +19,8 @@ public class Paciente  implements java.io.Serializable {
      private String direccion;
      private Set padecimientoEcs = new HashSet(0);
      private Set facturaProcedimientos = new HashSet(0);
-     private Set citas = new HashSet(0);
      private Set facturaExamens = new HashSet(0);
+     private Set padecimientoAms = new HashSet(0);
 
     public Paciente() {
     }
@@ -33,17 +33,16 @@ public class Paciente  implements java.io.Serializable {
         this.telefono = telefono;
         this.direccion = direccion;
     }
-    public Paciente(Sector sector, String nombre, String apellido, String telefono, String direccion, Set padecimientoEcs, Set facturaProcedimientos, Set citas, Set facturaExamens) {
+    public Paciente(Sector sector, String nombre, String apellido, String telefono, String direccion, Set padecimientoEcs, Set facturaProcedimientos, Set facturaExamens, Set padecimientoAms) {
        this.sector = sector;
        this.nombre = nombre;
        this.apellido = apellido;
-
        this.telefono = telefono;
        this.direccion = direccion;
        this.padecimientoEcs = padecimientoEcs;
        this.facturaProcedimientos = facturaProcedimientos;
-       this.citas = citas;
        this.facturaExamens = facturaExamens;
+       this.padecimientoAms = padecimientoAms;
     }
    
     public Integer getIdPaciente() {
@@ -74,7 +73,6 @@ public class Paciente  implements java.io.Serializable {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
-
     public String getTelefono() {
         return this.telefono;
     }
@@ -103,19 +101,19 @@ public class Paciente  implements java.io.Serializable {
     public void setFacturaProcedimientos(Set facturaProcedimientos) {
         this.facturaProcedimientos = facturaProcedimientos;
     }
-    public Set getCitas() {
-        return this.citas;
-    }
-    
-    public void setCitas(Set citas) {
-        this.citas = citas;
-    }
     public Set getFacturaExamens() {
         return this.facturaExamens;
     }
     
     public void setFacturaExamens(Set facturaExamens) {
         this.facturaExamens = facturaExamens;
+    }
+    public Set getPadecimientoAms() {
+        return this.padecimientoAms;
+    }
+    
+    public void setPadecimientoAms(Set padecimientoAms) {
+        this.padecimientoAms = padecimientoAms;
     }
 
 

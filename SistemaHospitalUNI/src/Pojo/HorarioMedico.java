@@ -1,5 +1,5 @@
 package Pojo;
-// Generated Jul 5, 2015 1:46:36 PM by Hibernate Tools 4.3.1
+// Generated Jul 8, 2015 6:12:54 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -11,13 +11,15 @@ public class HorarioMedico  implements java.io.Serializable {
 
 
      private Integer idHorariomedico;
+     private DiasMedico diasMedico;
      private Date horaEntrada;
      private Date horaSalida;
 
     public HorarioMedico() {
     }
 
-    public HorarioMedico(Date horaEntrada, Date horaSalida) {
+    public HorarioMedico(DiasMedico diasMedico, Date horaEntrada, Date horaSalida) {
+       this.diasMedico = diasMedico;
        this.horaEntrada = horaEntrada;
        this.horaSalida = horaSalida;
     }
@@ -28,6 +30,13 @@ public class HorarioMedico  implements java.io.Serializable {
     
     public void setIdHorariomedico(Integer idHorariomedico) {
         this.idHorariomedico = idHorariomedico;
+    }
+    public DiasMedico getDiasMedico() {
+        return this.diasMedico;
+    }
+    
+    public void setDiasMedico(DiasMedico diasMedico) {
+        this.diasMedico = diasMedico;
     }
     public Date getHoraEntrada() {
         return this.horaEntrada;

@@ -1,5 +1,5 @@
 package Pojo;
-// Generated Jul 5, 2015 1:46:36 PM by Hibernate Tools 4.3.1
+// Generated Jul 8, 2015 6:12:54 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -12,17 +12,17 @@ public class Cita  implements java.io.Serializable {
 
      private Integer idCita;
      private Medico medico;
-     private Paciente paciente;
+     private int idPaciente;
      private Date fecha;
      private Date hora;
-     private String estado;
+     private boolean estado;
 
     public Cita() {
     }
 
-    public Cita(Medico medico, Paciente paciente, Date fecha, Date hora, String estado) {
+    public Cita(Medico medico, int idPaciente, Date fecha, Date hora, boolean estado) {
        this.medico = medico;
-       this.paciente = paciente;
+       this.idPaciente = idPaciente;
        this.fecha = fecha;
        this.hora = hora;
        this.estado = estado;
@@ -42,12 +42,12 @@ public class Cita  implements java.io.Serializable {
     public void setMedico(Medico medico) {
         this.medico = medico;
     }
-    public Paciente getPaciente() {
-        return this.paciente;
+    public int getIdPaciente() {
+        return this.idPaciente;
     }
     
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
+    public void setIdPaciente(int idPaciente) {
+        this.idPaciente = idPaciente;
     }
     public Date getFecha() {
         return this.fecha;
@@ -63,11 +63,11 @@ public class Cita  implements java.io.Serializable {
     public void setHora(Date hora) {
         this.hora = hora;
     }
-    public String getEstado() {
+    public boolean isEstado() {
         return this.estado;
     }
     
-    public void setEstado(String estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

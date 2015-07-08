@@ -1,7 +1,8 @@
 package Pojo;
-// Generated Jul 5, 2015 1:46:36 PM by Hibernate Tools 4.3.1
+// Generated Jul 8, 2015 6:12:54 AM by Hibernate Tools 4.3.1
 
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,32 +13,39 @@ public class Medico  implements java.io.Serializable {
 
 
      private Integer idMedico;
-     private String nombre;
-     private String apellido;
+     private Especialidad especialidad;
+     private Date fechaContratacion;
+     private String primernombre;
+     private String segundonombre;
+     private String primerapellido;
+     private String segundoapellido;
      private byte[] foto;
-     private String especialidad;
      private String cedula;
+     private Set diasMedicos = new HashSet(0);
      private Set citas = new HashSet(0);
-     private Set medicoHorarioMedicos = new HashSet(0);
 
     public Medico() {
     }
 
 	
-    public Medico(String nombre, String apellido, String especialidad, String cedula) {
-        this.nombre = nombre;
-        this.apellido = apellido;
+    public Medico(Especialidad especialidad, Date fechaContratacion, String primernombre, String primerapellido, String cedula) {
         this.especialidad = especialidad;
+        this.fechaContratacion = fechaContratacion;
+        this.primernombre = primernombre;
+        this.primerapellido = primerapellido;
         this.cedula = cedula;
     }
-    public Medico(String nombre, String apellido, byte[] foto, String especialidad, String cedula, Set citas, Set medicoHorarioMedicos) {
-       this.nombre = nombre;
-       this.apellido = apellido;
-       this.foto = foto;
+    public Medico(Especialidad especialidad, Date fechaContratacion, String primernombre, String segundonombre, String primerapellido, String segundoapellido, byte[] foto, String cedula, Set diasMedicos, Set citas) {
        this.especialidad = especialidad;
+       this.fechaContratacion = fechaContratacion;
+       this.primernombre = primernombre;
+       this.segundonombre = segundonombre;
+       this.primerapellido = primerapellido;
+       this.segundoapellido = segundoapellido;
+       this.foto = foto;
        this.cedula = cedula;
+       this.diasMedicos = diasMedicos;
        this.citas = citas;
-       this.medicoHorarioMedicos = medicoHorarioMedicos;
     }
    
     public Integer getIdMedico() {
@@ -47,19 +55,47 @@ public class Medico  implements java.io.Serializable {
     public void setIdMedico(Integer idMedico) {
         this.idMedico = idMedico;
     }
-    public String getNombre() {
-        return this.nombre;
+    public Especialidad getEspecialidad() {
+        return this.especialidad;
     }
     
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setEspecialidad(Especialidad especialidad) {
+        this.especialidad = especialidad;
     }
-    public String getApellido() {
-        return this.apellido;
+    public Date getFechaContratacion() {
+        return this.fechaContratacion;
     }
     
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setFechaContratacion(Date fechaContratacion) {
+        this.fechaContratacion = fechaContratacion;
+    }
+    public String getPrimernombre() {
+        return this.primernombre;
+    }
+    
+    public void setPrimernombre(String primernombre) {
+        this.primernombre = primernombre;
+    }
+    public String getSegundonombre() {
+        return this.segundonombre;
+    }
+    
+    public void setSegundonombre(String segundonombre) {
+        this.segundonombre = segundonombre;
+    }
+    public String getPrimerapellido() {
+        return this.primerapellido;
+    }
+    
+    public void setPrimerapellido(String primerapellido) {
+        this.primerapellido = primerapellido;
+    }
+    public String getSegundoapellido() {
+        return this.segundoapellido;
+    }
+    
+    public void setSegundoapellido(String segundoapellido) {
+        this.segundoapellido = segundoapellido;
     }
     public byte[] getFoto() {
         return this.foto;
@@ -68,13 +104,6 @@ public class Medico  implements java.io.Serializable {
     public void setFoto(byte[] foto) {
         this.foto = foto;
     }
-    public String getEspecialidad() {
-        return this.especialidad;
-    }
-    
-    public void setEspecialidad(String especialidad) {
-        this.especialidad = especialidad;
-    }
     public String getCedula() {
         return this.cedula;
     }
@@ -82,19 +111,19 @@ public class Medico  implements java.io.Serializable {
     public void setCedula(String cedula) {
         this.cedula = cedula;
     }
+    public Set getDiasMedicos() {
+        return this.diasMedicos;
+    }
+    
+    public void setDiasMedicos(Set diasMedicos) {
+        this.diasMedicos = diasMedicos;
+    }
     public Set getCitas() {
         return this.citas;
     }
     
     public void setCitas(Set citas) {
         this.citas = citas;
-    }
-    public Set getMedicoHorarioMedicos() {
-        return this.medicoHorarioMedicos;
-    }
-    
-    public void setMedicoHorarioMedicos(Set medicoHorarioMedicos) {
-        this.medicoHorarioMedicos = medicoHorarioMedicos;
     }
 
 

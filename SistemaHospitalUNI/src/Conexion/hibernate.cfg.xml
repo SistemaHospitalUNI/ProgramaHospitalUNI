@@ -6,17 +6,17 @@
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/SistemaHospital?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
-    <property name="hibernate.connection.password">1234</property>
+    <property name="hibernate.connection.password">lacb2208</property>
     <mapping resource="Pojo/Sector.hbm.xml"/>
     <mapping resource="Pojo/FacturaConsulta.hbm.xml"/>
     <mapping resource="Pojo/Receta.hbm.xml"/>
     <mapping resource="Pojo/Paciente.hbm.xml"/>
-    <mapping resource="Pojo/MedicoHorarioMedico.hbm.xml"/>
     <mapping resource="Pojo/Paciente16.hbm.xml"/>
     <mapping resource="Pojo/Examen.hbm.xml"/>
     <mapping resource="Pojo/Consulta.hbm.xml"/>
     <mapping resource="Pojo/AlergiaMedicamento.hbm.xml"/>
     <mapping resource="Pojo/PadecimientoEc.hbm.xml"/>
+    <mapping resource="Pojo/Especialidad.hbm.xml"/>
     <mapping resource="Pojo/PadecimientoAm.hbm.xml"/>
     <mapping resource="Pojo/DetalleFactpro.hbm.xml"/>
     <mapping resource="Pojo/DetalleFactura.hbm.xml"/>
@@ -29,6 +29,7 @@
     <mapping resource="Pojo/FacturaProcedimiento.hbm.xml"/>
     <mapping resource="Pojo/CatalogoExamen.hbm.xml"/>
     <mapping resource="Pojo/Medico.hbm.xml"/>
+    <mapping resource="Pojo/DiasMedico.hbm.xml"/>
     <mapping resource="Pojo/Cajero.hbm.xml"/>
     <mapping resource="Pojo/DetalleConsulta.hbm.xml"/>
   </session-factory>

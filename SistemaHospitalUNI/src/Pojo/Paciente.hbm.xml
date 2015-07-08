@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jul 5, 2015 1:46:37 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Jul 8, 2015 6:12:55 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="Pojo.Paciente" table="Paciente" catalog="SistemaHospital" optimistic-lock="version">
         <id name="idPaciente" type="java.lang.Integer">
@@ -17,7 +17,6 @@
         <property name="apellido" type="string">
             <column name="apellido" length="50" not-null="true" />
         </property>
-       
         <property name="telefono" type="string">
             <column name="telefono" length="15" not-null="true" />
         </property>
@@ -36,17 +35,17 @@
             </key>
             <one-to-many class="Pojo.FacturaProcedimiento" />
         </set>
-        <set name="citas" table="Cita" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="id_paciente" not-null="true" />
-            </key>
-            <one-to-many class="Pojo.Cita" />
-        </set>
         <set name="facturaExamens" table="FacturaExamen" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_paciente" not-null="true" />
             </key>
             <one-to-many class="Pojo.FacturaExamen" />
+        </set>
+        <set name="padecimientoAms" table="Padecimiento_AM" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_paciente" />
+            </key>
+            <one-to-many class="Pojo.PadecimientoAm" />
         </set>
     </class>
 </hibernate-mapping>
