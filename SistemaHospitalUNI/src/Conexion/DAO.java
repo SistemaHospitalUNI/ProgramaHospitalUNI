@@ -21,7 +21,7 @@ public class DAO {
 
     private static SessionFactory sf;
     private static Session s;
-    
+
     public DAO(SessionFactory sf) {
         this.sf = sf;
     }
@@ -404,6 +404,24 @@ public class DAO {
         return true;
     }
 
+    public static int GuardarEspecialidad(String nombre, String descripcion) {
+        try {
+            int flag;
+            s = sf.openSession();
+            Especialidad especialidad = new Especialidad();
+            especialidad.setNombreEspecialidad(nombre);
+            especialidad.setDescripcion(descripcion);
+            s.beginTransaction();
+            flag = (int) s.save(especialidad);
+            s.getTransaction().commit();
+            s.close();
+            return flag;
+        } catch (Exception ex) {
+            return -1;
+        }
+
+    }
+
     public static boolean GuardarCajero(String nombre, String apellido, String cedula, byte[] foto) {
         s = sf.openSession();
         Cajero cajero = new Cajero();
@@ -417,22 +435,23 @@ public class DAO {
         s.close();
         return true;
     }
-/*
-    public static boolean GuardarCita(int idMedico, int idPaciente, String fecha, String hora, String estado) {
-        s = sf.openSession();
-        Cita cita = new Cita();
-        cita.setMedico((Medico) s.get(Medico.class, idMedico));
-        cita.setPaciente((Paciente) s.get(Paciente.class, idPaciente));
-        cita.setFecha(java.sql.Date.valueOf(fecha));
-        cita.setHora(java.sql.Time.valueOf(hora));
-        cita.setEstado(estado);
-        s.beginTransaction();
-        s.save(cita);
-        s.getTransaction().commit();
-        s.close();
-        return true;
-    }
-*/
+    /*
+     public static boolean GuardarCita(int idMedico, int idPaciente, String fecha, String hora, String estado) {
+     s = sf.openSession();
+     Cita cita = new Cita();
+     cita.setMedico((Medico) s.get(Medico.class, idMedico));
+     cita.setPaciente((Paciente) s.get(Paciente.class, idPaciente));
+     cita.setFecha(java.sql.Date.valueOf(fecha));
+     cita.setHora(java.sql.Time.valueOf(hora));
+     cita.setEstado(estado);
+     s.beginTransaction();
+     s.save(cita);
+     s.getTransaction().commit();
+     s.close();
+     return true;
+     }
+     */
+
     public int guardarSector(String barrio, String distrito) {
         try {
             int ss;
@@ -450,23 +469,23 @@ public class DAO {
             return -1;
         }
     }
-   
-    public int GuardarCatalogoExamen(CatalogoExamen c){
-         try{
+
+    public int GuardarCatalogoExamen(CatalogoExamen c) {
+        try {
             int ss;
             s = sf.openSession();
             Transaction t = s.beginTransaction();
-            ss =(int) s.save(c);//Retorna el ID con el que guardo            
+            ss = (int) s.save(c);//Retorna el ID con el que guardo            
             t.commit();
-           // return true;
+            // return true;
             return ss;// ss contiene el ID del objeto que se guarda en la base de datos
-        }catch(Exception ex){
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
             return -1;
         }
-    
+
     }
-   
+
 //------------- Fin Metodos Guardar Objetos ----------------------------------- 
 //    public DefaultTableModel TablaCatalogoExamen(){
 //try{

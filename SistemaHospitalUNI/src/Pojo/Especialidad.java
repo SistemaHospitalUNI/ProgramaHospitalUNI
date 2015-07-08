@@ -1,5 +1,5 @@
 package Pojo;
-// Generated Jul 8, 2015 6:12:54 AM by Hibernate Tools 4.3.1
+// Generated Jul 8, 2015 7:18:50 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -12,6 +12,7 @@ public class Especialidad  implements java.io.Serializable {
 
 
      private Integer idEspecialidad;
+     private String nombreEspecialidad;
      private String descripcion;
      private Set medicos = new HashSet(0);
 
@@ -19,10 +20,12 @@ public class Especialidad  implements java.io.Serializable {
     }
 
 	
-    public Especialidad(String descripcion) {
+    public Especialidad(String nombreEspecialidad, String descripcion) {
+        this.nombreEspecialidad = nombreEspecialidad;
         this.descripcion = descripcion;
     }
-    public Especialidad(String descripcion, Set medicos) {
+    public Especialidad(String nombreEspecialidad, String descripcion, Set medicos) {
+       this.nombreEspecialidad = nombreEspecialidad;
        this.descripcion = descripcion;
        this.medicos = medicos;
     }
@@ -33,6 +36,13 @@ public class Especialidad  implements java.io.Serializable {
     
     public void setIdEspecialidad(Integer idEspecialidad) {
         this.idEspecialidad = idEspecialidad;
+    }
+    public String getNombreEspecialidad() {
+        return this.nombreEspecialidad;
+    }
+    
+    public void setNombreEspecialidad(String nombreEspecialidad) {
+        this.nombreEspecialidad = nombreEspecialidad;
     }
     public String getDescripcion() {
         return this.descripcion;
