@@ -145,11 +145,24 @@ public class DAO {
         return null;
     }
 
-    public static Especialidad busquedaEspecialidades(int id) {
+    public static Especialidad busquedaEspecialidadId(int id) {
         s = sf.openSession();
         List<Especialidad> lstEspecialidades = (List<Especialidad>) s.createQuery("from Especialidad").list();
         for (Especialidad esp : lstEspecialidades) {
             if (id == esp.getIdEspecialidad()) {
+                s.close();
+                return esp;
+            }
+        }
+        s.close();
+        return null;
+    }
+    
+    public static Especialidad busquedaEspecialidadNomre(String nombre) {
+        s = sf.openSession();
+        List<Especialidad> lstEspecialidades = (List<Especialidad>) s.createQuery("from Especialidad").list();
+        for (Especialidad esp : lstEspecialidades) {
+            if (nombre == esp.getNombreEspecialidad()) {
                 s.close();
                 return esp;
             }
@@ -484,6 +497,19 @@ public class DAO {
             return -1;
         }
 
+    }
+    
+    public static boolean ActualizarEspecialidad(int id, String nombre, String descripcion) {
+        s = sf.openSession();
+        Especialidad especialidad = new Especialidad();
+        especialidad.setIdEspecialidad(id);
+        especialidad.setNombreEspecialidad(nombre);
+        especialidad.setDescripcion(descripcion);
+        s.beginTransaction();
+        s.update(especialidad);
+        s.getTransaction().commit();
+        s.close();
+        return true;
     }
 
 //------------- Fin Metodos Guardar Objetos ----------------------------------- 

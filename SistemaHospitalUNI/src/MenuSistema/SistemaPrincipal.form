@@ -31,19 +31,14 @@
                 <Property name="text" type="java.lang.String" value="Especialidad"/>
               </Properties>
               <SubComponents>
-                <Menu class="javax.swing.JMenu" name="jMenu9">
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem10">
                   <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/Imagenes/file_add 16x16.png"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="Nueva Especialidad"/>
                   </Properties>
-                </Menu>
-                <Menu class="javax.swing.JMenu" name="jMenu10">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Ver Especialidades"/>
-                  </Properties>
-                </Menu>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem10ActionPerformed"/>
+                  </Events>
+                </MenuItem>
               </SubComponents>
             </Menu>
             <Menu class="javax.swing.JMenu" name="jMenu5">

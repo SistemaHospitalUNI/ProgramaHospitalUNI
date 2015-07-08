@@ -5,6 +5,7 @@
  */
 package MenuSistema;
 
+import Especialidades.FrameEspecialidades;
 import FramePrincipal.Logueo;
 import InternalFrames.*;
 import Medicos.FrameMedicos;
@@ -29,6 +30,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
      * Creates new form SistemaPrincipal
      */
     private static SessionFactory sf;
+
     public SistemaPrincipal(SessionFactory sf) {
         initComponents();
         SistemaPrincipal.sf = sf;
@@ -36,8 +38,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.jDesktopPane1.setBorder(new ImagenFondo());
     }
-    
-   
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,8 +52,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu8 = new javax.swing.JMenu();
-        jMenu9 = new javax.swing.JMenu();
-        jMenu10 = new javax.swing.JMenu();
+        jMenuItem10 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -103,12 +103,13 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/diagram_v2_26.png"))); // NOI18N
         jMenu8.setText("Especialidad");
 
-        jMenu9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
-        jMenu9.setText("Nueva Especialidad");
-        jMenu8.add(jMenu9);
-
-        jMenu10.setText("Ver Especialidades");
-        jMenu8.add(jMenu10);
+        jMenuItem10.setText("Nueva Especialidad");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        jMenu8.add(jMenuItem10);
 
         jMenu1.add(jMenu8);
 
@@ -245,98 +246,105 @@ public class SistemaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
-       JOptionPane.showMessageDialog(this, "Programa Realizado por: \n  -Cristhian Aguirre\n  -Luis Cardoza\n  -Rossel Morales \nBase de datos II 2015",
-               "Información de la Aplicación", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Programa Realizado por: \n  -Cristhian Aguirre\n  -Luis Cardoza\n  -Rossel Morales \nBase de datos II 2015",
+                "Información de la Aplicación", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jMenu2MouseClicked
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-       
+
         new Logueo().setVisible(true);
         this.dispose();
-        
+
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-    
-    public boolean activo(Object object){
-        
+
+    public boolean activo(Object object) {
+
         JInternalFrame[] activos = this.jDesktopPane1.getAllFrames();
 
-        boolean mostrar=true;
+        boolean mostrar = true;
 
-        for (int a=0;a<jDesktopPane1.getComponentCount();a++){    
-            if( object.getClass().isInstance( jDesktopPane1.getComponent(a) )){
-             
-                mostrar=false;
+        for (int a = 0; a < jDesktopPane1.getComponentCount(); a++) {
+            if (object.getClass().isInstance(jDesktopPane1.getComponent(a))) {
+
+                mostrar = false;
             }
         }
         return mostrar;
     }
-    
+
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-       PacienteAgregar pa = new PacienteAgregar(sf);
-        if(activo(pa)){
-           this.jDesktopPane1.add(pa);
+        PacienteAgregar pa = new PacienteAgregar(sf);
+        if (activo(pa)) {
+            this.jDesktopPane1.add(pa);
             pa.setVisible(true);
         }
-        
+
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-       SectorAgregar pa = new SectorAgregar(sf);
-        if(activo(pa)){
-           this.jDesktopPane1.add(pa);
+        SectorAgregar pa = new SectorAgregar(sf);
+        if (activo(pa)) {
+            this.jDesktopPane1.add(pa);
             pa.setVisible(true);
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        
+
         int resultado = JOptionPane.showConfirmDialog(this, "Hay una sesion abierta, ¿Desea cerrarla?",
-                "Sesion Abierta",JOptionPane.YES_NO_OPTION);
-        if(resultado == JOptionPane.YES_OPTION){
-            
+                "Sesion Abierta", JOptionPane.YES_NO_OPTION);
+        if (resultado == JOptionPane.YES_OPTION) {
+
             new Logueo().setVisible(true);
             this.dispose();
             sf.close();
-            
+
         }
-        
+
     }//GEN-LAST:event_formWindowClosing
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
         FrameMedicos fm = new FrameMedicos(sf);
-        if(activo(fm)){
-           this.jDesktopPane1.add(fm);
+        if (activo(fm)) {
+            this.jDesktopPane1.add(fm);
             fm.setVisible(true);
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-      ProcEsp ce = new ProcEsp(sf);
-        if(activo(ce)){
-           this.jDesktopPane1.add(ce);
+        ProcEsp ce = new ProcEsp(sf);
+        if (activo(ce)) {
+            this.jDesktopPane1.add(ce);
             ce.setVisible(true);
         }
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-     C_Examenes ce = new C_Examenes(sf);
-        if(activo(ce)){
-           this.jDesktopPane1.add(ce);
+        C_Examenes ce = new C_Examenes(sf);
+        if (activo(ce)) {
+            this.jDesktopPane1.add(ce);
             ce.setVisible(true);
         }
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-          Cajero ce = new Cajero(sf);
-        if(activo(ce)){
-           this.jDesktopPane1.add(ce);
+        Cajero ce = new Cajero(sf);
+        if (activo(ce)) {
+            this.jDesktopPane1.add(ce);
             ce.setVisible(true);
         }
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
-    
-    
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        // TODO add your handling code here:
+        FrameEspecialidades frEsp = new FrameEspecialidades(sf);
+        if (activo(frEsp)) {
+            this.jDesktopPane1.add(frEsp);
+            frEsp.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -352,16 +360,16 @@ public class SistemaPrincipal extends javax.swing.JFrame {
 //                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
 //                    break;
 //                }
-          
-         UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
-           
+
+            UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
+
 //            }
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(SistemaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (ParseException ex) {
             Logger.getLogger(SistemaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-    
+        }
+
         //</editor-fold>
 
         /* Create and display the form */
@@ -375,7 +383,6 @@ public class SistemaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenu12;
     private javax.swing.JMenu jMenu2;
@@ -385,9 +392,9 @@ public class SistemaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
-    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -398,6 +405,5 @@ public class SistemaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenu menuUsuario;
     // End of variables declaration//GEN-END:variables
-
 
 }

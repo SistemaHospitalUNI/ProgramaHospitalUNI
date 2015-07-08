@@ -6,7 +6,10 @@
 package Especialidades;
 
 import Conexion.DAO;
+import Pojo.Especialidad;
+import java.util.List;
 import javax.swing.JOptionPane;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 /**
@@ -19,9 +22,11 @@ public class FrameEspecialidades extends javax.swing.JInternalFrame {
      * Creates new form FrameEspecialidades
      */
     SessionFactory sf;
+    Session s;
     public static final int RET_CANCEL = 0;
     public static final int RET_OK = 1;
     private int returnStatus = RET_CANCEL;
+    private int idEspecialidad;
 
     public FrameEspecialidades(SessionFactory sf) {
         initComponents();
@@ -58,7 +63,7 @@ public class FrameEspecialidades extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         cmbEspecialidad = new javax.swing.JComboBox();
         jCheckBox1 = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
+        btnRegistrar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setClosable(true);
@@ -68,6 +73,23 @@ public class FrameEspecialidades extends javax.swing.JInternalFrame {
         setMinimumSize(new java.awt.Dimension(540, 350));
         setPreferredSize(new java.awt.Dimension(540, 350));
         setRequestFocusEnabled(false);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jLabel1.setText("Nombre Especialidad:");
 
@@ -79,7 +101,12 @@ public class FrameEspecialidades extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Elegir Especialidad:");
 
-        cmbEspecialidad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbEspecialidad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione Especialidad" }));
+        cmbEspecialidad.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbEspecialidadItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -106,10 +133,10 @@ public class FrameEspecialidades extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("Registrar Especialidad");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnRegistrar.setText("Registrar Especialidad");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnRegistrarActionPerformed(evt);
             }
         });
 
@@ -137,7 +164,7 @@ public class FrameEspecialidades extends javax.swing.JInternalFrame {
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(btnRegistrar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton2))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -160,7 +187,7 @@ public class FrameEspecialidades extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnRegistrar)
                     .addComponent(jButton2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -183,6 +210,10 @@ public class FrameEspecialidades extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (jCheckBox1.isSelected()) {
             jPanel2.setVisible(true);
+            btnRegistrar.setText("Modificar Especialidad");
+        }
+        if (!jCheckBox1.isSelected()) {
+            jPanel2.setVisible(false);
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
@@ -191,8 +222,16 @@ public class FrameEspecialidades extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+    public void Actualizar() {
+        if (DAO.ActualizarEspecialidad(idEspecialidad, txtNombre.getText().trim(), txtDescripcion.getText().trim())) {
+            JOptionPane.showMessageDialog(null, "Actualizado");
+            doClose(RET_OK);
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al actualizar el registro");
+        }
+    }
+
+    public void Guardar() {
         DAO d = new DAO(sf);
         if ((DAO.GuardarEspecialidad(txtNombre.getText(), txtDescripcion.getText()) != -1)) {
             JOptionPane.showMessageDialog(this, "Guardado");
@@ -201,12 +240,60 @@ public class FrameEspecialidades extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Especialidad No Guardada");
             doClose(RET_OK);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }
 
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        // TODO add your handling code here:
+        if (jCheckBox1.isSelected()) {
+            Actualizar();
+        } else {
+            Guardar();
+        }
+
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    public void llenarCombo() {
+        DAO d = new DAO(sf);
+        List<Especialidad> lstEspecialidad = DAO.Listar_Especialidades();
+        for (Especialidad p : lstEspecialidad) {
+            s = sf.openSession();
+            cmbEspecialidad.addItem(p.getNombreEspecialidad());
+            s.close();
+        }
+    }
+
+
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        // TODO add your handling code here:
+        llenarCombo();
+    }//GEN-LAST:event_formInternalFrameOpened
+
+    private void cmbEspecialidadItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEspecialidadItemStateChanged
+        // TODO add your handling code here:
+        if (cmbEspecialidad.getSelectedItem().toString().equals("Seleccione Especialidad")) {
+            return;
+        } else {
+            buscarEspecialidadNombre();
+        }
+    }//GEN-LAST:event_cmbEspecialidadItemStateChanged
+
+    public void buscarEspecialidadNombre() {
+        DAO d = new DAO(sf);
+        List<Especialidad> lstEspecialidad = DAO.Listar_Especialidades();
+        for (Especialidad p : lstEspecialidad) {
+            s = sf.openSession();
+            if (p.getNombreEspecialidad().equals(cmbEspecialidad.getSelectedItem().toString())) {
+                idEspecialidad = p.getIdEspecialidad();
+                txtNombre.setText(p.getNombreEspecialidad());
+                txtDescripcion.setText(p.getDescripcion());
+                s.close();
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegistrar;
     private javax.swing.JComboBox cmbEspecialidad;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
