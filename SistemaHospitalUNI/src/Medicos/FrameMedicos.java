@@ -6,16 +6,25 @@
 package Medicos;
 
 import Camara.Camara;
+import Conexion.DAO;
 import static Decoracion.CentrarInternal.Centrar;
 import Decoracion.RedimensionarImagen;
+import Pojo.Especialidad;
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 /**
@@ -28,8 +37,14 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
      * Creates new form FrameMedicos
      */
     public BufferedImage imagenMedico;
-
+    Session s;
     SessionFactory sf;
+
+    Date fecha;
+    private byte[] arregloImagenCamara;
+    public static final int RET_CANCEL = 0;
+    public static final int RET_OK = 1;
+    private int returnStatus = RET_CANCEL;
 
     public FrameMedicos(SessionFactory sf) {
         initComponents();
@@ -38,11 +53,21 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         this.sf = sf;
     }
 
+    public int getReturnStatus() {
+        return returnStatus;
+    }
+
+    private void doClose(int retStatus) {
+        returnStatus = retStatus;
+        setVisible(false);
+        dispose();
+    }
+
     public BufferedImage abrirImagen() {
         BufferedImage bmp = null;
         JFileChooser selector = new JFileChooser();
         selector.setDialogTitle("Seleccione una imagen");
-        FileNameExtensionFilter filtroImagen = new FileNameExtensionFilter("JPG & GIF & BMP", "jpg", "gif", "bmp");
+        FileNameExtensionFilter filtroImagen = new FileNameExtensionFilter("JPG & GIF & BMP & PNG", "jpg", "gif", "bmp", "png");
         selector.setFileFilter(filtroImagen);
         int flag = selector.showOpenDialog(null);
         if (flag == JFileChooser.APPROVE_OPTION) {
@@ -54,6 +79,16 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
 
         }
         return bmp;
+    }
+
+    public void llenarCombo() {
+        DAO d = new DAO(sf);
+        List<Especialidad> lstEspecialidad = DAO.Listar_Especialidades();
+        for (Especialidad p : lstEspecialidad) {
+            s = sf.openSession();
+            cmbEspecialidad.addItem(p.getNombreEspecialidad());
+            s.close();
+        }
     }
 
     /**
@@ -97,6 +132,8 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         cmbInicio = new javax.swing.JComboBox();
         cmbFinal = new javax.swing.JComboBox();
+        txtCedula = new javax.swing.JFormattedTextField();
+        jLabel8 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -104,10 +141,11 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setTitle("Registro Medico");
-        setMaximumSize(new java.awt.Dimension(619, 349));
-        setMinimumSize(new java.awt.Dimension(619, 349));
+        setAutoscrolls(true);
+        setMaximumSize(new java.awt.Dimension(629, 416));
+        setMinimumSize(new java.awt.Dimension(629, 416));
         setName(""); // NOI18N
-        setPreferredSize(new java.awt.Dimension(619, 349));
+        setPreferredSize(new java.awt.Dimension(629, 416));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
                 formInternalFrameOpened(evt);
@@ -138,7 +176,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Especialidad:");
 
-        cmbEspecialidad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbEspecialidad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione Especialidad" }));
 
         jLabel5.setText("S. Nombre:");
 
@@ -181,9 +219,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 12, Short.MAX_VALUE)
-                .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(lblImagen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
         );
 
         jButton4.setText("Elegir Foto");
@@ -249,58 +285,66 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
 
         cmbFinal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00" }));
 
+        try {
+            txtCedula.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-######-####U")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        jLabel8.setText("Cedula:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addGap(3, 3, 3)
-                                        .addComponent(txtSNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtNombre)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addGap(3, 3, 3)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
-                                    .addComponent(txtSApellido)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel4)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnRegistrar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbInicio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel7)
+                            .addComponent(cmbFinal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(30, 30, 30)
+                .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4)
+                .addContainerGap(17, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(btnRegistrar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cmbInicio, javax.swing.GroupLayout.Alignment.LEADING, 0, 162, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel7)
-                                    .addComponent(cmbFinal, 0, 162, Short.MAX_VALUE)
-                                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel5)
+                                .addGap(3, 3, 3)
+                                .addComponent(txtSNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4)))))
+                                .addComponent(txtNombre)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(3, 3, 3)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                            .addComponent(txtSApellido)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(27, 27, 27)
+                        .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -308,6 +352,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
@@ -324,7 +369,13 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(cmbEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -338,12 +389,9 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnRegistrar)
                             .addComponent(btnCancelar)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton3)
-                            .addComponent(jButton4))))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton3)
+                        .addComponent(jButton4)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -396,9 +444,69 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         lblImagen.setText(null);
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    public void ValidarImagenes() {
+        ByteArrayOutputStream os;
+        if (lblImagen != null) {
+
+            os = new ByteArrayOutputStream();
+
+            try {
+                ImageIO.write(imagenMedico, "jpg", os);
+                os.flush();
+                String base64String = Base64.encode(os.toByteArray());
+                os.close();
+
+                arregloImagenCamara = Base64.decode(base64String);
+
+            } catch (IOException ex) {
+                System.out.println("Error: " + ex.getMessage());
+            }
+
+        } else {
+            JOptionPane.showInternalMessageDialog(this, "Asegurese de haber cargado/tomado una imágen", "Ventana de Notificación", JOptionPane.ERROR_MESSAGE);
+            return;
+            //System.out.println(" la imagen esta null");
+        }
+    }
+
+    private int idMedico, idEspecialidad, idDiaMedico, idHorarioMedico;
+
+    public void ObtenerEspecialidad() {
+        int n = cmbEspecialidad.getSelectedIndex();
+        DAO d = new DAO(sf);
+        idEspecialidad = DAO.busquedaEspecialidadId(n).getIdEspecialidad();
+        System.out.println("Especialidad: " + idEspecialidad);
+        GuardarMedico(idEspecialidad);
+    }
+
+    public void GuardarMedico(int idEspecial) {
+        DAO d = new DAO(sf);
+        idMedico = DAO.GuardarMedico(idEspecial, txtNombre.getText().trim(), txtSNombre.getText().trim(), txtApellido.getText().trim(), txtSApellido.getText().trim(), arregloImagenCamara, txtCedula.getText().trim());
+        System.out.println("MEDICO: " + idMedico);
+        GuardarDias(idMedico);
+    }
+
+    public void GuardarDias(int idMedicos) {
+        DAO df = new DAO(sf);
+        idDiaMedico = DAO.GuardarDiaMedico(idMedicos, chkLunes.isSelected(), chkMartes.isSelected(), chkMiercoles.isSelected(), chkJueves.isSelected(), chkViernes.isSelected(), chkSabado.isSelected(), chkDomingo.isSelected());
+        System.out.println("DIAS: " + idDiaMedico);
+        GuardarHorario(idDiaMedico);
+    }
+
+    public void GuardarHorario(int idDiasMedicos) {
+        DAO df = new DAO(sf);
+        idHorarioMedico = DAO.GuardarHorarioMedico(idDiasMedicos, cmbInicio.getSelectedItem().toString(), cmbFinal.getSelectedItem().toString());
+        System.out.println("Horario: " + idHorarioMedico);
+    }
+
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // TODO add your handling code here:
-        if(txtNombre.getText().isEmpty() || txtSNombre.getText().isEmpty() || txtApellido.getText().isEmpty() || txtSApellido.getText().isEmpty()){
+        ValidarImagenes();
+        /*if (!new ValidacionCedula().Validacion(txtCedula.getText())) {
+         JOptionPane.showInternalMessageDialog(this, "Por favor ingrese un número de cédula válida", "Ventana de Notificación", JOptionPane.INFORMATION_MESSAGE);
+         return;
+         }*/
+        if (txtNombre.getText().isEmpty() || txtSNombre.getText().isEmpty() || txtApellido.getText().isEmpty() || txtSApellido.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Debe de llenar los campos vacios", "Insuficiencia de datos", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
@@ -406,15 +514,21 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Seleccion los dia que trabajara", "Indicar Fechas", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        if (cmbInicio.getSelectedIndex()==cmbFinal.getSelectedIndex()) {
+        if (cmbInicio.getSelectedIndex() == cmbFinal.getSelectedIndex()) {
             JOptionPane.showMessageDialog(this, "Las horas de trabajo no pueden ser las mismas", "Horario Erroneo", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        if (lblImagen.getText().equals("No hay fotografia")) {
-            JOptionPane.showMessageDialog(this, "El medico necesita una imagen para \n una identificacion mas rapida", "Error de Imagen", JOptionPane.INFORMATION_MESSAGE);
+
+        if (cmbEspecialidad.getSelectedItem().toString().equals("Seleccione Especialidad")) {
+            JOptionPane.showMessageDialog(this, "Seleccione una Especialidad", "Error de Especialidad", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-    
+
+        ObtenerEspecialidad();
+        //GuardarMedico();
+        // GuardarDias();
+        // GuardarHorario();
+
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -424,12 +538,12 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        jPanelSlider1.nextPanel(40,jPanel2,jPanelSlider1.right);
+        jPanelSlider1.nextPanel(40, jPanel2, jPanelSlider1.right);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         // TODO add your handling code here:
-        
+        llenarCombo();
     }//GEN-LAST:event_formInternalFrameOpened
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -456,6 +570,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -465,6 +580,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
     private javax.swing.JSplitPane jSplitPane1;
     public javax.swing.JLabel lblImagen;
     private javax.swing.JTextField txtApellido;
+    private javax.swing.JFormattedTextField txtCedula;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtSApellido;
     private javax.swing.JTextField txtSNombre;

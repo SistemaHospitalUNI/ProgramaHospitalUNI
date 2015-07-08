@@ -14,7 +14,7 @@ public class ImagenFondo implements Border{
  
     public ImagenFondo(){
         try {
-            URL imagePath = new URL(getClass().getResource("../Imagenes/fondomedico2.jpg").toString());
+            URL imagePath = new URL(getClass().getResource("../Imagenes/fondoPantalla.jpg").toString());
             back = ImageIO.read(imagePath);
         } catch (Exception ex) {            
         }

@@ -60,12 +60,12 @@ Create Table Padecimiento_EC(
 
 Create Table Especialidad(
 id_especialidad int primary key auto_increment not null,
+nombreEspecialidad varchar(200)not null,
 descripcion varchar(200) not null
 );
 
 Create Table Medico(
 	id_medico int primary key auto_increment not null,
-    fecha_contratacion date not null,
     primernombre varchar(50)not null,
     segundonombre varchar(50),
     primerapellido varchar(50)not null,
@@ -74,7 +74,6 @@ Create Table Medico(
     id_especialidad int not null,
 	cedula varchar(18)unique not null,
     foreign key (id_especialidad)references Especialidad(id_especialidad)
-    check (cedula like '[0-9]''[0-9]''[0-9]''-''[0-9]''[0-9]''[0-9]''[0-9]''[0-9]''[0-9]''-''[0-9]''[0-9]''[0-9]''[0-9]''[A-Z]')
 );
 
 Create Table Cita(
@@ -86,7 +85,6 @@ Create Table Cita(
     estado boolean not null,
     foreign key (id_medico)references Medico(id_medico)
 );
-
 Create Table DiasMedico(
 	id_diaMedico int primary key auto_increment not null,
     id_Medico int unique not null,
@@ -103,8 +101,8 @@ Create Table DiasMedico(
 Create Table HorarioMedico(
 	id_horariomedico int primary key auto_increment not null,
     id_diaMedico int not null,
-    hora_entrada time not null,
-    hora_salida time not null,
+    hora_entrada varchar(25) not null,
+    hora_salida varchar(25) not null,
     foreign key(id_diaMedico)references DiasMedico(id_diaMedico)
 );
 
@@ -215,6 +213,10 @@ Create Table Receta(
     dosis varchar(200)not null,
     cantidad int not null
 );
+
+
+
+
 
 /* TABLAS DE LOGUEO DE USUARIOS*/
 

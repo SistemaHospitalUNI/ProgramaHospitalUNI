@@ -6,9 +6,8 @@
 package Conexion;
 
 import Pojo.*;
+import java.util.Date;
 import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -157,7 +156,7 @@ public class DAO {
         s.close();
         return null;
     }
-    
+
     public static Especialidad busquedaEspecialidadNomre(String nombre) {
         s = sf.openSession();
         List<Especialidad> lstEspecialidades = (List<Especialidad>) s.createQuery("from Especialidad").list();
@@ -465,7 +464,7 @@ public class DAO {
      }
      */
 
-    public int guardarSector(String barrio, String distrito) {
+    public static int guardarSector(String barrio, String distrito) {
         try {
             int ss;
             s = sf.openSession();
@@ -483,7 +482,48 @@ public class DAO {
         }
     }
 
-    public int GuardarCatalogoExamen(CatalogoExamen c) {
+    public static int GuardarHorarioMedico(int idDiaMedico, String horaInicio, String horaFinal) {
+        try {
+            int flag;
+            s = sf.openSession();
+            Transaction t = s.beginTransaction();
+            HorarioMedico horarioMedico = new HorarioMedico();
+            horarioMedico.setDiasMedico((DiasMedico) s.get(DiasMedico.class, idDiaMedico));
+            horarioMedico.setHoraEntrada(horaInicio);
+            horarioMedico.setHoraSalida(horaFinal);
+            flag = (int) s.save(horarioMedico);//Retorna el ID con el que guardo            
+            t.commit();
+            return flag;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage() + " CAUSA: " + ex.getCause());
+            return -1;
+        }
+    }
+
+    public static int GuardarDiaMedico(int idMedico, boolean Lunes, boolean Martes, boolean Miercoles, boolean Jueves, boolean Viernes, boolean Sabado, boolean Domingo) {
+        try {
+            int id;
+            s = sf.openSession();
+            Transaction t = s.beginTransaction();
+            DiasMedico diasMedico = new DiasMedico();
+            diasMedico.setMedico((Medico)s.get(Medico.class, idMedico));
+            diasMedico.setLunes(Lunes);
+            diasMedico.setMartes(Martes);
+            diasMedico.setMiercoles(Miercoles);
+            diasMedico.setJueves(Jueves);
+            diasMedico.setViernes(Viernes);
+            diasMedico.setSabado(Sabado);
+            diasMedico.setDomingo(Domingo);
+            id = (int) s.save(diasMedico);//Retorna el ID con el que guardo            
+            t.commit();
+            return id;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return -1;
+        }
+    }
+
+    public static int GuardarCatalogoExamen(CatalogoExamen c) {
         try {
             int ss;
             s = sf.openSession();
@@ -498,7 +538,30 @@ public class DAO {
         }
 
     }
-    
+
+    public static int GuardarMedico(int idEspecialidad, String nombre, String SNombre, String Apellido, String SApellido, byte[] fotos, String cedula) {
+        try {
+            int bandera;
+            s = sf.openSession();
+            Transaction t = s.beginTransaction();
+            Medico medico = new Medico();
+            medico.setPrimernombre(nombre);
+            medico.setSegundonombre(SNombre);
+            medico.setPrimerapellido(Apellido);
+            medico.setSegundoapellido(SApellido);
+            medico.setFoto(fotos);
+            medico.setEspecialidad((Especialidad) s.get(Especialidad.class, idEspecialidad));
+            medico.setCedula(cedula);
+            bandera = (int) s.save(medico);
+            t.commit();
+            s.close();
+            return bandera;
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage() +"  CAUSA: " + ex.getCause());
+            return -1;
+        }
+    }
+
     public static boolean ActualizarEspecialidad(int id, String nombre, String descripcion) {
         s = sf.openSession();
         Especialidad especialidad = new Especialidad();

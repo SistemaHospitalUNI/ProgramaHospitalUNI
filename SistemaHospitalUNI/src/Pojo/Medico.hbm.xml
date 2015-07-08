@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jul 8, 2015 7:18:50 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated Jul 8, 2015 1:41:50 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="Pojo.Medico" table="Medico" catalog="SistemaHospital" optimistic-lock="version">
         <id name="idMedico" type="java.lang.Integer">
@@ -11,9 +11,6 @@
         <many-to-one name="especialidad" class="Pojo.Especialidad" fetch="select">
             <column name="id_especialidad" not-null="true" />
         </many-to-one>
-        <property name="fechaContratacion" type="date">
-            <column name="fecha_contratacion" length="10" not-null="true" />
-        </property>
         <property name="primernombre" type="string">
             <column name="primernombre" length="50" not-null="true" />
         </property>

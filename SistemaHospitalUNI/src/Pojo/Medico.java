@@ -1,8 +1,7 @@
 package Pojo;
-// Generated Jul 8, 2015 7:18:50 AM by Hibernate Tools 4.3.1
+// Generated Jul 8, 2015 1:41:49 PM by Hibernate Tools 4.3.1
 
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +13,6 @@ public class Medico  implements java.io.Serializable {
 
      private Integer idMedico;
      private Especialidad especialidad;
-     private Date fechaContratacion;
      private String primernombre;
      private String segundonombre;
      private String primerapellido;
@@ -28,16 +26,14 @@ public class Medico  implements java.io.Serializable {
     }
 
 	
-    public Medico(Especialidad especialidad, Date fechaContratacion, String primernombre, String primerapellido, String cedula) {
+    public Medico(Especialidad especialidad, String primernombre, String primerapellido, String cedula) {
         this.especialidad = especialidad;
-        this.fechaContratacion = fechaContratacion;
         this.primernombre = primernombre;
         this.primerapellido = primerapellido;
         this.cedula = cedula;
     }
-    public Medico(Especialidad especialidad, Date fechaContratacion, String primernombre, String segundonombre, String primerapellido, String segundoapellido, byte[] foto, String cedula, Set diasMedicos, Set citas) {
+    public Medico(Especialidad especialidad, String primernombre, String segundonombre, String primerapellido, String segundoapellido, byte[] foto, String cedula, Set diasMedicos, Set citas) {
        this.especialidad = especialidad;
-       this.fechaContratacion = fechaContratacion;
        this.primernombre = primernombre;
        this.segundonombre = segundonombre;
        this.primerapellido = primerapellido;
@@ -61,13 +57,6 @@ public class Medico  implements java.io.Serializable {
     
     public void setEspecialidad(Especialidad especialidad) {
         this.especialidad = especialidad;
-    }
-    public Date getFechaContratacion() {
-        return this.fechaContratacion;
-    }
-    
-    public void setFechaContratacion(Date fechaContratacion) {
-        this.fechaContratacion = fechaContratacion;
     }
     public String getPrimernombre() {
         return this.primernombre;
