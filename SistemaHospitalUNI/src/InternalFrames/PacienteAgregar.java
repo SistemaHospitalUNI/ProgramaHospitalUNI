@@ -98,7 +98,7 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         btnActualizar = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         txtNombre = new javax.swing.JTextField();
@@ -132,18 +132,23 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
         jPanel2.setLayout(new java.awt.BorderLayout());
 
         btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251807_Synchronize.png"))); // NOI18N
-        btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251885_Save.png"))); // NOI18N
-        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251885_Save.png"))); // NOI18N
+        btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
             }
         });
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251990_trash.png"))); // NOI18N
-        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -153,7 +158,7 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnActualizar)
-                    .addComponent(jButton4)
+                    .addComponent(btnGuardar)
                     .addComponent(jButton5))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
@@ -161,7 +166,7 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
@@ -258,6 +263,11 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(txtDireccion);
 
         jButton2.setText("Seleccionar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel7.setText("Barrio");
@@ -305,8 +315,8 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(41, 41, 41)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(89, 89, 89))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -363,12 +373,12 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
            this.btnActualizar.setEnabled(true);
            this.tablaPaciente.setEnabled(true);
            this.lblMensaje.setVisible(true);
-           this.jButton1.setEnabled(false);
+           this.btnGuardar.setEnabled(false);
        }else{
            this.btnActualizar.setEnabled(false);
            this.tablaPaciente.setEnabled(false);
            this.lblMensaje.setVisible(false);
-           this.jButton1.setEnabled(true);
+           this.btnGuardar.setEnabled(true);
        }
     }//GEN-LAST:event_checkActualizarStateChanged
 
@@ -390,7 +400,7 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
         this.cbDistrito.setSelectedIndex(0);
     }
     
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
       
        
        try{
@@ -427,16 +437,81 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
        }
         limpiar();    
             
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnGuardarActionPerformed
+        Paciente p = null;
+        Sector se = null;
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+         int fila = tablaPaciente.getSelectedRow();
+         Session ss = sf.openSession();
+         
+         int idPaciente = Integer.parseInt(tablaPaciente.getValueAt(fila, 0).toString());
+        
+         Criteria cpa = ss.createCriteria(Paciente.class);
+         p = (Paciente) cpa.add(Restrictions.idEq(idPaciente)).uniqueResult();
+         
+         p.setIdPaciente(idPaciente);
+         txtNombre.setText(p.getNombre());
+         txtApellido.setText(p.getApellido());
+         txtDireccion.setText(p.getDireccion());
+         txtTel.setText(p.getTelefono());
+         cbDistrito.setSelectedItem(tablaPaciente.getValueAt(fila, 3).toString());
+         jcbBarrio.setSelectedItem(tablaPaciente.getValueAt(fila, 4).toString());
+         
+         ss.close();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+       
+        try{
+            
+            String distrito = cbDistrito.getSelectedItem().toString();
+            String barrio = jcbBarrio.getSelectedItem().toString();
+            Session ss = sf.openSession();
+
+            Query query = ss.createQuery("select idSector from Sector where barrio = :barrio and distrito = :distrito");
+            query.setParameter("barrio", barrio);
+            query.setParameter("distrito", distrito);
+            int id = Integer.parseInt(query.uniqueResult().toString());
+            
+            Criteria c = ss.createCriteria(Sector.class);
+ 
+            se = (Sector) c.add(Restrictions.idEq(id)).uniqueResult();
+            
+       
+            p.setNombre(txtNombre.getText());
+            p.setApellido(txtApellido.getText());
+            p.setTelefono(txtTel.getText());
+            p.setDireccion(txtDireccion.getText());
+            se.setBarrio(barrio);
+            se.setDistrito(distrito);
+            
+            p.setSector(se);
+            ss.update(p);
+            ss.beginTransaction().commit();
+            ss.close();
+            JOptionPane.showMessageDialog(this, "Registro Actualizado Correctamente!",
+                        "Mensaje de Informacion",JOptionPane.INFORMATION_MESSAGE);
+            llenarTabla(tablaPaciente);
+            
+        }catch(Exception ex){
+             JOptionPane.showMessageDialog(this, "Ocurrio un error al actualizar, pruebe nuevamente!",
+                    "ERROR",JOptionPane.ERROR_MESSAGE);
+            
+        }
+        
+       
+         
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox cbDistrito;
     private javax.swing.JCheckBox checkActualizar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
