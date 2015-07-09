@@ -284,7 +284,7 @@ public class DAO {
         return lstAlergiaMed;
     }
 
-    public  List<Cajero> Listar_Cajero() {
+    public  List<Pojo.Cajero> Listar_Cajero() {
         s = sf.openSession();
         List<Cajero> lstCajero = (List<Cajero>) s.createQuery("from Cajero").list();
         s.close();
