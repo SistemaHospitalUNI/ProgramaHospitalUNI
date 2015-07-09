@@ -6,6 +6,7 @@
 package InternalFrames;
 
 import Pojo.AlergiaMedicamento;
+import Pojo.EnfermedadCronica;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -19,22 +20,23 @@ import org.hibernate.Transaction;
  *
  * @author Cristhian
  */
-public class AlergiaMedic extends javax.swing.JInternalFrame {
+public class Enfermedad_Cronica extends javax.swing.JInternalFrame {
 
-    private SessionFactory sf;
     /**
-     * Creates new form AlergiaMedic
+     * Creates new form Enfermedad_Cronica
      */
-    public AlergiaMedic(SessionFactory sf) {
+    private SessionFactory sf;
+    
+    public Enfermedad_Cronica(SessionFactory sf) {
         initComponents();
         this.sf = sf;
         this.btnActualizar.setEnabled(false);
-        this.tablaAlergia.setEnabled(false);
+        this.tablaEnfermdad.setEnabled(false);
         this.lblMensaje.setVisible(false);
-        cargarTabla(this.tablaAlergia);
+        cargarTabla(tablaEnfermdad);
     }
     
-     public void cargarTabla(JTable tabla){
+    public void cargarTabla(JTable tabla){
         
         DefaultTableModel modelo = new DefaultTableModel();
         Session s = sf.openSession();
@@ -42,11 +44,11 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
         modelo.addColumn("Nombre");
         modelo.addColumn("Descripcion");
         
-        Query query = s.createQuery("from AlergiaMedicamento");
-        List<AlergiaMedicamento> medicamentos = query.list();
+        Query query = s.createQuery("from EnfermedadCronica");
+        List<EnfermedadCronica> medicamentos = query.list();
         
-        for (AlergiaMedicamento med:medicamentos) {
-            Object[] fila = {med.getIdAlergia(),med.getNombre(),med.getDescripcion()};
+        for (EnfermedadCronica med:medicamentos) {
+            Object[] fila = {med.getIdEc(),med.getNombre(),med.getDescripcion()};
             modelo.addRow(fila);
         }
         
@@ -65,28 +67,34 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jSeparator1 = new javax.swing.JSeparator();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescrip = new javax.swing.JTextArea();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tablaAlergia = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        checkActualizar = new javax.swing.JCheckBox();
         lblMensaje = new javax.swing.JLabel();
+        checkActualizar = new javax.swing.JCheckBox();
         jButton2 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaEnfermdad = new javax.swing.JTable();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setClosable(true);
-        setTitle("Alergia");
+        setTitle("Enfermedad Cronica");
+
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251807_Synchronize.png"))); // NOI18N
+        btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251990_trash.png"))); // NOI18N
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251885_Save.png"))); // NOI18N
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -95,12 +103,6 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251807_Synchronize.png"))); // NOI18N
-        btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251990_trash.png"))); // NOI18N
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -112,26 +114,21 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
                     .addComponent(jButton1)
                     .addComponent(btnActualizar)
                     .addComponent(jButton3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addGap(56, 56, 56)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(301, Short.MAX_VALUE))
+                .addContainerGap(283, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.LINE_START);
-
-        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel1.setText("Descripcion");
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel2.setText("Nombre");
@@ -140,15 +137,8 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
         txtDescrip.setRows(5);
         jScrollPane1.setViewportView(txtDescrip);
 
-        tablaAlergia.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane2.setViewportView(tablaAlergia);
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel1.setText("Descripcion");
 
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
@@ -183,6 +173,9 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 3);
         jPanel3.add(jLabel6, gridBagConstraints);
 
+        lblMensaje.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblMensaje.setText("Seleccione una registro para actualizar");
+
         checkActualizar.setText("Habilitar Actualizar");
         checkActualizar.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -190,10 +183,19 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
             }
         });
 
-        lblMensaje.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        lblMensaje.setText("Seleccione una registro para actualizar");
-
         jButton2.setText("Seleccionar");
+
+        tablaEnfermdad.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(tablaEnfermdad);
+
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -204,59 +206,58 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(60, 60, 60)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1))
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(128, 128, 128)
-                                .addComponent(lblMensaje))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
+                        .addGap(72, 72, 72)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(checkActualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                        .addComponent(jButton2))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(187, 187, 187)
+                        .addComponent(lblMensaje)))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
+                        .addGap(28, 28, 28)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(46, 46, 46)
-                                .addComponent(jLabel1))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
                         .addGap(18, 18, 18)
-                        .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(checkActualizar)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                        .addGap(89, 89, 89)
+                        .addComponent(jLabel1)))
+                .addGap(14, 14, 14)
+                .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(checkActualizar)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -264,55 +265,34 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        //busqueda.....
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void checkActualizarStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_checkActualizarStateChanged
-        if(checkActualizar.isSelected()){
-            this.btnActualizar.setEnabled(true);
-            this.tablaAlergia.setEnabled(true);
-            this.lblMensaje.setVisible(true);
-            this.jButton1.setEnabled(false);
-         
-        }else{
-            this.btnActualizar.setEnabled(false);
-            this.tablaAlergia.setEnabled(false);
-            this.lblMensaje.setVisible(false);
-            this.jButton1.setEnabled(true);
-        }
-    }//GEN-LAST:event_checkActualizarStateChanged
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
+
         try{
-            
-            Session s = sf.openSession();
-            
-            AlergiaMedicamento alergia = new AlergiaMedicamento();
-            alergia.setNombre(txtNombre.getText());
-            alergia.setDescripcion(txtDescrip.getText());
-            
+
+           Session s = sf.openSession();
+
+           EnfermedadCronica enf = new EnfermedadCronica();
+           enf.setNombre(txtNombre.getText());
+           enf.setDescripcion(txtDescrip.getText());
+
             Transaction t = s.beginTransaction();
-            
-            s.save(alergia);
-            
+
+            s.save(enf);
+
             t.commit();
-            
+
             s.close();
-            cargarTabla(this.tablaAlergia);
-            JOptionPane.showMessageDialog(this, "ALergiaguardado con exito!",
-                    "Mensaje de Informacion",JOptionPane.INFORMATION_MESSAGE);
-               
-            
+            cargarTabla(this.tablaEnfermdad);
+            JOptionPane.showMessageDialog(this, "Enfermedad guardado con exito!",
+                "Mensaje de Informacion",JOptionPane.INFORMATION_MESSAGE);
+
         }catch(Exception ex){
-            
-             JOptionPane.showMessageDialog(this, "Ocurrio un error al guardar, pruebe nuevamente"
-                    ,"ERROR",JOptionPane.ERROR_MESSAGE);
+
+            JOptionPane.showMessageDialog(this, "Ocurrio un error al guardar, pruebe nuevamente"
+                ,"ERROR",JOptionPane.ERROR_MESSAGE);
         }
         limpiar();
- 
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void limpiar(){
@@ -320,6 +300,25 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
         this.txtDescrip.setText("");
     }
     
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        //busqueda.....
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void checkActualizarStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_checkActualizarStateChanged
+        if(checkActualizar.isSelected()){
+            this.btnActualizar.setEnabled(true);
+            this.tablaEnfermdad.setEnabled(true);
+            this.lblMensaje.setVisible(true);
+            this.jButton1.setEnabled(false);
+
+        }else{
+            this.btnActualizar.setEnabled(false);
+            this.tablaEnfermdad.setEnabled(false);
+            this.lblMensaje.setVisible(false);
+            this.jButton1.setEnabled(true);
+        }
+    }//GEN-LAST:event_checkActualizarStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
@@ -339,7 +338,7 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblMensaje;
-    private javax.swing.JTable tablaAlergia;
+    private javax.swing.JTable tablaEnfermdad;
     private javax.swing.JTextArea txtDescrip;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
