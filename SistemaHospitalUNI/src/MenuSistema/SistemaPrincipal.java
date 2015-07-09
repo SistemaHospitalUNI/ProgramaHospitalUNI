@@ -9,6 +9,7 @@ import Especialidades.FrameEspecialidades;
 import FramePrincipal.Logueo;
 import InternalFrames.*;
 import Medicos.FrameMedicos;
+import Pojo.AlergiaMedicamento;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -65,12 +66,14 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenu12 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
+        jMenu9 = new javax.swing.JMenu();
+        jMenuItem11 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         menuUsuario = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Sistema Consultorio");
@@ -97,7 +100,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenuBar1.setPreferredSize(new java.awt.Dimension(623, 53));
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436181702_vector_65_13.png"))); // NOI18N
-        jMenu1.setText("   Archivo");
+        jMenu1.setText("Catalogo");
         jMenu1.setMargin(new java.awt.Insets(0, 0, 0, 20));
 
         jMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/diagram_v2_26.png"))); // NOI18N
@@ -196,6 +199,20 @@ public class SistemaPrincipal extends javax.swing.JFrame {
 
         jMenu1.add(jMenu12);
 
+        jMenu9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436428282_pill.png"))); // NOI18N
+        jMenu9.setText("Alergia");
+
+        jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
+        jMenuItem11.setText("Agregar Alergia");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        jMenu9.add(jMenuItem11);
+
+        jMenu1.add(jMenu9);
+
         jMenuBar1.add(jMenu1);
 
         jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436182029_my-reports.png"))); // NOI18N
@@ -224,6 +241,10 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         menuUsuario.setMargin(new java.awt.Insets(0, 20, 0, 0));
         menuUsuario.setPreferredSize(new java.awt.Dimension(113, 51));
 
+        jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436428083_Settings.png"))); // NOI18N
+        jMenuItem9.setText("Configurar");
+        menuUsuario.add(jMenuItem9);
+
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1434275747_Delete.png"))); // NOI18N
         jMenuItem1.setText("Cerrar Sesión");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -232,9 +253,6 @@ public class SistemaPrincipal extends javax.swing.JFrame {
             }
         });
         menuUsuario.add(jMenuItem1);
-
-        jMenuItem9.setText("Configurar");
-        menuUsuario.add(jMenuItem9);
 
         jMenuBar1.add(Box.createHorizontalGlue());
 
@@ -345,6 +363,16 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+       
+        AlergiaMedic frEsp = new AlergiaMedic(sf);
+        if (activo(frEsp)) {
+            this.jDesktopPane1.add(frEsp);
+            frEsp.setVisible(true);
+        }
+        
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -392,9 +420,11 @@ public class SistemaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
