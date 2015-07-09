@@ -228,6 +228,11 @@ public class SistemaPrincipal extends javax.swing.JFrame {
 
         menuExayProc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
         menuExayProc.setText("Facura Examenes y Procedimientos");
+        menuExayProc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuExayProcActionPerformed(evt);
+            }
+        });
         menuFactura.add(menuExayProc);
 
         jMenu1.add(menuFactura);
@@ -415,6 +420,14 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_menuAgregarEnfermedadActionPerformed
+
+    private void menuExayProcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExayProcActionPerformed
+        FacturaExt fext = new FacturaExt(sf);
+         if (activo(fext)) {
+            this.jDesktopPane1.add(fext);
+            fext.setVisible(true);
+        }
+    }//GEN-LAST:event_menuExayProcActionPerformed
 
     /**
      * @param args the command line arguments
