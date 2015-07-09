@@ -10,6 +10,7 @@ import FramePrincipal.Logueo;
 import InternalFrames.*;
 import Medicos.FrameMedicos;
 import Pojo.AlergiaMedicamento;
+import Pojo.EnfermedadCronica;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -68,6 +69,8 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
+        jMenu10 = new javax.swing.JMenu();
+        jMenuItem12 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
@@ -106,6 +109,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/diagram_v2_26.png"))); // NOI18N
         jMenu8.setText("Especialidad");
 
+        jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
         jMenuItem10.setText("Nueva Especialidad");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -212,6 +216,20 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenu9.add(jMenuItem11);
 
         jMenu1.add(jMenu9);
+
+        jMenu10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436438357_medical_bag.png"))); // NOI18N
+        jMenu10.setText("Enfermedad Cronica");
+
+        jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
+        jMenuItem12.setText("Agregar Enfermedad");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jMenuItem12);
+
+        jMenu1.add(jMenu10);
 
         jMenuBar1.add(jMenu1);
 
@@ -373,6 +391,16 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+       
+        Enfermedad_Cronica frEsp = new Enfermedad_Cronica(sf);
+        if (activo(frEsp)) {
+            this.jDesktopPane1.add(frEsp);
+            frEsp.setVisible(true);
+        }
+        
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -411,6 +439,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenu12;
     private javax.swing.JMenu jMenu2;
@@ -425,6 +454,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

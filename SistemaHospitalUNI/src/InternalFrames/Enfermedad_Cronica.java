@@ -6,6 +6,7 @@
 package InternalFrames;
 
 import Pojo.AlergiaMedicamento;
+import Pojo.EnfermedadCronica;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -14,28 +15,28 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.engine.transaction.spi.AbstractTransactionImpl;
 
 /**
  *
  * @author Cristhian
  */
-public class AlergiaMedic extends javax.swing.JInternalFrame {
+public class Enfermedad_Cronica extends javax.swing.JInternalFrame {
 
-    private SessionFactory sf;
+    SessionFactory sf;
+    
     /**
-     * Creates new form AlergiaMedic
+     * Creates new form Enfermedad_Cronica
      */
-    public AlergiaMedic(SessionFactory sf) {
+    public Enfermedad_Cronica(SessionFactory sf) {
         initComponents();
         this.sf = sf;
         this.btnActualizar.setEnabled(false);
-        this.tablaAlergia.setEnabled(false);
+        this.tablaEnfermedad.setEnabled(false);
         this.lblMensaje.setVisible(false);
-        cargarTabla(this.tablaAlergia);
+        cargarTabla(tablaEnfermedad);
     }
     
-    public void cargarTabla(JTable tabla){
+     public void cargarTabla(JTable tabla){
         
         DefaultTableModel modelo = new DefaultTableModel();
         Session s = sf.openSession();
@@ -43,11 +44,11 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
         modelo.addColumn("Nombre");
         modelo.addColumn("Descripcion");
         
-        Query query = s.createQuery("from AlergiaMedicamento");
-        List<AlergiaMedicamento> medicamentos = query.list();
+        Query query = s.createQuery("from EnfermedadCronica");
+        List<EnfermedadCronica> medicamentos = query.list();
         
-        for (AlergiaMedicamento med:medicamentos) {
-            Object[] fila = {med.getIdAlergia(),med.getNombre(),med.getDescripcion()};
+        for (EnfermedadCronica med:medicamentos) {
+            Object[] fila = {med.getIdEc(),med.getNombre(),med.getDescripcion()};
             modelo.addRow(fila);
         }
         
@@ -71,23 +72,23 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
         jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescrip = new javax.swing.JTextArea();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tablaAlergia = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        checkActualizar = new javax.swing.JCheckBox();
+        lblMensaje = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        checkActualizar = new javax.swing.JCheckBox();
-        lblMensaje = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaEnfermedad = new javax.swing.JTable();
 
         setClosable(true);
-        setTitle("Alergia");
+        setTitle("Enfermedad Cronica");
 
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251885_Save.png"))); // NOI18N
         btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -107,32 +108,29 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnGuardar)
                     .addComponent(btnActualizar)
                     .addComponent(jButton3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addGap(44, 44, 44)
                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(jButton3)
-                .addContainerGap(311, Short.MAX_VALUE))
+                .addContainerGap(363, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.LINE_START);
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel1.setText("Descripcion");
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel2.setText("Nombre");
@@ -141,15 +139,20 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
         txtDescrip.setRows(5);
         jScrollPane1.setViewportView(txtDescrip);
 
-        tablaAlergia.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel1.setText("Descripcion");
 
-            },
-            new String [] {
-
+        checkActualizar.setText("Habilitar Actualizar");
+        checkActualizar.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                checkActualizarStateChanged(evt);
             }
-        ));
-        jScrollPane2.setViewportView(tablaAlergia);
+        });
+
+        lblMensaje.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblMensaje.setText("Seleccione una registro para actualizar");
+
+        jButton2.setText("Seleccionar");
 
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
@@ -184,17 +187,15 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 3);
         jPanel3.add(jLabel6, gridBagConstraints);
 
-        checkActualizar.setText("Habilitar Actualizar");
-        checkActualizar.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                checkActualizarStateChanged(evt);
+        tablaEnfermedad.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
             }
-        });
-
-        lblMensaje.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        lblMensaje.setText("Seleccione una registro para actualizar");
-
-        jButton2.setText("Seleccionar");
+        ));
+        jScrollPane2.setViewportView(tablaEnfermedad);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -207,33 +208,37 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1))
+                                .addGap(20, 20, 20)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(checkActualizar)
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jButton2))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(checkActualizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(146, 146, 146)
+                        .addGap(122, 122, 122)
                         .addComponent(lblMensaje)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
+                        .addGap(20, 20, 20)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -244,20 +249,17 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(25, 25, 25)
+                        .addGap(33, 33, 33)
                         .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(checkActualizar)
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(12, 12, 12)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -265,56 +267,55 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        //busqueda.....
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+
+        try{
+
+            Session s = sf.openSession();
+
+           EnfermedadCronica cro = new EnfermedadCronica();
+            cro.setNombre(txtNombre.getText());
+            cro.setDescripcion(txtDescrip.getText());
+
+            Transaction t = s.beginTransaction();
+
+            s.save(cro);
+
+            t.commit();
+
+            s.close();
+            cargarTabla(this.tablaEnfermedad);
+            JOptionPane.showMessageDialog(this, "Enfermedad Cronica guardado con exito!",
+                "Mensaje de Informacion",JOptionPane.INFORMATION_MESSAGE);
+
+        }catch(Exception ex){
+
+            JOptionPane.showMessageDialog(this, "Ocurrio un error al guardar, pruebe nuevamente"
+                ,"ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+        limpiar();
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void checkActualizarStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_checkActualizarStateChanged
         if(checkActualizar.isSelected()){
             this.btnActualizar.setEnabled(true);
-            this.tablaAlergia.setEnabled(true);
+            this.tablaEnfermedad.setEnabled(true);
             this.lblMensaje.setVisible(true);
             this.btnGuardar.setEnabled(false);
-         
+
         }else{
             this.btnActualizar.setEnabled(false);
-            this.tablaAlergia.setEnabled(false);
+            this.tablaEnfermedad.setEnabled(false);
             this.lblMensaje.setVisible(false);
             this.btnGuardar.setEnabled(true);
         }
     }//GEN-LAST:event_checkActualizarStateChanged
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-       
-        try{
-            
-            Session s = sf.openSession();
-            
-            AlergiaMedicamento alergia = new AlergiaMedicamento();
-            alergia.setNombre(txtNombre.getText());
-            alergia.setDescripcion(txtDescrip.getText());
-            
-            Transaction t = s.beginTransaction();
-            
-            s.save(alergia);
-            
-            t.commit();
-            
-            s.close();
-            cargarTabla(this.tablaAlergia);
-            JOptionPane.showMessageDialog(this, "ALergiaguardado con exito!",
-                    "Mensaje de Informacion",JOptionPane.INFORMATION_MESSAGE);
-               
-            
-        }catch(Exception ex){
-            
-             JOptionPane.showMessageDialog(this, "Ocurrio un error al guardar, pruebe nuevamente"
-                    ,"ERROR",JOptionPane.ERROR_MESSAGE);
-        }
-        limpiar();
-    }//GEN-LAST:event_btnGuardarActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        //busqueda.....
+    }//GEN-LAST:event_jButton4ActionPerformed
 
-    public void limpiar(){
+     public void limpiar(){
         this.txtNombre.setText("");
         this.txtDescrip.setText("");
     }
@@ -338,7 +339,7 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblMensaje;
-    private javax.swing.JTable tablaAlergia;
+    private javax.swing.JTable tablaEnfermedad;
     private javax.swing.JTextArea txtDescrip;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
