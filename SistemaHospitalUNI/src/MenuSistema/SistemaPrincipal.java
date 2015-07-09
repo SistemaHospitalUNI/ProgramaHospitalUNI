@@ -393,10 +393,10 @@ public class SistemaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
        
-        Enfermedad_Cronica frEsp = new Enfermedad_Cronica(sf);
-        if (activo(frEsp)) {
-            this.jDesktopPane1.add(frEsp);
-            frEsp.setVisible(true);
+        Enfermedad_Cronica frEspe = new Enfermedad_Cronica(sf);
+        if (activo(frEspe)) {
+            this.jDesktopPane1.add(frEspe);
+            frEspe.setVisible(true);
         }
         
     }//GEN-LAST:event_jMenuItem12ActionPerformed
