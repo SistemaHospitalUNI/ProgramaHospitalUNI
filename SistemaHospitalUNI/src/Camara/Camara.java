@@ -6,6 +6,7 @@
 package Camara;
 
 import Decoracion.RedimensionarImagen;
+import InternalFrames.Cajero;
 import Medicos.FrameMedicos;
 import com.googlecode.javacv.FrameGrabber;
 import com.googlecode.javacv.OpenCVFrameGrabber;
@@ -46,7 +47,13 @@ public class Camara extends javax.swing.JInternalFrame {
         this.CargarCamara();
         this.frMedicos = frMedicos;
     }
+Cajero cajerofr;
 
+    public Camara(Cajero cajerofr) {
+        initComponents();
+        this.CargarCamara();
+        this.cajerofr = cajerofr;
+    }
     public void GuardarMetodoGrabber() {
         try {
 
@@ -58,6 +65,27 @@ public class Camara extends javax.swing.JInternalFrame {
                 frMedicos.imagenMedico = img.getBufferedImage();
                 frMedicos.lblImagen.setIcon(icono);
                 frMedicos.lblImagen.setText(null);
+            }
+            this.CerrarCamara();
+            this.dispose();
+
+        } catch (Exception e) {
+            System.out.println("" + e.getMessage());
+            System.out.println("+ " + e.getCause());
+            JOptionPane.showMessageDialog(null, "Error al guardar la foto", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+     public void GuardarMetodoGrabberc() {
+        try {
+
+            Icon icono = lblPic.getIcon();
+            RedimensionarImagen redimImagen = new RedimensionarImagen();
+
+            if (this.cajerofr != null) {
+                icono = redimImagen.imageToIcon(redimImagen.iconToBufferedImage(icono).getScaledInstance(cajerofr.lblImagen.getWidth(), cajerofr.lblImagen.getHeight(), 0));
+                cajerofr.imagen = img.getBufferedImage();
+                cajerofr.lblImagen.setIcon(icono);
+                cajerofr.lblImagen.setText(null);
             }
             this.CerrarCamara();
             this.dispose();
@@ -179,7 +207,11 @@ public class Camara extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        GuardarMetodoGrabber();
+        if(cajerofr != null){
+       this.GuardarMetodoGrabberc();
+       }
+       if(frMedicos !=null){
+        GuardarMetodoGrabber();}
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened

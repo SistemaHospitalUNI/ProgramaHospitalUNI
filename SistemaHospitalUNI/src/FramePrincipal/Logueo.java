@@ -10,7 +10,7 @@ import Conexion.NewHibernateUtil;
 import Decoracion.Animacion;
 import MenuSistema.SistemaPrincipal;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
-import de.javasoft.plaf.synthetica.SyntheticaBlueLightLookAndFeel;
+//import de.javasoft.plaf.synthetica.SyntheticaBlueLightLookAndFeel;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -72,6 +72,7 @@ public class Logueo extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Login");
         setAlwaysOnTop(true);
         setMinimumSize(new java.awt.Dimension(453, 151));
         setResizable(false);
@@ -83,14 +84,17 @@ public class Logueo extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Principal Login", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 3, 14))); // NOI18N
         jPanel1.setMinimumSize(new java.awt.Dimension(453, 151));
+        jPanel1.setOpaque(false);
         jPanel1.setPreferredSize(new java.awt.Dimension(453, 151));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         jPanel2.setMinimumSize(new java.awt.Dimension(313, 121));
+        jPanel2.setOpaque(false);
         jPanel2.setPreferredSize(new java.awt.Dimension(313, 109));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
         jPanel3.setMinimumSize(new java.awt.Dimension(186, 48));
+        jPanel3.setOpaque(false);
         jPanel3.setPreferredSize(new java.awt.Dimension(186, 48));
 
         btnInicio.setText("Iniciar Sesion");
@@ -188,7 +192,7 @@ public class Logueo extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
         */
-        getContentPane().add(Animacion.gradiente(jPanel1, .3f, Color.blue, Color.white), java.awt.BorderLayout.CENTER);
+        getContentPane().add(Animacion.gradiente(jPanel1, .3f, Color.DARK_GRAY, Color.WHITE), java.awt.BorderLayout.CENTER);
 
         pack();
         setLocationRelativeTo(null);

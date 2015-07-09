@@ -435,13 +435,8 @@ public class DAO {
 
     }
 
-    public static boolean GuardarCajero(String nombre, String apellido, String cedula, byte[] foto) {
+    public boolean GuardarCajero(Cajero cajero) {
         s = sf.openSession();
-        Cajero cajero = new Cajero();
-        cajero.setNombre(nombre);
-        cajero.setApellido(apellido);
-        cajero.setCedula(cedula);
-        cajero.setFoto(foto);
         s.beginTransaction();
         s.save(cajero);
         s.getTransaction().commit();
@@ -593,4 +588,28 @@ public class DAO {
 
 //------------- Fin Metodos Guardar Objetos ----------------------------------- 
 
+    public  boolean ActualizarCatalogoEx(CatalogoExamen ce) {
+        s = sf.openSession();
+        s.beginTransaction();
+        s.update(ce);
+        s.getTransaction().commit();
+        s.close();
+        return true;
+    }
+    public  boolean ActualizarProcEsp(ProcedimientosEspeciales ce) {
+        s = sf.openSession();
+        s.beginTransaction();
+        s.update(ce);
+        s.getTransaction().commit();
+        s.close();
+        return true;
+    }
+     public  boolean ActualizarCajero(Cajero ce) {
+        s = sf.openSession();
+        s.beginTransaction();
+        s.update(ce);
+        s.getTransaction().commit();
+        s.close();
+        return true;
+    }
 }

@@ -22,10 +22,12 @@ public class ProcEsp extends javax.swing.JInternalFrame {
      * Creates new form ProcEsp
      */
     SessionFactory sf ;
+    int idact=-1;
     public ProcEsp(SessionFactory s) {
         initComponents();
         this.sf=s;
         LlenarTabla();
+        this.btnActualizar.setEnabled(false);
     }
 
     public void LlenarTabla(){
@@ -51,6 +53,8 @@ public class ProcEsp extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
@@ -66,11 +70,28 @@ public class ProcEsp extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
 
+        jPopupMenu1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jPopupMenu1FocusGained(evt);
+            }
+        });
+
+        jMenuItem1.setText("Cargar");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem1);
+
         setClosable(true);
+        setTitle("Procdemientos Especiales");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(0, 0, 0)));
+        jPanel1.setOpaque(false);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251885_Save.png"))); // NOI18N
+        jButton1.setToolTipText("Guardar");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,9 +100,16 @@ public class ProcEsp extends javax.swing.JInternalFrame {
         });
 
         btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251807_Synchronize.png"))); // NOI18N
+        btnActualizar.setToolTipText("Actualizar");
         btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251990_trash.png"))); // NOI18N
+        jButton3.setToolTipText("Eliminar");
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -126,6 +154,7 @@ public class ProcEsp extends javax.swing.JInternalFrame {
 
             }
         ));
+        jTable1.setComponentPopupMenu(jPopupMenu1);
         jScrollPane1.setViewportView(jTable1);
 
         jLabel4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
@@ -221,6 +250,50 @@ public class ProcEsp extends javax.swing.JInternalFrame {
       }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        int index = this.jTable1.getSelectedRow();
+
+        this.btnActualizar.setEnabled(true);
+        this.jButton1.setEnabled(false);
+        this.jButton3.setEnabled(false);
+        DAO d = new DAO(sf);
+        List<ProcedimientosEspeciales> lista = d.Listar_ProcedimientosEspeciales();
+        for(ProcedimientosEspeciales ce : lista){
+            if(ce.getNombre().equals(this.jTable1.getValueAt(index,0))){
+                ProcedimientosEspeciales ne = new ProcedimientosEspeciales();
+                ne= d.busquedaProcedimientosEspecialesId(ce.getIdProc());
+                idact= ne.getIdProc();
+                this.jTextField1.setText(ne.getNombre());
+                this.jTextField2.setText(String.valueOf(ne.getPrecio()));
+                this.jTextArea1.setText(ne.getDescripcion());
+            }
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jPopupMenu1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPopupMenu1FocusGained
+        if(this.jTable1.getSelectedRow()==-1){
+            this.jMenuItem1.setEnabled(false);
+        }
+    }//GEN-LAST:event_jPopupMenu1FocusGained
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+         ProcedimientosEspeciales ce = new ProcedimientosEspeciales();
+     DAO d = new DAO(sf);
+     try{
+     ce.setIdProc(idact); ce.setNombre(this.jTextField1.getText());ce.setPrecio(Float.parseFloat(this.jTextField2.getText())); ce.setDescripcion(this.jTextArea1.getText());
+     if(d.ActualizarProcEsp(ce)==true){
+     JOptionPane.showMessageDialog(this, "Registro Actualizado");
+     this.jTextField1.setText(""); this.jTextField2.setText(""); this.jTextArea1.setText("");idact=-1;
+     LlenarTabla();
+     this.jButton1.setEnabled(true);this.jButton3.setEnabled(true);this.btnActualizar.setEnabled(false);
+     }
+     else{
+     JOptionPane.showMessageDialog(this,"Error al Actualizar","Error",JOptionPane.ERROR_MESSAGE);
+     }
+     }catch(NumberFormatException e){JOptionPane.showMessageDialog(this,"Dato Erroneo en el precio","Error",JOptionPane.ERROR_MESSAGE);}
+    
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
@@ -230,7 +303,9 @@ public class ProcEsp extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;

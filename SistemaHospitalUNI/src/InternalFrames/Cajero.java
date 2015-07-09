@@ -6,14 +6,32 @@
 package InternalFrames;
 
 import Camara.Camara;
+import Conexion.DAO;
 import static Decoracion.CentrarInternal.Centrar;
 import Decoracion.RedimensionarImagen;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.hibernate.SessionFactory;
+import Pojo.*;
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -25,11 +43,19 @@ public class Cajero extends javax.swing.JInternalFrame {
      * Creates new form Cajero
      */
     SessionFactory sf;
-    BufferedImage imagen;
     public Cajero(SessionFactory s) {
         initComponents();
         sf=s;
+        this.btnActualizar.setEnabled(false);
+        LlenarTabla();
+        this.jCheckBox1.setSelected(true);
+        this.jFormattedTextField2.setEnabled(false);
     }
+    
+    public BufferedImage imagen;
+    public int idact=-1;
+    private byte[] arregloImagenCamara;
+    
       public BufferedImage abrirImagen() {
         BufferedImage bmp = null;
         JFileChooser selector = new JFileChooser();
@@ -57,10 +83,14 @@ public class Cajero extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -73,12 +103,43 @@ public class Cajero extends javax.swing.JInternalFrame {
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox3 = new javax.swing.JCheckBox();
+        jCheckBox2 = new javax.swing.JCheckBox();
+        jTextField3 = new javax.swing.JTextField();
+        jFormattedTextField2 = new javax.swing.JFormattedTextField();
+
+        jPopupMenu1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jPopupMenu1FocusGained(evt);
+            }
+        });
+
+        jMenuItem1.setText("Ver Foto");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Cargar");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem2);
 
         setClosable(true);
+        setTitle("Cajero");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(0, 0, 0)));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251885_Save.png"))); // NOI18N
+        jButton1.setToolTipText("Guardar");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,10 +148,25 @@ public class Cajero extends javax.swing.JInternalFrame {
         });
 
         btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251807_Synchronize.png"))); // NOI18N
+        btnActualizar.setToolTipText("Actualizar");
         btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251990_trash.png"))); // NOI18N
+        jButton3.setToolTipText("Eliminar");
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/type_list.png"))); // NOI18N
+        jButton6.setToolTipText("Ver Todos");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -101,7 +177,8 @@ public class Cajero extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
                     .addComponent(btnActualizar)
-                    .addComponent(jButton3))
+                    .addComponent(jButton3)
+                    .addComponent(jButton6))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -113,9 +190,12 @@ public class Cajero extends javax.swing.JInternalFrame {
                 .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jButton4.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         jButton4.setText("Tomar Fotografia");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,6 +203,7 @@ public class Cajero extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton5.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         jButton5.setText("Elegir Foto");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -175,7 +256,85 @@ public class Cajero extends javax.swing.JInternalFrame {
 
             }
         ));
+        jTable1.setComponentPopupMenu(jPopupMenu1);
         jScrollPane1.setViewportView(jTable1);
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Buscar", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Verdana", 0, 10))); // NOI18N
+
+        jButton2.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436254886_Search.png"))); // NOI18N
+        jButton2.setText("Buscar Por:");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox1.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        jCheckBox1.setText("Nombres");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox3.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        jCheckBox3.setText("Cedula");
+        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox3ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox2.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        jCheckBox2.setText("Apellidos");
+        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox2ActionPerformed(evt);
+            }
+        });
+
+        try {
+            jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-######-####U")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBox3)
+                    .addComponent(jCheckBox1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCheckBox2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jFormattedTextField2)
+                    .addComponent(jTextField3))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton2)
+                        .addComponent(jCheckBox1)
+                        .addComponent(jCheckBox2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBox3)
+                    .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -212,8 +371,11 @@ public class Cajero extends javax.swing.JInternalFrame {
                                 .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,21 +400,83 @@ public class Cajero extends javax.swing.JInternalFrame {
                     .addComponent(jButton5)
                     .addComponent(jLabel3)
                     .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void LlenarTabla(){
+    DefaultTableModel dft = new DefaultTableModel();
+    dft.addColumn("Nombre");dft.addColumn("Apellido");dft.addColumn("Cedula");
+    DAO d = new DAO(sf);
+    List<Pojo.Cajero> lista = d.Listar_Cajero();
+    for(Pojo.Cajero c : lista){
+    String Vector[]= {c.getNombre(),c.getApellido(),c.getCedula()};
+    dft.addRow(Vector); Vector=null;
+    }
+    this.jTable1.setModel(dft);
+    }
+    
+    
+    public void ValidarImagenes() {
+        ByteArrayOutputStream os;
+        if (lblImagen != null) {
+
+            os = new ByteArrayOutputStream();
+
+            try {
+                ImageIO.write(imagen, "jpg", os);
+                os.flush();
+                String base64String = Base64.encode(os.toByteArray());
+                os.close();
+
+                arregloImagenCamara = Base64.decode(base64String);
+
+            } catch (IOException ex) {
+                System.out.println("Error: " + ex.getMessage());
+            }
+
+        } else {
+            JOptionPane.showInternalMessageDialog(this, "Asegurese de haber cargado/tomado una imágen", "Ventana de Notificación", JOptionPane.ERROR_MESSAGE);
+            return;
+            //System.out.println(" la imagen esta null");
+        }
+    }
+    public void CargarFoto(Icon icono){
+        RedimensionarImagen redimImagen = new RedimensionarImagen();
+        icono = redimImagen.imageToIcon(redimImagen.iconToBufferedImage(icono).getScaledInstance(this.lblImagen.getWidth(), this.lblImagen.getHeight(), 0));
+        this.lblImagen.setIcon(icono);
+}
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      if(this.jTextField1.getText().equals("")||this.jTextField2.getText().equals("")|| this.jFormattedTextField1.equals("")|| this.imagen==null){
+      JOptionPane.showMessageDialog(this, "Complete todos los campos","Error",JOptionPane.ERROR_MESSAGE);
+      }
+     ValidarImagenes();
+      Pojo.Cajero c = new Pojo.Cajero();
+      c.setNombre(this.jTextField1.getText());
+      c.setApellido(this.jTextField2.getText());
+      c.setCedula(this.jFormattedTextField1.getText());
+      c.setFoto(arregloImagenCamara);
+      DAO d = new DAO(sf);
+     if(d.GuardarCajero(c)==true){JOptionPane.showMessageDialog(this, "Registro Guardado");
+     LlenarTabla();
+     this.jTextField1.setText("");
+     this.jTextField2.setText("");
+     this.jFormattedTextField1.setText("");
+     this.lblImagen.setIcon(null);
+     }
+     else{JOptionPane.showMessageDialog(this,"Error al guardar","Error",JOptionPane.ERROR_MESSAGE);}
       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        Camara c = new Camara(null);
+        Camara c = new Camara(this);
         Centrar(c, this.getDesktopPane());
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -270,23 +494,176 @@ public class Cajero extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void jPopupMenu1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPopupMenu1FocusGained
+        if(this.jTable1.getSelectedRow()==-1){
+        this.jMenuItem1.setEnabled(false); this.jMenuItem2.setEnabled(false);
+        }
+    }//GEN-LAST:event_jPopupMenu1FocusGained
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+       int index = this.jTable1.getSelectedRow();
+       byte[] array= null;
+       DAO d = new DAO(sf);
+       List<Pojo.Cajero> lista = d.Listar_Cajero();
+       for(Pojo.Cajero c : lista){
+       if(c.getCedula().equals(this.jTable1.getValueAt(index, 2))){
+           Pojo.Cajero ne = d.busquedaCajeroId(c.getIdCajero());
+           VerFoto vf = new VerFoto(ne.getFoto());
+           vf.setVisible(true);
+           vf.setLocationRelativeTo(null);
+       }
+       }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+          int index = this.jTable1.getSelectedRow();
+       byte[] array= null;
+       DAO d = new DAO(sf);
+       List<Pojo.Cajero> lista = d.Listar_Cajero();
+       for(Pojo.Cajero c : lista){
+       if(c.getCedula().equals(this.jTable1.getValueAt(index, 2))){
+           try {
+               Pojo.Cajero ne = d.busquedaCajeroId(c.getIdCajero());
+               this.idact=ne.getIdCajero();
+               this.jTextField1.setText(ne.getNombre());
+               this.jTextField2.setText(ne.getApellido());
+               this.jFormattedTextField1.setText(ne.getCedula());
+               InputStream in = new ByteArrayInputStream(ne.getFoto());
+               BufferedImage image = ImageIO.read(in);
+               CargarFoto(new ImageIcon(image));
+           } catch (IOException ex) {
+               JOptionPane.showMessageDialog(this,"Error al cargar Foto","Error",JOptionPane.ERROR_MESSAGE);
+           }
+       }
+       }
+       this.btnActualizar.setEnabled(true);
+       this.jButton1.setEnabled(false);
+       this.jButton3.setEnabled(false);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        ValidarImagenes();
+        Pojo.Cajero c = new Pojo.Cajero();
+        c.setIdCajero(idact);c.setNombre(this.jTextField1.getText());c.setApellido(this.jTextField2.getText());
+        c.setCedula(this.jFormattedTextField1.getText());c.setFoto(arregloImagenCamara);
+        DAO d= new DAO(sf);
+        if(d.ActualizarCajero(c)==true){
+        JOptionPane.showMessageDialog(this, "Registro Actualizado");
+        LlenarTabla();
+     this.jTextField1.setText("");
+     this.jTextField2.setText("");
+     this.jFormattedTextField1.setText("");
+     this.lblImagen.setIcon(null);
+        this.btnActualizar.setEnabled(false);
+       this.jButton1.setEnabled(true);
+       this.jButton3.setEnabled(true);
+       idact=-1;
+        }
+        else{
+        JOptionPane.showMessageDialog(this, "Error al Actualizar","Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+       LlenarTabla();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
+       this.jCheckBox1.setSelected(false);
+       this.jCheckBox2.setSelected(false);
+       this.jFormattedTextField2.setEnabled(true);
+       this.jTextField3.setEnabled(false);
+      
+    }//GEN-LAST:event_jCheckBox3ActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+       this.jCheckBox2.setSelected(false);
+       this.jCheckBox3.setSelected(false);
+       this.jFormattedTextField2.setEnabled(false);
+       this.jTextField3.setEnabled(true);
+      
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+       this.jCheckBox3.setSelected(false);
+       this.jCheckBox1.setSelected(false);
+       this.jFormattedTextField2.setEnabled(false);
+       this.jTextField3.setEnabled(true);
+       
+    }//GEN-LAST:event_jCheckBox2ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        DefaultTableModel dft = new DefaultTableModel();
+        dft.addColumn("Nombres"); dft.addColumn("Apellidos"); dft.addColumn("Cedula");
+        Session s = sf.openSession();
+        Criteria c = s.createCriteria(Pojo.Cajero.class);
+        List<Pojo.Cajero> lista= null;
+        
+        if(this.jCheckBox1.isSelected()==true){
+         c.add(Restrictions.like("nombre","%"+this.jTextField3.getText()+"%"));
+        lista = c.list();
+        for(Pojo.Cajero ca: lista){
+            String Vector[] = {ca.getNombre(),ca.getApellido(),ca.getCedula()};
+            dft.addRow(Vector);
+            Vector=null;
+        }
+        
+        }
+        
+        if(this.jCheckBox2.isSelected()==true){
+        c.add(Restrictions.like("apellido","%"+this.jTextField3.getText()+"%"));
+        lista = c.list();
+        for(Pojo.Cajero ca: lista){
+            String Vector[] = {ca.getNombre(),ca.getApellido(),ca.getCedula()};
+            dft.addRow(Vector);
+            Vector=null;
+        }
+        }
+        
+        if(this.jCheckBox3.isSelected()==true){
+        c.add(Restrictions.like("cedula",this.jFormattedTextField2.getText()+"%"));
+        lista = c.list();
+        for(Pojo.Cajero ca: lista){
+            String Vector[] = {ca.getNombre(),ca.getApellido(),ca.getCedula()};
+            dft.addRow(Vector);
+            Vector=null;
+        }
+        }
+        
+        this.jTable1.setModel(dft);
+        
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     public javax.swing.JLabel lblImagen;
     // End of variables declaration//GEN-END:variables
 }

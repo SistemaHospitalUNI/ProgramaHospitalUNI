@@ -33,6 +33,9 @@
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="jMenuItem10">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/Imagenes/file_add 16x16.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Nueva Especialidad"/>
                   </Properties>
                   <Events>
@@ -87,6 +90,27 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
+            <Menu class="javax.swing.JMenu" name="jMenu9">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Imagenes/1436428282_pill.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Alergia"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem11">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/Imagenes/file_add 16x16.png"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Agregar Alergia"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem11ActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>
@@ -165,24 +189,29 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
-            <Menu class="javax.swing.JMenu" name="jMenu9">
+            <Menu class="javax.swing.JMenu" name="jMenu10">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Imagenes/1436428282_pill.png"/>
+                  <Image iconType="3" name="/Imagenes/lists.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Alergia"/>
+                <Property name="text" type="java.lang.String" value="Factura"/>
               </Properties>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem11">
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem12">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/Imagenes/file_add 16x16.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Agregar Alergia"/>
+                    <Property name="text" type="java.lang.String" value="Factura Consulta"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem11ActionPerformed"/>
-                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem13">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/Imagenes/file_add 16x16.png"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Facura Examenes y Procedimientos"/>
+                  </Properties>
                 </MenuItem>
               </SubComponents>
             </Menu>
