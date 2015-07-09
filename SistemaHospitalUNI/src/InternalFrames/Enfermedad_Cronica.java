@@ -92,6 +92,11 @@ public class Enfermedad_Cronica extends javax.swing.JInternalFrame {
 
         btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251807_Synchronize.png"))); // NOI18N
         btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251990_trash.png"))); // NOI18N
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -184,6 +189,11 @@ public class Enfermedad_Cronica extends javax.swing.JInternalFrame {
         });
 
         jButton2.setText("Seleccionar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         tablaEnfermdad.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -318,6 +328,40 @@ public class Enfermedad_Cronica extends javax.swing.JInternalFrame {
             this.jButton1.setEnabled(true);
         }
     }//GEN-LAST:event_checkActualizarStateChanged
+     EnfermedadCronica a = new  EnfermedadCronica();
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+        
+          int fila = tablaEnfermdad.getSelectedRow();
+ 
+         txtNombre.setText(tablaEnfermdad.getValueAt(fila, 1).toString());
+         txtDescrip.setText(tablaEnfermdad.getValueAt(fila, 2).toString());
+         a.setIdEc(Integer.parseInt(tablaEnfermdad.getValueAt(fila, 0).toString()));
+    
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+       try{
+            
+            Session s = sf.openSession();
+            a.setNombre(txtNombre.getText());
+            a.setDescripcion(txtDescrip.getText());
+      
+
+            s.update(a);
+            s.beginTransaction().commit();
+            s.close();
+            JOptionPane.showMessageDialog(this, "Registro Actualizado Correctamente!",
+                    "Mensaje de Informacion",JOptionPane.INFORMATION_MESSAGE);
+            cargarTabla(tablaEnfermdad);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(this, "Ocurrio un error al actualizar, pruebe nuevamente!",
+                    "ERROR",JOptionPane.ERROR_MESSAGE);
+                  
+        }
+       
+       limpiar();
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

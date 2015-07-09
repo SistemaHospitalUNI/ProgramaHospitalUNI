@@ -98,6 +98,11 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
 
         btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251807_Synchronize.png"))); // NOI18N
         btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251990_trash.png"))); // NOI18N
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -194,6 +199,11 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
         lblMensaje.setText("Seleccione una registro para actualizar");
 
         jButton2.setText("Seleccionar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -314,6 +324,42 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
  
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+       
+        try{
+            
+            Session s = sf.openSession();
+            a.setNombre(txtNombre.getText());
+            a.setDescripcion(txtDescrip.getText());
+      
+
+            s.update(a);
+            s.beginTransaction().commit();
+            s.close();
+            JOptionPane.showMessageDialog(this, "Registro Actualizado Correctamente!",
+                    "Mensaje de Informacion",JOptionPane.INFORMATION_MESSAGE);
+            cargarTabla(tablaAlergia);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(this, "Ocurrio un error al actualizar, pruebe nuevamente!",
+                    "ERROR",JOptionPane.ERROR_MESSAGE);
+                  
+        }
+               
+        limpiar();
+    }//GEN-LAST:event_btnActualizarActionPerformed
+    AlergiaMedicamento a = new AlergiaMedicamento();
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       
+         int fila = tablaAlergia.getSelectedRow();
+ 
+         txtNombre.setText(tablaAlergia.getValueAt(fila, 1).toString());
+         txtDescrip.setText(tablaAlergia.getValueAt(fila, 2).toString());
+         a.setIdAlergia(Integer.parseInt(tablaAlergia.getValueAt(fila, 0).toString()));
+    
+           
+            
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public void limpiar(){
         this.txtNombre.setText("");
