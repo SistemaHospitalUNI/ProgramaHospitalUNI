@@ -278,6 +278,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         menuUsuario.setText("   Usuario");
         menuUsuario.setMargin(new java.awt.Insets(0, 20, 0, 0));
         menuUsuario.setPreferredSize(new java.awt.Dimension(113, 51));
+        menuUsuario.setRequestFocusEnabled(false);
 
         jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436428083_Settings.png"))); // NOI18N
         jMenuItem9.setText("Configurar");

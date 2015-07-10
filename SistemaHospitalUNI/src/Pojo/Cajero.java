@@ -14,6 +14,11 @@ public class Cajero  implements java.io.Serializable {
      private Integer idCajero;
      private String nombre;
      private String apellido;
+     private String direccion;
+     private String telefono;
+     private String estadocivil;
+     private String correo;
+     private boolean estado;
      private String cedula;
      private byte[] foto;
      private Set facturaExamens = new HashSet(0);
