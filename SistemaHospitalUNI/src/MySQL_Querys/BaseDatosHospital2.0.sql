@@ -116,7 +116,11 @@ Create Table Cajero(
 	id_cajero int primary key auto_increment not null,
     nombre varchar(50)not null,
     apellido varchar(50)not null,
-    cedula varchar(18)not null,
+    cedula varchar(18)not null unique,
+    direccion varchar(200) not null,
+    telefono varchar(8) not null,
+    estadocivil varchar(20) not null,
+    estado boolean not null default true,
     check (cedula like '[0-9]''[0-9]''[0-9]''-''[0-9]''[0-9]''[0-9]''[0-9]''[0-9]''[0-9]''-''[0-9]''[0-9]''[0-9]''[0-9]''[A-Z]'),
     foto longblob
 );

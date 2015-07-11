@@ -54,7 +54,7 @@ public class DAO {
         return null;
     }
 
-    public  Paciente busquedaPacienteId(int id) {
+    public static  Paciente busquedaPacienteId(int id) {
         s = sf.openSession();
         List<Paciente> lstPaciente = (List<Paciente>) s.createQuery("from Paciente").list();
         for (Paciente pac : lstPaciente) {
@@ -210,7 +210,7 @@ public class DAO {
         return null;
     }
 
-    public  Cajero busquedaCajeroId(int id) {
+    public static  Cajero busquedaCajeroId(int id) {
         s = sf.openSession();
         List<Cajero> lstCajero = (List<Cajero>) s.createQuery("from Cajero").list();
         for (Cajero cajero : lstCajero) {
@@ -284,14 +284,14 @@ public class DAO {
         return lstAlergiaMed;
     }
 
-    public  List<Pojo.Cajero> Listar_Cajero() {
+    public static  List<Pojo.Cajero> Listar_Cajero() {
         s = sf.openSession();
         List<Cajero> lstCajero = (List<Cajero>) s.createQuery("from Cajero").list();
         s.close();
         return lstCajero;
     }
 
-    public List<CatalogoExamen> Listar_CatalogoExamen() {
+    public static List<CatalogoExamen> Listar_CatalogoExamen() {
         s = sf.openSession();
         List<CatalogoExamen> lstCatalogoExamen = (List<CatalogoExamen>) s.createQuery("from CatalogoExamen").list();
         s.close();
@@ -382,7 +382,7 @@ public class DAO {
         return lstPadecimientoEc;
     }
 
-    public List<ProcedimientosEspeciales> Listar_ProcedimientosEspeciales() {
+    public static List<ProcedimientosEspeciales> Listar_ProcedimientosEspeciales() {
         s = sf.openSession();
         List<ProcedimientosEspeciales> lstProcedimientosEspeciales = (List<ProcedimientosEspeciales>) s.createQuery("from ProcedimientosEspeciales").list();
         s.close();
@@ -396,7 +396,7 @@ public class DAO {
         return lstReceta;
     }
 
-    public List<Sector> Listar_Sectores() {
+    public static List<Sector> Listar_Sectores() {
         s = sf.openSession();
         List<Sector> lstSector = (List<Sector>) s.createQuery("from Sector").list();
 
@@ -435,7 +435,7 @@ public class DAO {
 
     }
 
-    public boolean GuardarCajero(Cajero cajero) {
+    public static boolean GuardarCajero(Cajero cajero) {
         s = sf.openSession();
         s.beginTransaction();
         s.save(cajero);
@@ -534,7 +534,7 @@ public class DAO {
         }
 
     }
-     public  int GuardarProcedimiento(ProcedimientosEspeciales c) {
+     public static  int GuardarProcedimiento(ProcedimientosEspeciales c) {
         try {
             int ss;
             s = sf.openSession();
@@ -588,7 +588,7 @@ public class DAO {
 
 //------------- Fin Metodos Guardar Objetos ----------------------------------- 
 
-    public  boolean ActualizarCatalogoEx(CatalogoExamen ce) {
+    public static boolean ActualizarCatalogoEx(CatalogoExamen ce) {
         s = sf.openSession();
         s.beginTransaction();
         s.update(ce);
@@ -596,7 +596,7 @@ public class DAO {
         s.close();
         return true;
     }
-    public  boolean ActualizarProcEsp(ProcedimientosEspeciales ce) {
+    public static boolean ActualizarProcEsp(ProcedimientosEspeciales ce) {
         s = sf.openSession();
         s.beginTransaction();
         s.update(ce);
@@ -604,7 +604,7 @@ public class DAO {
         s.close();
         return true;
     }
-     public  boolean ActualizarCajero(Cajero ce) {
+     public static  boolean ActualizarCajero(Cajero ce) {
         s = sf.openSession();
         s.beginTransaction();
         s.update(ce);
@@ -613,18 +613,18 @@ public class DAO {
         return true;
     }
      
-     public List<FacturaExamen> ListarFacturaExamen(){
+     public static List<FacturaExamen> ListarFacturaExamen(){
       s = sf.openSession();
         List<FacturaExamen> lista = (List<FacturaExamen>) s.createQuery("from FacturaExamen").list();
         return lista;
      }
-     public List<FacturaProcedimiento> ListarFacturaProcedimiento(){
+     public static List<FacturaProcedimiento> ListarFacturaProcedimiento(){
       s = sf.openSession();
         List<FacturaProcedimiento> lista = (List<FacturaProcedimiento>) s.createQuery("from FacturaProcedimiento").list();
         return lista;
      }
      
-     public boolean GuardarFacturapro(FacturaProcedimiento fpro){
+     public static boolean GuardarFacturapro(FacturaProcedimiento fpro){
      try {
             s = sf.openSession();
             Transaction t = s.beginTransaction();
@@ -637,7 +637,7 @@ public class DAO {
      }
      }
      
-     public boolean GuardarFacturaex(FacturaExamen fex){
+     public static boolean GuardarFacturaex(FacturaExamen fex){
      try {
             s = sf.openSession();
             Transaction t = s.beginTransaction();
@@ -650,7 +650,7 @@ public class DAO {
      }
      }
      
-     public boolean GuardarDetalleFacturaPro(DetalleFactpro ex){
+     public static boolean GuardarDetalleFacturaPro(DetalleFactpro ex){
      try {
             s = sf.openSession();
             Transaction t = s.beginTransaction();
@@ -663,7 +663,7 @@ public class DAO {
      }    
      }
      
-     public boolean GuardarDetalleFactura(DetalleFactura ex){
+     public static boolean GuardarDetalleFactura(DetalleFactura ex){
      try {
             s = sf.openSession();
             Transaction t = s.beginTransaction();
