@@ -58,11 +58,15 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         menuItemAgregarMedico = new javax.swing.JMenuItem();
         menuHorarioMedico = new javax.swing.JMenuItem();
         menuPaciente = new javax.swing.JMenu();
+        menuItemSector = new javax.swing.JMenuItem();
         menuItemPaciente = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         menuAlergia = new javax.swing.JMenu();
         menuItemAlergia = new javax.swing.JMenuItem();
-        menuSeector = new javax.swing.JMenu();
-        menuItemSector = new javax.swing.JMenuItem();
+        menuEnfermedades = new javax.swing.JMenu();
+        menuAgregarEnfermedad = new javax.swing.JMenuItem();
         menuCatalogo = new javax.swing.JMenu();
         itemExa = new javax.swing.JMenuItem();
         menuProcEsp = new javax.swing.JMenuItem();
@@ -71,8 +75,6 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         menuFactura = new javax.swing.JMenu();
         facturaConsulta = new javax.swing.JMenuItem();
         menuExayProc = new javax.swing.JMenuItem();
-        menuEnfermedades = new javax.swing.JMenu();
-        menuAgregarEnfermedad = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
@@ -143,6 +145,15 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         menuPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436247377_8.png"))); // NOI18N
         menuPaciente.setText("Paciente");
 
+        menuItemSector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
+        menuItemSector.setText("Agregar Sector");
+        menuItemSector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemSectorActionPerformed(evt);
+            }
+        });
+        menuPaciente.add(menuItemSector);
+
         menuItemPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
         menuItemPaciente.setText("Agregar Paciente");
         menuItemPaciente.addActionListener(new java.awt.event.ActionListener() {
@@ -151,6 +162,29 @@ public class SistemaPrincipal extends javax.swing.JFrame {
             }
         });
         menuPaciente.add(menuItemPaciente);
+
+        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436709931_health.png"))); // NOI18N
+        jMenu5.setText("Alergias y Enfermedades Cronicas");
+
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
+        jMenuItem2.setText("Agregar Alergia");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem2);
+
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
+        jMenuItem3.setText("Agregar Enfermedad Cronica");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem3);
+
+        menuPaciente.add(jMenu5);
 
         jMenu1.add(menuPaciente);
 
@@ -168,19 +202,19 @@ public class SistemaPrincipal extends javax.swing.JFrame {
 
         jMenu1.add(menuAlergia);
 
-        menuSeector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436257228_Street-View.png"))); // NOI18N
-        menuSeector.setText("Sector");
+        menuEnfermedades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436438357_medical_bag.png"))); // NOI18N
+        menuEnfermedades.setText("Enfermedades Cronica");
 
-        menuItemSector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
-        menuItemSector.setText("Agregar Sector");
-        menuItemSector.addActionListener(new java.awt.event.ActionListener() {
+        menuAgregarEnfermedad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
+        menuAgregarEnfermedad.setText("Agregar Enfermedad Cronica");
+        menuAgregarEnfermedad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemSectorActionPerformed(evt);
+                menuAgregarEnfermedadActionPerformed(evt);
             }
         });
-        menuSeector.add(menuItemSector);
+        menuEnfermedades.add(menuAgregarEnfermedad);
 
-        jMenu1.add(menuSeector);
+        jMenu1.add(menuEnfermedades);
 
         menuCatalogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/hacer-una-lista-icono-7189-32.png"))); // NOI18N
         menuCatalogo.setText("Catálogo Laboratorio");
@@ -236,20 +270,6 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         menuFactura.add(menuExayProc);
 
         jMenu1.add(menuFactura);
-
-        menuEnfermedades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436438357_medical_bag.png"))); // NOI18N
-        menuEnfermedades.setText("Enfermedades Cronica");
-
-        menuAgregarEnfermedad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
-        menuAgregarEnfermedad.setText("Agregar Enfermedad Cronica");
-        menuAgregarEnfermedad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuAgregarEnfermedadActionPerformed(evt);
-            }
-        });
-        menuEnfermedades.add(menuAgregarEnfermedad);
-
-        jMenu1.add(menuEnfermedades);
 
         jMenuBar1.add(jMenu1);
 
@@ -430,6 +450,22 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menuExayProcActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+       Padecimiento_AlergiaMed fext = new Padecimiento_AlergiaMed(sf);
+         if (activo(fext)) {
+            this.jDesktopPane1.add(fext);
+            fext.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        Padecimiento_EnfermedadCronica fext = new Padecimiento_EnfermedadCronica(sf);
+         if (activo(fext)) {
+            this.jDesktopPane1.add(fext);
+            fext.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -473,8 +509,11 @@ public class SistemaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem menuAgregarEnfermedad;
     private javax.swing.JMenu menuAlergia;
@@ -494,7 +533,6 @@ public class SistemaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menuMedico;
     private javax.swing.JMenu menuPaciente;
     private javax.swing.JMenuItem menuProcEsp;
-    private javax.swing.JMenu menuSeector;
     private javax.swing.JMenu menuUsuario;
     // End of variables declaration//GEN-END:variables
 
