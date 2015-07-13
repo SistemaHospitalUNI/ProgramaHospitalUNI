@@ -9,6 +9,7 @@ import Camara.Camara;
 import Conexion.DAO;
 import static Decoracion.CentrarInternal.Centrar;
 import Decoracion.RedimensionarImagen;
+import MenuSistema.SistemaPrincipal;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
@@ -18,6 +19,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import org.hibernate.SessionFactory;
 import Pojo.*;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+import java.awt.Frame;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -47,12 +49,12 @@ public class Cajero extends javax.swing.JInternalFrame {
         initComponents();
         sf=s;
         this.btnActualizar.setEnabled(false);
-        LlenarTabla();
+        LlenarActivos();
         this.jCheckBox1.setSelected(true);
         this.jFormattedTextField2.setEnabled(false);
     }
     
-    public BufferedImage imagen;
+    public BufferedImage imagen= null;
     public int idact=-1;
     private byte[] arregloImagenCamara;
     
@@ -89,7 +91,6 @@ public class Cajero extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -120,6 +121,9 @@ public class Cajero extends javax.swing.JInternalFrame {
         jFormattedTextField3 = new javax.swing.JFormattedTextField();
         jTextField4 = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox();
+        jLabel8 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox();
+        jButton3 = new javax.swing.JButton();
 
         jPopupMenu1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -148,38 +152,77 @@ public class Cajero extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(0, 0, 0)));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251885_Save.png"))); // NOI18N
+        jButton1.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/save (1).png"))); // NOI18N
+        jButton1.setText("Guardar");
         jButton1.setToolTipText("Guardar");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setIconTextGap(5);
+        jButton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/save (2).png"))); // NOI18N
+        jButton1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251807_Synchronize.png"))); // NOI18N
+        btnActualizar.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/refresh (1).png"))); // NOI18N
+        btnActualizar.setText("Actualizar");
         btnActualizar.setToolTipText("Actualizar");
-        btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnActualizar.setBorderPainted(false);
+        btnActualizar.setContentAreaFilled(false);
+        btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnActualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnActualizar.setIconTextGap(5);
+        btnActualizar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/refresh.png"))); // NOI18N
+        btnActualizar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnActualizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
             }
         });
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251990_trash.png"))); // NOI18N
-        jButton3.setToolTipText("Eliminar");
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
+        jButton6.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/type_list.png"))); // NOI18N
-        jButton6.setToolTipText("Ver Todos");
+        jButton6.setText("Ver Activos");
+        jButton6.setToolTipText("Ver Activos");
+        jButton6.setBorderPainted(false);
+        jButton6.setContentAreaFilled(false);
+        jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton6.setIconTextGap(5);
+        jButton6.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/type_list (1).png"))); // NOI18N
+        jButton6.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
             }
         });
 
-        jButton7.setText("jButton7");
-        jButton7.setToolTipText("Mostrar Activos");
+        jButton7.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/format_indent_more.png"))); // NOI18N
+        jButton7.setText("Ver Todos");
+        jButton7.setToolTipText("Ver Todo");
+        jButton7.setBorderPainted(false);
+        jButton7.setContentAreaFilled(false);
+        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton7.setIconTextGap(5);
+        jButton7.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/format_indent_more (2).png"))); // NOI18N
+        jButton7.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -187,27 +230,24 @@ public class Cajero extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(btnActualizar)
-                    .addComponent(jButton3)
-                    .addComponent(jButton6)
-                    .addComponent(jButton7))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton7)
+                .addGap(35, 35, 35)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -260,6 +300,7 @@ public class Cajero extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jFormattedTextField1.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -372,9 +413,25 @@ public class Cajero extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jFormattedTextField3.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
 
         jComboBox1.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Soltero", "Casado" }));
+
+        jLabel8.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        jLabel8.setText("Estado");
+
+        jComboBox2.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Activo", "Inactivo" }));
+        jComboBox2.setEnabled(false);
+
+        jButton3.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        jButton3.setText("Reset Frame");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -395,47 +452,58 @@ public class Cajero extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addGap(56, 56, 56)
-                                .addComponent(jScrollPane2))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3))
-                                .addGap(65, 65, 65)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(46, 46, 46))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel1)
+                                            .addComponent(jLabel3))
+                                        .addGap(65, 65, 65)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(46, 46, 46))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jFormattedTextField1)
+                                                .addGap(79, 79, 79))))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jFormattedTextField1)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                .addComponent(jLabel6)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jTextField4))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel4)
+                                                .addGap(67, 67, 67)
+                                                .addComponent(jFormattedTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(79, 79, 79)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel5)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(116, 116, 116)
-                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel2)
                                         .addGap(65, 65, 65)
-                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel6)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jTextField4))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addGap(67, 67, 67)
-                                    .addComponent(jFormattedTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addGap(83, 83, 83)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(23, 23, 23))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jButton4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jButton5)
+                                    .addGap(6, 6, 6)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(23, 23, 23))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton5)
-                                .addGap(6, 6, 6))))))
+                                .addComponent(jButton3)
+                                .addGap(21, 21, 21))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -474,29 +542,35 @@ public class Cajero extends javax.swing.JInternalFrame {
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel7)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void LlenarTabla(){
+    public void LlenarActivos(){
     DefaultTableModel dft = new DefaultTableModel();
-    dft.addColumn("Nombre");dft.addColumn("Apellido");dft.addColumn("Cedula");
+    dft.addColumn("Nombre");dft.addColumn("Apellido");dft.addColumn("Cedula");dft.addColumn("Telefono");
+    dft.addColumn("e-mail"); dft.addColumn("Direccion"); ; dft.addColumn("Estado Civil");
     DAO d = new DAO(sf);
     List<Pojo.Cajero> lista = d.Listar_Cajero();
     for(Pojo.Cajero c : lista){
-    String Vector[]= {c.getNombre(),c.getApellido(),c.getCedula()};
-    dft.addRow(Vector); Vector=null;
+        if(c.getEstado()==true){
+    String Vector[]= {c.getNombre(),c.getApellido(),c.getCedula(),c.getTelefono(),c.getCorreo(),c.getDireccion(),c.getEstadocivil()};
+    dft.addRow(Vector); Vector=null;}
     }
     this.jTable1.setModel(dft);
     }
@@ -509,7 +583,7 @@ public class Cajero extends javax.swing.JInternalFrame {
             os = new ByteArrayOutputStream();
 
             try {
-                ImageIO.write(imagen, "jpg", os);
+                ImageIO.write(imagen, "jpeg", os);
                 os.flush();
                 String base64String = Base64.encode(os.toByteArray());
                 os.close();
@@ -532,25 +606,33 @@ public class Cajero extends javax.swing.JInternalFrame {
         this.lblImagen.setIcon(icono);
 }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      if(this.jTextField1.getText().equals("")||this.jTextField2.getText().equals("")|| this.jFormattedTextField1.equals("")|| this.imagen==null){
+      if(this.jTextField1.getText().equals("")||this.jTextField2.getText().equals("")|| this.jFormattedTextField1.equals("")|| this.imagen==null
+              || this.jFormattedTextField3.getText().equals("")||this.jTextField4.getText().equals("")||this.jTextArea1.getText().equals("")){
       JOptionPane.showMessageDialog(this, "Complete todos los campos","Error",JOptionPane.ERROR_MESSAGE);
       }
+      else{
      ValidarImagenes();
       Pojo.Cajero c = new Pojo.Cajero();
       c.setNombre(this.jTextField1.getText());
       c.setApellido(this.jTextField2.getText());
       c.setCedula(this.jFormattedTextField1.getText());
+      c.setTelefono(this.jFormattedTextField3.getText());
+      c.setCorreo(this.jTextField4.getText());
+      c.setDireccion(this.jTextArea1.getText());
+      c.setEstadocivil(this.jComboBox1.getSelectedItem().toString());
       c.setFoto(arregloImagenCamara);
       DAO d = new DAO(sf);
      if(d.GuardarCajero(c)==true){JOptionPane.showMessageDialog(this, "Registro Guardado");
-     LlenarTabla();
+     LlenarActivos();
      this.jTextField1.setText("");
      this.jTextField2.setText("");
      this.jFormattedTextField1.setText("");
+     this.jFormattedTextField3.setText("");
+     this.jTextField4.setText("");
+     this.jTextArea1.setText("");
      this.lblImagen.setIcon(null);
      }
-     else{JOptionPane.showMessageDialog(this,"Error al guardar","Error",JOptionPane.ERROR_MESSAGE);}
-      
+     }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -561,12 +643,15 @@ public class Cajero extends javax.swing.JInternalFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+try{
         imagen = this.abrirImagen();
         RedimensionarImagen renderImagen = new RedimensionarImagen();
         int height = lblImagen.getHeight();
         int width = lblImagen.getWidth();
         lblImagen.setIcon((renderImagen.imageToIcon(renderImagen.imageToBufferedImage(imagen).getScaledInstance(width, height, 0))));
-        lblImagen.setText(null);
+        }catch(Exception e){
+        JOptionPane.showMessageDialog(this,""+e.getMessage());
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -596,6 +681,7 @@ public class Cajero extends javax.swing.JInternalFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
           int index = this.jTable1.getSelectedRow();
+          this.jComboBox2.setEnabled(true);
        byte[] array= null;
        DAO d = new DAO(sf);
        List<Pojo.Cajero> lista = d.Listar_Cajero();
@@ -607,6 +693,12 @@ public class Cajero extends javax.swing.JInternalFrame {
                this.jTextField1.setText(ne.getNombre());
                this.jTextField2.setText(ne.getApellido());
                this.jFormattedTextField1.setText(ne.getCedula());
+               this.jFormattedTextField3.setText(ne.getTelefono());
+               this.jTextField4.setText(ne.getCorreo());
+               this.jTextArea1.setText(ne.getDireccion());
+               this.jComboBox1.setSelectedItem(ne.getEstadocivil());
+               if(ne.getEstado()==true){this.jComboBox2.setSelectedItem("Activo");}
+               if(ne.getEstado()==false){this.jComboBox2.setSelectedItem("Inactivo");}
                InputStream in = new ByteArrayInputStream(ne.getFoto());
                BufferedImage image = ImageIO.read(in);
                CargarFoto(new ImageIcon(image));
@@ -617,35 +709,41 @@ public class Cajero extends javax.swing.JInternalFrame {
        }
        this.btnActualizar.setEnabled(true);
        this.jButton1.setEnabled(false);
-       this.jButton3.setEnabled(false);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         ValidarImagenes();
         Pojo.Cajero c = new Pojo.Cajero();
         c.setIdCajero(idact);c.setNombre(this.jTextField1.getText());c.setApellido(this.jTextField2.getText());
-        c.setCedula(this.jFormattedTextField1.getText());c.setFoto(arregloImagenCamara);
+        c.setCedula(this.jFormattedTextField1.getText());
+        c.setFoto(arregloImagenCamara);
+      c.setTelefono(this.jFormattedTextField3.getText());
+      c.setCorreo(this.jTextField4.getText());
+      c.setDireccion(this.jTextArea1.getText());
+      c.setEstadocivil(this.jComboBox1.getSelectedItem().toString());
+      if(this.jComboBox2.getSelectedItem().equals("Activo")){c.setEstado(true);}
+      if(this.jComboBox2.getSelectedItem().equals("Inactivo")){c.setEstado(false);}
         DAO d= new DAO(sf);
         if(d.ActualizarCajero(c)==true){
         JOptionPane.showMessageDialog(this, "Registro Actualizado");
-        LlenarTabla();
+        LlenarActivos();
      this.jTextField1.setText("");
      this.jTextField2.setText("");
      this.jFormattedTextField1.setText("");
+     this.jFormattedTextField3.setText("");
+     this.jTextField4.setText("");
+     this.jTextArea1.setText("");
      this.lblImagen.setIcon(null);
         this.btnActualizar.setEnabled(false);
        this.jButton1.setEnabled(true);
-       this.jButton3.setEnabled(true);
        idact=-1;
-        }
-        else{
-        JOptionPane.showMessageDialog(this, "Error al Actualizar","Error", JOptionPane.ERROR_MESSAGE);
+       this.jComboBox2.setEnabled(false);
         }
         
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-       LlenarTabla();
+       LlenarActivos();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
@@ -674,47 +772,87 @@ public class Cajero extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         DefaultTableModel dft = new DefaultTableModel();
-        dft.addColumn("Nombres"); dft.addColumn("Apellidos"); dft.addColumn("Cedula");
-        Session s = sf.openSession();
-        Criteria c = s.createCriteria(Pojo.Cajero.class);
+      dft.addColumn("Nombre");dft.addColumn("Apellido");dft.addColumn("Cedula");dft.addColumn("Telefono");
+    dft.addColumn("e-mail"); dft.addColumn("Direccion"); ; dft.addColumn("Estado Civil"); dft.addColumn("Estado");
+    Session s = sf.openSession();
+        Criteria cr = s.createCriteria(Pojo.Cajero.class);
         List<Pojo.Cajero> lista= null;
         
         if(this.jCheckBox1.isSelected()==true){
-         c.add(Restrictions.like("nombre","%"+this.jTextField3.getText()+"%"));
-        lista = c.list();
-        for(Pojo.Cajero ca: lista){
-            String Vector[] = {ca.getNombre(),ca.getApellido(),ca.getCedula()};
-            dft.addRow(Vector);
-            Vector=null;
+         cr.add(Restrictions.like("nombre","%"+this.jTextField3.getText()+"%"));
+        lista = cr.list();
+        for(Pojo.Cajero c: lista){
+          if(c.getEstado()==true){
+    String Vector[]= {c.getNombre(),c.getApellido(),c.getCedula(),c.getTelefono(),c.getCorreo(),c.getDireccion(),c.getEstadocivil(),"Activo"};
+    dft.addRow(Vector); Vector=null;}
+        if(c.getEstado()==false){
+    String Vector[]= {c.getNombre(),c.getApellido(),c.getCedula(),c.getTelefono(),c.getCorreo(),c.getDireccion(),c.getEstadocivil(),"Inactivo"};
+    dft.addRow(Vector); Vector=null;
         }
         
-        }
+        }}
         
         if(this.jCheckBox2.isSelected()==true){
-        c.add(Restrictions.like("apellido","%"+this.jTextField3.getText()+"%"));
-        lista = c.list();
-        for(Pojo.Cajero ca: lista){
-            String Vector[] = {ca.getNombre(),ca.getApellido(),ca.getCedula()};
-            dft.addRow(Vector);
-            Vector=null;
+        cr.add(Restrictions.like("apellido","%"+this.jTextField3.getText()+"%"));
+        lista = cr.list();
+        for(Pojo.Cajero c: lista){
+           
+            if(c.getEstado()==true){
+    String Vector[]= {c.getNombre(),c.getApellido(),c.getCedula(),c.getTelefono(),c.getCorreo(),c.getDireccion(),c.getEstadocivil(),"Activo"};
+    dft.addRow(Vector); Vector=null;}
+        if(c.getEstado()==false){
+    String Vector[]= {c.getNombre(),c.getApellido(),c.getCedula(),c.getTelefono(),c.getCorreo(),c.getDireccion(),c.getEstadocivil(),"Inactivo"};
+    dft.addRow(Vector); Vector=null;
+        }
         }
         }
         
         if(this.jCheckBox3.isSelected()==true){
-        c.add(Restrictions.like("cedula",this.jFormattedTextField2.getText()+"%"));
-        lista = c.list();
-        for(Pojo.Cajero ca: lista){
-            String Vector[] = {ca.getNombre(),ca.getApellido(),ca.getCedula()};
-            dft.addRow(Vector);
-            Vector=null;
+        cr.add(Restrictions.like("cedula",this.jFormattedTextField2.getText()+"%"));
+        lista = cr.list();
+        for(Pojo.Cajero c: lista){ 
+            if(c.getEstado()==true){
+    String Vector[]= {c.getNombre(),c.getApellido(),c.getCedula(),c.getTelefono(),c.getCorreo(),c.getDireccion(),c.getEstadocivil(),"Activo"};
+    dft.addRow(Vector); Vector=null;}
+        if(c.getEstado()==false){
+    String Vector[]= {c.getNombre(),c.getApellido(),c.getCedula(),c.getTelefono(),c.getCorreo(),c.getDireccion(),c.getEstadocivil(),"Inactivo"};
+    dft.addRow(Vector); Vector=null;
         }
         }
-        
+        }
         this.jTable1.setModel(dft);
         
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+       LlenarTodo();
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Cajero c = new Cajero(sf);
+       this.getDesktopPane().add(c);
+       c.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+ 
+    public void LlenarTodo(){
+    DefaultTableModel dft = new DefaultTableModel();
+    dft.addColumn("Nombre");dft.addColumn("Apellido");dft.addColumn("Cedula");dft.addColumn("Telefono");
+    dft.addColumn("e-mail"); dft.addColumn("Direccion"); ; dft.addColumn("Estado Civil"); dft.addColumn("Estado");
+    DAO d = new DAO(sf);
+    List<Pojo.Cajero> lista = d.Listar_Cajero();
+    for(Pojo.Cajero c : lista){
+        if(c.getEstado()==true){
+    String Vector[]= {c.getNombre(),c.getApellido(),c.getCedula(),c.getTelefono(),c.getCorreo(),c.getDireccion(),c.getEstadocivil(),"Activo"};
+    dft.addRow(Vector); Vector=null;}
+        if(c.getEstado()==false){
+    String Vector[]= {c.getNombre(),c.getApellido(),c.getCedula(),c.getTelefono(),c.getCorreo(),c.getDireccion(),c.getEstadocivil(),"Inactivo"};
+    dft.addRow(Vector); Vector=null;
+        }
+    }
+    this.jTable1.setModel(dft);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
@@ -729,6 +867,7 @@ public class Cajero extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JFormattedTextField jFormattedTextField3;
@@ -739,6 +878,7 @@ public class Cajero extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;

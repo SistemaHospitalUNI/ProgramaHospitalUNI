@@ -14,11 +14,26 @@
         <property name="apellido" type="string">
             <column name="apellido" length="50" not-null="true" />
         </property>
+        <property name="direccion" type="string">
+            <column name="direccion" length="50" not-null="true" />
+        </property>
+        <property name="telefono" type="string">
+            <column name="telefono" length="50" not-null="true" />
+        </property>
+        <property name="estadocivil" type="string">
+            <column name="estadocivil" length="50" not-null="true" />
+        </property>
+        <property name="correo" type="string">
+            <column name="correo" length="50" not-null="true" />
+        </property>
         <property name="cedula" type="string">
             <column name="cedula" length="18" not-null="true" />
         </property>
         <property name="foto" type="binary">
             <column name="foto" />
+        </property>
+        <property name="estado" type="boolean">
+            <column name="estado" not-null="true" />
         </property>
         <set name="facturaExamens" table="FacturaExamen" inverse="true" lazy="true" fetch="select">
             <key>

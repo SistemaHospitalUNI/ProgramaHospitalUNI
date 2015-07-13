@@ -28,79 +28,124 @@ public class Cajero  implements java.io.Serializable {
     public Cajero() {
     }
 
-	
-    public Cajero(String nombre, String apellido, String cedula) {
+    public Cajero(Integer idCajero, String nombre, String apellido, String direccion, String telefono, String estadocivil, String correo, boolean estado, String cedula, byte[] foto) {
+        this.idCajero = idCajero;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.estadocivil = estadocivil;
+        this.correo = correo;
+        this.estado = estado;
         this.cedula = cedula;
+        this.foto = foto;
     }
-    public Cajero(String nombre, String apellido, String cedula, byte[] foto, Set facturaExamens, Set facturaProcedimientos, Set facturaConsultas) {
-       this.nombre = nombre;
-       this.apellido = apellido;
-       this.cedula = cedula;
-       this.foto = foto;
-       this.facturaExamens = facturaExamens;
-       this.facturaProcedimientos = facturaProcedimientos;
-       this.facturaConsultas = facturaConsultas;
-    }
-   
+
     public Integer getIdCajero() {
-        return this.idCajero;
+        return idCajero;
     }
-    
+
     public void setIdCajero(Integer idCajero) {
         this.idCajero = idCajero;
     }
+
     public String getNombre() {
-        return this.nombre;
+        return nombre;
     }
-    
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
     public String getApellido() {
-        return this.apellido;
+        return apellido;
     }
-    
+
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
-    public String getCedula() {
-        return this.cedula;
+
+    public String getDireccion() {
+        return direccion;
     }
-    
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getEstadocivil() {
+        return estadocivil;
+    }
+
+    public void setEstadocivil(String estadocivil) {
+        this.estadocivil = estadocivil;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+    public String getCedula() {
+        return cedula;
+    }
+
     public void setCedula(String cedula) {
         this.cedula = cedula;
     }
+
     public byte[] getFoto() {
-        return this.foto;
+        return foto;
     }
-    
+
     public void setFoto(byte[] foto) {
         this.foto = foto;
     }
+
     public Set getFacturaExamens() {
-        return this.facturaExamens;
+        return facturaExamens;
     }
-    
+
     public void setFacturaExamens(Set facturaExamens) {
         this.facturaExamens = facturaExamens;
     }
+
     public Set getFacturaProcedimientos() {
-        return this.facturaProcedimientos;
+        return facturaProcedimientos;
     }
-    
+
     public void setFacturaProcedimientos(Set facturaProcedimientos) {
         this.facturaProcedimientos = facturaProcedimientos;
     }
+
     public Set getFacturaConsultas() {
-        return this.facturaConsultas;
+        return facturaConsultas;
     }
-    
+
     public void setFacturaConsultas(Set facturaConsultas) {
         this.facturaConsultas = facturaConsultas;
     }
 
+	
 
 
 

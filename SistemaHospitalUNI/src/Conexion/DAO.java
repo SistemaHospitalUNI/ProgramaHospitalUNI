@@ -8,6 +8,7 @@ package Conexion;
 import Pojo.*;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -436,11 +437,17 @@ public class DAO {
     }
 
     public static boolean GuardarCajero(Cajero cajero) {
+        try{
         s = sf.openSession();
         s.beginTransaction();
+        cajero.setEstado(true);
         s.save(cajero);
         s.getTransaction().commit();
-        s.close();
+        s.close();}
+        catch(Exception ee){
+        JOptionPane.showMessageDialog(null,"Error al guardar: Cajero ya existente","Error", JOptionPane.ERROR_MESSAGE);
+        return false;
+        }
         return true;
     }
     /*
@@ -605,11 +612,16 @@ public class DAO {
         return true;
     }
      public static  boolean ActualizarCajero(Cajero ce) {
-        s = sf.openSession();
+       try{
+         s = sf.openSession();
         s.beginTransaction();
         s.update(ce);
         s.getTransaction().commit();
         s.close();
+       }catch(Exception ee){
+        JOptionPane.showMessageDialog(null,"Error al guardar: Cajero ya existente","Error", JOptionPane.ERROR_MESSAGE);
+        return false;
+       }
         return true;
     }
      
