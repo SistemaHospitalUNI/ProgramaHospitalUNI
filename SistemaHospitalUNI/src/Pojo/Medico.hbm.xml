@@ -29,8 +29,8 @@
         <property name="usuario" type="string">
             <column name="Usuario" length="25" not-null="true" />
         </property>
-        <property name="contrase&#195;&#177;a" type="string">
-            <column name="Contrase&#195;&#177;a" length="25" not-null="true" />
+        <property name="contraseña" type="string">
+            <column name="Contraseña" length="25" not-null="true" />
         </property>
         <property name="direccion" type="string">
             <column name="Direccion" length="200" not-null="true" />

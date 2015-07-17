@@ -180,6 +180,11 @@ public class Logueo extends javax.swing.JFrame {
                 btnVerPasswordMouseReleased(evt);
             }
         });
+        btnVerPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerPasswordActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
@@ -239,6 +244,10 @@ public class Logueo extends javax.swing.JFrame {
        }
        
     }//GEN-LAST:event_txtPasswordKeyPressed
+
+    private void btnVerPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVerPasswordActionPerformed
 
     private void validarEntrada() {
         if (txtUsuario.getText().isEmpty() || txtPassword.getPassword().length == 0) {
