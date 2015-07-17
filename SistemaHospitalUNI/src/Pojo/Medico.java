@@ -1,5 +1,5 @@
 package Pojo;
-// Generated Jul 8, 2015 3:59:24 PM by Hibernate Tools 4.3.1
+// Generated Jul 16, 2015 6:06:58 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -17,8 +17,12 @@ public class Medico  implements java.io.Serializable {
      private String segundonombre;
      private String primerapellido;
      private String segundoapellido;
-     private byte[] foto;
      private String cedula;
+     private String usuario;
+     private String contraseña;
+     private String direccion;
+     private boolean estado;
+     private byte[] foto;
      private Set diasMedicos = new HashSet(0);
      private Set citas = new HashSet(0);
 
@@ -26,20 +30,28 @@ public class Medico  implements java.io.Serializable {
     }
 
 	
-    public Medico(Especialidad especialidad, String primernombre, String primerapellido, String cedula) {
+    public Medico(Especialidad especialidad, String primernombre, String primerapellido, String cedula, String usuario, String contraseña, String direccion, boolean estado) {
         this.especialidad = especialidad;
         this.primernombre = primernombre;
         this.primerapellido = primerapellido;
         this.cedula = cedula;
+        this.usuario = usuario;
+        this.contraseña = contraseña;
+        this.direccion = direccion;
+        this.estado = estado;
     }
-    public Medico(Especialidad especialidad, String primernombre, String segundonombre, String primerapellido, String segundoapellido, byte[] foto, String cedula, Set diasMedicos, Set citas) {
+    public Medico(Especialidad especialidad, String primernombre, String segundonombre, String primerapellido, String segundoapellido, String cedula, String usuario, String contraseña, String direccion, boolean estado, byte[] foto, Set diasMedicos, Set citas) {
        this.especialidad = especialidad;
        this.primernombre = primernombre;
        this.segundonombre = segundonombre;
        this.primerapellido = primerapellido;
        this.segundoapellido = segundoapellido;
-       this.foto = foto;
        this.cedula = cedula;
+       this.usuario = usuario;
+       this.contraseña = contraseña;
+       this.direccion = direccion;
+       this.estado = estado;
+       this.foto = foto;
        this.diasMedicos = diasMedicos;
        this.citas = citas;
     }
@@ -86,19 +98,47 @@ public class Medico  implements java.io.Serializable {
     public void setSegundoapellido(String segundoapellido) {
         this.segundoapellido = segundoapellido;
     }
-    public byte[] getFoto() {
-        return this.foto;
-    }
-    
-    public void setFoto(byte[] foto) {
-        this.foto = foto;
-    }
     public String getCedula() {
         return this.cedula;
     }
     
     public void setCedula(String cedula) {
         this.cedula = cedula;
+    }
+    public String getUsuario() {
+        return this.usuario;
+    }
+    
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+    public String getContraseña() {
+        return this.contraseña;
+    }
+    
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
+    public String getDireccion() {
+        return this.direccion;
+    }
+    
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+    public boolean isEstado() {
+        return this.estado;
+    }
+    
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+    public byte[] getFoto() {
+        return this.foto;
+    }
+    
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
     }
     public Set getDiasMedicos() {
         return this.diasMedicos;

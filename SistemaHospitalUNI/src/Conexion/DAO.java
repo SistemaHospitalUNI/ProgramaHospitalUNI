@@ -8,7 +8,6 @@ package Conexion;
 import Pojo.*;
 import java.util.Date;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -22,6 +21,7 @@ public class DAO {
 
     private static SessionFactory sf;
     private static Session s;
+    private static boolean valid;
 
     public DAO(SessionFactory sf) {
         this.sf = sf;
@@ -55,7 +55,7 @@ public class DAO {
         return null;
     }
 
-    public static  Paciente busquedaPacienteId(int id) {
+    public static Paciente busquedaPacienteId(int id) {
         s = sf.openSession();
         List<Paciente> lstPaciente = (List<Paciente>) s.createQuery("from Paciente").list();
         for (Paciente pac : lstPaciente) {
@@ -211,7 +211,7 @@ public class DAO {
         return null;
     }
 
-    public static  Cajero busquedaCajeroId(int id) {
+    public static Cajero busquedaCajeroId(int id) {
         s = sf.openSession();
         List<Cajero> lstCajero = (List<Cajero>) s.createQuery("from Cajero").list();
         for (Cajero cajero : lstCajero) {
@@ -285,7 +285,7 @@ public class DAO {
         return lstAlergiaMed;
     }
 
-    public static  List<Pojo.Cajero> Listar_Cajero() {
+    public static List<Pojo.Cajero> Listar_Cajero() {
         s = sf.openSession();
         List<Cajero> lstCajero = (List<Cajero>) s.createQuery("from Cajero").list();
         s.close();
@@ -437,17 +437,11 @@ public class DAO {
     }
 
     public static boolean GuardarCajero(Cajero cajero) {
-        try{
         s = sf.openSession();
         s.beginTransaction();
-        cajero.setEstado(true);
         s.save(cajero);
         s.getTransaction().commit();
-        s.close();}
-        catch(Exception ee){
-        JOptionPane.showMessageDialog(null,"Error al guardar: Cajero ya existente","Error", JOptionPane.ERROR_MESSAGE);
-        return false;
-        }
+        s.close();
         return true;
     }
     /*
@@ -509,7 +503,7 @@ public class DAO {
             s = sf.openSession();
             Transaction t = s.beginTransaction();
             DiasMedico diasMedico = new DiasMedico();
-            diasMedico.setMedico((Medico)s.get(Medico.class, idMedico));
+            diasMedico.setMedico((Medico) s.get(Medico.class, idMedico));
             diasMedico.setLunes(Lunes);
             diasMedico.setMartes(Martes);
             diasMedico.setMiercoles(Miercoles);
@@ -541,7 +535,8 @@ public class DAO {
         }
 
     }
-     public static  int GuardarProcedimiento(ProcedimientosEspeciales c) {
+
+    public static int GuardarProcedimiento(ProcedimientosEspeciales c) {
         try {
             int ss;
             s = sf.openSession();
@@ -557,7 +552,16 @@ public class DAO {
 
     }
 
-    public static int GuardarMedico(int idEspecialidad, String nombre, String SNombre, String Apellido, String SApellido, byte[] fotos, String cedula) {
+    public static int GuardarMedico(String nombre, String SNombre, String Apellido, String SApellido, String cedula, int idEspecialidad, String usuario, String pass, String direccion, boolean estado, byte[] fotos) {
+        valid = Usuarios.CrearUsuario(usuario, pass);
+        if (!valid) {
+            System.out.println("USUARIO NO REGISTRADO!");
+        }
+        System.out.println("USUARIO REGISTRADO!");
+        if (!Usuarios.AsignarPermisosMedicos(usuario)) {
+            System.out.println("PERMISOS NO ASIGNADOS!");
+        }
+        System.out.println("PERMISOS ASIGNADOS!");
         try {
             int bandera;
             s = sf.openSession();
@@ -567,17 +571,21 @@ public class DAO {
             medico.setSegundonombre(SNombre);
             medico.setPrimerapellido(Apellido);
             medico.setSegundoapellido(SApellido);
-            medico.setFoto(fotos);
-            medico.setEspecialidad((Especialidad) s.get(Especialidad.class, idEspecialidad));
             medico.setCedula(cedula);
+            medico.setEspecialidad((Especialidad) s.get(Especialidad.class, idEspecialidad));
+            medico.setUsuario(usuario);
+            medico.setDireccion(direccion);
+            medico.setEstado(estado);
+            medico.setFoto(fotos);
             bandera = (int) s.save(medico);
             t.commit();
             s.close();
             return bandera;
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage() +"  CAUSA: " + ex.getCause());
+            System.out.println("Error: " + ex.getMessage() + "  CAUSA: " + ex.getCause());
             return -1;
         }
+
     }
 
     public static boolean ActualizarEspecialidad(int id, String nombre, String descripcion) {
@@ -594,7 +602,6 @@ public class DAO {
     }
 
 //------------- Fin Metodos Guardar Objetos ----------------------------------- 
-
     public static boolean ActualizarCatalogoEx(CatalogoExamen ce) {
         s = sf.openSession();
         s.beginTransaction();
@@ -603,6 +610,7 @@ public class DAO {
         s.close();
         return true;
     }
+
     public static boolean ActualizarProcEsp(ProcedimientosEspeciales ce) {
         s = sf.openSession();
         s.beginTransaction();
@@ -611,33 +619,30 @@ public class DAO {
         s.close();
         return true;
     }
-     public static  boolean ActualizarCajero(Cajero ce) {
-       try{
-         s = sf.openSession();
+
+    public static boolean ActualizarCajero(Cajero ce) {
+        s = sf.openSession();
         s.beginTransaction();
         s.update(ce);
         s.getTransaction().commit();
         s.close();
-       }catch(Exception ee){
-        JOptionPane.showMessageDialog(null,"Error al guardar: Cajero ya existente","Error", JOptionPane.ERROR_MESSAGE);
-        return false;
-       }
         return true;
     }
-     
-     public static List<FacturaExamen> ListarFacturaExamen(){
-      s = sf.openSession();
+
+    public static List<FacturaExamen> ListarFacturaExamen() {
+        s = sf.openSession();
         List<FacturaExamen> lista = (List<FacturaExamen>) s.createQuery("from FacturaExamen").list();
         return lista;
-     }
-     public static List<FacturaProcedimiento> ListarFacturaProcedimiento(){
-      s = sf.openSession();
+    }
+
+    public static List<FacturaProcedimiento> ListarFacturaProcedimiento() {
+        s = sf.openSession();
         List<FacturaProcedimiento> lista = (List<FacturaProcedimiento>) s.createQuery("from FacturaProcedimiento").list();
         return lista;
-     }
-     
-     public static boolean GuardarFacturapro(FacturaProcedimiento fpro){
-     try {
+    }
+
+    public static boolean GuardarFacturapro(FacturaProcedimiento fpro) {
+        try {
             s = sf.openSession();
             Transaction t = s.beginTransaction();
             s.save(fpro);//Retorna el ID con el que guardo            
@@ -646,11 +651,11 @@ public class DAO {
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             return false;
-     }
-     }
-     
-     public static boolean GuardarFacturaex(FacturaExamen fex){
-     try {
+        }
+    }
+
+    public static boolean GuardarFacturaex(FacturaExamen fex) {
+        try {
             s = sf.openSession();
             Transaction t = s.beginTransaction();
             s.save(fex);//Retorna el ID con el que guardo            
@@ -659,34 +664,32 @@ public class DAO {
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             return false;
-     }
-     }
-     
-     public static boolean GuardarDetalleFacturaPro(DetalleFactpro ex){
-     try {
-            s = sf.openSession();
-            Transaction t = s.beginTransaction();
-            s.save(ex);//Retorna el ID con el que guardo            
-            t.commit();
-            return true;
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-            return false;
-     }    
-     }
-     
-     public static boolean GuardarDetalleFactura(DetalleFactura ex){
-     try {
-            s = sf.openSession();
-            Transaction t = s.beginTransaction();
-            s.save(ex);//Retorna el ID con el que guardo            
-            t.commit();
-            return true;
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-            return false;
-     }    
-     }
-}
-     
+        }
+    }
 
+    public static boolean GuardarDetalleFacturaPro(DetalleFactpro ex) {
+        try {
+            s = sf.openSession();
+            Transaction t = s.beginTransaction();
+            s.save(ex);//Retorna el ID con el que guardo            
+            t.commit();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean GuardarDetalleFactura(DetalleFactura ex) {
+        try {
+            s = sf.openSession();
+            Transaction t = s.beginTransaction();
+            s.save(ex);//Retorna el ID con el que guardo            
+            t.commit();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+}

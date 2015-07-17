@@ -568,7 +568,7 @@ public class Cajero extends javax.swing.JInternalFrame {
     DAO d = new DAO(sf);
     List<Pojo.Cajero> lista = d.Listar_Cajero();
     for(Pojo.Cajero c : lista){
-        if(c.getEstado()==true){
+        if(c.isEstado()==true){
     String Vector[]= {c.getNombre(),c.getApellido(),c.getCedula(),c.getTelefono(),c.getCorreo(),c.getDireccion(),c.getEstadocivil()};
     dft.addRow(Vector); Vector=null;}
     }
@@ -587,7 +587,6 @@ public class Cajero extends javax.swing.JInternalFrame {
                 os.flush();
                 String base64String = Base64.encode(os.toByteArray());
                 os.close();
-
                 arregloImagenCamara = Base64.decode(base64String);
 
             } catch (IOException ex) {
@@ -697,8 +696,8 @@ try{
                this.jTextField4.setText(ne.getCorreo());
                this.jTextArea1.setText(ne.getDireccion());
                this.jComboBox1.setSelectedItem(ne.getEstadocivil());
-               if(ne.getEstado()==true){this.jComboBox2.setSelectedItem("Activo");}
-               if(ne.getEstado()==false){this.jComboBox2.setSelectedItem("Inactivo");}
+               if(ne.isEstado()==true){this.jComboBox2.setSelectedItem("Activo");}
+               if(ne.isEstado()==false){this.jComboBox2.setSelectedItem("Inactivo");}
                InputStream in = new ByteArrayInputStream(ne.getFoto());
                BufferedImage image = ImageIO.read(in);
                CargarFoto(new ImageIcon(image));
@@ -782,10 +781,10 @@ try{
          cr.add(Restrictions.like("nombre","%"+this.jTextField3.getText()+"%"));
         lista = cr.list();
         for(Pojo.Cajero c: lista){
-          if(c.getEstado()==true){
+          if(c.isEstado()==true){
     String Vector[]= {c.getNombre(),c.getApellido(),c.getCedula(),c.getTelefono(),c.getCorreo(),c.getDireccion(),c.getEstadocivil(),"Activo"};
     dft.addRow(Vector); Vector=null;}
-        if(c.getEstado()==false){
+        if(c.isEstado()==false){
     String Vector[]= {c.getNombre(),c.getApellido(),c.getCedula(),c.getTelefono(),c.getCorreo(),c.getDireccion(),c.getEstadocivil(),"Inactivo"};
     dft.addRow(Vector); Vector=null;
         }
@@ -797,10 +796,10 @@ try{
         lista = cr.list();
         for(Pojo.Cajero c: lista){
            
-            if(c.getEstado()==true){
+            if(c.isEstado()==true){
     String Vector[]= {c.getNombre(),c.getApellido(),c.getCedula(),c.getTelefono(),c.getCorreo(),c.getDireccion(),c.getEstadocivil(),"Activo"};
     dft.addRow(Vector); Vector=null;}
-        if(c.getEstado()==false){
+        if(c.isEstado()==false){
     String Vector[]= {c.getNombre(),c.getApellido(),c.getCedula(),c.getTelefono(),c.getCorreo(),c.getDireccion(),c.getEstadocivil(),"Inactivo"};
     dft.addRow(Vector); Vector=null;
         }
@@ -811,10 +810,10 @@ try{
         cr.add(Restrictions.like("cedula",this.jFormattedTextField2.getText()+"%"));
         lista = cr.list();
         for(Pojo.Cajero c: lista){ 
-            if(c.getEstado()==true){
+            if(c.isEstado()==true){
     String Vector[]= {c.getNombre(),c.getApellido(),c.getCedula(),c.getTelefono(),c.getCorreo(),c.getDireccion(),c.getEstadocivil(),"Activo"};
     dft.addRow(Vector); Vector=null;}
-        if(c.getEstado()==false){
+        if(c.isEstado()==false){
     String Vector[]= {c.getNombre(),c.getApellido(),c.getCedula(),c.getTelefono(),c.getCorreo(),c.getDireccion(),c.getEstadocivil(),"Inactivo"};
     dft.addRow(Vector); Vector=null;
         }
@@ -843,10 +842,10 @@ try{
     DAO d = new DAO(sf);
     List<Pojo.Cajero> lista = d.Listar_Cajero();
     for(Pojo.Cajero c : lista){
-        if(c.getEstado()==true){
+        if(c.isEstado()==true){
     String Vector[]= {c.getNombre(),c.getApellido(),c.getCedula(),c.getTelefono(),c.getCorreo(),c.getDireccion(),c.getEstadocivil(),"Activo"};
     dft.addRow(Vector); Vector=null;}
-        if(c.getEstado()==false){
+        if(c.isEstado()==false){
     String Vector[]= {c.getNombre(),c.getApellido(),c.getCedula(),c.getTelefono(),c.getCorreo(),c.getDireccion(),c.getEstadocivil(),"Inactivo"};
     dft.addRow(Vector); Vector=null;
         }

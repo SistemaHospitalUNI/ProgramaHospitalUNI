@@ -1,5 +1,5 @@
 package Pojo;
-// Generated Jul 8, 2015 3:59:24 PM by Hibernate Tools 4.3.1
+// Generated Jul 16, 2015 6:06:58 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -14,12 +14,12 @@ public class Cajero  implements java.io.Serializable {
      private Integer idCajero;
      private String nombre;
      private String apellido;
+     private String cedula;
      private String direccion;
      private String telefono;
-     private String estadocivil;
      private String correo;
+     private String estadocivil;
      private boolean estado;
-     private String cedula;
      private byte[] foto;
      private Set facturaExamens = new HashSet(0);
      private Set facturaProcedimientos = new HashSet(0);
@@ -28,124 +28,124 @@ public class Cajero  implements java.io.Serializable {
     public Cajero() {
     }
 
-    public Cajero(Integer idCajero, String nombre, String apellido, String direccion, String telefono, String estadocivil, String correo, boolean estado, String cedula, byte[] foto) {
-        this.idCajero = idCajero;
+	
+    public Cajero(String nombre, String apellido, String cedula, String direccion, String telefono, String correo, String estadocivil, boolean estado) {
         this.nombre = nombre;
         this.apellido = apellido;
+        this.cedula = cedula;
         this.direccion = direccion;
         this.telefono = telefono;
-        this.estadocivil = estadocivil;
         this.correo = correo;
+        this.estadocivil = estadocivil;
         this.estado = estado;
-        this.cedula = cedula;
-        this.foto = foto;
     }
-
+    public Cajero(String nombre, String apellido, String cedula, String direccion, String telefono, String correo, String estadocivil, boolean estado, byte[] foto, Set facturaExamens, Set facturaProcedimientos, Set facturaConsultas) {
+       this.nombre = nombre;
+       this.apellido = apellido;
+       this.cedula = cedula;
+       this.direccion = direccion;
+       this.telefono = telefono;
+       this.correo = correo;
+       this.estadocivil = estadocivil;
+       this.estado = estado;
+       this.foto = foto;
+       this.facturaExamens = facturaExamens;
+       this.facturaProcedimientos = facturaProcedimientos;
+       this.facturaConsultas = facturaConsultas;
+    }
+   
     public Integer getIdCajero() {
-        return idCajero;
+        return this.idCajero;
     }
-
+    
     public void setIdCajero(Integer idCajero) {
         this.idCajero = idCajero;
     }
-
     public String getNombre() {
-        return nombre;
+        return this.nombre;
     }
-
+    
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
     public String getApellido() {
-        return apellido;
+        return this.apellido;
     }
-
+    
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getEstadocivil() {
-        return estadocivil;
-    }
-
-    public void setEstadocivil(String estadocivil) {
-        this.estadocivil = estadocivil;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public boolean getEstado() {
-        return estado;
-    }
-
-    public void setEstado(boolean estado) {
-        this.estado = estado;
-    }
-
     public String getCedula() {
-        return cedula;
+        return this.cedula;
     }
-
+    
     public void setCedula(String cedula) {
         this.cedula = cedula;
     }
-
-    public byte[] getFoto() {
-        return foto;
+    public String getDireccion() {
+        return this.direccion;
     }
-
+    
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+    public String getTelefono() {
+        return this.telefono;
+    }
+    
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+    public String getCorreo() {
+        return this.correo;
+    }
+    
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+    public String getEstadocivil() {
+        return this.estadocivil;
+    }
+    
+    public void setEstadocivil(String estadocivil) {
+        this.estadocivil = estadocivil;
+    }
+    public boolean isEstado() {
+        return this.estado;
+    }
+    
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+    public byte[] getFoto() {
+        return this.foto;
+    }
+    
     public void setFoto(byte[] foto) {
         this.foto = foto;
     }
-
     public Set getFacturaExamens() {
-        return facturaExamens;
+        return this.facturaExamens;
     }
-
+    
     public void setFacturaExamens(Set facturaExamens) {
         this.facturaExamens = facturaExamens;
     }
-
     public Set getFacturaProcedimientos() {
-        return facturaProcedimientos;
+        return this.facturaProcedimientos;
     }
-
+    
     public void setFacturaProcedimientos(Set facturaProcedimientos) {
         this.facturaProcedimientos = facturaProcedimientos;
     }
-
     public Set getFacturaConsultas() {
-        return facturaConsultas;
+        return this.facturaConsultas;
     }
-
+    
     public void setFacturaConsultas(Set facturaConsultas) {
         this.facturaConsultas = facturaConsultas;
     }
 
-	
 
 
 

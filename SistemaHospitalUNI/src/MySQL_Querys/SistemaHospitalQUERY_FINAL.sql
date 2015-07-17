@@ -69,9 +69,13 @@ Create Table Medico(
     segundonombre varchar(50),
     primerapellido varchar(50)not null,
     segundoapellido varchar(50),
-    foto longblob,
+    cedula varchar(18)unique not null,
     id_especialidad int not null,
-	cedula varchar(18)unique not null,
+    Usuario varchar(25)not null,
+    Contraseña varchar(25)not null,
+    Direccion varchar(200)not null,
+    Estado boolean not null,
+    foto longblob,
     foreign key (id_especialidad)references Especialidad(id_especialidad)
 );
 
@@ -215,25 +219,4 @@ Create Table Receta(
     medicamento varchar(200)not null,
     dosis varchar(200)not null,
     cantidad int not null
-);
-
-
-
-
-
-/* TABLAS DE LOGUEO DE USUARIOS*/
-
-Create Table Roles(
-	id_rol int primary key auto_increment not null,
-    nombre_rol varchar(200)not null,
-    descripcion varchar(200)not null
-);
-
-Create Table Usuario(
-	id_usuario int primary key auto_increment not null,
-    id_rol int not null,
-	passwords varchar(15) not null,
-	correo VARCHAR(50) NOT NULL,
-	estado boolean not null,
-    foreign key(id_rol)references Roles(id_rol)
 );

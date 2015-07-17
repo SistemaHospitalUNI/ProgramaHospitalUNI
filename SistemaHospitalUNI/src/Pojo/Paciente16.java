@@ -1,5 +1,5 @@
 package Pojo;
-// Generated Jul 8, 2015 3:59:24 PM by Hibernate Tools 4.3.1
+// Generated Jul 16, 2015 6:06:58 PM by Hibernate Tools 4.3.1
 
 
 
@@ -11,18 +11,12 @@ public class Paciente16  implements java.io.Serializable {
 
      private Integer idPaciente;
      private String cedula;
-     private byte[] foto;
 
     public Paciente16() {
     }
 
-	
     public Paciente16(String cedula) {
-        this.cedula = cedula;
-    }
-    public Paciente16(String cedula, byte[] foto) {
        this.cedula = cedula;
-       this.foto = foto;
     }
    
     public Integer getIdPaciente() {
@@ -38,13 +32,6 @@ public class Paciente16  implements java.io.Serializable {
     
     public void setCedula(String cedula) {
         this.cedula = cedula;
-    }
-    public byte[] getFoto() {
-        return this.foto;
-    }
-    
-    public void setFoto(byte[] foto) {
-        this.foto = foto;
     }
 
 

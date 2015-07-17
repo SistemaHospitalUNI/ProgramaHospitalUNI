@@ -1,5 +1,5 @@
 package Pojo;
-// Generated Jul 8, 2015 3:59:24 PM by Hibernate Tools 4.3.1
+// Generated Jul 16, 2015 6:06:58 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -20,55 +20,55 @@ public class ProcedimientosEspeciales  implements java.io.Serializable {
     public ProcedimientosEspeciales() {
     }
 
-    public ProcedimientosEspeciales(Integer idProc, String nombre, String descripcion, float precio) {
-        this.idProc = idProc;
+	
+    public ProcedimientosEspeciales(String nombre, String descripcion, float precio) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
     }
-
-    public Integer getIdProc() {
-        return idProc;
+    public ProcedimientosEspeciales(String nombre, String descripcion, float precio, Set detalleFactpros) {
+       this.nombre = nombre;
+       this.descripcion = descripcion;
+       this.precio = precio;
+       this.detalleFactpros = detalleFactpros;
     }
-
+   
+    public Integer getIdProc() {
+        return this.idProc;
+    }
+    
     public void setIdProc(Integer idProc) {
         this.idProc = idProc;
     }
-
     public String getNombre() {
-        return nombre;
+        return this.nombre;
     }
-
+    
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
     public String getDescripcion() {
-        return descripcion;
+        return this.descripcion;
     }
-
+    
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
     public float getPrecio() {
-        return precio;
+        return this.precio;
     }
-
+    
     public void setPrecio(float precio) {
         this.precio = precio;
     }
-
     public Set getDetalleFactpros() {
-        return detalleFactpros;
+        return this.detalleFactpros;
     }
-
+    
     public void setDetalleFactpros(Set detalleFactpros) {
         this.detalleFactpros = detalleFactpros;
     }
 
-	
-   
 
 
 
