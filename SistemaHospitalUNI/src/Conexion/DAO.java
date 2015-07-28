@@ -200,7 +200,7 @@ public class DAO {
 
     public static CatalogoExamen busquedaCatalogoExamenId(int id) {
         s = sf.openSession();
-        List<CatalogoExamen> lstCatalogoExamen = (List<CatalogoExamen>) s.createQuery("from Catalogo_Examen").list();
+        List<CatalogoExamen> lstCatalogoExamen = (List<CatalogoExamen>) s.createQuery("from CatalogoExamen").list();
         for (CatalogoExamen catExam : lstCatalogoExamen) {
             if (id == catExam.getIdExamen()) {
                 s.close();
@@ -692,5 +692,42 @@ public class DAO {
             System.out.println(e.getMessage());
             return false;
         }
+    }
+    
+    public static boolean BorrarExamen(String nombre){
+    try{
+        int id=0;
+    s=sf.openSession();
+    Transaction t = s.beginTransaction();
+    List<CatalogoExamen> lista = s.createQuery("from CatalogoExamen").list();
+    for(CatalogoExamen ce : lista){
+        if(ce.getNombre().equals(nombre)){id=ce.getIdExamen();}
+    }
+    CatalogoExamen e = (CatalogoExamen) s.get(CatalogoExamen.class, id);
+    s.delete(e);
+    t.commit();
+    return true;
+    }catch(Exception ex){System.out.println(ex.getMessage());
+    return false;
+    }
+}
+    
+    public static boolean BorrarPE(String nombre){
+    
+    try{
+        int id=0;
+    s=sf.openSession();
+    Transaction t = s.beginTransaction();
+    List<ProcedimientosEspeciales> lista = s.createQuery("from ProcedimientosEspeciales").list();
+    for(ProcedimientosEspeciales ce : lista){
+        if(ce.getNombre().equals(nombre)){id=ce.getIdProc();}
+    }
+    ProcedimientosEspeciales e = (ProcedimientosEspeciales) s.get(ProcedimientosEspeciales.class, id);
+    s.delete(e);
+    t.commit();
+    return true;
+    }catch(Exception ex){System.out.println(ex.getMessage());
+    return false;
+    }
     }
 }

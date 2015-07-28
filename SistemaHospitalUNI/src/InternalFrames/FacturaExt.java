@@ -514,77 +514,77 @@ public class FacturaExt extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-       if(Float.parseFloat(this.jTextField1.getText())==0){
-       JOptionPane.showMessageDialog(this, "No puede facturar con un total de 0","Error",JOptionPane.ERROR_MESSAGE);
-       }
-       else{
-       DAO d = new DAO(s);
-       FacturaProcedimiento fp = new FacturaProcedimiento(); 
-       FacturaExamen fe = new FacturaExamen();
-       DetalleFactura dfe = new DetalleFactura();
-       DetalleFactpro dfp = new DetalleFactpro();
-       List<Pojo.Cajero> cajeros= d.Listar_Cajero();
-       int idcajero =0;
-       for(Pojo.Cajero c:cajeros){
-           if(c.getNombre().equals(cajeronombre)&& c.getApellido().equals(cajeroapellido)){
-                idcajero=c.getIdCajero();
-           }
-       }
-       
-       List<ProcedimientosEspeciales> listapro = d.Listar_ProcedimientosEspeciales();
-       List<ProcedimientosEspeciales> listaprocedimientos = null;
-       for(int i=0; i<this.jTable1.getRowCount();i++){
-       
-       for(ProcedimientosEspeciales p: listapro){
-           if(p.getNombre().equals(this.jTable1.getValueAt(i, 0))){
-           listaprocedimientos.add(p);
-           }
-       }
-       }
-       
-       
-       List<CatalogoExamen> listaex = d.Listar_CatalogoExamen();
-       List<CatalogoExamen> listaexamenes = null;
-       for(int i=0; i<this.jTable1.getRowCount();i++){
-       
-       for(CatalogoExamen p: listaex){
-           if(p.getNombre().equals(this.jTable1.getValueAt(i, 0))){
-           listaexamenes.add(p);
-           }
-       }
-       }
-       
-       
-       
-      if(listaprocedimientos!=null){
-      fp.setCajero(d.busquedaCajeroId(idcajero));
-      fp.setFecha(new Date());
-      fp.setPaciente(d.busquedaPacienteId(Integer.parseInt(this.jTextField4.getText())));
-      fp.setTotal(0);
-      d.GuardarFacturapro(fp);
-          for(ProcedimientosEspeciales pe: listaprocedimientos){
-         dfp.setFacturaProcedimiento(fp);
-         dfp.setProcedimientosEspeciales(pe);
-         d.GuardarDetalleFacturaPro(dfp);
-      }
-      }
-      
-      
-      if(listaexamenes!=null){
-      fe.setCajero(d.busquedaCajeroId(idcajero));
-      fe.setHoras(new Date());
-      fe.setPaciente(d.busquedaPacienteId(Integer.parseInt(this.jTextField4.getText())));
-      fe.setTotal(0);
-      d.GuardarFacturaex(fe);
-          for(CatalogoExamen ce: listaexamenes){
-         dfe.setFacturaExamen(fe);
-         dfe.setCatalogoExamen(ce);
-      }
-      }
-       
-      JOptionPane.showMessageDialog(this,"Guardado Exitosamente");
-       
-       }
+//       if(Float.parseFloat(this.jTextField1.getText())==0){
+//       JOptionPane.showMessageDialog(this, "No puede facturar con un total de 0","Error",JOptionPane.ERROR_MESSAGE);
+//       }
+//       else{
+//       DAO d = new DAO(s);
+//       FacturaProcedimiento fp = new FacturaProcedimiento(); 
+//       FacturaExamen fe = new FacturaExamen();
+//       DetalleFactura dfe = new DetalleFactura();
+//       DetalleFactpro dfp = new DetalleFactpro();
+//       List<Pojo.Cajero> cajeros= d.Listar_Cajero();
+//       int idcajero =0;
+//       for(Pojo.Cajero c:cajeros){
+//           if(c.getNombre().equals(cajeronombre)&& c.getApellido().equals(cajeroapellido)){
+//                idcajero=c.getIdCajero();
+//           }
+//       }
+//       
+//       List<ProcedimientosEspeciales> listapro = d.Listar_ProcedimientosEspeciales();
+//       List<ProcedimientosEspeciales> listaprocedimientos = null;
+//       for(int i=0; i<this.jTable1.getRowCount();i++){
+//       
+//       for(ProcedimientosEspeciales p: listapro){
+//           if(p.getNombre().equals(this.jTable1.getValueAt(i, 0))){
+//           listaprocedimientos.add(p);
+//           }
+//       }
+//       }
+//       
+//       
+//       List<CatalogoExamen> listaex = d.Listar_CatalogoExamen();
+//       List<CatalogoExamen> listaexamenes = null;
+//       for(int i=0; i<this.jTable1.getRowCount();i++){
+//       
+//       for(CatalogoExamen p: listaex){
+//           if(p.getNombre().equals(this.jTable1.getValueAt(i, 0))){
+//           listaexamenes.add(p);
+//           }
+//       }
+//       }
+//       
+//       
+//       
+//      if(listaprocedimientos!=null){
+//      fp.setCajero(d.busquedaCajeroId(idcajero));
+//      fp.setFecha(new Date());
+//      fp.setPaciente(d.busquedaPacienteId(Integer.parseInt(this.jTextField4.getText())));
+//      fp.setTotal(0);
+//      d.GuardarFacturapro(fp);
+//          for(ProcedimientosEspeciales pe: listaprocedimientos){
+//         dfp.setFacturaProcedimiento(fp);
+//         dfp.setProcedimientosEspeciales(pe);
+//         d.GuardarDetalleFacturaPro(dfp);
+//      }
+//      }
+//      
+//      
+//      if(listaexamenes!=null){
+//      fe.setCajero(d.busquedaCajeroId(idcajero));
+//      fe.setHoras(new Date());
+//      fe.setPaciente(d.busquedaPacienteId(Integer.parseInt(this.jTextField4.getText())));
+//      fe.setTotal(0);
+//      d.GuardarFacturaex(fe);
+//          for(CatalogoExamen ce: listaexamenes){
+//         dfe.setFacturaExamen(fe);
+//         dfe.setCatalogoExamen(ce);
+//      }
+//      }
+//       
+//      JOptionPane.showMessageDialog(this,"Guardado Exitosamente");
+//       
+//       }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
