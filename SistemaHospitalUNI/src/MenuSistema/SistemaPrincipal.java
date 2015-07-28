@@ -11,6 +11,7 @@ import InternalFrames.*;
 import Medicos.FrameMedicos;
 import Pojo.AlergiaMedicamento;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
+import java.beans.PropertyVetoException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -75,6 +76,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         menuFactura = new javax.swing.JMenu();
         facturaConsulta = new javax.swing.JMenuItem();
         menuExayProc = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
@@ -269,6 +271,9 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         });
         menuFactura.add(menuExayProc);
 
+        jMenuItem4.setText("Ver Facturas");
+        menuFactura.add(jMenuItem4);
+
         jMenu1.add(menuFactura);
 
         jMenuBar1.add(jMenu1);
@@ -410,6 +415,11 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         if (activo(ce)) {
             this.jDesktopPane1.add(ce);
             ce.setVisible(true);
+            try {
+                ce.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(SistemaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_menuItemCajeroActionPerformed
 
@@ -447,6 +457,11 @@ public class SistemaPrincipal extends javax.swing.JFrame {
          if (activo(fext)) {
             this.jDesktopPane1.add(fext);
             fext.setVisible(true);
+            try {
+                fext.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(SistemaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_menuExayProcActionPerformed
 
@@ -514,6 +529,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem menuAgregarEnfermedad;
     private javax.swing.JMenu menuAlergia;

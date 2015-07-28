@@ -72,7 +72,7 @@ Create Table Medico(
     cedula varchar(18)unique not null,
     id_especialidad int not null,
     Usuario varchar(25)not null,
-    Contraseña varchar(25)not null,
+    Contrasena varchar(25)not null,
     Direccion varchar(200)not null,
     Estado boolean not null,
     foto longblob,

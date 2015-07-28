@@ -437,6 +437,7 @@ public class DAO {
     }
 
     public static boolean GuardarCajero(Cajero cajero) {
+        cajero.setEstado(true);
         s = sf.openSession();
         s.beginTransaction();
         s.save(cajero);
