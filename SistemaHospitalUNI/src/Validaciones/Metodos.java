@@ -6,7 +6,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Ing. Donaldo
+ * @author cdzbird
  */
 public class Metodos {
 

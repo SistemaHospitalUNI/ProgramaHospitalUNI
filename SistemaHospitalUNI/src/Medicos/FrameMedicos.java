@@ -15,9 +15,11 @@ import Pojo.Especialidad;
 import Pojo.HorarioMedico;
 import Pojo.Medico;
 import Validaciones.ValidacionCedula;
+import Validaciones.procesamientoImagenes;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyVetoException;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -446,7 +448,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
                                     .addComponent(cmbEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
@@ -624,6 +626,15 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         GuardarDias(idMedico);
     }
 
+    public void CargarImagen(Medico medico) {
+        imagenMedico = this.abrirImagen();
+        procesamientoImagenes pi = new procesamientoImagenes();
+        int height = lblImagen.getHeight();
+        int width = lblImagen.getWidth();
+        lblImagen.setIcon((pi.imageToIcon(pi.imageToBufferedImage(imagenMedico).getScaledInstance(width, height, 0))));
+        lblImagen.setText(null);
+    }
+
     public void ModificarMedico(int IdMedico) {
         String Estado = "";
         s = sf.openSession();
@@ -636,23 +647,37 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
                     s.close();
                 }
             }
-            if(medico.getIdMedico().equals(IdModificar)){
-            txtNombre.setText(medico.getPrimernombre());
-            txtSNombre.setText(medico.getSegundonombre());
-            txtApellido.setText(medico.getPrimerapellido());
-            txtSApellido.setText(medico.getSegundoapellido());
-            txtCedula.setText(medico.getCedula());
-            txtUsuario.setText(medico.getUsuario());
-            txtDireccion.setText(medico.getDireccion());
-            if (medico.isEstado()) {
-                Estado = "Activo";
-            }
-            for (int i = 0; i < cmbEstado.getItemCount(); i++) {
-                if (Estado.equals(cmbEstado.getItemAt(i))) {
-                    cmbEstado.setSelectedIndex(i);
+            if (medico.getIdMedico().equals(IdModificar)) {
+                txtNombre.setText(medico.getPrimernombre());
+                txtSNombre.setText(medico.getSegundonombre());
+                txtApellido.setText(medico.getPrimerapellido());
+                txtSApellido.setText(medico.getSegundoapellido());
+                txtCedula.setText(medico.getCedula());
+                txtUsuario.setText(medico.getUsuario());
+                txtDireccion.setText(medico.getDireccion());
+                if (medico.isEstado()) {
+                    Estado = "Activo";
                 }
-            }
-            txtContraseña.setText(title);
+                for (int i = 0; i < cmbEstado.getItemCount(); i++) {
+                    if (Estado.equals(cmbEstado.getItemAt(i))) {
+                        cmbEstado.setSelectedIndex(i);
+                    }
+                }
+                if (medico.getFoto() != null) {
+
+                    try {
+                        int height = lblImagen.getHeight();
+                        int width = lblImagen.getWidth();
+                        BufferedImage imag = ImageIO.read(new ByteArrayInputStream(medico.getFoto()));
+                        procesamientoImagenes pi = new procesamientoImagenes();
+                        this.imagenMedico = imag;
+                        this.lblImagen.setIcon((pi.imageToIcon(pi.imageToBufferedImage(imag).getScaledInstance(width, height, 0))));
+                        this.lblImagen.setText(null);
+                    } catch (Exception ex) {
+                        System.out.println("ERROR: " + ex.getMessage() + " CAUSA: " + ex.getCause());
+                    }
+                }
+                txtContraseña.setText(title);
             }
         }
     }
