@@ -10,8 +10,12 @@ import static Decoracion.CentrarInternal.Centrar;
 import static Medicos.FrameMedicos.IdModificar;
 import MenuSistema.SistemaPrincipal;
 import Pojo.Medico;
+import Validaciones.procesamientoImagenes;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.util.Date;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
@@ -80,6 +84,7 @@ public class AsignacionPermisos extends javax.swing.JInternalFrame {
     Session s;
     SessionFactory sf;
 
+    public BufferedImage imagenMedico;
     Date fecha;
     public boolean estado;
     public static int IdModificar;
@@ -126,7 +131,7 @@ public class AsignacionPermisos extends javax.swing.JInternalFrame {
         btnPermisos = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblImagen = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -173,7 +178,7 @@ public class AsignacionPermisos extends javax.swing.JInternalFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
         );
 
         btnPermisos.setText("Permisos");
@@ -188,18 +193,18 @@ public class AsignacionPermisos extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Usuario"));
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("No hay fotografia");
+        lblImagen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblImagen.setText("No hay fotografia");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+            .addComponent(lblImagen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jLabel2.setText("Nombre Usuario:");
@@ -331,7 +336,7 @@ public class AsignacionPermisos extends javax.swing.JInternalFrame {
                                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnPermisos, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(btnPermisos, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -364,6 +369,19 @@ public class AsignacionPermisos extends javax.swing.JInternalFrame {
         for (Medico medico : lstMedicos) {
             if (medico.getIdMedico().equals(IdMedicoSeleccionado)) {
                 txtEspecialidad.setText(medico.getEspecialidad().getNombreEspecialidad());
+                if (medico.getFoto() != null) {
+                    try {
+                        int height = lblImagen.getHeight();
+                        int width = lblImagen.getWidth();
+                        BufferedImage imag = ImageIO.read(new ByteArrayInputStream(medico.getFoto()));
+                        procesamientoImagenes pi = new procesamientoImagenes();
+                        this.imagenMedico = imag;
+                        this.lblImagen.setIcon((pi.imageToIcon(pi.imageToBufferedImage(imag).getScaledInstance(width, height, 0))));
+                        this.lblImagen.setText(null);
+                    } catch (Exception ex) {
+                        System.out.println("ERROR: " + ex.getMessage() + " CAUSA: " + ex.getCause());
+                    }
+                }
                 s.close();
             }
         }
@@ -374,7 +392,6 @@ public class AsignacionPermisos extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnPermisos;
     private javax.swing.JComboBox cmbId;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -385,6 +402,7 @@ public class AsignacionPermisos extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblImagen;
     private javax.swing.JFormattedTextField txtCedula;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtEspecialidad;

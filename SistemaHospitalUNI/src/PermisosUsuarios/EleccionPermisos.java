@@ -62,7 +62,7 @@ public class EleccionPermisos extends javax.swing.JInternalFrame {
         chkProcedimientosEspeciales.setSelected(true);
         chkReceta.setSelected(true);
         chkSector.setSelected(true);
-        Usuarios user= new Usuarios(sf);
+        Usuarios user = new Usuarios(sf);
         Usuarios.AsignarPermisosAdministrador(txtNombreUsuario.getText());
     }
 
@@ -471,106 +471,56 @@ public class EleccionPermisos extends javax.swing.JInternalFrame {
 
     private void btnSecretariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSecretariaActionPerformed
         // TODO add your handling code here:
-        if (!chkAlergiaMedicamento.isSelected()
-                && !chkCajero.isSelected()
-                && !chkCatalogoExamen.isSelected()
-                && !chkCita.isSelected()
-                && !chkConsulta.isSelected()
-                && !chkDetalleConsulta.isSelected()
-                && !chkDetalleFacturaExamen.isSelected()
-                && !chkDetalleFacturaProcedimiento.isSelected()
-                && !chkDiagnostico.isSelected()
-                && !chkDiasMedico.isSelected()
-                && !chkEnfermedadCronica.isSelected()
-                && !chkEspecialidad.isSelected()
-                && !chkExamen.isSelected()
-                && !chkFacturaConsulta.isSelected()
-                && !chkFacturaExamen.isSelected()
-                && !chkHorarioMedico.isSelected()
-                && !chkMedico.isSelected()
-                && !chkPaciente.isSelected()
-                && !chkPaciente16.isSelected()
-                && !chkPadecimientoAM.isSelected()
-                && !chkPadecimientoEC.isSelected()
-                && !chkProcedimientosEspeciales.isSelected()
-                && !chkReceta.isSelected()
-                && !chkSector.isSelected()) {
-            JOptionPane.showMessageDialog(this, "Debe Asignar Permisos", "Confirmacionde permisos", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            chkCajero.setSelected(true);
-            chkCatalogoExamen.setSelected(true);
-            chkCita.setSelected(true);
-            chkConsulta.setSelected(true);
-            chkDetalleConsulta.setSelected(true);
-            chkDetalleFacturaExamen.setSelected(true);
-            chkDetalleFacturaProcedimiento.setSelected(true);
-            chkDiasMedico.setSelected(true);
-            chkEspecialidad.setSelected(true);
-            chkExamen.setSelected(true);
-            chkFacturaConsulta.setSelected(true);
-            chkFacturaExamen.setSelected(true);
-            chkHorarioMedico.setSelected(true);
-            chkMedico.setSelected(true);
-            chkProcedimientosEspeciales.setSelected(true);
-            chkReceta.setSelected(true);
-                    Usuarios user= new Usuarios(sf);
+
+        chkCajero.setSelected(true);
+        chkCatalogoExamen.setSelected(true);
+        chkCita.setSelected(true);
+        chkConsulta.setSelected(true);
+        chkDetalleConsulta.setSelected(true);
+        chkDetalleFacturaExamen.setSelected(true);
+        chkDetalleFacturaProcedimiento.setSelected(true);
+        chkDiasMedico.setSelected(true);
+        chkEspecialidad.setSelected(true);
+        chkExamen.setSelected(true);
+        chkFacturaConsulta.setSelected(true);
+        chkFacturaExamen.setSelected(true);
+        chkHorarioMedico.setSelected(true);
+        chkMedico.setSelected(true);
+        chkProcedimientosEspeciales.setSelected(true);
+        chkReceta.setSelected(true);
+        Usuarios user = new Usuarios(sf);
         Usuarios.AsignarPermisosSecretaria(txtNombreUsuario.getText());
-            JOptionPane.showMessageDialog(this, "El usuario " + txtNombreUsuario.getText() + " se le ha otorgado privilegio Secretaria", "Privilegio", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
-        }
+        JOptionPane.showMessageDialog(this, "El usuario " + txtNombreUsuario.getText() + " se le ha otorgado privilegio Secretaria", "Privilegio", JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
+
     }//GEN-LAST:event_btnSecretariaActionPerformed
 
     private void btnPermisosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPermisosActionPerformed
         // TODO add your handling code here:
-        if (!chkAlergiaMedicamento.isSelected()
-                && !chkCajero.isSelected()
-                && !chkCatalogoExamen.isSelected()
-                && !chkCita.isSelected()
-                && !chkConsulta.isSelected()
-                && !chkDetalleConsulta.isSelected()
-                && !chkDetalleFacturaExamen.isSelected()
-                && !chkDetalleFacturaProcedimiento.isSelected()
-                && !chkDiagnostico.isSelected()
-                && !chkDiasMedico.isSelected()
-                && !chkEnfermedadCronica.isSelected()
-                && !chkEspecialidad.isSelected()
-                && !chkExamen.isSelected()
-                && !chkFacturaConsulta.isSelected()
-                && !chkFacturaExamen.isSelected()
-                && !chkHorarioMedico.isSelected()
-                && !chkMedico.isSelected()
-                && !chkPaciente.isSelected()
-                && !chkPaciente16.isSelected()
-                && !chkPadecimientoAM.isSelected()
-                && !chkPadecimientoEC.isSelected()
-                && !chkProcedimientosEspeciales.isSelected()
-                && !chkReceta.isSelected()
-                && !chkSector.isSelected()) {
-            JOptionPane.showMessageDialog(this, "Debe Asignar Permisos", "Confirmacionde permisos", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            chkAlergiaMedicamento.setSelected(true);
-            chkCatalogoExamen.setSelected(true);
-            chkCita.setSelected(true);
-            chkConsulta.setSelected(true);
-            chkDetalleConsulta.setSelected(true);
-            chkDiagnostico.setSelected(true);
-            chkDiasMedico.setSelected(true);
-            chkEnfermedadCronica.setSelected(true);
-            chkEspecialidad.setSelected(true);
-            chkExamen.setSelected(true);
-            chkHorarioMedico.setSelected(true);
-            chkMedico.setSelected(true);
-            chkPaciente.setSelected(true);
-            chkPaciente16.setSelected(true);
-            chkPadecimientoAM.setSelected(true);
-            chkPadecimientoEC.setSelected(true);
-            chkProcedimientosEspeciales.setSelected(true);
-            chkReceta.setSelected(true);
-            chkSector.setSelected(true);
-                    Usuarios user= new Usuarios(sf);
+
+        chkAlergiaMedicamento.setSelected(true);
+        chkCatalogoExamen.setSelected(true);
+        chkCita.setSelected(true);
+        chkConsulta.setSelected(true);
+        chkDetalleConsulta.setSelected(true);
+        chkDiagnostico.setSelected(true);
+        chkDiasMedico.setSelected(true);
+        chkEnfermedadCronica.setSelected(true);
+        chkEspecialidad.setSelected(true);
+        chkExamen.setSelected(true);
+        chkHorarioMedico.setSelected(true);
+        chkMedico.setSelected(true);
+        chkPaciente.setSelected(true);
+        chkPaciente16.setSelected(true);
+        chkPadecimientoAM.setSelected(true);
+        chkPadecimientoEC.setSelected(true);
+        chkProcedimientosEspeciales.setSelected(true);
+        chkReceta.setSelected(true);
+        chkSector.setSelected(true);
+        Usuarios user = new Usuarios(sf);
         Usuarios.AsignarPermisosMedicos(txtNombreUsuario.getText());
-            JOptionPane.showMessageDialog(this, "El usuario " + txtNombreUsuario.getText() + " se le ha otorgado privilegio de Medico", "Privilegio", JOptionPane.INFORMATION_MESSAGE);
-        }
+        JOptionPane.showMessageDialog(this, "El usuario " + txtNombreUsuario.getText() + " se le ha otorgado privilegio de Medico", "Privilegio", JOptionPane.INFORMATION_MESSAGE);
+
         this.dispose();
     }//GEN-LAST:event_btnPermisosActionPerformed
 
