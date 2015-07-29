@@ -10,7 +10,9 @@ import Conexion.DAO;
 import Conexion.Usuarios;
 import static Decoracion.CentrarInternal.Centrar;
 import Decoracion.RedimensionarImagen;
+import Pojo.DiasMedico;
 import Pojo.Especialidad;
+import Pojo.HorarioMedico;
 import Pojo.Medico;
 import Validaciones.ValidacionCedula;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
@@ -29,6 +31,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.tree.TreeSelectionModel;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -73,6 +76,9 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         initComponents();
         cmbInicio.setSelectedIndex(0);
         cmbFinal.setSelectedIndex(0);
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jTable1.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+        jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.sf = sf;
     }
 
@@ -142,14 +148,6 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
 
         });
     }
-    
-    public void ModificarMedico(int IdMedico){
-        DAO d = new DAO(sf);
-        Medico medico = new Medico();
-        medico = DAO.busquedaMedicoId(IdMedico);
-        
-    }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -584,6 +582,35 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         GuardarMedico(idEspecialidad);
     }
 
+    public void MostrarDiasActualizados(int idMedicos) {
+        DAO df = new DAO(sf);
+        DiasMedico dMedico = new DiasMedico();
+        dMedico = DAO.busquedaDiasMedicosId(idMedicos);
+        if (dMedico.isLunes()) {
+            chkLunes.setSelected(true);
+        }
+        if (dMedico.isMartes()) {
+            chkMartes.setSelected(true);
+        }
+        if (dMedico.isMiercoles()) {
+            chkMiercoles.setSelected(true);
+        }
+        if (dMedico.isJueves()) {
+            chkJueves.setSelected(true);
+        }
+        if (dMedico.isViernes()) {
+            chkViernes.setSelected(true);
+        }
+        if (dMedico.isSabado()) {
+            chkSabado.setSelected(true);
+        }
+        if (dMedico.isDomingo()) {
+            chkDomingo.setSelected(true);
+        }
+        System.out.println("DIAS: " + idDiaMedico);
+        MostrarHorarioActualizado(dMedico.getIdDiaMedico());
+    }
+
     public void GuardarMedico(int idEspecial) {
         if (cmbEstado.getSelectedItem().toString().equals("Activo")) {
             estado = true;
@@ -597,11 +624,61 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         GuardarDias(idMedico);
     }
 
+    public void ModificarMedico(int IdMedico) {
+        String Estado = "";
+        s = sf.openSession();
+        List<Medico> lstMedicos = (List<Medico>) s.createQuery("from Medico").list();
+        for (Medico medico : lstMedicos) {
+            for (int i = 0; i < cmbEspecialidad.getItemCount(); i++) {
+                if (medico.getEspecialidad().getNombreEspecialidad().equals(cmbEspecialidad.getItemAt(i))) {
+                    System.out.println("ESPECIALIDAD: " + cmbEspecialidad.getItemAt(i).toString());
+                    cmbEspecialidad.setSelectedIndex(i);
+                    s.close();
+                }
+            }
+            if(medico.getIdMedico().equals(IdModificar)){
+            txtNombre.setText(medico.getPrimernombre());
+            txtSNombre.setText(medico.getSegundonombre());
+            txtApellido.setText(medico.getPrimerapellido());
+            txtSApellido.setText(medico.getSegundoapellido());
+            txtCedula.setText(medico.getCedula());
+            txtUsuario.setText(medico.getUsuario());
+            txtDireccion.setText(medico.getDireccion());
+            if (medico.isEstado()) {
+                Estado = "Activo";
+            }
+            for (int i = 0; i < cmbEstado.getItemCount(); i++) {
+                if (Estado.equals(cmbEstado.getItemAt(i))) {
+                    cmbEstado.setSelectedIndex(i);
+                }
+            }
+            txtContraseña.setText(title);
+            }
+        }
+    }
+
     public void GuardarDias(int idMedicos) {
         DAO df = new DAO(sf);
         idDiaMedico = DAO.GuardarDiaMedico(idMedicos, chkLunes.isSelected(), chkMartes.isSelected(), chkMiercoles.isSelected(), chkJueves.isSelected(), chkViernes.isSelected(), chkSabado.isSelected(), chkDomingo.isSelected());
         System.out.println("DIAS: " + idDiaMedico);
         GuardarHorario(idDiaMedico);
+    }
+
+    public void MostrarHorarioActualizado(int idDiasMedicoMostrar) {
+        DAO df = new DAO(sf);
+        HorarioMedico hMedico = new HorarioMedico();
+        hMedico = DAO.busquedaHorarioMedicoId(idDiasMedicoMostrar);
+        System.out.println("Horario: " + hMedico.getHoraEntrada() + hMedico.getHoraSalida());
+        for (int i = 0; i < cmbInicio.getItemCount(); i++) {
+            if (hMedico.getHoraEntrada().equals(cmbInicio.getItemAt(i))) {
+                cmbInicio.setSelectedIndex(i);
+            }
+        }
+        for (int i = 0; i < cmbFinal.getItemCount(); i++) {
+            if (hMedico.getHoraSalida().equals(cmbFinal.getItemAt(i))) {
+                cmbFinal.setSelectedIndex(i);
+            }
+        }
     }
 
     public void GuardarHorario(int idDiasMedicos) {
@@ -674,10 +751,14 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
             JOptionPane.showInternalMessageDialog(this, "El nombre de usuario ya ha sido usado", "Ventana de Notificación", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        ObtenerEspecialidad();
-        //GuardarMedico();
-        // GuardarDias();
-        // GuardarHorario();
+        if (chkEditarMedico.isSelected()) {
+
+        } else {
+            ObtenerEspecialidad();
+            //GuardarMedico();
+            // GuardarDias();
+            // GuardarHorario();
+        }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void chkEditarMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkEditarMedicoActionPerformed
@@ -686,8 +767,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
             btnRegistrar.setText("Modificar");
             jTable1.setEnabled(true);
             jTable1.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        }
-        else{
+        } else {
             btnRegistrar.setText("Registrar");
         }
     }//GEN-LAST:event_chkEditarMedicoActionPerformed
@@ -696,6 +776,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         int fila = this.jTable1.getSelectedRow();
         IdModificar = Integer.parseInt(jTable1.getValueAt(fila, 0).toString());
+        MostrarDiasActualizados(IdModificar);
         ModificarMedico(IdModificar);
     }//GEN-LAST:event_jTable1MouseClicked
 

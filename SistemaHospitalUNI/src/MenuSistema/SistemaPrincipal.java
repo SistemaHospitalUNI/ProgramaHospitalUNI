@@ -9,6 +9,7 @@ import Especialidades.FrameEspecialidades;
 import FramePrincipal.Logueo;
 import InternalFrames.*;
 import Medicos.FrameMedicos;
+import PermisosUsuarios.AsignacionPermisos;
 import Pojo.AlergiaMedicamento;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import java.beans.PropertyVetoException;
@@ -307,6 +308,11 @@ public class SistemaPrincipal extends javax.swing.JFrame {
 
         jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436428083_Settings.png"))); // NOI18N
         jMenuItem9.setText("Configurar");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
         menuUsuario.add(jMenuItem9);
 
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1434275747_Delete.png"))); // NOI18N
@@ -480,6 +486,15 @@ public class SistemaPrincipal extends javax.swing.JFrame {
             fext.setVisible(true);
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        // TODO add your handling code here:
+        AsignacionPermisos asignacion = new AsignacionPermisos(sf,this);
+        if (activo(asignacion)) {
+            this.jDesktopPane1.add(asignacion);
+            asignacion.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     /**
      * @param args the command line arguments

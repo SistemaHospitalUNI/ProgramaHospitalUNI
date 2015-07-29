@@ -21,6 +21,7 @@
     <mapping resource="Pojo/DiasMedico.hbm.xml"/>
     <mapping resource="Pojo/Cajero.hbm.xml"/>
     <mapping resource="Pojo/DetalleConsulta.hbm.xml"/>
+    <mapping resource="Pojo/DetalleFacturaEx.hbm.xml"/>
     <mapping resource="Pojo/ProcedimientosEspeciales.hbm.xml"/>
     <mapping resource="Pojo/Paciente.hbm.xml"/>
     <mapping resource="Pojo/DetalleFactpro.hbm.xml"/>
@@ -29,8 +30,6 @@
     <mapping resource="Pojo/Cita.hbm.xml"/>
     <mapping resource="Pojo/HorarioMedico.hbm.xml"/>
     <mapping resource="Pojo/FacturaConsulta.hbm.xml"/>
-    <mapping resource="Pojo/DetalleFactura.hbm.xml"/>
-    <mapping resource="Pojo/FacturaProcedimiento.hbm.xml"/>
     <mapping resource="Pojo/AlergiaMedicamento.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

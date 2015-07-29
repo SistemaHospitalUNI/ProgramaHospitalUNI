@@ -1,5 +1,5 @@
 package Pojo;
-// Generated Jul 16, 2015 6:06:58 PM by Hibernate Tools 4.3.1
+// Generated Jul 28, 2015 10:43:47 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -15,6 +15,7 @@ public class Consulta  implements java.io.Serializable {
      private String descripcion;
      private Float precio;
      private Set diagnosticos = new HashSet(0);
+     private Set facturaConsultas = new HashSet(0);
      private Set detalleConsultas = new HashSet(0);
 
     public Consulta() {
@@ -24,10 +25,11 @@ public class Consulta  implements java.io.Serializable {
     public Consulta(String descripcion) {
         this.descripcion = descripcion;
     }
-    public Consulta(String descripcion, Float precio, Set diagnosticos, Set detalleConsultas) {
+    public Consulta(String descripcion, Float precio, Set diagnosticos, Set facturaConsultas, Set detalleConsultas) {
        this.descripcion = descripcion;
        this.precio = precio;
        this.diagnosticos = diagnosticos;
+       this.facturaConsultas = facturaConsultas;
        this.detalleConsultas = detalleConsultas;
     }
    
@@ -58,6 +60,13 @@ public class Consulta  implements java.io.Serializable {
     
     public void setDiagnosticos(Set diagnosticos) {
         this.diagnosticos = diagnosticos;
+    }
+    public Set getFacturaConsultas() {
+        return this.facturaConsultas;
+    }
+    
+    public void setFacturaConsultas(Set facturaConsultas) {
+        this.facturaConsultas = facturaConsultas;
     }
     public Set getDetalleConsultas() {
         return this.detalleConsultas;

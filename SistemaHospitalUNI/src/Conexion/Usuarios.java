@@ -63,67 +63,168 @@ public class Usuarios {
             s.close();
         }
     }
+
     //root   lacb2208
-    public static boolean AsignarPermisosMedicos(String usuario) {
-        try{
+    public static boolean AsignarPermisosSecretaria(String usuario) {
+        try {
             s = sf.openSession();
             Transaction t = s.beginTransaction();
-            String query = "grant select,insert,update on SistemaHospital.Paciente to '"+usuario+"'@'localhost';";
-            String query2 ="grant select,insert,update on SistemaHospital.AlergiaMedicamento to '"+usuario+"'@'localhost';";
-            String query4 ="grant insert,select on SistemaHospital.Cita to '"+usuario+"'@'localhost';";
-            String query5 ="grant insert,select on SistemaHospital.Consulta to '"+usuario+"'@'localhost';";
-            String query6 ="grant insert,select on SistemaHospital.DetalleConsulta to '"+usuario+"'@'localhost';";
-            String query7 ="grant select on SistemaHospital.Diagnostico to '"+usuario+"'@'localhost';";
-            String query8 ="grant select,insert on SistemaHospital.DiasMedico to '"+usuario+"'@'localhost';";
-            String query9 = "grant select,insert on SistemaHospital.Enfermedad to '"+usuario+"'@'localhost';";
-            String query10 ="grant select,insert on SistemaHospital.Especialidad to '"+usuario+"'@'localhost';";
-            String query11 ="grant insert on SistemaHospital.Examen to '"+usuario+"'@'localhost';";
-            String query12 ="grant insert on SistemaHospital.Medico to '"+usuario+"'@'localhost';";
-            String query13 ="grant select on SistemaHospital.Procedimientos to '"+usuario+"'@'localhost';";
-            String query14 ="grant select on SistemaHospital.Receta to '"+usuario+"'@'localhost';";
-            
+
+            String query = "grant select,insert,update on SistemaHospital.Cajero to '" + usuario + "'@'localhost';";
+            String query2 = "grant select,insert,update on SistemaHospital.CatalogoExamen to '" + usuario + "'@'localhost';";
+            String query4 = "grant insert,select on SistemaHospital.Cita to '" + usuario + "'@'localhost';";
+            String query5 = "grant insert,select on SistemaHospital.Consulta to '" + usuario + "'@'localhost';";
+            String query6 = "grant insert,select on SistemaHospital.DetalleConsulta to '" + usuario + "'@'localhost';";
+            String query7 = "grant select on SistemaHospital.DetalleFacturaExamen to '" + usuario + "'@'localhost';";
+            String query8 = "grant select,insert on SistemaHospital.DetalleFacturaProcedimiento to '" + usuario + "'@'localhost';";
+            String query9 = "grant select,insert on SistemaHospital.DiasMedico to '" + usuario + "'@'localhost';";
+            String query10 = "grant select,insert on SistemaHospital.Especialidad to '" + usuario + "'@'localhost';";
+            String query11 = "grant insert on SistemaHospital.Examen to '" + usuario + "'@'localhost';";
+            String query12 = "grant insert on SistemaHospital.FacturaConsulta to '" + usuario + "'@'localhost';";
+            String query13 = "grant select on SistemaHospital.FacturaExamen to '" + usuario + "'@'localhost';";
+            String query14 = "grant select on SistemaHospital.HorarioMedico to '" + usuario + "'@'localhost';";
+            String query15 = "grant select on SistemaHospital.Medico to '" + usuario + "'@'localhost';";
+            String query16 = "grant select on SistemaHospital.ProcedimientosEspeciales to '" + usuario + "'@'localhost';";
+            String query17 = "grant select on SistemaHospital.Receta to '" + usuario + "'@'localhost';";
             Query q = s.createSQLQuery(query);
             q.executeUpdate();
-            
+
             q = s.createSQLQuery(query2);
             q.executeUpdate();
-            
+
             q = s.createSQLQuery(query4);
             q.executeUpdate();
-            
+
             q = s.createSQLQuery(query5);
             q.executeUpdate();
-            
+
             q = s.createSQLQuery(query6);
             q.executeUpdate();
-            
+
             q = s.createSQLQuery(query7);
             q.executeUpdate();
-            
+
             q = s.createSQLQuery(query8);
             q.executeUpdate();
-            
+
             q = s.createSQLQuery(query9);
             q.executeUpdate();
-            
+
             q = s.createSQLQuery(query10);
             q.executeUpdate();
-            
+
             q = s.createSQLQuery(query11);
             q.executeUpdate();
-            
+
             q = s.createSQLQuery(query12);
             q.executeUpdate();
-            
+
             q = s.createSQLQuery(query13);
             q.executeUpdate();
-            
+
             q = s.createSQLQuery(query14);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query15);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query16);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query17);
             q.executeUpdate();
             t.commit();
 
         } catch (Exception e) {
-            
+
+            return false;
+        } finally {
+            s.close();
+        }
+
+        return true;
+    }
+
+    public static boolean AsignarPermisosMedicos(String usuario) {
+        try {
+            s = sf.openSession();
+            Transaction t = s.beginTransaction();
+
+            String query = "grant select,insert,update on SistemaHospital.AlergiaMedicamento to '" + usuario + "'@'localhost';";
+            String query2 = "grant select,insert,update on SistemaHospital.CatalogoExamen to '" + usuario + "'@'localhost';";
+            String query4 = "grant insert,select on SistemaHospital.Cita to '" + usuario + "'@'localhost';";
+            String query5 = "grant insert,select on SistemaHospital.Consulta to '" + usuario + "'@'localhost';";
+            String query6 = "grant insert,select on SistemaHospital.DetalleConsulta to '" + usuario + "'@'localhost';";
+            String query7 = "grant select on SistemaHospital.Diagnostico to '" + usuario + "'@'localhost';";
+            String query8 = "grant select,insert on SistemaHospital.DiasMedico to '" + usuario + "'@'localhost';";
+            String query9 = "grant select,insert on SistemaHospital.EnfermedadCronica to '" + usuario + "'@'localhost';";
+            String query10 = "grant select,insert on SistemaHospital.Especialidad to '" + usuario + "'@'localhost';";
+            String query11 = "grant insert on SistemaHospital.Examen to '" + usuario + "'@'localhost';";
+            String query12 = "grant insert on SistemaHospital.HorarioMedico to '" + usuario + "'@'localhost';";
+            String query13 = "grant select on SistemaHospital.Medico to '" + usuario + "'@'localhost';";
+            String query14 = "grant select on SistemaHospital.Paciente16 to '" + usuario + "'@'localhost';";
+            String query15 = "grant select on SistemaHospital.PadecimientoAM to '" + usuario + "'@'localhost';";
+            String query16 = "grant select on SistemaHospital.PadecimientoEC to '" + usuario + "'@'localhost';";
+            String query17 = "grant select on SistemaHospital.ProcedimientosEspeciales to '" + usuario + "'@'localhost';";
+            String query18 = "grant select on SistemaHospital.Receta to '" + usuario + "'@'localhost';";
+            String query19 = "grant select on SistemaHospital.Sector to '" + usuario + "'@'localhost';";
+            Query q = s.createSQLQuery(query);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query2);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query4);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query5);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query6);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query7);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query8);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query9);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query10);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query11);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query12);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query13);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query14);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query15);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query16);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query17);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query18);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query19);
+            q.executeUpdate();
+            t.commit();
+
+        } catch (Exception e) {
+
             return false;
         } finally {
             s.close();
@@ -151,6 +252,5 @@ public class Usuarios {
         return true;
 
     }
-    
-    
+
 }

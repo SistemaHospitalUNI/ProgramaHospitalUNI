@@ -1,5 +1,5 @@
 package Pojo;
-// Generated Jul 16, 2015 6:06:58 PM by Hibernate Tools 4.3.1
+// Generated Jul 28, 2015 10:43:47 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -15,26 +15,34 @@ public class FacturaExamen  implements java.io.Serializable {
      private Integer idFacturaex;
      private Cajero cajero;
      private Paciente paciente;
-     private Date horas;
+     private Date fecha;
      private float total;
-     private Set detalleFacturas = new HashSet(0);
+     private float pago;
+     private float cambio;
+     private Set detalleFactpros = new HashSet(0);
+     private Set detalleFacturaExes = new HashSet(0);
 
     public FacturaExamen() {
     }
 
 	
-    public FacturaExamen(Cajero cajero, Paciente paciente, Date horas, float total) {
+    public FacturaExamen(Cajero cajero, Paciente paciente, Date fecha, float total, float pago, float cambio) {
         this.cajero = cajero;
         this.paciente = paciente;
-        this.horas = horas;
+        this.fecha = fecha;
         this.total = total;
+        this.pago = pago;
+        this.cambio = cambio;
     }
-    public FacturaExamen(Cajero cajero, Paciente paciente, Date horas, float total, Set detalleFacturas) {
+    public FacturaExamen(Cajero cajero, Paciente paciente, Date fecha, float total, float pago, float cambio, Set detalleFactpros, Set detalleFacturaExes) {
        this.cajero = cajero;
        this.paciente = paciente;
-       this.horas = horas;
+       this.fecha = fecha;
        this.total = total;
-       this.detalleFacturas = detalleFacturas;
+       this.pago = pago;
+       this.cambio = cambio;
+       this.detalleFactpros = detalleFactpros;
+       this.detalleFacturaExes = detalleFacturaExes;
     }
    
     public Integer getIdFacturaex() {
@@ -58,12 +66,12 @@ public class FacturaExamen  implements java.io.Serializable {
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
     }
-    public Date getHoras() {
-        return this.horas;
+    public Date getFecha() {
+        return this.fecha;
     }
     
-    public void setHoras(Date horas) {
-        this.horas = horas;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
     public float getTotal() {
         return this.total;
@@ -72,12 +80,33 @@ public class FacturaExamen  implements java.io.Serializable {
     public void setTotal(float total) {
         this.total = total;
     }
-    public Set getDetalleFacturas() {
-        return this.detalleFacturas;
+    public float getPago() {
+        return this.pago;
     }
     
-    public void setDetalleFacturas(Set detalleFacturas) {
-        this.detalleFacturas = detalleFacturas;
+    public void setPago(float pago) {
+        this.pago = pago;
+    }
+    public float getCambio() {
+        return this.cambio;
+    }
+    
+    public void setCambio(float cambio) {
+        this.cambio = cambio;
+    }
+    public Set getDetalleFactpros() {
+        return this.detalleFactpros;
+    }
+    
+    public void setDetalleFactpros(Set detalleFactpros) {
+        this.detalleFactpros = detalleFactpros;
+    }
+    public Set getDetalleFacturaExes() {
+        return this.detalleFacturaExes;
+    }
+    
+    public void setDetalleFacturaExes(Set detalleFacturaExes) {
+        this.detalleFacturaExes = detalleFacturaExes;
     }
 
 

@@ -1,5 +1,5 @@
 package Pojo;
-// Generated Jul 16, 2015 6:06:58 PM by Hibernate Tools 4.3.1
+// Generated Jul 28, 2015 10:43:47 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -22,7 +22,6 @@ public class Cajero  implements java.io.Serializable {
      private boolean estado;
      private byte[] foto;
      private Set facturaExamens = new HashSet(0);
-     private Set facturaProcedimientos = new HashSet(0);
      private Set facturaConsultas = new HashSet(0);
 
     public Cajero() {
@@ -39,7 +38,7 @@ public class Cajero  implements java.io.Serializable {
         this.estadocivil = estadocivil;
         this.estado = estado;
     }
-    public Cajero(String nombre, String apellido, String cedula, String direccion, String telefono, String correo, String estadocivil, boolean estado, byte[] foto, Set facturaExamens, Set facturaProcedimientos, Set facturaConsultas) {
+    public Cajero(String nombre, String apellido, String cedula, String direccion, String telefono, String correo, String estadocivil, boolean estado, byte[] foto, Set facturaExamens, Set facturaConsultas) {
        this.nombre = nombre;
        this.apellido = apellido;
        this.cedula = cedula;
@@ -50,7 +49,6 @@ public class Cajero  implements java.io.Serializable {
        this.estado = estado;
        this.foto = foto;
        this.facturaExamens = facturaExamens;
-       this.facturaProcedimientos = facturaProcedimientos;
        this.facturaConsultas = facturaConsultas;
     }
    
@@ -130,13 +128,6 @@ public class Cajero  implements java.io.Serializable {
     
     public void setFacturaExamens(Set facturaExamens) {
         this.facturaExamens = facturaExamens;
-    }
-    public Set getFacturaProcedimientos() {
-        return this.facturaProcedimientos;
-    }
-    
-    public void setFacturaProcedimientos(Set facturaProcedimientos) {
-        this.facturaProcedimientos = facturaProcedimientos;
     }
     public Set getFacturaConsultas() {
         return this.facturaConsultas;

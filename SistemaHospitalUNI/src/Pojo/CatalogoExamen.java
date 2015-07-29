@@ -1,5 +1,5 @@
 package Pojo;
-// Generated Jul 16, 2015 6:06:58 PM by Hibernate Tools 4.3.1
+// Generated Jul 28, 2015 10:43:47 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -15,7 +15,7 @@ public class CatalogoExamen  implements java.io.Serializable {
      private String nombre;
      private String descripcion;
      private float precio;
-     private Set detalleFacturas = new HashSet(0);
+     private Set detalleFacturaExes = new HashSet(0);
 
     public CatalogoExamen() {
     }
@@ -26,11 +26,11 @@ public class CatalogoExamen  implements java.io.Serializable {
         this.descripcion = descripcion;
         this.precio = precio;
     }
-    public CatalogoExamen(String nombre, String descripcion, float precio, Set detalleFacturas) {
+    public CatalogoExamen(String nombre, String descripcion, float precio, Set detalleFacturaExes) {
        this.nombre = nombre;
        this.descripcion = descripcion;
        this.precio = precio;
-       this.detalleFacturas = detalleFacturas;
+       this.detalleFacturaExes = detalleFacturaExes;
     }
    
     public Integer getIdExamen() {
@@ -61,12 +61,12 @@ public class CatalogoExamen  implements java.io.Serializable {
     public void setPrecio(float precio) {
         this.precio = precio;
     }
-    public Set getDetalleFacturas() {
-        return this.detalleFacturas;
+    public Set getDetalleFacturaExes() {
+        return this.detalleFacturaExes;
     }
     
-    public void setDetalleFacturas(Set detalleFacturas) {
-        this.detalleFacturas = detalleFacturas;
+    public void setDetalleFacturaExes(Set detalleFacturaExes) {
+        this.detalleFacturaExes = detalleFacturaExes;
     }
 
 

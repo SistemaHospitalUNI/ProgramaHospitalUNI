@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jul 16, 2015 6:06:58 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Jul 28, 2015 10:43:47 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="Pojo.FacturaConsulta" table="FacturaConsulta" catalog="SistemaHospital" optimistic-lock="version">
         <id name="idFactura" type="java.lang.Integer">
@@ -11,11 +11,20 @@
         <many-to-one name="cajero" class="Pojo.Cajero" fetch="select">
             <column name="id_cajero" not-null="true" />
         </many-to-one>
-        <property name="horas" type="time">
-            <column name="horas" length="8" not-null="true" />
+        <many-to-one name="consulta" class="Pojo.Consulta" fetch="select">
+            <column name="id_consulta" not-null="true" unique="true" />
+        </many-to-one>
+        <property name="fecha" type="time">
+            <column name="fecha" length="8" not-null="true" />
         </property>
-        <property name="precio" type="float">
-            <column name="precio" precision="12" scale="0" not-null="true" />
+        <property name="total" type="float">
+            <column name="total" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="pago" type="float">
+            <column name="pago" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="cambio" type="float">
+            <column name="cambio" precision="12" scale="0" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

@@ -1,5 +1,5 @@
 package Pojo;
-// Generated Jul 16, 2015 6:06:58 PM by Hibernate Tools 4.3.1
+// Generated Jul 28, 2015 10:43:47 PM by Hibernate Tools 4.3.1
 
 
 
@@ -10,14 +10,14 @@ public class DetalleFactpro  implements java.io.Serializable {
 
 
      private Integer idDetfactpro;
-     private FacturaProcedimiento facturaProcedimiento;
+     private FacturaExamen facturaExamen;
      private ProcedimientosEspeciales procedimientosEspeciales;
 
     public DetalleFactpro() {
     }
 
-    public DetalleFactpro(FacturaProcedimiento facturaProcedimiento, ProcedimientosEspeciales procedimientosEspeciales) {
-       this.facturaProcedimiento = facturaProcedimiento;
+    public DetalleFactpro(FacturaExamen facturaExamen, ProcedimientosEspeciales procedimientosEspeciales) {
+       this.facturaExamen = facturaExamen;
        this.procedimientosEspeciales = procedimientosEspeciales;
     }
    
@@ -28,12 +28,12 @@ public class DetalleFactpro  implements java.io.Serializable {
     public void setIdDetfactpro(Integer idDetfactpro) {
         this.idDetfactpro = idDetfactpro;
     }
-    public FacturaProcedimiento getFacturaProcedimiento() {
-        return this.facturaProcedimiento;
+    public FacturaExamen getFacturaExamen() {
+        return this.facturaExamen;
     }
     
-    public void setFacturaProcedimiento(FacturaProcedimiento facturaProcedimiento) {
-        this.facturaProcedimiento = facturaProcedimiento;
+    public void setFacturaExamen(FacturaExamen facturaExamen) {
+        this.facturaExamen = facturaExamen;
     }
     public ProcedimientosEspeciales getProcedimientosEspeciales() {
         return this.procedimientosEspeciales;

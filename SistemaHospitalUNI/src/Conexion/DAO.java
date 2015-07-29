@@ -237,6 +237,18 @@ public class DAO {
         return null;
     }
 
+    public static DiasMedico busquedaDiasMedicosId(int id) {
+        s = sf.openSession();
+        List<DiasMedico> lstDiasMedicos = (List<DiasMedico>) s.createQuery("from DiasMedico").list();
+        for (DiasMedico diasMedicos : lstDiasMedicos) {
+            if (id == diasMedicos.getIdDiaMedico()) {
+                return diasMedicos;
+            }
+        }
+        s.close();
+        return null;
+    }
+
     public static Cita busquedaCitaId(int id) {
         s = sf.openSession();
         List<Cita> lstCita = (List<Cita>) s.createQuery("from Cita").list();
@@ -559,10 +571,7 @@ public class DAO {
             System.out.println("USUARIO NO REGISTRADO!");
         }
         System.out.println("USUARIO REGISTRADO!");
-        if (!Usuarios.AsignarPermisosMedicos(usuario)) {
-            System.out.println("PERMISOS NO ASIGNADOS!");
-        }
-        System.out.println("PERMISOS ASIGNADOS!");
+
         try {
             int bandera;
             s = sf.openSession();
@@ -635,25 +644,26 @@ public class DAO {
         List<FacturaExamen> lista = (List<FacturaExamen>) s.createQuery("from FacturaExamen").list();
         return lista;
     }
+    /*
+     public static List<FacturaProcedimiento> ListarFacturaProcedimiento() {
+     s = sf.openSession();
+     List<FacturaProcedimiento> lista = (List<FacturaProcedimiento>) s.createQuery("from FacturaProcedimiento").list();
+     return lista;
+     }
 
-    public static List<FacturaProcedimiento> ListarFacturaProcedimiento() {
-        s = sf.openSession();
-        List<FacturaProcedimiento> lista = (List<FacturaProcedimiento>) s.createQuery("from FacturaProcedimiento").list();
-        return lista;
-    }
-
-    public static boolean GuardarFacturapro(FacturaProcedimiento fpro) {
-        try {
-            s = sf.openSession();
-            Transaction t = s.beginTransaction();
-            s.save(fpro);//Retorna el ID con el que guardo            
-            t.commit();
-            return true;
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            return false;
-        }
-    }
+     public static boolean GuardarFacturapro(FacturaProcedimiento fpro) {
+     try {
+     s = sf.openSession();
+     Transaction t = s.beginTransaction();
+     s.save(fpro);//Retorna el ID con el que guardo            
+     t.commit();
+     return true;
+     } catch (Exception ex) {
+     System.out.println(ex.getMessage());
+     return false;
+     }
+     }
+     */
 
     public static boolean GuardarFacturaex(FacturaExamen fex) {
         try {
@@ -680,54 +690,61 @@ public class DAO {
             return false;
         }
     }
+    /*
+     public static boolean GuardarDetalleFactura(DetalleFactura ex) {
+     try {
+     s = sf.openSession();
+     Transaction t = s.beginTransaction();
+     s.save(ex);//Retorna el ID con el que guardo            
+     t.commit();
+     return true;
+     } catch (Exception e) {
+     System.out.println(e.getMessage());
+     return false;
+     }
+     }
+     */
 
-    public static boolean GuardarDetalleFactura(DetalleFactura ex) {
+    public static boolean BorrarExamen(String nombre) {
         try {
+            int id = 0;
             s = sf.openSession();
             Transaction t = s.beginTransaction();
-            s.save(ex);//Retorna el ID con el que guardo            
+            List<CatalogoExamen> lista = s.createQuery("from CatalogoExamen").list();
+            for (CatalogoExamen ce : lista) {
+                if (ce.getNombre().equals(nombre)) {
+                    id = ce.getIdExamen();
+                }
+            }
+            CatalogoExamen e = (CatalogoExamen) s.get(CatalogoExamen.class, id);
+            s.delete(e);
             t.commit();
             return true;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
             return false;
         }
     }
-    
-    public static boolean BorrarExamen(String nombre){
-    try{
-        int id=0;
-    s=sf.openSession();
-    Transaction t = s.beginTransaction();
-    List<CatalogoExamen> lista = s.createQuery("from CatalogoExamen").list();
-    for(CatalogoExamen ce : lista){
-        if(ce.getNombre().equals(nombre)){id=ce.getIdExamen();}
-    }
-    CatalogoExamen e = (CatalogoExamen) s.get(CatalogoExamen.class, id);
-    s.delete(e);
-    t.commit();
-    return true;
-    }catch(Exception ex){System.out.println(ex.getMessage());
-    return false;
-    }
-}
-    
-    public static boolean BorrarPE(String nombre){
-    
-    try{
-        int id=0;
-    s=sf.openSession();
-    Transaction t = s.beginTransaction();
-    List<ProcedimientosEspeciales> lista = s.createQuery("from ProcedimientosEspeciales").list();
-    for(ProcedimientosEspeciales ce : lista){
-        if(ce.getNombre().equals(nombre)){id=ce.getIdProc();}
-    }
-    ProcedimientosEspeciales e = (ProcedimientosEspeciales) s.get(ProcedimientosEspeciales.class, id);
-    s.delete(e);
-    t.commit();
-    return true;
-    }catch(Exception ex){System.out.println(ex.getMessage());
-    return false;
-    }
+
+    public static boolean BorrarPE(String nombre) {
+
+        try {
+            int id = 0;
+            s = sf.openSession();
+            Transaction t = s.beginTransaction();
+            List<ProcedimientosEspeciales> lista = s.createQuery("from ProcedimientosEspeciales").list();
+            for (ProcedimientosEspeciales ce : lista) {
+                if (ce.getNombre().equals(nombre)) {
+                    id = ce.getIdProc();
+                }
+            }
+            ProcedimientosEspeciales e = (ProcedimientosEspeciales) s.get(ProcedimientosEspeciales.class, id);
+            s.delete(e);
+            t.commit();
+            return true;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
     }
 }

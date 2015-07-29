@@ -1,5 +1,5 @@
 package Pojo;
-// Generated Jul 16, 2015 6:06:58 PM by Hibernate Tools 4.3.1
+// Generated Jul 28, 2015 10:43:47 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -17,8 +17,8 @@ public class Paciente  implements java.io.Serializable {
      private String apellido;
      private String telefono;
      private String direccion;
+     private boolean estado;
      private Set padecimientoEcs = new HashSet(0);
-     private Set facturaProcedimientos = new HashSet(0);
      private Set facturaExamens = new HashSet(0);
      private Set padecimientoAms = new HashSet(0);
 
@@ -26,21 +26,22 @@ public class Paciente  implements java.io.Serializable {
     }
 
 	
-    public Paciente(Sector sector, String nombre, String apellido, String telefono, String direccion) {
+    public Paciente(Sector sector, String nombre, String apellido, String telefono, String direccion, boolean estado) {
         this.sector = sector;
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
         this.direccion = direccion;
+        this.estado = estado;
     }
-    public Paciente(Sector sector, String nombre, String apellido, String telefono, String direccion, Set padecimientoEcs, Set facturaProcedimientos, Set facturaExamens, Set padecimientoAms) {
+    public Paciente(Sector sector, String nombre, String apellido, String telefono, String direccion, boolean estado, Set padecimientoEcs, Set facturaExamens, Set padecimientoAms) {
        this.sector = sector;
        this.nombre = nombre;
        this.apellido = apellido;
        this.telefono = telefono;
        this.direccion = direccion;
+       this.estado = estado;
        this.padecimientoEcs = padecimientoEcs;
-       this.facturaProcedimientos = facturaProcedimientos;
        this.facturaExamens = facturaExamens;
        this.padecimientoAms = padecimientoAms;
     }
@@ -87,19 +88,19 @@ public class Paciente  implements java.io.Serializable {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
+    public boolean isEstado() {
+        return this.estado;
+    }
+    
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
     public Set getPadecimientoEcs() {
         return this.padecimientoEcs;
     }
     
     public void setPadecimientoEcs(Set padecimientoEcs) {
         this.padecimientoEcs = padecimientoEcs;
-    }
-    public Set getFacturaProcedimientos() {
-        return this.facturaProcedimientos;
-    }
-    
-    public void setFacturaProcedimientos(Set facturaProcedimientos) {
-        this.facturaProcedimientos = facturaProcedimientos;
     }
     public Set getFacturaExamens() {
         return this.facturaExamens;

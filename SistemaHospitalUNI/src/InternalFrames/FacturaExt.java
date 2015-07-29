@@ -9,9 +9,9 @@ import Conexion.DAO;
 import Decoracion.RedimensionarImagen;
 import Pojo.CatalogoExamen;
 import Pojo.DetalleFactpro;
-import Pojo.DetalleFactura;
+//import Pojo.DetalleFactura;
 import Pojo.FacturaExamen;
-import Pojo.FacturaProcedimiento;
+//import Pojo.FacturaProcedimiento;
 import Pojo.ProcedimientosEspeciales;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyVetoException;
@@ -51,9 +51,9 @@ public class FacturaExt extends javax.swing.JInternalFrame {
             s= sf;
             DAO d = new DAO(s);
             List<FacturaExamen> listafex = d.ListarFacturaExamen();
-            List<FacturaProcedimiento> listafpro = d.ListarFacturaProcedimiento();
-            int num = listafex.size() + listafpro.size() +1;
-            this.n0factura.setText(String.valueOf(num));
+            //List<FacturaProcedimiento> listafpro = d.ListarFacturaProcedimiento();
+            //int num = listafex.size() + listafpro.size() +1;
+            //this.n0factura.setText(String.valueOf(num));
             
             DefaultTableModel dft = new DefaultTableModel();
             dft.addColumn("Nombre");dft.addColumn("Precio");
