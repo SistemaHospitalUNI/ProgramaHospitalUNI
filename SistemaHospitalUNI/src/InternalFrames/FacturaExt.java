@@ -9,8 +9,11 @@ import Conexion.DAO;
 import Decoracion.RedimensionarImagen;
 import Pojo.CatalogoExamen;
 import Pojo.DetalleFactpro;
+import Pojo.DetalleFacturaEx;
+import Pojo.FacturaConsulta;
 //import Pojo.DetalleFactura;
 import Pojo.FacturaExamen;
+import Pojo.Paciente;
 //import Pojo.FacturaProcedimiento;
 import Pojo.ProcedimientosEspeciales;
 import java.awt.image.BufferedImage;
@@ -20,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -51,9 +55,9 @@ public class FacturaExt extends javax.swing.JInternalFrame {
             s= sf;
             DAO d = new DAO(s);
             List<FacturaExamen> listafex = d.ListarFacturaExamen();
-            //List<FacturaProcedimiento> listafpro = d.ListarFacturaProcedimiento();
-            //int num = listafex.size() + listafpro.size() +1;
-            //this.n0factura.setText(String.valueOf(num));
+            List<FacturaConsulta> listfactc = d.ListarFacturaConsulta();
+            int num = listafex.size()+ listfactc.size() +1;
+            this.n0factura.setText(String.valueOf(num));
             
             DefaultTableModel dft = new DefaultTableModel();
             dft.addColumn("Nombre");dft.addColumn("Precio");
@@ -71,8 +75,10 @@ public class FacturaExt extends javax.swing.JInternalFrame {
                 } catch (IOException ex) {
                     Logger.getLogger(FacturaExt.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                this.jTextField1.setText(String.valueOf(t));
+                this.totaltextfield.setText(String.valueOf(t));
             }
+            
+            
             Date fch = new Date();
             SimpleDateFormat sfd = new SimpleDateFormat("dd-MM-yyyy");
             this.fechalbl.setText(sfd.format(fch));
@@ -146,10 +152,10 @@ public class FacturaExt extends javax.swing.JInternalFrame {
         jButton4 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        totaltextfield = new javax.swing.JTextField();
+        pagotextfield = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
-        jTextField3 = new javax.swing.JTextField();
+        cambiotextfield = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
@@ -337,14 +343,14 @@ public class FacturaExt extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         jLabel3.setText("Cambio");
 
-        jTextField1.setEditable(false);
-        jTextField1.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
-        jTextField1.setText("0");
+        totaltextfield.setEditable(false);
+        totaltextfield.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        totaltextfield.setText("0");
 
-        jTextField2.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
-        jTextField2.addFocusListener(new java.awt.event.FocusAdapter() {
+        pagotextfield.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        pagotextfield.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextField2FocusLost(evt);
+                pagotextfieldFocusLost(evt);
             }
         });
 
@@ -356,9 +362,9 @@ public class FacturaExt extends javax.swing.JInternalFrame {
             }
         });
 
-        jTextField3.setEditable(false);
-        jTextField3.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
-        jTextField3.setText("0");
+        cambiotextfield.setEditable(false);
+        cambiotextfield.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        cambiotextfield.setText("0");
 
         jButton6.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         jButton6.setText("Agregar Examen");
@@ -388,13 +394,11 @@ public class FacturaExt extends javax.swing.JInternalFrame {
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(33, 33, 33))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton4)
-                        .addGap(33, 33, 33))))
+                            .addComponent(cambiotextfield, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pagotextfield, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(totaltextfield, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(33, 33, 33))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -420,16 +424,16 @@ public class FacturaExt extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(totaltextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pagotextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cambiotextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(32, 32, 32)
                 .addComponent(jButton4)
                 .addContainerGap())
@@ -447,7 +451,7 @@ public class FacturaExt extends javax.swing.JInternalFrame {
            for(ProcedimientosEspeciales e: lista){
                if(e.getNombre().equals(vl1)){
                String vector[]={e.getNombre(),String.valueOf(e.getPrecio())};
-               this.jTextField1.setText(String.valueOf(e.getPrecio()+ Float.parseFloat(this.jTextField1.getText())));
+               this.totaltextfield.setText(String.valueOf(e.getPrecio()+ Float.parseFloat(this.totaltextfield.getText())));
                dft.addRow(vector);
                vector=null;
                
@@ -464,8 +468,8 @@ public class FacturaExt extends javax.swing.JInternalFrame {
        DefaultTableModel dft = (DefaultTableModel) this.jTable1.getModel();
        
        float precio= Float.parseFloat(jTable1.getValueAt(index, 1).toString());
-       float total = Float.parseFloat(this.jTextField1.getText())-precio;
-       this.jTextField1.setText(String.valueOf(total));
+       float total = Float.parseFloat(this.totaltextfield.getText())-precio;
+       this.totaltextfield.setText(String.valueOf(total));
        dft.removeRow(index);
        this.jTable1.setModel(dft);
        }
@@ -476,18 +480,18 @@ public class FacturaExt extends javax.swing.JInternalFrame {
      
     }//GEN-LAST:event_jTable1PropertyChange
 
-    private void jTextField2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField2FocusLost
+    private void pagotextfieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pagotextfieldFocusLost
        try{
-       float pago = Float.parseFloat(this.jTextField2.getText());
-       float total = Float.parseFloat(this.jTextField1.getText());
-       if(pago<total){JOptionPane.showMessageDialog(this, "Pago incorrecto","Error",JOptionPane.ERROR_MESSAGE);this.jTextField3.setText("");}
+       float pago = Float.parseFloat(this.pagotextfield.getText());
+       float total = Float.parseFloat(this.totaltextfield.getText());
+       if(pago<total){JOptionPane.showMessageDialog(this, "Pago incorrecto","Error",JOptionPane.ERROR_MESSAGE);this.cambiotextfield.setText("");}
        else{
-       this.jTextField3.setText(String.valueOf(pago-total));}
+       this.cambiotextfield.setText(String.valueOf(pago-total));}
        }catch(NumberFormatException e){
        JOptionPane.showMessageDialog(this,"Dato incorrecto","Error",JOptionPane.ERROR_MESSAGE);
-       this.jTextField3.setText("0");
+       this.cambiotextfield.setText("0");
        }
-    }//GEN-LAST:event_jTextField2FocusLost
+    }//GEN-LAST:event_pagotextfieldFocusLost
 
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
      
@@ -503,7 +507,7 @@ public class FacturaExt extends javax.swing.JInternalFrame {
            for(CatalogoExamen e: lista){
                if(e.getNombre().equals(vl1)){
                String vector[]={e.getNombre(),String.valueOf(e.getPrecio())};
-               this.jTextField1.setText(String.valueOf(e.getPrecio()+ Float.parseFloat(this.jTextField1.getText())));
+               this.totaltextfield.setText(String.valueOf(e.getPrecio()+ Float.parseFloat(this.totaltextfield.getText())));
                dft.addRow(vector);
                vector=null;
                
@@ -514,77 +518,84 @@ public class FacturaExt extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-//       if(Float.parseFloat(this.jTextField1.getText())==0){
-//       JOptionPane.showMessageDialog(this, "No puede facturar con un total de 0","Error",JOptionPane.ERROR_MESSAGE);
-//       }
-//       else{
-//       DAO d = new DAO(s);
-//       FacturaProcedimiento fp = new FacturaProcedimiento(); 
-//       FacturaExamen fe = new FacturaExamen();
-//       DetalleFactura dfe = new DetalleFactura();
-//       DetalleFactpro dfp = new DetalleFactpro();
-//       List<Pojo.Cajero> cajeros= d.Listar_Cajero();
-//       int idcajero =0;
-//       for(Pojo.Cajero c:cajeros){
-//           if(c.getNombre().equals(cajeronombre)&& c.getApellido().equals(cajeroapellido)){
-//                idcajero=c.getIdCajero();
-//           }
-//       }
-//       
-//       List<ProcedimientosEspeciales> listapro = d.Listar_ProcedimientosEspeciales();
-//       List<ProcedimientosEspeciales> listaprocedimientos = null;
-//       for(int i=0; i<this.jTable1.getRowCount();i++){
-//       
-//       for(ProcedimientosEspeciales p: listapro){
-//           if(p.getNombre().equals(this.jTable1.getValueAt(i, 0))){
-//           listaprocedimientos.add(p);
-//           }
-//       }
-//       }
-//       
-//       
-//       List<CatalogoExamen> listaex = d.Listar_CatalogoExamen();
-//       List<CatalogoExamen> listaexamenes = null;
-//       for(int i=0; i<this.jTable1.getRowCount();i++){
-//       
-//       for(CatalogoExamen p: listaex){
-//           if(p.getNombre().equals(this.jTable1.getValueAt(i, 0))){
-//           listaexamenes.add(p);
-//           }
-//       }
-//       }
-//       
-//       
-//       
-//      if(listaprocedimientos!=null){
-//      fp.setCajero(d.busquedaCajeroId(idcajero));
-//      fp.setFecha(new Date());
-//      fp.setPaciente(d.busquedaPacienteId(Integer.parseInt(this.jTextField4.getText())));
-//      fp.setTotal(0);
-//      d.GuardarFacturapro(fp);
-//          for(ProcedimientosEspeciales pe: listaprocedimientos){
-//         dfp.setFacturaProcedimiento(fp);
-//         dfp.setProcedimientosEspeciales(pe);
-//         d.GuardarDetalleFacturaPro(dfp);
-//      }
-//      }
-//      
-//      
-//      if(listaexamenes!=null){
-//      fe.setCajero(d.busquedaCajeroId(idcajero));
-//      fe.setHoras(new Date());
-//      fe.setPaciente(d.busquedaPacienteId(Integer.parseInt(this.jTextField4.getText())));
-//      fe.setTotal(0);
-//      d.GuardarFacturaex(fe);
-//          for(CatalogoExamen ce: listaexamenes){
-//         dfe.setFacturaExamen(fe);
-//         dfe.setCatalogoExamen(ce);
-//      }
-//      }
-//       
-//      JOptionPane.showMessageDialog(this,"Guardado Exitosamente");
-//       
-//       }
+        try{
+        String al = this.jTextField4.getText();
+        
+       if(Float.parseFloat(this.totaltextfield.getText())==0 || this.jTextField4.equals("")){
+       JOptionPane.showMessageDialog(this, "Revise los datos intoducidos","Error",JOptionPane.ERROR_MESSAGE);
+       }
+       else{
+           ComprobarPaciente();
+           DAO d = new DAO(s);
+           
+             //Obtener id del cajero
+           List<Pojo.Cajero> cajeros= d.Listar_Cajero();
+       int idcajero =0;
+       for(Pojo.Cajero c:cajeros){
+           if(c.getNombre().equals(cajeronombre)&& c.getApellido().equals(cajeroapellido)){
+                idcajero=c.getIdCajero();
+           }
+       }
+           FacturaExamen fe = new FacturaExamen();
+        fe.setCajero(d.busquedaCajeroId(idcajero));
+        fe.setFecha(new Date());
+        fe.setPaciente(d.busquedaPacienteId(Integer.parseInt(this.jTextField4.getText())));
+        fe.setTotal(0);
+        fe.setPago(0);
+        fe.setCambio(0);
+        int idfact = d.GuardarFacturaex(fe);   
+        
+           //Listar los examenes
+            List<ProcedimientosEspeciales> listapro = d.Listar_ProcedimientosEspeciales();
+            List<ProcedimientosEspeciales> listaprocedimientos = new ArrayList<ProcedimientosEspeciales>();
+       for(int i=0; i<this.jTable1.getRowCount();i++){
+       for(ProcedimientosEspeciales p: listapro){
+           if(p.getNombre().equals(this.jTable1.getValueAt(i, 0))){
+           listaprocedimientos.add(p);
+           }
+       }
+       }
+       
+       //Listar los procedimientos
+       List<CatalogoExamen> listaex = d.Listar_CatalogoExamen();
+       List<CatalogoExamen> listaexamenes = new ArrayList<CatalogoExamen>();
+       for(int i=0; i<this.jTable1.getRowCount();i++){
+       for(CatalogoExamen p: listaex){
+           if(p.getNombre().equals(this.jTable1.getValueAt(i, 0))){
+           listaexamenes.add(p);
+           }
+       }
+       }
+       
+       //Guardar Detalle de los examenes
+       if(listaexamenes != null){
+       for(CatalogoExamen q : listaexamenes){
+       DetalleFacturaEx dfe = new DetalleFacturaEx();
+       dfe.setCatalogoExamen(q);
+       dfe.setFacturaExamen(d.busquedaFacturaExamenId(idfact));
+       if(d.GuardarDetalleFacturaEx(dfe)==false){JOptionPane.showMessageDialog(this,"Error al guardar Detalle Examenes","Error",JOptionPane.ERROR_MESSAGE);break;}
+       }
+       }
+       
+       //Guardar Detalle de los procedimientos
+        if(listaprocedimientos != null){
+       for(ProcedimientosEspeciales q : listaprocedimientos){
+       DetalleFactpro dfp = new DetalleFactpro();
+       dfp.setProcedimientosEspeciales(q);
+       dfp.setFacturaExamen(d.busquedaFacturaExamenId(idfact));
+       if(d.GuardarDetalleFacturaPro(dfp)==false){JOptionPane.showMessageDialog(this,"Error al guardar Detalle Procedimientos","Error",JOptionPane.ERROR_MESSAGE); break;}
+       }
+       }
+       
+        FacturaExamen fea = d.busquedaFacturaExamenId(idfact);
+        fea.setTotal(Float.parseFloat(totaltextfield.getText()));
+        fea.setPago(Float.parseFloat(pagotextfield.getText()));
+        fea.setCambio(Float.parseFloat(cambiotextfield.getText()));
+        if(d.ActualizarFacturaExamen(fea)==true){JOptionPane.showMessageDialog(this, "Factura Guardada"); Limpiar();}   
+        else{JOptionPane.showMessageDialog(this, "Error al guardar Factura revise los datos","Error",JOptionPane.ERROR_MESSAGE);}
+       }
+       }catch(NumberFormatException ee){JOptionPane.showMessageDialog(this, "Dato incorrecto en el numero de paciente, introduzca un número");}
+       
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
@@ -597,6 +608,7 @@ public class FacturaExt extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField cambiotextfield;
     private javax.swing.JLabel fechalbl;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -622,12 +634,25 @@ public class FacturaExt extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JLabel lblimage;
     private javax.swing.JLabel n0factura;
     private javax.swing.JLabel namecajero;
+    private javax.swing.JTextField pagotextfield;
+    private javax.swing.JTextField totaltextfield;
     // End of variables declaration//GEN-END:variables
+
+    private void Limpiar() {
+        FacturaExt c = new FacturaExt(s);
+       this.getDesktopPane().add(c);
+       c.setVisible(true);
+        this.dispose();
+    }
+
+    private boolean ComprobarPaciente() {
+    DAO d = new DAO(s);
+    Paciente p = d.busquedaPacienteId(Integer.parseInt(this.jTextField4.getText()));
+    if(p == null){return false;}
+    else{return true;}
+    }
 }

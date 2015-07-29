@@ -145,6 +145,16 @@ public class DAO {
         s.close();
         return null;
     }
+    
+    public static FacturaExamen busquedaFacturaExamenId(int id){
+    
+   s= sf.openSession();
+   List<FacturaExamen> listfactex = s.createQuery("from FacturaExamen").list();
+   for(FacturaExamen fe : listfactex ){
+   if(fe.getIdFacturaex()==id){s.close(); return fe;}
+   }
+   s.close(); return null;
+    }
 
     public static Especialidad busquedaEspecialidadId(int id) {
         s = sf.openSession();
@@ -415,6 +425,12 @@ public class DAO {
 
         return lstSector;
     }
+    
+    public static List<FacturaConsulta> ListarFacturaConsulta(){
+        s= sf.openSession();
+        List<FacturaConsulta>lista = s.createQuery("from FacturaConsulta").list();
+        return lista;
+    }
 //------------- Fin Metodos Listar Tablas -------------------------------------
 
 //------------- Inicio Metodos Guardar Objetos --------------------------------
@@ -665,6 +681,16 @@ public class DAO {
         return true;
     }
 
+    public static boolean ActualizarFacturaExamen(FacturaExamen fe){
+     s = sf.openSession();
+        s.beginTransaction();
+        s.update(fe);
+        s.getTransaction().commit();
+        s.close();
+        return true;
+    
+    }
+    
     public static List<FacturaExamen> ListarFacturaExamen() {
         s = sf.openSession();
         List<FacturaExamen> lista = (List<FacturaExamen>) s.createQuery("from FacturaExamen").list();
@@ -691,16 +717,17 @@ public class DAO {
      }
      */
 
-    public static boolean GuardarFacturaex(FacturaExamen fex) {
+    public static int GuardarFacturaex(FacturaExamen fex) {
         try {
             s = sf.openSession();
+            int id =-1;
             Transaction t = s.beginTransaction();
-            s.save(fex);//Retorna el ID con el que guardo            
+            id = (int) s.save(fex);//Retorna el ID con el que guardo            
             t.commit();
-            return true;
+            return id;
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-            return false;
+        return -1;
         }
     }
 
@@ -716,8 +743,8 @@ public class DAO {
             return false;
         }
     }
-    /*
-     public static boolean GuardarDetalleFactura(DetalleFactura ex) {
+    
+     public static boolean GuardarDetalleFacturaEx(DetalleFacturaEx ex) {
      try {
      s = sf.openSession();
      Transaction t = s.beginTransaction();
@@ -729,7 +756,7 @@ public class DAO {
      return false;
      }
      }
-     */
+     
 
     public static boolean BorrarExamen(String nombre) {
         try {

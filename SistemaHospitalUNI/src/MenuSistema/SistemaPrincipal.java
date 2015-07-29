@@ -488,12 +488,14 @@ public class SistemaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        // TODO add your handling code here:
+//         TODO add your handling code here:
         AsignacionPermisos asignacion = new AsignacionPermisos(sf,this);
         if (activo(asignacion)) {
             this.jDesktopPane1.add(asignacion);
             asignacion.setVisible(true);
         }
+        
+        
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     /**

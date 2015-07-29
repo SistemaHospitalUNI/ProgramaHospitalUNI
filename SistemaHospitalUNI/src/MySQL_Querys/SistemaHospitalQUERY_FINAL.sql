@@ -1,4 +1,4 @@
-Create Database SistemaHospital;
+create Database SistemaHospital;
 /*
 Drop Database SistemaHospital;
 */
@@ -25,7 +25,8 @@ Create Table Paciente(
     apellido varchar(50)not null,
     telefono varchar(15)not null,
     direccion varchar(200)not null,
-    check(telefono like '2''[0-9]''[0-9]''[0-9]''[0-9]''[0-9]''[0-9]')
+    check(telefono like '2''[0-9]''[0-9]''[0-9]''[0-9]''[0-9]''[0-9]'),
+    estado boolean not null
 );
 
 Create Table Padecimiento_AM(
@@ -137,11 +138,13 @@ Create Table FacturaExamen(
     foreign key(id_paciente)references Paciente(id_paciente),
     id_cajero int not null,
     foreign key (id_cajero)references Cajero(id_cajero),
-    horas time not null,
-    total float not null
+    fecha datetime not null,
+    total float not null,
+    pago float not null,
+    cambio float not null
 );
 
-Create Table Detalle_Factura(
+Create Table Detalle_FacturaEx(
 	id_detallefact int primary key auto_increment not null,
     id_examen int not null,
     id_facturaex int not null,
@@ -149,23 +152,7 @@ Create Table Detalle_Factura(
     foreign key(id_facturaex)references FacturaExamen(id_facturaex)
 );
 
-Create Table Factura_procedimiento(
-	id_factpro int primary key auto_increment not null,
-    id_cajero int not null,
-    foreign key(id_cajero)references Cajero(id_cajero),
-    id_paciente int not null,
-    foreign key(id_paciente)references Paciente(id_paciente),
-    fecha date not null,
-    total float not null
-);
 
-Create Table FacturaConsulta(
-	id_factura int primary key auto_increment not null,
-    id_cajero int not null,
-    foreign key(id_cajero)references Cajero(id_cajero),
-    horas time not null,
-    precio float not null
-);
 
 Create Table ProcedimientosEspeciales(
 	id_proc int primary key auto_increment not null,
@@ -177,7 +164,7 @@ Create Table ProcedimientosEspeciales(
 Create Table Detalle_factpro(
 	id_detfactpro int primary key auto_increment not null,
     id_fact int not null,
-    foreign key (id_fact)references Factura_procedimiento(id_factpro),
+    foreign key (id_fact)references FacturaExamen(id_facturaex),
     id_proc int not null,
     foreign key(id_proc) references ProcedimientosEspeciales(id_proc)
 );
@@ -186,6 +173,19 @@ Create Table Consulta(
 	id_consulta int primary key auto_increment not null,
     descripcion varchar(200)not null,
     precio float
+);
+
+
+Create Table FacturaConsulta(
+	id_factura int primary key auto_increment not null,
+    id_cajero int not null,
+    id_consulta int not null unique,
+    foreign key (id_consulta) references Consulta(id_consulta),
+    foreign key(id_cajero)references Cajero(id_cajero),
+    fecha time not null,
+    total float not null,
+    pago float not null,
+    cambio float not null
 );
 
 Create Table Detalle_Consulta(
