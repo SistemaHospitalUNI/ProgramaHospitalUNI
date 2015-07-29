@@ -65,9 +65,11 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
     public BufferedImage imagenMedico;
     Session s;
     SessionFactory sf;
+    public Medico medicoEspecial;
 
     Date fecha;
     public boolean estado;
+    public String UsuarioNuevo;
     public static int IdModificar;
     private byte[] arregloImagenCamara;
     public static final int RET_CANCEL = 0;
@@ -339,11 +341,11 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE))
+                .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblImagen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+            .addComponent(lblImagen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jButton3.setText("Tomar Fotografia");
@@ -448,28 +450,30 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
                                     .addComponent(cmbEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(chkEditarMedico)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGap(12, 12, 12)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(228, 228, 228)
-                                        .addComponent(cmbId, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(152, 152, 152)
-                                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 3, Short.MAX_VALUE)))))
-                .addGap(18, 18, 18))
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addGap(228, 228, 228)
+                                                .addComponent(cmbId, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                                                .addGap(152, 152, 152)
+                                                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)))
+                                        .addGap(31, 31, 31))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(chkEditarMedico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addGap(6, 6, 6))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -517,7 +521,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
                             .addComponent(cmbInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton3)
@@ -526,9 +530,9 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnRegistrar)
-                            .addComponent(chkEditarMedico))))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                            .addComponent(chkEditarMedico))
+                        .addGap(15, 15, 15)))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(cmbId, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -574,7 +578,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         }
     }
 
-    private int idMedico, idEspecialidad, idDiaMedico, idHorarioMedico;
+    private int idMedico, idEspecialidad, idDiaMedico, idHorarioMedico,idEspecial,idModificarMedicoViejo;
 
     public void ObtenerEspecialidad() {
         int n = cmbEspecialidad.getSelectedIndex();
@@ -613,6 +617,19 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         MostrarHorarioActualizado(dMedico.getIdDiaMedico());
     }
 
+    public void ActualizarMedico(int idMedico) {
+        UsuarioNuevo = txtUsuario.getText();
+        DAO d = new DAO(sf);
+        int flag = DAO.ActualizarMedico(UsuarioNuevo, medicoEspecial,txtContraseña.getText());
+        if (flag==1) {
+            System.out.println("MEDICO: " + idMedico);
+        }else{
+            System.out.println("MEDICO NO ACTUALIZADO!!!");
+        }
+        
+       // GuardarDias(idMedico);
+    }
+
     public void GuardarMedico(int idEspecial) {
         if (cmbEstado.getSelectedItem().toString().equals("Activo")) {
             estado = true;
@@ -644,10 +661,12 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
                 if (medico.getEspecialidad().getNombreEspecialidad().equals(cmbEspecialidad.getItemAt(i))) {
                     System.out.println("ESPECIALIDAD: " + cmbEspecialidad.getItemAt(i).toString());
                     cmbEspecialidad.setSelectedIndex(i);
-                    s.close();
+                    idEspecial = medico.getEspecialidad().getIdEspecialidad();
                 }
             }
             if (medico.getIdMedico().equals(IdModificar)) {
+                medicoEspecial = medico;
+                idModificarMedicoViejo = medico.getIdMedico();
                 txtNombre.setText(medico.getPrimernombre());
                 txtSNombre.setText(medico.getSegundonombre());
                 txtApellido.setText(medico.getPrimerapellido());
@@ -678,6 +697,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
                     }
                 }
                 txtContraseña.setText(title);
+                s.close();
             }
         }
     }
@@ -768,6 +788,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Seleccione una Especialidad", "Error de Especialidad", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
+        
         if (txtUsuario.equals("")) {
             JOptionPane.showInternalMessageDialog(this, "El nombre de usuario no puede dejarse vacio", "Ventana de Notificación", JOptionPane.ERROR_MESSAGE);
             return;
@@ -777,13 +798,14 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
             return;
         }
         if (chkEditarMedico.isSelected()) {
-
+            ActualizarMedico(idModificarMedicoViejo);
         } else {
             ObtenerEspecialidad();
             //GuardarMedico();
             // GuardarDias();
             // GuardarHorario();
         }
+        this.dispose();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void chkEditarMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkEditarMedicoActionPerformed

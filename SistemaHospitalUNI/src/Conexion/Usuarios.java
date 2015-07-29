@@ -24,6 +24,29 @@ public class Usuarios {
         this.sf = sf;
     }
 
+    public static boolean ActualizarUsuario(String nombreUsuarioNuevo, String nombreUsuario, String password) {
+        try {
+            s = sf.openSession();
+            Transaction t = s.beginTransaction();
+            String query2 = "RENAME USER '" + nombreUsuario + "'@localhost TO '" + nombreUsuarioNuevo + "'@localhost;";
+            String query = "UPDATE mysql.user SET Password=PASSWORD('" + password + "')" + "Where User='" + nombreUsuario + "' AND Host='localhost';";
+            Query q2 = s.createSQLQuery(query2);
+            q2.executeUpdate();
+            
+            System.out.println("" + query);
+            Query q = s.createSQLQuery(query);
+            q.executeUpdate();
+            t.commit();
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage() + " CAUSA: " + e.getCause());
+            return false;
+        } finally {
+            s.close();
+        }
+
+        return true;
+    }
+
     public static boolean CrearUsuario(String nombreUsuario, String password) {
         try {
             s = sf.openSession();

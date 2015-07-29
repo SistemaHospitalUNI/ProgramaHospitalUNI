@@ -598,6 +598,32 @@ public class DAO {
 
     }
 
+    public static int ActualizarMedico(String usuarioNuevo, Medico medico, String pass) {
+        int flag;
+        valid = Usuarios.ActualizarUsuario(usuarioNuevo, medico.getUsuario(), pass);
+        if (!valid) {
+            System.out.println("USUARIO NO ACTUALIZADO!");
+        }
+        System.out.println("USUARIO ACTUALIZADO!");
+
+        if (medico.getUsuario().equals(usuarioNuevo)) {
+            System.out.println("NOMBRE USUARIO REPETIDO!");
+            medico.setUsuario(usuarioNuevo);
+        }
+        try {
+            s = sf.openSession();
+            s.beginTransaction();
+            s.update(medico);
+            s.getTransaction().commit();
+            flag=1;
+            s.close();
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage() + "  CAUSA: " + ex.getCause());
+            flag =-1;
+        }
+        return flag;
+    }
+
     public static boolean ActualizarEspecialidad(int id, String nombre, String descripcion) {
         s = sf.openSession();
         Especialidad especialidad = new Especialidad();
