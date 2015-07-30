@@ -305,6 +305,26 @@
             </Property>
           </Properties>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenuUsuarios">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Usuarios"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemVerusuariosmedicos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ver usuarios medicos"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemVerusuariosmedicosActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemVerUsuarios">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ver Usuarios"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
         <Menu class="javax.swing.JMenu" name="menuUsuario">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">

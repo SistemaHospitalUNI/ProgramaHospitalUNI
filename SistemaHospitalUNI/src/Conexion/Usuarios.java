@@ -24,7 +24,7 @@ public class Usuarios {
         this.sf = sf;
     }
 
-    public static boolean ActualizarUsuario(String nombreUsuarioNuevo, String nombreUsuario, String password) {
+    public static boolean ActualizarUsuario(String nombreUsuarioNuevo,String nombreUsuario, String password) {
         try {
             s = sf.openSession();
             Transaction t = s.beginTransaction();
@@ -32,6 +32,28 @@ public class Usuarios {
             String query = "UPDATE mysql.user SET Password=PASSWORD('" + password + "')" + "Where User='" + nombreUsuario + "' AND Host='localhost';";
             Query q2 = s.createSQLQuery(query2);
             q2.executeUpdate();
+            
+            System.out.println("" + query);
+            Query q = s.createSQLQuery(query);
+            q.executeUpdate();
+            t.commit();
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage() + " CAUSA: " + e.getCause());
+            return false;
+        } finally {
+            s.close();
+        }
+
+        return true;
+    }
+public static boolean ActualizarUsuarioCajero(String nombreUsuario, String password) {
+        try {
+            s = sf.openSession();
+            Transaction t = s.beginTransaction();
+//            String query2 = "RENAME USER '" + nombreUsuario + "'@localhost TO '" + nombreUsuarioNuevo + "'@localhost;";
+            String query = "UPDATE mysql.user SET Password=PASSWORD('" + password + "')" + "Where User='" + nombreUsuario + "' AND Host='localhost';";
+//            Query q2 = s.createSQLQuery(query2);
+//            q2.executeUpdate();
             
             System.out.println("" + query);
             Query q = s.createSQLQuery(query);
@@ -92,7 +114,7 @@ public class Usuarios {
         try {
             s = sf.openSession();
             Transaction t = s.beginTransaction();
-
+            
             String query = "grant select,insert,update on SistemaHospital.Cajero to '" + usuario + "'@'localhost';";
             String query2 = "grant select,insert,update on SistemaHospital.CatalogoExamen to '" + usuario + "'@'localhost';";
             String query4 = "grant insert,select on SistemaHospital.Cita to '" + usuario + "'@'localhost';";
@@ -244,6 +266,73 @@ public class Usuarios {
 
             q = s.createSQLQuery(query19);
             q.executeUpdate();
+            t.commit();
+
+        } catch (Exception e) {
+
+            return false;
+        } finally {
+            s.close();
+        }
+
+        return true;
+
+    }
+  
+        public static boolean CrearUsuarioCajero(String usuario, String password) {
+        try {
+            s = sf.openSession();
+            String user = "ca"+usuario;
+            Transaction t = s.beginTransaction();
+            String query= "use SistemaHospital";
+            String query0 = "Create user '"+user+"' identified by '"+password+"';";
+            String query1 = "Grant select, insert, update on SistemaHospital.FacturaExamen to '" + usuario + "';";
+            String query2 = "Grant select, insert, update on SistemaHospital.FacturaConsulta to  '" + usuario + "';";
+            String query4 = "Grant select, insert, update on SistemaHospital.Detalle_factpro to '" + usuario + "';";
+            String query5 = "Grant select, insert, update on SistemaHospital.Detalle_FacturaEx to '" + usuario + "';";
+            String query6 = "Grant select on SistemaHospital.Paciente to '" + usuario + "';";
+            String query7 = "Grant select on SistemaHospital.Sector to '" + usuario + "';";
+            String query8 = "Grant select on SistemaHospital.Cajero to '" + usuario + "';";
+            String query9 = "Grant select on SistemaHospital.Catalogo_Examen to '" + usuario + "';";
+            String query10 = "Grant select on SistemaHospital.ProcedimientosEspeciales to '" + usuario + "';";
+            String query11 = "Grant select on SistemaHospital.Consulta to '" + usuario + "';";
+           
+            Query q = s.createSQLQuery(query);
+            q.executeUpdate();
+            
+            q = s.createSQLQuery(query0);
+            q.executeUpdate();
+            
+            q = s.createSQLQuery(query1);
+            q.executeUpdate();
+          
+            q = s.createSQLQuery(query2);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query4);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query5);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query6);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query7);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query8);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query9);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query10);
+            q.executeUpdate();
+
+            q = s.createSQLQuery(query11);
+            q.executeUpdate();
+
             t.commit();
 
         } catch (Exception e) {

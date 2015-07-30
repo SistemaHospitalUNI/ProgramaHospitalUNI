@@ -280,6 +280,9 @@ public class Logueo extends javax.swing.JFrame {
         return txtUsuario.getText();
     }
     
+    public static String getPass(){
+        return txtPassword.getText();
+    }
       public static void enviarMail(){
         
         try{
@@ -384,7 +387,7 @@ public class Logueo extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPasswordField txtPassword;
+    public static javax.swing.JPasswordField txtPassword;
     public static javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

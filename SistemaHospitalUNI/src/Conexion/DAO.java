@@ -464,14 +464,15 @@ public class DAO {
 
     }
 
-    public static boolean GuardarCajero(Cajero cajero) {
+    public static int GuardarCajero(Cajero cajero) {
         cajero.setEstado(true);
+      int id = -1;
         s = sf.openSession();
         s.beginTransaction();
-        s.save(cajero);
+      id = (int) s.save(cajero);
         s.getTransaction().commit();
         s.close();
-        return true;
+        return id;
     }
     /*
      public static boolean GuardarCita(int idMedico, int idPaciente, String fecha, String hora, String estado) {

@@ -81,6 +81,9 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
+        jMenuUsuarios = new javax.swing.JMenu();
+        jMenuItemVerusuariosmedicos = new javax.swing.JMenuItem();
+        jMenuItemVerUsuarios = new javax.swing.JMenuItem();
         menuUsuario = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -300,6 +303,21 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenu3.setMargin(new java.awt.Insets(0, 40, 0, 0));
         jMenuBar1.add(jMenu3);
 
+        jMenuUsuarios.setText("Usuarios");
+
+        jMenuItemVerusuariosmedicos.setText("Ver usuarios medicos");
+        jMenuItemVerusuariosmedicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemVerusuariosmedicosActionPerformed(evt);
+            }
+        });
+        jMenuUsuarios.add(jMenuItemVerusuariosmedicos);
+
+        jMenuItemVerUsuarios.setText("Ver Usuarios");
+        jMenuUsuarios.add(jMenuItemVerUsuarios);
+
+        jMenuBar1.add(jMenuUsuarios);
+
         menuUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436182236_preferences-contact-list.png"))); // NOI18N
         menuUsuario.setText("   Usuario");
         menuUsuario.setMargin(new java.awt.Insets(0, 20, 0, 0));
@@ -489,14 +507,23 @@ public class SistemaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
 //         TODO add your handling code here:
+       
+        ConfiguracionUsuario cu = new ConfiguracionUsuario(sf);
+        if(activo(cu)){
+        this.jDesktopPane1.add(cu);
+        cu.setVisible(true);
+        }
+        
+        
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItemVerusuariosmedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerusuariosmedicosActionPerformed
         AsignacionPermisos asignacion = new AsignacionPermisos(sf,this);
         if (activo(asignacion)) {
             this.jDesktopPane1.add(asignacion);
             asignacion.setVisible(true);
         }
-        
-        
-    }//GEN-LAST:event_jMenuItem9ActionPerformed
+    }//GEN-LAST:event_jMenuItemVerusuariosmedicosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -548,6 +575,9 @@ public class SistemaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenuItem jMenuItemVerUsuarios;
+    private javax.swing.JMenuItem jMenuItemVerusuariosmedicos;
+    private javax.swing.JMenu jMenuUsuarios;
     private javax.swing.JMenuItem menuAgregarEnfermedad;
     private javax.swing.JMenu menuAlergia;
     private javax.swing.JMenu menuCajero;

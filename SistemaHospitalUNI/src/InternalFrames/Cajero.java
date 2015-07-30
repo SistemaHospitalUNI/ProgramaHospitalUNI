@@ -7,6 +7,7 @@ package InternalFrames;
 
 import Camara.Camara;
 import Conexion.DAO;
+import Conexion.Usuarios;
 import static Decoracion.CentrarInternal.Centrar;
 import Decoracion.RedimensionarImagen;
 import MenuSistema.SistemaPrincipal;
@@ -613,7 +614,9 @@ public class Cajero extends javax.swing.JInternalFrame {
       c.setEstadocivil(this.jComboBox1.getSelectedItem().toString());
       c.setFoto(arregloImagenCamara);
       DAO d = new DAO(sf);
-     if(d.GuardarCajero(c)==true){JOptionPane.showMessageDialog(this, "Registro Guardado");
+      int id = d.GuardarCajero(c);
+      if(id!=-1){JOptionPane.showMessageDialog(this, "Registro Guardado");
+     CrearUsuario(String.valueOf(id),c.getNombre());
      LlenarActivos();
      this.jTextField1.setText("");
      this.jTextField2.setText("");
@@ -886,4 +889,16 @@ try{
     private javax.swing.JTextField jTextField4;
     public javax.swing.JLabel lblImagen;
     // End of variables declaration//GEN-END:variables
+
+    private void CrearUsuario(String id, String nombre) {
+   try{
+   
+   String usuario = nombre.substring(0,3)+id;
+   String pass = "12345";
+   Usuarios us = new Usuarios(sf);
+   us.CrearUsuarioCajero(usuario,pass);
+   }catch(Exception ee){System.out.println(ee.getMessage());}     
+    }
+
+    
 }
