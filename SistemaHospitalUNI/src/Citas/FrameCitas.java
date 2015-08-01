@@ -7,6 +7,7 @@ package Citas;
 
 import Conexion.DAO;
 import Decoracion.RangeEvaluator;
+import static Medicos.FrameMedicos.IdModificar;
 import Pojo.DiasMedico;
 import Pojo.Especialidad;
 import Pojo.HorarioMedico;
@@ -14,6 +15,7 @@ import Pojo.Medico;
 import Pojo.Paciente;
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.ParseException;
@@ -22,6 +24,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Session;
@@ -48,15 +53,14 @@ public class FrameCitas extends javax.swing.JInternalFrame {
 
     RangeEvaluator evaluator = new RangeEvaluator();
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-    Date date = new Date();
+    Date hoy = new Date();
     String[] horas = {"1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"};
     int idEspecialidad, idMedicos, diferencia, horaInicioC, horaFinalC;
     String horaInicios, horaFinals, tiempoDia;
 
-    public FrameCitas(SessionFactory sf) {
-        jCalendario.setDate(date);
-        this.fechas = jCalendario.getDate();
+    public FrameCitas(SessionFactory sf) throws ParseException {
         initComponents();
+        hoy = new Date();
         InicializarTabla();
         llenartabla();
         cmbEspecialidad.setSelectedIndex(0);
@@ -64,21 +68,37 @@ public class FrameCitas extends javax.swing.JInternalFrame {
         cmbPacientes.setSelectedIndex(0);
         this.sf = sf;
     }
-    
-    Date fechas;
-    JDateChooser seleccionFecha = new JDateChooser(fechas);
-    
-    
-    public void InstanciarDateTime() throws ParseException {
-        evaluator.setStartDate(dateFormat.parse(date.toString()));
-        evaluator.setEndDate(dateFormat.parse("31-12-2036"));
-        RangeEvaluator re = new RangeEvaluator();
-        JCalendar jc = new JCalendar();
-        jc.getDayChooser().addDateEvaluator(re);
-        jCalendario.setDate(Calendar.getInstance().getTime());
-        jCalendario.getDayChooser().addDateEvaluator(evaluator);
+
+    public void FechaLoading() {
+        try {
+            Calendar min = Calendar.getInstance();
+            min.add(Calendar.DAY_OF_MONTH, 15);
+            Calendar max = Calendar.getInstance();
+            max.add(Calendar.DAY_OF_MONTH, 2000000);
+            RangeEvaluator re = new RangeEvaluator();
+            re.setMinSelectableDate(min.getTime());
+            re.setMaxSelectableDate(max.getTime());
+// JCalendar jc = new JCalendar();
+
+            jCalendario.setMinSelectableDate(re.getMinSelectableDate());
+            jCalendario.setMaxSelectableDate(re.getMaxSelectableDate());
+        } catch (Exception ex) {
+            System.out.println("ERROR: " + ex.getMessage() + " CAUSA: " + ex.getCause());
+        }
     }
 
+    Date fechas;
+    JDateChooser seleccionFecha = new JDateChooser(fechas);
+
+    /*public void InstanciarDateTime() throws ParseException {
+     evaluator.setStartDate(dateFormat.parse(date.toString()));
+     evaluator.setEndDate(dateFormat.parse("31-12-2036"));
+     RangeEvaluator re = new RangeEvaluator();
+     JCalendar jc = new JCalendar();
+     jc.getDayChooser().addDateEvaluator(re);
+     jCalendario.setDate(Calendar.getInstance().getTime());
+     jCalendario.getDayChooser().addDateEvaluator(evaluator);
+     }*/
     public void llenarComboCitas() {
         DAO d = new DAO(sf);
         List<Especialidad> lstEspecialidades = DAO.Listar_Especialidades();
@@ -117,8 +137,8 @@ public class FrameCitas extends javax.swing.JInternalFrame {
         for (Medico medicos : lstMedico) {
             if (medicos.getEspecialidad().getIdEspecialidad().equals(idEspecialidad)) {
                 cmbID.addItem(medicos.getIdMedico());
-                cmbMedico.addItem(medicos.getPrimernombre()+" "+medicos.getSegundonombre()+" "+
-                        medicos.getPrimerapellido()+" "+medicos.getSegundoapellido());
+                cmbMedico.addItem(medicos.getPrimernombre() + " " + medicos.getSegundonombre() + " "
+                        + medicos.getPrimerapellido() + " " + medicos.getSegundoapellido());
             }
         }
     }
@@ -131,6 +151,12 @@ public class FrameCitas extends javax.swing.JInternalFrame {
             cmbPacientes.addItem(p.getNombre() + " " + p.getApellido());
             s.close();
         }
+    }
+    int idPacienteGuardar;
+    public void ObtenerPacienteSeleccionado(int idPaciente){
+        DAO d = new DAO(sf);
+        Paciente paci = DAO.busquedaPacienteId(idPaciente);
+        idPacienteGuardar=paci.getIdPaciente();
     }
 
     public void InicializarTabla() {
@@ -147,17 +173,17 @@ public class FrameCitas extends javax.swing.JInternalFrame {
     }
 
     public void ObtenerNombreMedico(String nombre) {
-       
+
 //        String n = cmbMedico.getSelectedItem().toString();
 //        DAO d = new DAO(sf);
 //        idMedicos = DAO.busquedaMedicoNombre(n).getIdMedico();
 //        System.out.println("Medico: " + idMedicos);
         int index = cmbMedico.getSelectedIndex();
-        if(index>0){
-        idMedicos = (int) cmbID.getItemAt(index);
-        ListarHorarioMedicoUnico(idMedicos);
+        if (index > 0) {
+            idMedicos = (int) cmbID.getItemAt(index);
+            ListarHorarioMedicoUnico(idMedicos);
         }
-        
+
     }
 
     public void LimpiarComboBox() {
@@ -385,6 +411,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
             }
         }
     }
+    DiasMedico medicoDias;
 
     public void ListarHorarioMedicoUnico(int idDiaMedico) {
         limpiar();
@@ -394,24 +421,26 @@ public class FrameCitas extends javax.swing.JInternalFrame {
         List<HorarioMedico> lstHorarioMedico = (List<HorarioMedico>) s.createQuery("from HorarioMedico").list();
         for (HorarioMedico hMedico : lstHorarioMedico) {
             if (hMedico.getIdHorariomedico().equals(idDiaMedico)) {
+                medicoDias = hMedico.getDiasMedico();
                 System.out.println("MEDICO: " + hMedico.getDiasMedico().getMedico().getPrimernombre() + " " + hMedico.getDiasMedico().getMedico().getPrimerapellido());
                 System.out.println("HORA: " + hMedico.getHoraEntrada() + "   " + "HORA SALIDA: " + hMedico.getHoraSalida());
                 ValidacionHoraInicio(hMedico.getHoraEntrada());
                 ValidacionHoraFinal(hMedico.getHoraSalida());
                 diferencia = horaFinalC - horaInicioC;
                 for (int i = 1; i <= diferencia; i++) {
-                    if (i >= 12) {
+                  /*  if (i >= 12) {
                         tiempoDia = "PM";
                     } else {
                         tiempoDia = "AM";
-                    }
+                    }*/
                     System.out.println("Diferencias: " + i);
-                    modelo.addRow(new Object[]{i + ":00" + tiempoDia, "Disponible"});
+                    modelo.addRow(new Object[]{i + ":00", "Disponible"});
                 }
 
             }
         }
         jTable1.setModel(modelo);
+        FechasCargadas();
     }
 
     /**
@@ -435,6 +464,8 @@ public class FrameCitas extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         cmbID = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
+        cmbEstadoCita = new javax.swing.JComboBox();
 
         setClosable(true);
         setIconifiable(true);
@@ -482,6 +513,12 @@ public class FrameCitas extends javax.swing.JInternalFrame {
             }
         });
 
+        jCalendario.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jCalendarioPropertyChange(evt);
+            }
+        });
+
         jTable1.setBackground(new java.awt.Color(252, 191, 191));
         jTable1.setFont(new java.awt.Font("Ubuntu", 3, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -492,9 +529,19 @@ public class FrameCitas extends javax.swing.JInternalFrame {
                 "Tiempo", "Disponibilidad"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Realizar Cita");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancelar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -505,6 +552,10 @@ public class FrameCitas extends javax.swing.JInternalFrame {
 
         cmbID.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ID" }));
 
+        jLabel4.setText("Estado de la Cita:");
+
+        cmbEstadoCita.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Activo", "Inactivo" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -513,28 +564,34 @@ public class FrameCitas extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(95, 95, 95)
-                        .addComponent(cmbID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addGap(507, 507, 507))
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(342, 342, 342))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jCalendario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
-                                .addGap(50, 50, 50)
+                                    .addComponent(jLabel2)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(190, 190, 190)
+                                        .addComponent(cmbID, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel4))
+                                .addGap(20, 20, 20)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cmbPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cmbEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cmbMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jCalendario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(15, 15, 15)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                                    .addComponent(cmbPacientes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cmbEspecialidad, 0, 459, Short.MAX_VALUE)
+                                    .addComponent(cmbMedico, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(cmbEstadoCita, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addGap(15, 15, 15)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -554,14 +611,22 @@ public class FrameCitas extends javax.swing.JInternalFrame {
                             .addComponent(jLabel3)
                             .addComponent(cmbMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(cmbEstadoCita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)
                         .addComponent(jCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(cmbID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbID, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         pack();
@@ -574,8 +639,9 @@ public class FrameCitas extends javax.swing.JInternalFrame {
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         // TODO add your handling code here:
-       // llenarComboCitas();
-       // llenarComboPacientes();
+        jCalendario.setMinSelectableDate(hoy);
+        llenarComboCitas();
+        llenarComboPacientes();
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void cmbEspecialidadItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEspecialidadItemStateChanged
@@ -591,14 +657,106 @@ public class FrameCitas extends javax.swing.JInternalFrame {
         //ListarMedicoDia(idMedicos);
 
         System.out.println("cmb " + cmbMedico.getSelectedItem());
-        
+
         ObtenerNombreMedico(String.valueOf(cmbMedico.getSelectedItem()));
-        
+
     }//GEN-LAST:event_cmbMedicoItemStateChanged
+
+    int lunes, martes, miercoles, jueves, viernes, sabado, domingo;
+
+    public void FechasCargadas() {
+        if (medicoDias.isLunes()) {
+            lunes = 2;
+        }
+        if (medicoDias.isMartes()) {
+            martes = 3;
+        }
+        if (medicoDias.isMiercoles()) {
+            miercoles = 4;
+        }
+        if (medicoDias.isJueves()) {
+            jueves = 5;
+        }
+        if (medicoDias.isViernes()) {
+            viernes = 6;
+        }
+        if (medicoDias.isSabado()) {
+            sabado = 7;
+        }
+        if (medicoDias.isDomingo()) {
+            domingo = 1;
+        }
+
+    }
+    
+    Date selectedDate;
+    Calendar today;
+    
+    private void jCalendarioPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarioPropertyChange
+        // TODO add your handling code here:
+        today = Calendar.getInstance();
+        selectedDate = ((JCalendar) evt.getSource()).getDate();
+        today.setTime(selectedDate);
+        if (today.get(Calendar.DAY_OF_WEEK) == lunes || today.get(Calendar.DAY_OF_WEEK) == martes || today.get(Calendar.DAY_OF_WEEK) == miercoles || today.get(Calendar.DAY_OF_WEEK) == jueves || today.get(Calendar.DAY_OF_WEEK) == viernes || today.get(Calendar.DAY_OF_WEEK) == sabado || today.get(Calendar.DAY_OF_WEEK) == domingo) {
+
+        } else {
+            System.out.println("Dia Indispuesto");
+        }
+
+        System.out.println("FECHA: " + today.get(Calendar.DAY_OF_WEEK));
+        /*Domingo =1, Lunes=2, Martes=3, Miercoles=4, Jueves=5, Viernes=6, Sabado=7*/
+    }//GEN-LAST:event_jCalendarioPropertyChange
+
+    String HoraCita="";
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        int fila = this.jTable1.getSelectedRow();
+        HoraCita = jTable1.getValueAt(fila, 0).toString();
+    }//GEN-LAST:event_jTable1MouseClicked
+    Medico medico;
+    Paciente paciente;
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        ObtenerPacienteSeleccionado(cmbPacientes.getSelectedIndex());
+        Date fecha = today.getTime();
+        SimpleDateFormat sdfr = new SimpleDateFormat("dd/MMM/yyyy");
+        boolean Estado = true;
+        if (cmbEstadoCita.getSelectedItem().toString().equals("Activo")) {
+            Estado = true;
+        }
+        if (cmbEstadoCita.getSelectedItem().toString().equals("Inactivo")) {
+            Estado = false;
+        }
+
+        if (HoraCita.equals("")) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una hora de consulta", "Informacion del Sistema", JOptionPane.INFORMATION_MESSAGE);
+        } else if (today.get(Calendar.DAY_OF_WEEK) == lunes || today.get(Calendar.DAY_OF_WEEK) == martes || today.get(Calendar.DAY_OF_WEEK) == miercoles || today.get(Calendar.DAY_OF_WEEK) == jueves || today.get(Calendar.DAY_OF_WEEK) == viernes || today.get(Calendar.DAY_OF_WEEK) == sabado || today.get(Calendar.DAY_OF_WEEK) == domingo) {
+            String fechaGuardar = sdfr.format(fecha);
+            System.out.println("FECHA: " + fechaGuardar);
+            GuardarCitaMedica(fechaGuardar,HoraCita,Estado);
+        } else {
+            JOptionPane.showMessageDialog(this, "EL dia elegido " + selectedDate.toString() + "\n el medico " + "no puede trabajar", "Fecha Erronea", JOptionPane.ERROR_MESSAGE);
+        }
+
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public void GuardarCitaMedica(String fecha, String horaCita, boolean Estado) {
+        DAO df = new DAO(sf);
+        int citaGuardada;
+        citaGuardada = DAO.GuardarCita(idMedicos,idPacienteGuardar,fecha,horaCita,Estado);
+        if (citaGuardada!=-1) {
+            JOptionPane.showMessageDialog(this, "Cita Registrada","Guardado",JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(this, "Error en la cita", "Error de Codigo", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cmbEspecialidad;
+    private javax.swing.JComboBox cmbEstadoCita;
     private javax.swing.JComboBox cmbID;
     private javax.swing.JComboBox cmbMedico;
     private javax.swing.JComboBox cmbPacientes;
@@ -608,6 +766,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

@@ -23,6 +23,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -113,13 +114,14 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         }
         return bmp;
     }
-
+    List<Especialidad>listaEspecialidadModificar = new ArrayList<>();
     public void llenarCombo() {
         DAO d = new DAO(sf);
         List<Especialidad> lstEspecialidad = DAO.Listar_Especialidades();
         for (Especialidad p : lstEspecialidad) {
             s = sf.openSession();
             cmbEspecialidad.addItem(p.getNombreEspecialidad());
+            listaEspecialidadModificar.add(p);
             s.close();
         }
     }
@@ -460,9 +462,9 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
                                                 .addGap(228, 228, 228)
                                                 .addComponent(cmbId, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addGap(152, 152, 152)
-                                                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)))
+                                                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                         .addGap(31, 31, 31))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(chkEditarMedico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -578,7 +580,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         }
     }
 
-    private int idMedico, idEspecialidad, idDiaMedico, idHorarioMedico,idEspecial,idModificarMedicoViejo;
+    private int idMedico, idEspecialidad, idDiaMedico, idHorarioMedico, idEspecial, idModificarMedicoViejo;
 
     public void ObtenerEspecialidad() {
         int n = cmbEspecialidad.getSelectedIndex();
@@ -590,7 +592,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
 
     public void MostrarDiasActualizados(int idMedicos) {
         DAO df = new DAO(sf);
-        DiasMedico dMedico = new DiasMedico();
+        DiasMedico dMedico;
         dMedico = DAO.busquedaDiasMedicosId(idMedicos);
         if (dMedico.isLunes()) {
             chkLunes.setSelected(true);
@@ -617,17 +619,66 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         MostrarHorarioActualizado(dMedico.getIdDiaMedico());
     }
 
+    DiasMedico dMedico = new DiasMedico();
+
     public void ActualizarMedico(int idMedico) {
         UsuarioNuevo = txtUsuario.getText();
+        Especialidad especialidadModificada = new Especialidad();
         DAO d = new DAO(sf);
-        int flag = DAO.ActualizarMedico(UsuarioNuevo, medicoEspecial,txtContraseña.getText());
-        if (flag==1) {
-            System.out.println("MEDICO: " + idMedico);
-        }else{
-            System.out.println("MEDICO NO ACTUALIZADO!!!");
+        for (Especialidad espe: listaEspecialidadModificar) {
+            if (espe.getNombreEspecialidad().equals(cmbEspecialidad.getSelectedItem().toString())) {
+                especialidadModificada = espe;
+                break;
+            }
         }
         
-       // GuardarDias(idMedico);
+        medicoEspecial.setCedula(txtCedula.getText());
+        medicoEspecial.setEstado(estado);
+        medicoEspecial.setPrimernombre(txtNombre.getText());
+        medicoEspecial.setSegundonombre(txtSNombre.getText());
+        medicoEspecial.setPrimerapellido(txtApellido.getText());
+        medicoEspecial.setSegundoapellido(txtSApellido.getText());
+        medicoEspecial.setEspecialidad((especialidadModificada));
+        medicoEspecial.setFoto(arregloImagenCamara);
+        medicoEspecial.setDireccion(txtDireccion.getText());
+        int flag = DAO.ActualizarMedico(UsuarioNuevo, medicoEspecial, txtContraseña.getText());
+        System.out.println(flag);
+        if (flag != -1) {
+            System.out.println("MEDICO: " + idMedico);
+            ObtenerDiaMedicoActualizado(idMedico);
+        } else {
+            System.out.println("MEDICO NO ACTUALIZADO!!!");
+        }
+
+        // GuardarDias(idMedico);
+    }
+
+    public void LimpiarCampos(){
+        txtApellido.setText(null);
+        txtCedula.setText(null);
+        txtContraseña.setText(null);
+        txtDireccion.setText(null);
+        txtNombre.setText(null);
+        txtSApellido.setText(null);
+        txtSNombre.setText(null);
+        txtUsuario.setText(null);
+    }
+    
+    public void ObtenerDiaMedicoActualizado(int idMedico) {
+        DAO d = new DAO(sf);
+        dMedico = DAO.busquedaDiasMedicosId(idMedico);
+        System.out.println("DIA RELACIONADO: " + dMedico.getIdDiaMedico());
+        GuardarDiasMedicoActualizado(dMedico.getIdDiaMedico());
+
+    }
+    
+
+    public void ObtenerHorarioMedicoActualizado(int idDiaActualizado) {
+        HorarioMedico horaMedico = new HorarioMedico();
+        DAO d = new DAO(sf);
+        horaMedico = DAO.busquedaHorarioMedicoId(idDiaActualizado);
+        System.out.println("HORA RELACIONADA: " + horaMedico.getHoraEntrada() + "  HORA SALIDA:" + horaMedico.getHoraSalida());
+        HorarioMedicoActualizar(idDiaActualizado, horaMedico);
     }
 
     public void GuardarMedico(int idEspecial) {
@@ -702,6 +753,41 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         }
     }
 
+    public void GuardarDiasMedicoActualizado(int idMedicoActualizado) {
+        DAO df = new DAO(sf);
+        boolean l, m, mi, ju, vi, sa, dom;
+        l = chkLunes.isSelected();
+        dMedico.setLunes(l);
+        m = chkMartes.isSelected();
+        dMedico.setMartes(m);
+        mi = chkMiercoles.isSelected();
+        dMedico.setMiercoles(mi);
+        ju = chkJueves.isSelected();
+        dMedico.setJueves(ju);
+        vi = chkViernes.isSelected();
+        dMedico.setViernes(vi);
+        sa = chkSabado.isSelected();
+        dMedico.setSabado(sa);
+        dom = chkDomingo.isSelected();
+        dMedico.setDomingo(dom);
+        int idDiaActualizado = DAO.ActualizarDiasMedico(dMedico);
+        if (idDiaActualizado != -1) {
+            System.out.println("DIA MEDICO ACTUALIZADO: " + dMedico.getIdDiaMedico());
+            ObtenerHorarioMedicoActualizado(dMedico.getIdDiaMedico());
+        }
+    }
+
+    public void HorarioMedicoActualizar(int idDiaActualizado, HorarioMedico horasMedico) {
+        DAO df = new DAO(sf);
+        horasMedico.setHoraEntrada(cmbInicio.getSelectedItem().toString());
+        horasMedico.setHoraSalida(cmbFinal.getSelectedItem().toString());
+        idHorarioMedico = DAO.ActualizarHorasMedico(horasMedico);
+        if (idHorarioMedico != -1) {
+            JOptionPane.showMessageDialog(this, "Medico Actualizado");
+            System.out.println("Horario: " + idHorarioMedico);
+        }
+    }
+
     public void GuardarDias(int idMedicos) {
         DAO df = new DAO(sf);
         idDiaMedico = DAO.GuardarDiaMedico(idMedicos, chkLunes.isSelected(), chkMartes.isSelected(), chkMiercoles.isSelected(), chkJueves.isSelected(), chkViernes.isSelected(), chkSabado.isSelected(), chkDomingo.isSelected());
@@ -730,6 +816,8 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         DAO df = new DAO(sf);
         idHorarioMedico = DAO.GuardarHorarioMedico(idDiasMedicos, cmbInicio.getSelectedItem().toString(), cmbFinal.getSelectedItem().toString());
         System.out.println("Horario: " + idHorarioMedico);
+        JOptionPane.showMessageDialog(this, "Medico Registrado","Guardado Exitoso",JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
     }
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
@@ -767,6 +855,12 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // TODO add your handling code here:
         ValidarImagenes();
+        if (cmbEstado.getSelectedItem().toString().equals("Activo")) {
+            estado = true;
+        }
+        if (cmbEstado.getSelectedItem().toString().equals("Inactivo")) {
+            estado = false;
+        }
         if (!new ValidacionCedula().Validacion(txtCedula.getText())) {
             JOptionPane.showInternalMessageDialog(this, "Por favor ingrese un número de cédula válida", "Ventana de Notificación", JOptionPane.INFORMATION_MESSAGE);
             return;
@@ -788,7 +882,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Seleccione una Especialidad", "Error de Especialidad", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        
+
         if (txtUsuario.equals("")) {
             JOptionPane.showInternalMessageDialog(this, "El nombre de usuario no puede dejarse vacio", "Ventana de Notificación", JOptionPane.ERROR_MESSAGE);
             return;
@@ -811,10 +905,15 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
     private void chkEditarMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkEditarMedicoActionPerformed
         // TODO add your handling code here:
         if (chkEditarMedico.isSelected()) {
+            LimpiarCampos();
             btnRegistrar.setText("Modificar");
             jTable1.setEnabled(true);
             jTable1.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+            txtUsuario.setEditable(false);
+            txtUsuario.setEnabled(false);
         } else {
+            LimpiarCampos();
+            jTable1.setEnabled(false);
             btnRegistrar.setText("Registrar");
         }
     }//GEN-LAST:event_chkEditarMedicoActionPerformed

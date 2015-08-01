@@ -5,6 +5,7 @@
  */
 package MenuSistema;
 
+import Citas.FrameCitas;
 import Especialidades.FrameEspecialidades;
 import FramePrincipal.Logueo;
 import InternalFrames.*;
@@ -58,6 +59,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         menuItemEspc = new javax.swing.JMenuItem();
         menuMedico = new javax.swing.JMenu();
         menuItemAgregarMedico = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         menuHorarioMedico = new javax.swing.JMenuItem();
         menuPaciente = new javax.swing.JMenu();
         menuItemSector = new javax.swing.JMenuItem();
@@ -141,6 +143,14 @@ public class SistemaPrincipal extends javax.swing.JFrame {
             }
         });
         menuMedico.add(menuItemAgregarMedico);
+
+        jMenuItem5.setText("Citas Medicas");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        menuMedico.add(jMenuItem5);
 
         menuHorarioMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x_office_calendar.png"))); // NOI18N
         menuHorarioMedico.setText("Horario Médico");
@@ -525,6 +535,19 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItemVerusuariosmedicosActionPerformed
 
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        try {
+            // TODO add your handling code here:
+            FrameCitas citas = new FrameCitas(sf);
+            if (activo(citas)) {
+                this.jDesktopPane1.add(citas);
+                citas.setVisible(true);
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(SistemaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -574,6 +597,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem jMenuItemVerUsuarios;
     private javax.swing.JMenuItem jMenuItemVerusuariosmedicos;

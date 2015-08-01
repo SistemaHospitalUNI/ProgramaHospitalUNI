@@ -124,7 +124,7 @@ public class DAO {
         s = sf.openSession();
         List<HorarioMedico> lstHorarioMedico = (List<HorarioMedico>) s.createQuery("from HorarioMedico").list();
         for (HorarioMedico horMed : lstHorarioMedico) {
-            if (id == horMed.getIdHorariomedico()) {
+            if (id == horMed.getDiasMedico().getIdDiaMedico()) {
                 s.close();
                 return horMed;
             }
@@ -145,15 +145,19 @@ public class DAO {
         s.close();
         return null;
     }
-    
-    public static FacturaExamen busquedaFacturaExamenId(int id){
-    
-   s= sf.openSession();
-   List<FacturaExamen> listfactex = s.createQuery("from FacturaExamen").list();
-   for(FacturaExamen fe : listfactex ){
-   if(fe.getIdFacturaex()==id){s.close(); return fe;}
-   }
-   s.close(); return null;
+
+    public static FacturaExamen busquedaFacturaExamenId(int id) {
+
+        s = sf.openSession();
+        List<FacturaExamen> listfactex = s.createQuery("from FacturaExamen").list();
+        for (FacturaExamen fe : listfactex) {
+            if (fe.getIdFacturaex() == id) {
+                s.close();
+                return fe;
+            }
+        }
+        s.close();
+        return null;
     }
 
     public static Especialidad busquedaEspecialidadId(int id) {
@@ -173,7 +177,7 @@ public class DAO {
         s = sf.openSession();
         List<Especialidad> lstEspecialidades = (List<Especialidad>) s.createQuery("from Especialidad").list();
         for (Especialidad esp : lstEspecialidades) {
-            if (nombre == esp.getNombreEspecialidad()) {
+            if (nombre.equals(esp.getNombreEspecialidad())) {
                 s.close();
                 return esp;
             }
@@ -422,13 +426,14 @@ public class DAO {
     public static List<Sector> Listar_Sectores() {
         s = sf.openSession();
         List<Sector> lstSector = (List<Sector>) s.createQuery("from Sector").list();
-
+        s.close();
         return lstSector;
     }
-    
-    public static List<FacturaConsulta> ListarFacturaConsulta(){
-        s= sf.openSession();
-        List<FacturaConsulta>lista = s.createQuery("from FacturaConsulta").list();
+
+    public static List<FacturaConsulta> ListarFacturaConsulta() {
+        s = sf.openSession();
+        List<FacturaConsulta> lista = s.createQuery("from FacturaConsulta").list();
+        s.close();
         return lista;
     }
 //------------- Fin Metodos Listar Tablas -------------------------------------
@@ -459,6 +464,7 @@ public class DAO {
             s.close();
             return flag;
         } catch (Exception ex) {
+            s.close();
             return -1;
         }
 
@@ -466,30 +472,35 @@ public class DAO {
 
     public static int GuardarCajero(Cajero cajero) {
         cajero.setEstado(true);
-      int id = -1;
+        int id = -1;
         s = sf.openSession();
         s.beginTransaction();
-      id = (int) s.save(cajero);
+        id = (int) s.save(cajero);
         s.getTransaction().commit();
         s.close();
         return id;
     }
-    /*
-     public static boolean GuardarCita(int idMedico, int idPaciente, String fecha, String hora, String estado) {
-     s = sf.openSession();
-     Cita cita = new Cita();
-     cita.setMedico((Medico) s.get(Medico.class, idMedico));
-     cita.setPaciente((Paciente) s.get(Paciente.class, idPaciente));
-     cita.setFecha(java.sql.Date.valueOf(fecha));
-     cita.setHora(java.sql.Time.valueOf(hora));
-     cita.setEstado(estado);
-     s.beginTransaction();
-     s.save(cita);
-     s.getTransaction().commit();
-     s.close();
-     return true;
-     }
-     */
+
+    public static int GuardarCita(int idMedico, int idPaciente, String fecha, String hora, boolean estado) {
+        try {
+            s = sf.openSession();
+            Cita cita = new Cita();
+            cita.setMedico((Medico) s.get(Medico.class, idMedico));
+            cita.setPaciente((Paciente) s.get(Paciente.class, idPaciente));
+            cita.setFecha(java.sql.Date.valueOf(fecha));
+            cita.setHora(java.sql.Time.valueOf(hora));
+            cita.setEstado(estado);
+            s.beginTransaction();
+            s.save(cita);
+            s.getTransaction().commit();
+            s.close();
+            return 1;
+        } catch (Exception ex) {
+            System.out.println("ERROR: " + ex.getMessage() + " CAUSA: " + ex.getCause());
+            s.close();
+            return -1;
+        }
+    }
 
     public static int guardarSector(String barrio, String distrito) {
         try {
@@ -502,9 +513,11 @@ public class DAO {
             ss = (int) s.save(sector);//Retorna el ID con el que guardo            
             t.commit();
             // return true;
+            s.close();
             return ss;// ss contiene el ID del objeto que se guarda en la base de datos
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
+            s.close();
             return -1;
         }
     }
@@ -520,9 +533,11 @@ public class DAO {
             horarioMedico.setHoraSalida(horaFinal);
             flag = (int) s.save(horarioMedico);//Retorna el ID con el que guardo            
             t.commit();
+            s.close();
             return flag;
         } catch (Exception ex) {
             System.out.println(ex.getMessage() + " CAUSA: " + ex.getCause());
+            s.close();
             return -1;
         }
     }
@@ -543,9 +558,11 @@ public class DAO {
             diasMedico.setDomingo(Domingo);
             id = (int) s.save(diasMedico);//Retorna el ID con el que guardo            
             t.commit();
+            s.close();
             return id;
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
+            s.close();
             return -1;
         }
     }
@@ -558,9 +575,11 @@ public class DAO {
             ss = (int) s.save(c);//Retorna el ID con el que guardo            
             t.commit();
             // return true;
+            s.close();
             return ss;// ss contiene el ID del objeto que se guarda en la base de datos
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
+            s.close();
             return -1;
         }
 
@@ -573,10 +592,12 @@ public class DAO {
             Transaction t = s.beginTransaction();
             ss = (int) s.save(c);//Retorna el ID con el que guardo            
             t.commit();
+            s.close();
             // return true;
             return ss;// ss contiene el ID del objeto que se guarda en la base de datos
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
+            s.close();
             return -1;
         }
 
@@ -610,9 +631,41 @@ public class DAO {
             return bandera;
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage() + "  CAUSA: " + ex.getCause());
+            s.close();
             return -1;
         }
 
+    }
+
+    public static int ActualizarDiasMedico(DiasMedico dMedico) {
+        int flag;
+        try {
+            s.beginTransaction();
+            s.update(dMedico);
+            s.getTransaction().commit();
+            flag = 1;
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage() + "  CAUSA: " + ex.getCause() + " LUGAR: " + ex.getLocalizedMessage());
+            flag = -1;
+        }
+        s.close();
+        return flag;
+    }
+
+    public static int ActualizarHorasMedico(HorarioMedico hMedico) {
+        int flag;
+        try {
+            s = sf.openSession();
+            s.beginTransaction();
+            s.update(hMedico);
+            s.getTransaction().commit();
+            flag = 1;
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage() + "  CAUSA: " + ex.getCause());
+            flag = -1;
+        }
+        s.close();
+        return flag;
     }
 
     public static int ActualizarMedico(String usuarioNuevo, Medico medico, String pass) {
@@ -627,17 +680,19 @@ public class DAO {
             System.out.println("NOMBRE USUARIO REPETIDO!");
             medico.setUsuario(usuarioNuevo);
         }
+        medico.setUsuario(usuarioNuevo);
         try {
             s = sf.openSession();
             s.beginTransaction();
             s.update(medico);
             s.getTransaction().commit();
-            flag=1;
-            s.close();
+            flag = 1;
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage() + "  CAUSA: " + ex.getCause());
-            flag =-1;
+            s.close();
+            flag = -1;
         }
+        s.close();
         return flag;
     }
 
@@ -682,16 +737,16 @@ public class DAO {
         return true;
     }
 
-    public static boolean ActualizarFacturaExamen(FacturaExamen fe){
-     s = sf.openSession();
+    public static boolean ActualizarFacturaExamen(FacturaExamen fe) {
+        s = sf.openSession();
         s.beginTransaction();
         s.update(fe);
         s.getTransaction().commit();
         s.close();
         return true;
-    
+
     }
-    
+
     public static List<FacturaExamen> ListarFacturaExamen() {
         s = sf.openSession();
         List<FacturaExamen> lista = (List<FacturaExamen>) s.createQuery("from FacturaExamen").list();
@@ -721,14 +776,14 @@ public class DAO {
     public static int GuardarFacturaex(FacturaExamen fex) {
         try {
             s = sf.openSession();
-            int id =-1;
+            int id = -1;
             Transaction t = s.beginTransaction();
             id = (int) s.save(fex);//Retorna el ID con el que guardo            
             t.commit();
             return id;
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-        return -1;
+            return -1;
         }
     }
 
@@ -744,20 +799,19 @@ public class DAO {
             return false;
         }
     }
-    
-     public static boolean GuardarDetalleFacturaEx(DetalleFacturaEx ex) {
-     try {
-     s = sf.openSession();
-     Transaction t = s.beginTransaction();
-     s.save(ex);//Retorna el ID con el que guardo            
-     t.commit();
-     return true;
-     } catch (Exception e) {
-     System.out.println(e.getMessage());
-     return false;
-     }
-     }
-     
+
+    public static boolean GuardarDetalleFacturaEx(DetalleFacturaEx ex) {
+        try {
+            s = sf.openSession();
+            Transaction t = s.beginTransaction();
+            s.save(ex);//Retorna el ID con el que guardo            
+            t.commit();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
 
     public static boolean BorrarExamen(String nombre) {
         try {

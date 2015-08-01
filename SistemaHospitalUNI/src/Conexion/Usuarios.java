@@ -46,6 +46,7 @@ public class Usuarios {
 
         return true;
     }
+    
 public static boolean ActualizarUsuarioCajero(String nombreUsuario, String password) {
         try {
             s = sf.openSession();

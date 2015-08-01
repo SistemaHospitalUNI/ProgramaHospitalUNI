@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jul 28, 2015 10:43:47 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Jul 31, 2015 11:10:48 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="Pojo.Cajero" table="Cajero" catalog="SistemaHospital" optimistic-lock="version">
         <id name="idCajero" type="java.lang.Integer">
@@ -28,6 +28,9 @@
         </property>
         <property name="estadocivil" type="string">
             <column name="estadocivil" length="20" not-null="true" />
+        </property>
+        <property name="usuario" type="string">
+            <column name="usuario" length="25" not-null="true" />
         </property>
         <property name="estado" type="boolean">
             <column name="estado" not-null="true" />

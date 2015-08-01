@@ -9,14 +9,14 @@ package Medicos;
  *
  * @author crdzbird
  */
-public class ActualizarMedicos extends javax.swing.JInternalFrame {
+public class ListarMedicos extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form ActualizarMedicos
      */
     public int IdMedico=-1;
     
-    public ActualizarMedicos() {
+    public ListarMedicos() {
         initComponents();
     }
 
