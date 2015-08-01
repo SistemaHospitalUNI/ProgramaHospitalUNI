@@ -404,6 +404,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
         List<DiasMedico> lstDiasMedic = (List<DiasMedico>) s.createQuery("from DiasMedico").list();
         for (DiasMedico diaMedic : lstDiasMedic) {
             idMedic = diaMedic.getMedico().getIdMedico();
+            
             if (diaMedic.getIdDiaMedico().equals(idDias)) {
                 System.out.println("MEDICO: " + diaMedic.getMedico().getPrimernombre());
                 System.out.println("ID HORARIO: " + diaMedic.getHorarioMedicos().size());
@@ -413,6 +414,8 @@ public class FrameCitas extends javax.swing.JInternalFrame {
     }
     DiasMedico medicoDias;
 
+    int MedicoBuscado;
+    
     public void ListarHorarioMedicoUnico(int idDiaMedico) {
         limpiar();
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
@@ -421,6 +424,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
         List<HorarioMedico> lstHorarioMedico = (List<HorarioMedico>) s.createQuery("from HorarioMedico").list();
         for (HorarioMedico hMedico : lstHorarioMedico) {
             if (hMedico.getIdHorariomedico().equals(idDiaMedico)) {
+                MedicoBuscado = hMedico.getDiasMedico().getMedico().getIdMedico();
                 medicoDias = hMedico.getDiasMedico();
                 System.out.println("MEDICO: " + hMedico.getDiasMedico().getMedico().getPrimernombre() + " " + hMedico.getDiasMedico().getMedico().getPrimerapellido());
                 System.out.println("HORA: " + hMedico.getHoraEntrada() + "   " + "HORA SALIDA: " + hMedico.getHoraSalida());
@@ -716,11 +720,12 @@ public class FrameCitas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTable1MouseClicked
     Medico medico;
     Paciente paciente;
+    Date fecha;
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         ObtenerPacienteSeleccionado(cmbPacientes.getSelectedIndex());
-        Date fecha = today.getTime();
-        SimpleDateFormat sdfr = new SimpleDateFormat("dd/MMM/yyyy");
+        fecha = today.getTime();
+        SimpleDateFormat sdfr = new SimpleDateFormat("dd-MMM-yyyy");
         boolean Estado = true;
         if (cmbEstadoCita.getSelectedItem().toString().equals("Activo")) {
             Estado = true;
@@ -742,10 +747,15 @@ public class FrameCitas extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    public void GuardarCitaMedica(String fecha, String horaCita, boolean Estado) {
+    public void GuardarCitaMedica(String fechaGuardada, String horaCita, boolean Estado) {
         DAO df = new DAO(sf);
+        System.out.println("ID MEDICO:" + MedicoBuscado);
+        System.out.println("ID PACIENTE:" + idPacienteGuardar);
+        System.out.println("FECHA DE LA CITA:" + fechaGuardada);
+        System.out.println("HORA DE CITA:" + horaCita);
+        System.out.println("ESTADO CITA:" + Estado);
         int citaGuardada;
-        citaGuardada = DAO.GuardarCita(idMedicos,idPacienteGuardar,fecha,horaCita,Estado);
+        citaGuardada = DAO.GuardarCita(MedicoBuscado,idPacienteGuardar,fecha,fechaGuardada,horaCita,Estado);
         if (citaGuardada!=-1) {
             JOptionPane.showMessageDialog(this, "Cita Registrada","Guardado",JOptionPane.INFORMATION_MESSAGE);
         }else{

@@ -73,7 +73,6 @@ Create Table Medico(
     cedula varchar(18)unique not null,
     id_especialidad int not null,
     Usuario varchar(25)not null,
-    Contrasena varchar(25)not null,
     Direccion varchar(200)not null,
     Estado boolean not null,
     foto longblob,
@@ -85,10 +84,12 @@ Create Table Cita(
     id_medico int not null,
     id_paciente int not null,
     fecha date not null,
-    hora time not null,
+    hora timestamp not null,
     estado boolean not null,
-    foreign key (id_medico)references Medico(id_medico)
+    foreign key (id_medico)references Medico(id_medico),
+    foreign key (id_paciente)references Paciente(id_paciente)
 );
+
 Create Table DiasMedico(
 	id_diaMedico int primary key auto_increment not null,
     id_Medico int unique not null,
@@ -99,7 +100,7 @@ Create Table DiasMedico(
     Viernes boolean not null,
     Sabado boolean not null,
     Domingo boolean not null,
-    foreign key(id_medico)references Medico(id_medico)
+    foreign key(id_Medico)references Medico(id_medico)
 );
 
 Create Table HorarioMedico(
@@ -117,7 +118,6 @@ Create Table Catalogo_Examen(
     precio float not null
 );
 
-
 Create Table Cajero(
 	id_cajero int primary key auto_increment not null,
     nombre varchar(50)not null,
@@ -127,6 +127,7 @@ Create Table Cajero(
     telefono varchar(8) not null,
     correo varchar(50) not null,
     estadocivil varchar(20) not null,
+    usuario varchar(25)not null,
     estado boolean not null default true,
     check (cedula like '[0-9]''[0-9]''[0-9]''-''[0-9]''[0-9]''[0-9]''[0-9]''[0-9]''[0-9]''-''[0-9]''[0-9]''[0-9]''[0-9]''[A-Z]'),
     foto longblob

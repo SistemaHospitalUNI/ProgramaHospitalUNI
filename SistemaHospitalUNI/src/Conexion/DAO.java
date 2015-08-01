@@ -481,22 +481,24 @@ public class DAO {
         return id;
     }
 
-    public static int GuardarCita(int idMedico, int idPaciente, String fecha, String hora, boolean estado) {
+    public static int GuardarCita(int idMedico, int idPaciente, Date fechaO,String fecha, String hora, boolean estado) {
+        int flag;
         try {
             s = sf.openSession();
             Cita cita = new Cita();
+            
             cita.setMedico((Medico) s.get(Medico.class, idMedico));
             cita.setPaciente((Paciente) s.get(Paciente.class, idPaciente));
             cita.setFecha(java.sql.Date.valueOf(fecha));
-            cita.setHora(java.sql.Time.valueOf(hora));
+            cita.setHora(fechaO);
             cita.setEstado(estado);
             s.beginTransaction();
-            s.save(cita);
+            flag = (int)s.save(cita);
             s.getTransaction().commit();
             s.close();
-            return 1;
+            return flag;
         } catch (Exception ex) {
-            System.out.println("ERROR: " + ex.getMessage() + " CAUSA: " + ex.getCause());
+            System.out.println("ERROR: " + ex.getMessage() + " CAUSA: " + ex.getCause() + " LOCALIZACION: " + ex.getLocalizedMessage());
             s.close();
             return -1;
         }
