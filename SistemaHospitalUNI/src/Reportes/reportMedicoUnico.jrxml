@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" columnSpacing="47" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ea7a3e7d-47a0-4285-8f9c-cee31719875e">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="ParametroID" class="java.lang.Integer">
+		<parameterDescription><![CDATA[Medico ID]]></parameterDescription>
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[Select 
+m.primernombre,
+m.segundonombre,
+m.primerapellido,
+m.segundoapellido,
+m.cedula,
+m.direccion,
+hMedico.hora_entrada,
+hMedico.hora_salida,
+dMedico.Lunes,
+dMedico.Martes,
+dMedico.Miercoles,
+dMedico.Jueves,
+dMedico.Viernes,
+dMedico.Sabado,
+dMedico.Domingo,
+espe.nombreEspecialidad,
+m.Estado,
+m.foto
+from Medico as m
+inner join Especialidad as espe
+on espe.id_especialidad = m.id_especialidad
+inner join DiasMedico as dMedico
+on dMedico.id_Medico = m.id_Medico
+inner join HorarioMedico as hMedico
+on hMedico.id_diaMedico = dMedico.id_diaMedico
+Where m.id_medico = $P{ParametroID}]]>
+	</queryString>
+	<field name="primernombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="segundonombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="primerapellido" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="segundoapellido" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cedula" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="direccion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="hora_entrada" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="hora_salida" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Lunes" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Martes" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Miercoles" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Jueves" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Viernes" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Sabado" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Domingo" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombreEspecialidad" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Estado" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="foto" class="java.io.InputStream">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="2484e2c1-b3f3-4adc-8eea-b69c6322ac4b"/>
+				<staticText>
+					<reportElement x="20" y="67" width="90" height="25" forecolor="#FFFFFF" uuid="14486926-e58a-4b80-b0e3-f136168bbe4b"/>
+					<textElement>
+						<font size="11" isBold="true" isItalic="false" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Hospital UNI]]></text>
+				</staticText>
+				<image scaleImage="FillFrame">
+					<reportElement x="461" y="10" width="114" height="72" uuid="7b2795bf-f02a-47b8-86ac-d534c1682536"/>
+					<imageExpression><![CDATA[$F{foto}]]></imageExpression>
+				</image>
+				<image>
+					<reportElement x="20" y="10" width="90" height="57" uuid="9d8dc002-4477-4a1d-85e8-3978ebcf1900"/>
+					<imageExpression><![CDATA["/home/crdzbird/NetBeansProjects/GitHub/ProgramaFinal/ProgramaHospitalUNI/SistemaHospitalUNI/src/Imagenes/logo-uni.png"]]></imageExpression>
+				</image>
+				<textField>
+					<reportElement x="130" y="20" width="313" height="23" uuid="547266bd-a93c-43b8-8763-9ec47c2e767a"/>
+					<textElement textAlignment="Center">
+						<font size="18"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{primernombre} + " " + $F{segundonombre} + " " + $F{primerapellido} + " " + $F{segundoapellido}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="212" y="47" width="68" height="20" uuid="a16f2759-ea9b-414e-8434-011e15979d08"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{hora_entrada}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="212" y="67" width="68" height="20" uuid="80ae6999-4eb7-439d-a1d9-06f8bb2a5111"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{hora_salida}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="130" y="47" width="82" height="20" uuid="4f35fef3-10a0-4e96-8e6d-d3981ff2ecf6"/>
+					<text><![CDATA[Hora Entrada:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="130" y="67" width="82" height="20" uuid="1823a8fa-c248-4c1c-93a8-0cb444b18cfa"/>
+					<text><![CDATA[Hora Salida:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="365" y="62" width="90" height="20" uuid="543a42b8-bf82-4390-9bd1-0dc7b5908b4c"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nombreEspecialidad}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="292" y="62" width="73" height="20" uuid="f64dbdac-0140-40a7-87c7-5f9f93db6d61"/>
+					<text><![CDATA[Especialidad:]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="1"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Immediate">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="cdd254f1-2401-41ce-9211-0972d369615f"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="-20" y="0" width="595" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="2f38cdfb-e240-4e5b-ae53-a7086bf606e5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Horario de Trabajo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="96">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="28781a56-457e-45fd-a7bb-aa5e9cd40f09"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="73" y="20" width="76" height="20" uuid="3192ed81-0fde-4c56-a19c-663a9e86d732"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Martes}==true ? "Ocupado" : "Libre"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="150" y="20" width="92" height="20" uuid="9e0bd85b-b4f4-4e61-a7f7-0f5837b91d24"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Miercoles}==true ? "Ocupado" : "Libre"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="242" y="20" width="70" height="20" uuid="37a82c32-5911-495e-a5dd-5a246e08d751"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Jueves}==true ? "Ocupado" : "Libre"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="388" y="20" width="76" height="20" uuid="89a3f079-4176-4203-b1a6-f77292c92ada"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Sabado}==true ? "Ocupado" : "Libre"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="464" y="19" width="90" height="21" uuid="d5ec6aad-c80e-4fb3-87e8-e77672efc860"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Domingo}==true ? "Ocupado" : "Libre"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="20" width="73" height="20" uuid="0bc519f9-4225-424f-b738-0b3c0fbfad1a"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Lunes}==true ? "Ocupado" : "Libre"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="312" y="20" width="76" height="20" uuid="2fc4ddbe-13b1-4674-9f34-12a11651c465"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Viernes}==true ? "Ocupado" : "Libre"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="73" height="20" uuid="8c8a614b-2ecc-4ff5-8790-784f6a295d57"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lunes:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="464" y="0" width="90" height="20" uuid="ea7339a7-72cd-4ce7-a753-776e5fffdc1d"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Domingo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="73" y="0" width="76" height="19" uuid="8793c528-b36f-4c46-b3f3-e21d3c674f23"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Martes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="149" y="0" width="93" height="19" uuid="f506145f-e58f-461f-91c2-f4a06da98b7b"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Miercoles]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="312" y="0" width="76" height="19" uuid="7ab11a80-4769-47bc-b3e4-21592c2a06ba"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Viernes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="242" y="0" width="70" height="19" uuid="f6419d80-6062-472a-9845-4427d71da91d"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Jueves]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="388" y="0" width="76" height="19" uuid="1fe31bce-d1be-4019-a2f0-9501607ddad6"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sabado]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="38">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="25" width="515" height="13" backcolor="#E6E6E6" uuid="4a6bba79-00a7-4180-aeaf-a28b3b3f9907"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="25" width="40" height="13" backcolor="#E6E6E6" uuid="698a3695-3b74-4a40-8577-6c845b26c13a"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="25" width="100" height="13" forecolor="#010101" uuid="6e337778-d71e-47ff-b564-6b2a3036da90"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

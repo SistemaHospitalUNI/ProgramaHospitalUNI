@@ -485,16 +485,15 @@ public class DAO {
         int flag;
         try {
             s = sf.openSession();
+            Transaction t = s.beginTransaction();
             Cita cita = new Cita();
-            
             cita.setMedico((Medico) s.get(Medico.class, idMedico));
             cita.setPaciente((Paciente) s.get(Paciente.class, idPaciente));
             cita.setFecha(java.sql.Date.valueOf(fecha));
             cita.setHora(fechaO);
             cita.setEstado(estado);
-            s.beginTransaction();
             flag = (int)s.save(cita);
-            s.getTransaction().commit();
+            t.commit();
             s.close();
             return flag;
         } catch (Exception ex) {

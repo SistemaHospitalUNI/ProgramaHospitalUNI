@@ -18,6 +18,7 @@ import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyVetoException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -59,6 +60,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
     String horaInicios, horaFinals, tiempoDia;
 
     public FrameCitas(SessionFactory sf) throws ParseException {
+        
         initComponents();
         hoy = new Date();
         InicializarTabla();
@@ -113,7 +115,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
         limpiar();
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         for (int i = 0; i < horas.length; i++) {
-            modelo.addRow(new Object[]{horas[i]});
+            modelo.addRow(new Object[]{horas[i]+":00"});
         }
         jTable1.setModel(modelo);
     }
@@ -438,7 +440,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
                         tiempoDia = "AM";
                     }*/
                     System.out.println("Diferencias: " + i);
-                    modelo.addRow(new Object[]{i + ":00", "Disponible"});
+                    modelo.addRow(new Object[]{i + ":00:00", "Disponible"});
                 }
 
             }
@@ -643,6 +645,11 @@ public class FrameCitas extends javax.swing.JInternalFrame {
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         // TODO add your handling code here:
+        try {
+            setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(FrameCitas.class.getName()).log(Level.SEVERE, null, ex);
+        }
         jCalendario.setMinSelectableDate(hoy);
         llenarComboCitas();
         llenarComboPacientes();
@@ -725,7 +732,8 @@ public class FrameCitas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         ObtenerPacienteSeleccionado(cmbPacientes.getSelectedIndex());
         fecha = today.getTime();
-        SimpleDateFormat sdfr = new SimpleDateFormat("dd-MMM-yyyy");
+        //SimpleDateFormat sdfr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdfr = new SimpleDateFormat("yyyy-MM-dd");
         boolean Estado = true;
         if (cmbEstadoCita.getSelectedItem().toString().equals("Activo")) {
             Estado = true;
@@ -747,6 +755,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+//    Insert into Cita(id_medico,id_paciente,fecha,hora,estado) values(1,1,'2015-08-06','2015-08-06 11:00:00',true);
     public void GuardarCitaMedica(String fechaGuardada, String horaCita, boolean Estado) {
         DAO df = new DAO(sf);
         System.out.println("ID MEDICO:" + MedicoBuscado);

@@ -37,62 +37,6 @@ public class EleccionPermisos extends javax.swing.JInternalFrame {
         txtNombreUsuario.setText(nombreUsuario);
     }
 
-    public void SeleccionarTodo() {
-        chkAlergiaMedicamento.setSelected(true);
-        chkCajero.setSelected(true);
-        chkCatalogoExamen.setSelected(true);
-        chkCita.setSelected(true);
-        chkConsulta.setSelected(true);
-        chkDetalleConsulta.setSelected(true);
-        chkDetalleFacturaExamen.setSelected(true);
-        chkDetalleFacturaProcedimiento.setSelected(true);
-        chkDiagnostico.setSelected(true);
-        chkDiasMedico.setSelected(true);
-        chkEnfermedadCronica.setSelected(true);
-        chkEspecialidad.setSelected(true);
-        chkExamen.setSelected(true);
-        chkFacturaConsulta.setSelected(true);
-        chkFacturaExamen.setSelected(true);
-        chkHorarioMedico.setSelected(true);
-        chkMedico.setSelected(true);
-        chkPaciente.setSelected(true);
-        chkPaciente16.setSelected(true);
-        chkPadecimientoAM.setSelected(true);
-        chkPadecimientoEC.setSelected(true);
-        chkProcedimientosEspeciales.setSelected(true);
-        chkReceta.setSelected(true);
-        chkSector.setSelected(true);
-        Usuarios user = new Usuarios(sf);
-        Usuarios.AsignarPermisosAdministrador(txtNombreUsuario.getText());
-    }
-
-    public void DeseleccionarTodo() {
-        chkAlergiaMedicamento.setSelected(false);
-        chkCajero.setSelected(false);
-        chkCatalogoExamen.setSelected(false);
-        chkCita.setSelected(false);
-        chkConsulta.setSelected(false);
-        chkDetalleConsulta.setSelected(false);
-        chkDetalleFacturaExamen.setSelected(false);
-        chkDetalleFacturaProcedimiento.setSelected(false);
-        chkDiagnostico.setSelected(false);
-        chkDiasMedico.setSelected(false);
-        chkEnfermedadCronica.setSelected(false);
-        chkEspecialidad.setSelected(false);
-        chkExamen.setSelected(false);
-        chkFacturaConsulta.setSelected(false);
-        chkFacturaExamen.setSelected(false);
-        chkHorarioMedico.setSelected(false);
-        chkMedico.setSelected(false);
-        chkPaciente.setSelected(false);
-        chkPaciente16.setSelected(false);
-        chkPadecimientoAM.setSelected(false);
-        chkPadecimientoEC.setSelected(false);
-        chkProcedimientosEspeciales.setSelected(false);
-        chkReceta.setSelected(false);
-        chkSector.setSelected(false);
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -106,31 +50,6 @@ public class EleccionPermisos extends javax.swing.JInternalFrame {
         btnPermisos = new javax.swing.JButton();
         btnSecretaria = new javax.swing.JButton();
         btnPermisosTotales = new javax.swing.JToggleButton();
-        jPanel2 = new javax.swing.JPanel();
-        chkAlergiaMedicamento = new javax.swing.JCheckBox();
-        chkSector = new javax.swing.JCheckBox();
-        chkPaciente = new javax.swing.JCheckBox();
-        chkPadecimientoAM = new javax.swing.JCheckBox();
-        chkPaciente16 = new javax.swing.JCheckBox();
-        chkEnfermedadCronica = new javax.swing.JCheckBox();
-        chkPadecimientoEC = new javax.swing.JCheckBox();
-        chkEspecialidad = new javax.swing.JCheckBox();
-        chkMedico = new javax.swing.JCheckBox();
-        chkCita = new javax.swing.JCheckBox();
-        chkDiasMedico = new javax.swing.JCheckBox();
-        chkHorarioMedico = new javax.swing.JCheckBox();
-        chkCatalogoExamen = new javax.swing.JCheckBox();
-        chkCajero = new javax.swing.JCheckBox();
-        chkFacturaExamen = new javax.swing.JCheckBox();
-        chkDetalleFacturaExamen = new javax.swing.JCheckBox();
-        chkProcedimientosEspeciales = new javax.swing.JCheckBox();
-        chkDetalleFacturaProcedimiento = new javax.swing.JCheckBox();
-        chkConsulta = new javax.swing.JCheckBox();
-        chkFacturaConsulta = new javax.swing.JCheckBox();
-        chkDetalleConsulta = new javax.swing.JCheckBox();
-        chkDiagnostico = new javax.swing.JCheckBox();
-        chkExamen = new javax.swing.JCheckBox();
-        chkReceta = new javax.swing.JCheckBox();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -141,8 +60,6 @@ public class EleccionPermisos extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setMaximizable(true);
-        setResizable(true);
         setTitle("Otorgacion de Permisos");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -174,222 +91,21 @@ public class EleccionPermisos extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnPermisosTotales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(76, 76, 76)
-                .addComponent(btnPermisos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(93, 93, 93)
-                .addComponent(btnSecretaria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(btnPermisosTotales, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnPermisos, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSecretaria, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPermisos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnPermisosTotales, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
                     .addComponent(btnSecretaria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnPermisosTotales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-
-        chkAlergiaMedicamento.setText("Alergia Medicamento");
-        chkAlergiaMedicamento.setEnabled(false);
-
-        chkSector.setText("Sector");
-        chkSector.setEnabled(false);
-
-        chkPaciente.setText("Paciente");
-        chkPaciente.setEnabled(false);
-
-        chkPadecimientoAM.setText("Padecimiento AM");
-        chkPadecimientoAM.setEnabled(false);
-
-        chkPaciente16.setText("Paciente 16");
-        chkPaciente16.setEnabled(false);
-
-        chkEnfermedadCronica.setText("Enfermedad Cronica");
-        chkEnfermedadCronica.setEnabled(false);
-
-        chkPadecimientoEC.setText("Padecimiento EC");
-        chkPadecimientoEC.setEnabled(false);
-
-        chkEspecialidad.setText("Especialidad");
-        chkEspecialidad.setEnabled(false);
-
-        chkMedico.setText("Medico");
-        chkMedico.setEnabled(false);
-
-        chkCita.setText("Cita");
-        chkCita.setEnabled(false);
-
-        chkDiasMedico.setText("Dias Medico");
-        chkDiasMedico.setEnabled(false);
-
-        chkHorarioMedico.setText("Horario Medico");
-        chkHorarioMedico.setEnabled(false);
-
-        chkCatalogoExamen.setText("Catalogo Examen");
-        chkCatalogoExamen.setEnabled(false);
-
-        chkCajero.setText("Cajero");
-        chkCajero.setEnabled(false);
-        chkCajero.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkCajeroActionPerformed(evt);
-            }
-        });
-
-        chkFacturaExamen.setText("Factura Examen");
-        chkFacturaExamen.setEnabled(false);
-
-        chkDetalleFacturaExamen.setText("Detalle Factura Examen");
-        chkDetalleFacturaExamen.setEnabled(false);
-
-        chkProcedimientosEspeciales.setText("Procedimientos Especiales");
-        chkProcedimientosEspeciales.setEnabled(false);
-
-        chkDetalleFacturaProcedimiento.setText("Detalle Factura Procedimiento");
-        chkDetalleFacturaProcedimiento.setEnabled(false);
-
-        chkConsulta.setText("Consulta");
-        chkConsulta.setEnabled(false);
-
-        chkFacturaConsulta.setText("Factura Consulta");
-        chkFacturaConsulta.setEnabled(false);
-
-        chkDetalleConsulta.setText("Detalle Consulta");
-        chkDetalleConsulta.setEnabled(false);
-
-        chkDiagnostico.setText("Diagnostico");
-        chkDiagnostico.setEnabled(false);
-
-        chkExamen.setText("Examen");
-        chkExamen.setEnabled(false);
-
-        chkReceta.setText("Receta");
-        chkReceta.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(chkSector, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(135, 135, 135)
-                        .addComponent(chkMedico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(441, 441, 441))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(chkAlergiaMedicamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(34, 34, 34)
-                                .addComponent(chkEspecialidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(41, 41, 41)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(chkFacturaExamen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(54, 54, 54))
-                                    .addComponent(chkDetalleFacturaExamen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(46, 46, 46))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(chkPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(82, 82, 82))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(chkPadecimientoAM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(23, 23, 23))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(chkPaciente16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(63, 63, 63))
-                                    .addComponent(chkEnfermedadCronica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(chkPadecimientoEC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(26, 26, 26)))
-                                .addGap(38, 38, 38)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(chkCajero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(77, 77, 77))
-                                    .addComponent(chkCatalogoExamen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(chkHorarioMedico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(16, 16, 16))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(chkCita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(95, 95, 95))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(chkDiasMedico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(39, 39, 39)))
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(5, 5, 5)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addComponent(chkDetalleConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addGap(96, 96, 96))
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addComponent(chkProcedimientosEspeciales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addGap(27, 27, 27))
-                                            .addComponent(chkDetalleFacturaProcedimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addComponent(chkConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addGap(150, 150, 150))))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(chkFacturaConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(93, 93, 93)))))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(chkReceta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(chkExamen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(chkDiagnostico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(23, 23, 23))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chkAlergiaMedicamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(chkEspecialidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(chkFacturaExamen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(chkDiagnostico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chkSector, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(chkMedico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(chkDetalleFacturaExamen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(chkExamen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chkPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(chkCita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(chkProcedimientosEspeciales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(chkReceta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chkPadecimientoAM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(chkDiasMedico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(chkDetalleFacturaProcedimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chkPaciente16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(chkHorarioMedico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(chkConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chkEnfermedadCronica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(chkCatalogoExamen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(chkFacturaConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chkPadecimientoEC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(chkCajero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(chkDetalleConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnPermisos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -448,46 +164,23 @@ public class EleccionPermisos extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void chkCajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCajeroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chkCajeroActionPerformed
-
     private void btnSecretariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSecretariaActionPerformed
         // TODO add your handling code here:
 
-        chkCajero.setSelected(true);
-        chkCatalogoExamen.setSelected(true);
-        chkCita.setSelected(true);
-        chkConsulta.setSelected(true);
-        chkDetalleConsulta.setSelected(true);
-        chkDetalleFacturaExamen.setSelected(true);
-        chkDetalleFacturaProcedimiento.setSelected(true);
-        chkDiasMedico.setSelected(true);
-        chkEspecialidad.setSelected(true);
-        chkExamen.setSelected(true);
-        chkFacturaConsulta.setSelected(true);
-        chkFacturaExamen.setSelected(true);
-        chkHorarioMedico.setSelected(true);
-        chkMedico.setSelected(true);
-        chkProcedimientosEspeciales.setSelected(true);
-        chkReceta.setSelected(true);
         Usuarios user = new Usuarios(sf);
         Usuarios.AsignarPermisosSecretaria(txtNombreUsuario.getText());
         JOptionPane.showMessageDialog(this, "El usuario " + txtNombreUsuario.getText() + " se le ha otorgado privilegio Secretaria", "Privilegio", JOptionPane.INFORMATION_MESSAGE);
@@ -497,26 +190,6 @@ public class EleccionPermisos extends javax.swing.JInternalFrame {
 
     private void btnPermisosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPermisosActionPerformed
         // TODO add your handling code here:
-
-        chkAlergiaMedicamento.setSelected(true);
-        chkCatalogoExamen.setSelected(true);
-        chkCita.setSelected(true);
-        chkConsulta.setSelected(true);
-        chkDetalleConsulta.setSelected(true);
-        chkDiagnostico.setSelected(true);
-        chkDiasMedico.setSelected(true);
-        chkEnfermedadCronica.setSelected(true);
-        chkEspecialidad.setSelected(true);
-        chkExamen.setSelected(true);
-        chkHorarioMedico.setSelected(true);
-        chkMedico.setSelected(true);
-        chkPaciente.setSelected(true);
-        chkPaciente16.setSelected(true);
-        chkPadecimientoAM.setSelected(true);
-        chkPadecimientoEC.setSelected(true);
-        chkProcedimientosEspeciales.setSelected(true);
-        chkReceta.setSelected(true);
-        chkSector.setSelected(true);
         Usuarios user = new Usuarios(sf);
         Usuarios.AsignarPermisosMedicos(txtNombreUsuario.getText());
         JOptionPane.showMessageDialog(this, "El usuario " + txtNombreUsuario.getText() + " se le ha otorgado privilegio de Medico", "Privilegio", JOptionPane.INFORMATION_MESSAGE);
@@ -526,13 +199,10 @@ public class EleccionPermisos extends javax.swing.JInternalFrame {
 
     private void btnPermisosTotalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPermisosTotalesActionPerformed
         // TODO add your handling code here:
-        if (btnPermisosTotales.isSelected()) {
-            SeleccionarTodo();
+        Usuarios user = new Usuarios(sf);
+        Usuarios.AsignarPermisosAdministrador(txtNombreUsuario.getText());
             JOptionPane.showMessageDialog(this, "El usuario " + txtNombreUsuario.getText() + " se le ha otorgado privilegio admin", "Privilegio Maximo", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
-        } else {
-            DeseleccionarTodo();
-        }
     }//GEN-LAST:event_btnPermisosTotalesActionPerformed
 
 
@@ -540,35 +210,10 @@ public class EleccionPermisos extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnPermisos;
     private javax.swing.JToggleButton btnPermisosTotales;
     private javax.swing.JButton btnSecretaria;
-    private javax.swing.JCheckBox chkAlergiaMedicamento;
-    private javax.swing.JCheckBox chkCajero;
-    private javax.swing.JCheckBox chkCatalogoExamen;
-    private javax.swing.JCheckBox chkCita;
-    private javax.swing.JCheckBox chkConsulta;
-    private javax.swing.JCheckBox chkDetalleConsulta;
-    private javax.swing.JCheckBox chkDetalleFacturaExamen;
-    private javax.swing.JCheckBox chkDetalleFacturaProcedimiento;
-    private javax.swing.JCheckBox chkDiagnostico;
-    private javax.swing.JCheckBox chkDiasMedico;
-    private javax.swing.JCheckBox chkEnfermedadCronica;
-    private javax.swing.JCheckBox chkEspecialidad;
-    private javax.swing.JCheckBox chkExamen;
-    private javax.swing.JCheckBox chkFacturaConsulta;
-    private javax.swing.JCheckBox chkFacturaExamen;
-    private javax.swing.JCheckBox chkHorarioMedico;
-    private javax.swing.JCheckBox chkMedico;
-    private javax.swing.JCheckBox chkPaciente;
-    private javax.swing.JCheckBox chkPaciente16;
-    private javax.swing.JCheckBox chkPadecimientoAM;
-    private javax.swing.JCheckBox chkPadecimientoEC;
-    private javax.swing.JCheckBox chkProcedimientosEspeciales;
-    private javax.swing.JCheckBox chkReceta;
-    private javax.swing.JCheckBox chkSector;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField txtIdUsuario;
     private javax.swing.JTextField txtNombre;

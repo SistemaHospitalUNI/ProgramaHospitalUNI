@@ -63,7 +63,34 @@ id_especialidad int primary key auto_increment not null,
 nombreEspecialidad varchar(200)not null,
 descripcion varchar(200) not null
 );
+Select 
+m.primernombre,
+m.segundonombre,
+m.primerapellido,
+m.segundoapellido,
+m.cedula,
+m.direccion,
+hMedico.hora_entrada,
+hMedico.hora_salida,
+dMedico.Lunes,
+dMedico.Martes,
+dMedico.Miercoles,
+dMedico.Jueves,
+dMedico.Viernes,
+dMedico.Sabado,
+dMedico.Domingo,
+espe.nombreEspecialidad,
+m.Estado,
+m.foto
+from Medico as m
+inner join Especialidad as espe
+on espe.id_especialidad = m.id_especialidad
+inner join DiasMedico as dMedico
+on dMedico.id_Medico = m.id_Medico
+inner join HorarioMedico as hMedico
+on hMedico.id_diaMedico = dMedico.id_diaMedico;
 
+insert into Medico(primernombre,segundonombre,primerapellido,segundoapellido,cedula,id_especialidad,Usuario,Direccion,Estado) values ('aaa','bbb','ccc','ddd','00000000',1,'a','direccion');
 Create Table Medico(
 	id_medico int primary key auto_increment not null,
     primernombre varchar(50)not null,
@@ -78,7 +105,8 @@ Create Table Medico(
     foto longblob,
     foreign key (id_especialidad)references Especialidad(id_especialidad)
 );
-
+Insert into Cita(id_medico,id_paciente,fecha,hora,estado) values(1,1,'2015-08-06','2015-08-06 11:00:00',true);
+Select * from Cita;
 Create Table Cita(
 	id_cita int primary key auto_increment not null,
     id_medico int not null,

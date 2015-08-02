@@ -6,7 +6,10 @@
 package InternalFrames;
 
 import Pojo.AlergiaMedicamento;
+import java.beans.PropertyVetoException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -87,9 +90,26 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setTitle("Alergia");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251885_Save.png"))); // NOI18N
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -97,7 +117,7 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
         });
 
         btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251807_Synchronize.png"))); // NOI18N
-        btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
@@ -105,7 +125,7 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
         });
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251990_trash.png"))); // NOI18N
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -360,6 +380,15 @@ public class AlergiaMedic extends javax.swing.JInternalFrame {
            
             
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        // TODO add your handling code here:
+        try {
+            setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(AlergiaMedic.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formInternalFrameOpened
 
     public void limpiar(){
         this.txtNombre.setText("");

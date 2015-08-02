@@ -10,8 +10,11 @@ import Pojo.DiasMedico;
 import Pojo.Especialidad;
 import Pojo.HorarioMedico;
 import Pojo.Medico;
+import java.beans.PropertyVetoException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -172,6 +175,23 @@ public class FrameHorario extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setTitle("Chequeo Horarios");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jLabel1.setText("Eliga el Medico:");
 
@@ -242,6 +262,15 @@ public class FrameHorario extends javax.swing.JInternalFrame {
         s = sf.openSession();
         ListarMedicoDia(jTextField1.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        // TODO add your handling code here:
+        try {
+            setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(FrameHorario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formInternalFrameOpened
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
