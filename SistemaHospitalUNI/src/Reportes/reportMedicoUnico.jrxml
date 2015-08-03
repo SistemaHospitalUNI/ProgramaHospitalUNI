@@ -3,38 +3,128 @@
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="dataSetConsulta" uuid="d4b25b3b-adc9-41d5-bd03-a48edf908ac1">
+		<parameter name="IDParametro" class="java.lang.Integer">
+			<parameterDescription><![CDATA[ParametroTabla]]></parameterDescription>
+		</parameter>
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="id_cita" class="java.lang.Integer">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="nombre" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="apellido" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="fecha" class="java.sql.Date">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="hora" class="java.sql.Timestamp">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="estado" class="java.lang.Boolean">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+	</subDataset>
 	<parameter name="ParametroID" class="java.lang.Integer">
 		<parameterDescription><![CDATA[Medico ID]]></parameterDescription>
 		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[Select 
-m.primernombre,
-m.segundonombre,
-m.primerapellido,
-m.segundoapellido,
-m.cedula,
-m.direccion,
-hMedico.hora_entrada,
-hMedico.hora_salida,
-dMedico.Lunes,
-dMedico.Martes,
-dMedico.Miercoles,
-dMedico.Jueves,
-dMedico.Viernes,
-dMedico.Sabado,
-dMedico.Domingo,
-espe.nombreEspecialidad,
-m.Estado,
-m.foto
-from Medico as m
-inner join Especialidad as espe
-on espe.id_especialidad = m.id_especialidad
-inner join DiasMedico as dMedico
-on dMedico.id_Medico = m.id_Medico
-inner join HorarioMedico as hMedico
-on hMedico.id_diaMedico = dMedico.id_diaMedico
-Where m.id_medico = $P{ParametroID}]]>
+		<![CDATA[SELECT
+     m.`primernombre`,
+     m.`segundonombre`,
+     m.`primerapellido`,
+     m.`segundoapellido`,
+     m.`cedula`,
+     m.`direccion`,
+     hMedico.`hora_entrada`,
+     hMedico.`hora_salida`,
+     dMedico.`Lunes`,
+     dMedico.`Martes`,
+     dMedico.`Miercoles`,
+     dMedico.`Jueves`,
+     dMedico.`Viernes`,
+     dMedico.`Sabado`,
+     dMedico.`Domingo`,
+     espe.`nombreEspecialidad`,
+     m.`Estado`,
+     m.`foto`,
+     m.`id_medico` AS m_id_medico,
+     m.`id_especialidad` AS m_id_especialidad,
+     espe.`id_especialidad` AS espe_id_especialidad,
+     hMedico.`id_horariomedico` AS hMedico_id_horariomedico,
+     hMedico.`id_diaMedico` AS hMedico_id_diaMedico,
+     dMedico.`id_diaMedico` AS dMedico_id_diaMedico,
+     dMedico.`id_Medico` AS dMedico_id_Medico
+FROM `Medico` m 
+     INNER JOIN `Especialidad` espe ON  espe.`id_especialidad` = m.`id_especialidad`
+     INNER JOIN `DiasMedico` dMedico ON m.`id_medico` = dMedico.`id_Medico`
+     INNER JOIN `HorarioMedico` hMedico ON dMedico.`id_diaMedico` = hMedico.`id_diaMedico`
+Where m.id_medico = $P{ParametroID};]]>
 	</queryString>
 	<field name="primernombre" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -90,6 +180,13 @@ Where m.id_medico = $P{ParametroID}]]>
 	<field name="foto" class="java.io.InputStream">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="m_id_medico" class="java.lang.Integer"/>
+	<field name="m_id_especialidad" class="java.lang.Integer"/>
+	<field name="espe_id_especialidad" class="java.lang.Integer"/>
+	<field name="hMedico_id_horariomedico" class="java.lang.Integer"/>
+	<field name="hMedico_id_diaMedico" class="java.lang.Integer"/>
+	<field name="dMedico_id_diaMedico" class="java.lang.Integer"/>
+	<field name="dMedico_id_Medico" class="java.lang.Integer"/>
 	<background>
 		<band/>
 	</background>
@@ -105,7 +202,7 @@ Where m.id_medico = $P{ParametroID}]]>
 					<text><![CDATA[Hospital UNI]]></text>
 				</staticText>
 				<image scaleImage="FillFrame">
-					<reportElement x="461" y="10" width="114" height="72" uuid="7b2795bf-f02a-47b8-86ac-d534c1682536"/>
+					<reportElement x="461" y="7" width="114" height="72" uuid="7b2795bf-f02a-47b8-86ac-d534c1682536"/>
 					<imageExpression><![CDATA[$F{foto}]]></imageExpression>
 				</image>
 				<image>
@@ -174,7 +271,7 @@ Where m.id_medico = $P{ParametroID}]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="96">
+		<band height="198">
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="28781a56-457e-45fd-a7bb-aa5e9cd40f09"/>
 			</line>
@@ -276,6 +373,120 @@ Where m.id_medico = $P{ParametroID}]]>
 				</textElement>
 				<text><![CDATA[Sabado]]></text>
 			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="-20" y="42" width="595" height="21" forecolor="#006699" backcolor="#E6E6E6" uuid="3ff49408-44db-452b-9755-d3c321eed929"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[Historial de Citas Medicas]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement key="table 2" style="table 2" x="-20" y="63" width="595" height="135" uuid="ffd9760c-0d4f-4ebc-92e2-c896ce773947"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="dataSetConsulta" uuid="6429c35f-8b07-4742-892a-951b32ecdfdd">
+						<datasetParameter name="IDParametro">
+							<datasetParameterExpression><![CDATA[$P{ParametroID}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="fae66544-a839-4e98-80cb-25b09329cd88">
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="5b838b75-0a7b-46f9-b9c5-9e11955ffe3e"/>
+								<text><![CDATA[id_cita]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 2_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="6c6811c8-da64-4116-a01e-ee30485af47c"/>
+								<textFieldExpression><![CDATA[$F{id_cita}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="b5bb5317-82c4-4758-a78a-b344904dbf57">
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="aa0cf3f8-5530-4016-a6ae-254c920b456f"/>
+								<text><![CDATA[nombre]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 2_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="07559534-9327-4116-8f40-5c447eafff3c"/>
+								<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="d2f774ca-8000-4612-82e6-22b856648b86">
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="725675cb-83fa-4399-87e4-71c68379d449"/>
+								<text><![CDATA[apellido]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 2_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="f19f9602-d23d-40e0-8726-db8dcb82b071"/>
+								<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="3f621bfd-24ef-42ec-819e-98066b0537d3">
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="ced24ab9-eed4-44ee-95ec-e4e6a5800605"/>
+								<text><![CDATA[fecha]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 2_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="430c422b-d02b-48b8-a7b4-c7802ef4e1af"/>
+								<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="ed2a6b35-9469-4be5-bca7-df264a9ade29">
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="8ad3fc07-1843-40a3-a952-4220999935f5"/>
+								<text><![CDATA[hora]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 2_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="dbee27b5-918d-4800-bab6-d1d8974306e1"/>
+								<textFieldExpression><![CDATA[$F{hora}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="0764052c-b2f4-4da4-837e-828fab7b7959">
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="84922fd7-0f69-4e27-a721-cd792b47749a"/>
+								<text><![CDATA[estado]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 2_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="f7ae1767-3597-43ca-8b20-9230ddc99b0e"/>
+								<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
 		</band>
 	</detail>
 	<columnFooter>

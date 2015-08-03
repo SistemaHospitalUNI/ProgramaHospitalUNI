@@ -201,7 +201,7 @@ on hMedico.id_diaMedico = dMedico.id_diaMedico;]]>
 				<textElement>
 					<font size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Estado}==true ? "Activo" : "Inactivo" ]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Estado}==true ? "Activo" : "Inactivo"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="226" y="1" width="32" height="14" uuid="c7258ec0-3e28-40f1-9624-f975dc5546d4"/>

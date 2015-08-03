@@ -55,8 +55,8 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         dtm.addColumn("Id");
         dtm.addColumn("Nombre Completo");
         dtm.addColumn("Cedula");
-        dtm.addColumn("Direccion");
         dtm.addColumn("Usuario");
+        dtm.addColumn("Estado");
         jTable1.setModel(dtm);
         llenartabla();
     }
@@ -64,7 +64,6 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
      * Creates new form FrameMedicos
      */
     public BufferedImage imagenMedico;
-    Session s;
     SessionFactory sf;
     public Medico medicoEspecial;
 
@@ -79,6 +78,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
 
     public FrameMedicos(SessionFactory sf) {
         initComponents();
+        //InicializarTabla();
         cmbInicio.setSelectedIndex(0);
         cmbFinal.setSelectedIndex(0);
         jTable1.getTableHeader().setReorderingAllowed(false);
@@ -114,19 +114,24 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         }
         return bmp;
     }
-    List<Especialidad>listaEspecialidadModificar = new ArrayList<>();
+    List<Especialidad> listaEspecialidadModificar = new ArrayList<>();
+
     public void llenarCombo() {
+        Session s;
+        s = sf.openSession();
         DAO d = new DAO(sf);
         List<Especialidad> lstEspecialidad = DAO.Listar_Especialidades();
         for (Especialidad p : lstEspecialidad) {
-            s = sf.openSession();
+
             cmbEspecialidad.addItem(p.getNombreEspecialidad());
             listaEspecialidadModificar.add(p);
-            s.close();
+
         }
+        s.close();
     }
 
     public void llenartabla() {
+        String est;
         limpiar();
         DAO d = new DAO(sf);
         List<Medico> listaMedicos = DAO.Listar_Medicos();
@@ -136,8 +141,13 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         } else {
             DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
             for (Medico medico : listaMedicos) {
+                if (medico.isEstado() == true) {
+                    est = "Activo";
+                } else {
+                    est = "Inactivo";
+                }
                 cmbId.addItem(medico.getIdMedico());
-                modelo.addRow(new Object[]{medico.getIdMedico(), medico.getPrimernombre() + " " + medico.getSegundonombre() + medico.getPrimerapellido() + " " + medico.getSegundoapellido(), medico.getCedula(), medico.getDireccion(), medico.getUsuario()});
+                modelo.addRow(new Object[]{medico.getIdMedico(), medico.getPrimernombre() + " " + medico.getSegundonombre() + medico.getPrimerapellido() + " " + medico.getSegundoapellido(), medico.getCedula(), medico.getUsuario(), est});
             }
             jTable1.setModel(modelo);
         }
@@ -146,7 +156,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
     public void limpiar() {
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
-                new String[]{"Id", "Nombre", "Apellido", "Cedula"}
+                new String[]{"Id", "Nombre Completo", "Cedula", "Usuario", "Estado"}
         ) {
             Class[] types = new Class[]{
                 java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
@@ -260,39 +270,39 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED), "Dias de Trabajo"));
 
-        chkLunes.setText("L");
+        chkLunes.setText("Lunes");
 
-        chkMartes.setText("M");
+        chkMartes.setText("Martes");
 
-        chkMiercoles.setText("Mi");
+        chkMiercoles.setText("Miercoles");
 
-        chkJueves.setText("J");
+        chkJueves.setText("Jueves");
 
-        chkViernes.setText("V");
+        chkViernes.setText("Viernes");
 
-        chkSabado.setText("S");
+        chkSabado.setText("Sabado");
 
-        chkDomingo.setText("D");
+        chkDomingo.setText("Domingo");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(chkLunes)
+                .addContainerGap()
+                .addComponent(chkLunes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(chkMartes)
+                .addComponent(chkMartes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(chkMiercoles)
+                .addComponent(chkMiercoles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(chkJueves)
+                .addComponent(chkJueves, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(chkViernes)
+                .addComponent(chkViernes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(chkSabado)
+                .addComponent(chkSabado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(chkDomingo)
+                .addComponent(chkDomingo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -336,18 +346,19 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         lblImagen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblImagen.setText("No hay Fotografia");
         lblImagen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblImagen.setMaximumSize(new java.awt.Dimension(480, 288));
+        lblImagen.setMinimumSize(new java.awt.Dimension(480, 288));
+        lblImagen.setPreferredSize(new java.awt.Dimension(436, 288));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblImagen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
         );
 
         jButton3.setText("Tomar Fotografia");
@@ -412,7 +423,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane2)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
@@ -445,13 +456,17 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel5))
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cmbEspecialidad, 0, 172, Short.MAX_VALUE)
-                                    .addComponent(txtSApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
-                                    .addComponent(txtSNombre)
-                                    .addComponent(cmbEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmbEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(txtSApellido, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtSNombre, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addGap(2, 2, 2))
+                                    .addComponent(cmbEspecialidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(88, 88, 88))
+                            .addComponent(jScrollPane1)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
@@ -482,6 +497,18 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton3)
+                            .addComponent(jButton4))
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRegistrar)
+                            .addComponent(chkEditarMedico))
+                        .addGap(15, 15, 15))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(jLabel1)
@@ -521,21 +548,9 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
                             .addComponent(cmbFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
                             .addComponent(cmbInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton3)
-                            .addComponent(jButton4))
-                        .addGap(12, 12, 12)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnRegistrar)
-                            .addComponent(chkEditarMedico))
-                        .addGap(15, 15, 15)))
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                            .addComponent(jLabel4))))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmbId, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -625,13 +640,13 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         UsuarioNuevo = txtUsuario.getText();
         Especialidad especialidadModificada = new Especialidad();
         DAO d = new DAO(sf);
-        for (Especialidad espe: listaEspecialidadModificar) {
+        for (Especialidad espe : listaEspecialidadModificar) {
             if (espe.getNombreEspecialidad().equals(cmbEspecialidad.getSelectedItem().toString())) {
                 especialidadModificada = espe;
                 break;
             }
         }
-        
+
         medicoEspecial.setCedula(txtCedula.getText());
         medicoEspecial.setEstado(estado);
         medicoEspecial.setPrimernombre(txtNombre.getText());
@@ -653,7 +668,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         // GuardarDias(idMedico);
     }
 
-    public void LimpiarCampos(){
+    public void LimpiarCampos() {
         txtApellido.setText(null);
         txtCedula.setText(null);
         txtContraseña.setText(null);
@@ -663,7 +678,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         txtSNombre.setText(null);
         txtUsuario.setText(null);
     }
-    
+
     public void ObtenerDiaMedicoActualizado(int idMedico) {
         DAO d = new DAO(sf);
         dMedico = DAO.busquedaDiasMedicosId(idMedico);
@@ -671,7 +686,6 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         GuardarDiasMedicoActualizado(dMedico.getIdDiaMedico());
 
     }
-    
 
     public void ObtenerHorarioMedicoActualizado(int idDiaActualizado) {
         HorarioMedico horaMedico = new HorarioMedico();
@@ -704,52 +718,59 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
     }
 
     public void ModificarMedico(int IdMedico) {
-        String Estado = "";
-        s = sf.openSession();
-        List<Medico> lstMedicos = (List<Medico>) s.createQuery("from Medico").list();
-        for (Medico medico : lstMedicos) {
-            for (int i = 0; i < cmbEspecialidad.getItemCount(); i++) {
-                if (medico.getEspecialidad().getNombreEspecialidad().equals(cmbEspecialidad.getItemAt(i))) {
-                    System.out.println("ESPECIALIDAD: " + cmbEspecialidad.getItemAt(i).toString());
-                    cmbEspecialidad.setSelectedIndex(i);
-                    idEspecial = medico.getEspecialidad().getIdEspecialidad();
-                }
-            }
-            if (medico.getIdMedico().equals(IdModificar)) {
-                medicoEspecial = medico;
-                idModificarMedicoViejo = medico.getIdMedico();
-                txtNombre.setText(medico.getPrimernombre());
-                txtSNombre.setText(medico.getSegundonombre());
-                txtApellido.setText(medico.getPrimerapellido());
-                txtSApellido.setText(medico.getSegundoapellido());
-                txtCedula.setText(medico.getCedula());
-                txtUsuario.setText(medico.getUsuario());
-                txtDireccion.setText(medico.getDireccion());
-                if (medico.isEstado()) {
-                    Estado = "Activo";
-                }
-                for (int i = 0; i < cmbEstado.getItemCount(); i++) {
-                    if (Estado.equals(cmbEstado.getItemAt(i))) {
-                        cmbEstado.setSelectedIndex(i);
-                    }
-                }
-                if (medico.getFoto() != null) {
+        Session s = sf.openSession();
+        try {
+            String Estado = "";
+            List<Medico> lstMedicos = (List<Medico>) s.createQuery("from Medico").list();
+            for (Medico medico : lstMedicos) {
+                for (int i = 0; i < cmbEspecialidad.getItemCount(); i++) {
+                    if (medico.getEspecialidad().getNombreEspecialidad().equals(cmbEspecialidad.getItemAt(i).toString())) {
+                        System.out.println("ESPECIALIDAD: " + cmbEspecialidad.getItemAt(i).toString());
+                        cmbEspecialidad.setSelectedIndex(i);
+                        idEspecial = medico.getEspecialidad().getIdEspecialidad();
 
-                    try {
-                        int height = lblImagen.getHeight();
-                        int width = lblImagen.getWidth();
-                        BufferedImage imag = ImageIO.read(new ByteArrayInputStream(medico.getFoto()));
-                        procesamientoImagenes pi = new procesamientoImagenes();
-                        this.imagenMedico = imag;
-                        this.lblImagen.setIcon((pi.imageToIcon(pi.imageToBufferedImage(imag).getScaledInstance(width, height, 0))));
-                        this.lblImagen.setText(null);
-                    } catch (Exception ex) {
-                        System.out.println("ERROR: " + ex.getMessage() + " CAUSA: " + ex.getCause());
                     }
                 }
-                txtContraseña.setText(title);
-                s.close();
+                if (medico.getIdMedico().equals(IdModificar)) {
+                    medicoEspecial = medico;
+                    idModificarMedicoViejo = medico.getIdMedico();
+                    txtNombre.setText(medico.getPrimernombre());
+                    txtSNombre.setText(medico.getSegundonombre());
+                    txtApellido.setText(medico.getPrimerapellido());
+                    txtSApellido.setText(medico.getSegundoapellido());
+                    txtCedula.setText(medico.getCedula());
+                    txtUsuario.setText(medico.getUsuario());
+                    txtDireccion.setText(medico.getDireccion());
+                    if (medico.isEstado()) {
+                        Estado = "Activo";
+                    }
+                    for (int i = 0; i < cmbEstado.getItemCount(); i++) {
+                        if (Estado.equals(cmbEstado.getItemAt(i))) {
+                            cmbEstado.setSelectedIndex(i);
+                        }
+                    }
+                    if (medico.getFoto() != null) {
+
+                        try {
+                            int height = lblImagen.getHeight();
+                            int width = lblImagen.getWidth();
+                            BufferedImage imag = ImageIO.read(new ByteArrayInputStream(medico.getFoto()));
+                            procesamientoImagenes pi = new procesamientoImagenes();
+                            this.imagenMedico = imag;
+                            this.lblImagen.setIcon((pi.imageToIcon(pi.imageToBufferedImage(imag).getScaledInstance(width, height, 0))));
+                            this.lblImagen.setText(null);
+                        } catch (Exception ex) {
+                            System.out.println("ERROR: " + ex.getMessage() + " CAUSA: " + ex.getCause());
+                        }
+                    }
+                    txtContraseña.setText(title);
+                }
             }
+            
+        } catch (Exception ex) {
+            System.out.println("ERRORES!!");
+        }finally{
+            s.close();
         }
     }
 
@@ -816,7 +837,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         DAO df = new DAO(sf);
         idHorarioMedico = DAO.GuardarHorarioMedico(idDiasMedicos, cmbInicio.getSelectedItem().toString(), cmbFinal.getSelectedItem().toString());
         System.out.println("Horario: " + idHorarioMedico);
-        JOptionPane.showMessageDialog(this, "Medico Registrado","Guardado Exitoso",JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Medico Registrado", "Guardado Exitoso", JOptionPane.INFORMATION_MESSAGE);
         this.dispose();
     }
 
@@ -887,12 +908,12 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
             JOptionPane.showInternalMessageDialog(this, "El nombre de usuario no puede dejarse vacio", "Ventana de Notificación", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (new Usuarios(sf).ExisteUsuario(txtUsuario.getText().trim())) {
-            JOptionPane.showInternalMessageDialog(this, "El nombre de usuario ya ha sido usado", "Ventana de Notificación", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+//        if (new Usuarios(sf).ExisteUsuario(txtUsuario.getText().trim())) {
+//            JOptionPane.showInternalMessageDialog(this, "El nombre de usuario ya ha sido usado", "Ventana de Notificación", JOptionPane.ERROR_MESSAGE);
+//            return;
+//        }
         if (chkEditarMedico.isSelected()) {
-            ActualizarMedico(idModificarMedicoViejo);
+            ActualizarMedico(idMedicoAntiguo);
         } else {
             ObtenerEspecialidad();
             //GuardarMedico();
@@ -901,7 +922,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         }
         this.dispose();
     }//GEN-LAST:event_btnRegistrarActionPerformed
-
+    public int idMedicoAntiguo;
     private void chkEditarMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkEditarMedicoActionPerformed
         // TODO add your handling code here:
         if (chkEditarMedico.isSelected()) {
@@ -918,10 +939,22 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_chkEditarMedicoActionPerformed
 
+    public void LimpiarCheckBox() {
+        chkDomingo.setSelected(false);
+        chkJueves.setSelected(false);
+        chkLunes.setSelected(false);
+        chkMartes.setSelected(false);
+        chkMiercoles.setSelected(false);
+        chkViernes.setSelected(false);
+        chkSabado.setSelected(false);
+    }
+
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
+        LimpiarCheckBox();
         int fila = this.jTable1.getSelectedRow();
         IdModificar = Integer.parseInt(jTable1.getValueAt(fila, 0).toString());
+        idMedicoAntiguo = IdModificar;
         MostrarDiasActualizados(IdModificar);
         ModificarMedico(IdModificar);
     }//GEN-LAST:event_jTable1MouseClicked

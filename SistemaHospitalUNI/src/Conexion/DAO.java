@@ -19,8 +19,9 @@ import org.hibernate.Transaction;
  */
 public class DAO {
 
+    private static Session s = null;
     private static SessionFactory sf;
-    private static Session s;
+
     private static boolean valid;
 
     public DAO(SessionFactory sf) {
@@ -38,12 +39,11 @@ public class DAO {
                 return med;
             }
         }
-        s.close();
         return null;
     }
 
     public static Sector busquedaSectorId(int id) {
-        s = sf.openSession();
+         s = sf.openSession();
         List<Sector> lstSector = (List<Sector>) s.createQuery("from Sector").list();
         for (Sector sect : lstSector) {
             if (id == sect.getIdSector()) {
@@ -56,7 +56,7 @@ public class DAO {
     }
 
     public static Paciente busquedaPacienteId(int id) {
-        s = sf.openSession();
+         s = sf.openSession();
         List<Paciente> lstPaciente = (List<Paciente>) s.createQuery("from Paciente").list();
         for (Paciente pac : lstPaciente) {
             if (id == pac.getIdPaciente()) {
@@ -69,7 +69,7 @@ public class DAO {
     }
 
     public static Receta busquedaRecetaId(int id) {
-        s = sf.openSession();
+         s = sf.openSession();
         List<Receta> lstReceta = (List<Receta>) s.createQuery("from Receta").list();
         for (Receta rec : lstReceta) {
             if (id == rec.getIdReceta()) {
@@ -82,7 +82,7 @@ public class DAO {
     }
 
     public static ProcedimientosEspeciales busquedaProcedimientosEspecialesId(int id) {
-        s = sf.openSession();
+         s = sf.openSession();
         List<ProcedimientosEspeciales> lstProcedimientosEspeciales = (List<ProcedimientosEspeciales>) s.createQuery("from ProcedimientosEspeciales").list();
         for (ProcedimientosEspeciales procEspeciales : lstProcedimientosEspeciales) {
             if (id == procEspeciales.getIdProc()) {
@@ -95,7 +95,7 @@ public class DAO {
     }
 
     public static PadecimientoEc busquedaPadecimientoEcId(int id) {
-        s = sf.openSession();
+         s = sf.openSession();
         List<PadecimientoEc> lstPadecimientoEc = (List<PadecimientoEc>) s.createQuery("from Padecimiento_EC").list();
         for (PadecimientoEc padec : lstPadecimientoEc) {
             if (id == padec.getIdPadecimientoec()) {
@@ -108,7 +108,7 @@ public class DAO {
     }
 
     public static Paciente16 busquedaPaciente16Id(int id) {
-        s = sf.openSession();
+         s = sf.openSession();
         List<Paciente16> lstPaciente16 = (List<Paciente16>) s.createQuery("from Paciente_16").list();
         for (Paciente16 pac16 : lstPaciente16) {
             if (id == pac16.getIdPaciente()) {
@@ -121,7 +121,7 @@ public class DAO {
     }
 
     public static HorarioMedico busquedaHorarioMedicoId(int id) {
-        s = sf.openSession();
+         s = sf.openSession();
         List<HorarioMedico> lstHorarioMedico = (List<HorarioMedico>) s.createQuery("from HorarioMedico").list();
         for (HorarioMedico horMed : lstHorarioMedico) {
             if (id == horMed.getDiasMedico().getIdDiaMedico()) {
@@ -134,7 +134,7 @@ public class DAO {
     }
 
     public static Examen busquedaExamenId(int id) {
-        s = sf.openSession();
+         s = sf.openSession();
         List<Examen> lstExamen = (List<Examen>) s.createQuery("from Examen").list();
         for (Examen exam : lstExamen) {
             if (id == exam.getIdExamenDiagnostico()) {
@@ -148,7 +148,7 @@ public class DAO {
 
     public static FacturaExamen busquedaFacturaExamenId(int id) {
 
-        s = sf.openSession();
+         s = sf.openSession();
         List<FacturaExamen> listfactex = s.createQuery("from FacturaExamen").list();
         for (FacturaExamen fe : listfactex) {
             if (fe.getIdFacturaex() == id) {
@@ -161,7 +161,7 @@ public class DAO {
     }
 
     public static Especialidad busquedaEspecialidadId(int id) {
-        s = sf.openSession();
+         s = sf.openSession();
         List<Especialidad> lstEspecialidades = (List<Especialidad>) s.createQuery("from Especialidad").list();
         for (Especialidad esp : lstEspecialidades) {
             if (id == esp.getIdEspecialidad()) {
@@ -174,7 +174,7 @@ public class DAO {
     }
 
     public static Especialidad busquedaEspecialidadNomre(String nombre) {
-        s = sf.openSession();
+         s = sf.openSession();
         List<Especialidad> lstEspecialidades = (List<Especialidad>) s.createQuery("from Especialidad").list();
         for (Especialidad esp : lstEspecialidades) {
             if (nombre.equals(esp.getNombreEspecialidad())) {
@@ -187,7 +187,7 @@ public class DAO {
     }
 
     public static EnfermedadCronica busquedaEnfermedadCronicaId(int id) {
-        s = sf.openSession();
+         s = sf.openSession();
         List<EnfermedadCronica> lstEnfermedadCronica = (List<EnfermedadCronica>) s.createQuery("from Enfermedad_Cronica").list();
         for (EnfermedadCronica enfCron : lstEnfermedadCronica) {
             if (id == enfCron.getIdEc()) {
@@ -200,7 +200,7 @@ public class DAO {
     }
 
     public static Consulta busquedaConsultaId(int id) {
-        s = sf.openSession();
+         s = sf.openSession();
         List<Consulta> lstConsulta = (List<Consulta>) s.createQuery("from Consulta").list();
         for (Consulta consulta : lstConsulta) {
             if (id == consulta.getIdConsulta()) {
@@ -213,7 +213,7 @@ public class DAO {
     }
 
     public static CatalogoExamen busquedaCatalogoExamenId(int id) {
-        s = sf.openSession();
+         s = sf.openSession();
         List<CatalogoExamen> lstCatalogoExamen = (List<CatalogoExamen>) s.createQuery("from CatalogoExamen").list();
         for (CatalogoExamen catExam : lstCatalogoExamen) {
             if (id == catExam.getIdExamen()) {
@@ -226,7 +226,7 @@ public class DAO {
     }
 
     public static Cajero busquedaCajeroId(int id) {
-        s = sf.openSession();
+         s = sf.openSession();
         List<Cajero> lstCajero = (List<Cajero>) s.createQuery("from Cajero").list();
         for (Cajero cajero : lstCajero) {
             if (id == cajero.getIdCajero()) {
@@ -239,7 +239,7 @@ public class DAO {
     }
 
     public static Diagnostico busquedaDiagnosticoId(int id) {
-        s = sf.openSession();
+         s = sf.openSession();
         List<Diagnostico> lstDiagnostico = (List<Diagnostico>) s.createQuery("from Diagnostico").list();
         for (Diagnostico diagnos : lstDiagnostico) {
             if (id == diagnos.getIdDiagnostico()) {
@@ -252,7 +252,7 @@ public class DAO {
     }
 
     public static DiasMedico busquedaDiasMedicosId(int id) {
-        s = sf.openSession();
+         s = sf.openSession();
         List<DiasMedico> lstDiasMedicos = (List<DiasMedico>) s.createQuery("from DiasMedico").list();
         for (DiasMedico diasMedicos : lstDiasMedicos) {
             if (id == diasMedicos.getIdDiaMedico()) {
@@ -264,7 +264,7 @@ public class DAO {
     }
 
     public static Cita busquedaCitaId(int id) {
-        s = sf.openSession();
+         s = sf.openSession();
         List<Cita> lstCita = (List<Cita>) s.createQuery("from Cita").list();
         for (Cita cita : lstCita) {
             if (id == cita.getIdCita()) {
@@ -277,7 +277,7 @@ public class DAO {
     }
 
     public static PadecimientoAm busquedaPadecimientoAmId(int id) {
-        s = sf.openSession();
+         s = sf.openSession();
         List<PadecimientoAm> lstPadecimientoAm = (List<PadecimientoAm>) s.createQuery("from Padecimiento_AM").list();
         for (PadecimientoAm padecimientoAm : lstPadecimientoAm) {
             if (id == padecimientoAm.getIdPadecimientoam()) {
@@ -290,7 +290,7 @@ public class DAO {
     }
 
     public static AlergiaMedicamento busquedaAlergiaMedicamentoId(int id) {
-        s = sf.openSession();
+         s = sf.openSession();
         List<AlergiaMedicamento> lstAlergiaMedicamento = (List<AlergiaMedicamento>) s.createQuery("from AlergiaMedicamento").list();
         for (AlergiaMedicamento alergiaMed : lstAlergiaMedicamento) {
             if (id == alergiaMed.getIdAlergia()) {
@@ -305,133 +305,133 @@ public class DAO {
 
 //------------- Metodos de Listar Tablas --------------------------------------
     public static List<AlergiaMedicamento> Listar_AlergiaMedicamento() {
-        s = sf.openSession();
+         s = sf.openSession();
         List<AlergiaMedicamento> lstAlergiaMed = (List<AlergiaMedicamento>) s.createQuery("from AlergiaMedicamento").list();
         s.close();
         return lstAlergiaMed;
     }
 
     public static List<Pojo.Cajero> Listar_Cajero() {
-        s = sf.openSession();
+         s = sf.openSession();
         List<Cajero> lstCajero = (List<Cajero>) s.createQuery("from Cajero").list();
         s.close();
         return lstCajero;
     }
 
     public static List<CatalogoExamen> Listar_CatalogoExamen() {
-        s = sf.openSession();
+         s = sf.openSession();
         List<CatalogoExamen> lstCatalogoExamen = (List<CatalogoExamen>) s.createQuery("from CatalogoExamen").list();
         s.close();
         return lstCatalogoExamen;
     }
 
     public static List<Cita> Listar_Cita() {
-        s = sf.openSession();
+         s = sf.openSession();
         List<Cita> lstCita = (List<Cita>) s.createQuery("from Cita").list();
         s.close();
         return lstCita;
     }
 
     public static List<Consulta> Listar_Consulta() {
-        s = sf.openSession();
+         s = sf.openSession();
         List<Consulta> lstConsulta = (List<Consulta>) s.createQuery("from Consulta").list();
         s.close();
         return lstConsulta;
     }
 
     public static List<EnfermedadCronica> Listar_EnfermedadCronica() {
-        s = sf.openSession();
+         s = sf.openSession();
         List<EnfermedadCronica> lstEnfermedadCronica = (List<EnfermedadCronica>) s.createQuery("from Enfermedad_Cronica").list();
         s.close();
         return lstEnfermedadCronica;
     }
 
     public static List<Diagnostico> listar_Diagnostico() {
-        s = sf.openSession();
+         s = sf.openSession();
         List<Diagnostico> listDiagnostico = (List<Diagnostico>) s.createQuery("from Diagnostico").list();
         s.close();
         return listDiagnostico;
     }
 
     public static List<Examen> Listar_Examen() {
-        s = sf.openSession();
+         s = sf.openSession();
         List<Examen> lstExamen = (List<Examen>) s.createQuery("from Examen").list();
         s.close();
         return lstExamen;
     }
 
     public static List<Especialidad> Listar_Especialidades() {
-        s = sf.openSession();
+         s = sf.openSession();
         List<Especialidad> lstEspecialidades = (List<Especialidad>) s.createQuery("from Especialidad").list();
         s.close();
         return lstEspecialidades;
     }
 
     public static List<HorarioMedico> Listar_HorarioMedico() {
-        s = sf.openSession();
+         s = sf.openSession();
         List<HorarioMedico> lstHorarioMedico = (List<HorarioMedico>) s.createQuery("from HorarioMedico").list();
         s.close();
         return lstHorarioMedico;
     }
 
     public static List<Medico> Listar_Medicos() {
-        s = sf.openSession();
+         s = sf.openSession();
         List<Medico> lstMedico = (List<Medico>) s.createQuery("from Medico").list();
         s.close();
         return lstMedico;
     }
 
     public static List<Paciente> Listar_Pacientes() {
-        s = sf.openSession();
+         s = sf.openSession();
         List<Paciente> prov = (List<Paciente>) s.createQuery("from Paciente").list();
         s.close();
         return prov;
     }
 
     public static List<Paciente16> Listar_Pacientes16() {
-        s = sf.openSession();
+         s = sf.openSession();
         List<Paciente16> prov = (List<Paciente16>) s.createQuery("from Paciente_16").list();
         s.close();
         return prov;
     }
 
     public static List<PadecimientoAm> Listar_PadecimientoAm() {
-        s = sf.openSession();
+         s = sf.openSession();
         List<PadecimientoAm> prov = (List<PadecimientoAm>) s.createQuery("from Padecimiento_AM").list();
         s.close();
         return prov;
     }
 
     public static List<PadecimientoEc> Listar_PadecimientoEc() {
-        s = sf.openSession();
+         s = sf.openSession();
         List<PadecimientoEc> lstPadecimientoEc = (List<PadecimientoEc>) s.createQuery("from Padecimiento_EC").list();
         s.close();
         return lstPadecimientoEc;
     }
 
     public static List<ProcedimientosEspeciales> Listar_ProcedimientosEspeciales() {
-        s = sf.openSession();
+         s = sf.openSession();
         List<ProcedimientosEspeciales> lstProcedimientosEspeciales = (List<ProcedimientosEspeciales>) s.createQuery("from ProcedimientosEspeciales").list();
         s.close();
         return lstProcedimientosEspeciales;
     }
 
     public static List<Receta> Listar_Recetas() {
-        s = sf.openSession();
+         s = sf.openSession();
         List<Receta> lstReceta = (List<Receta>) s.createQuery("from Receta").list();
         s.close();
         return lstReceta;
     }
 
     public static List<Sector> Listar_Sectores() {
-        s = sf.openSession();
+         s = sf.openSession();
         List<Sector> lstSector = (List<Sector>) s.createQuery("from Sector").list();
         s.close();
         return lstSector;
     }
 
     public static List<FacturaConsulta> ListarFacturaConsulta() {
-        s = sf.openSession();
+         s = sf.openSession();
         List<FacturaConsulta> lista = s.createQuery("from FacturaConsulta").list();
         s.close();
         return lista;
@@ -440,7 +440,7 @@ public class DAO {
 
 //------------- Inicio Metodos Guardar Objetos --------------------------------
     public static boolean GuardarAlergiaMedicamento(String nombre, String descr) {
-        s = sf.openSession();
+         s = sf.openSession();
         AlergiaMedicamento alergiaMed = new AlergiaMedicamento();
         alergiaMed.setNombre(nombre);
         alergiaMed.setDescripcion(descr);
@@ -452,20 +452,21 @@ public class DAO {
     }
 
     public static int GuardarEspecialidad(String nombre, String descripcion) {
+         s = sf.openSession();
         try {
             int flag;
-            s = sf.openSession();
+
             Especialidad especialidad = new Especialidad();
             especialidad.setNombreEspecialidad(nombre);
             especialidad.setDescripcion(descripcion);
             s.beginTransaction();
             flag = (int) s.save(especialidad);
             s.getTransaction().commit();
-            s.close();
             return flag;
         } catch (Exception ex) {
-            s.close();
             return -1;
+        }finally{
+                s.close();
         }
 
     }
@@ -473,7 +474,7 @@ public class DAO {
     public static int GuardarCajero(Cajero cajero) {
         cajero.setEstado(true);
         int id = -1;
-        s = sf.openSession();
+         s = sf.openSession();
         s.beginTransaction();
         id = (int) s.save(cajero);
         s.getTransaction().commit();
@@ -481,10 +482,11 @@ public class DAO {
         return id;
     }
 
-    public static int GuardarCita(int idMedico, int idPaciente, Date fechaO,String fecha, String hora, boolean estado) {
+    public static int GuardarCita(int idMedico, int idPaciente, Date fechaO, String fecha, String hora, boolean estado) {
         int flag;
+         s = sf.openSession();
         try {
-            s = sf.openSession();
+
             Transaction t = s.beginTransaction();
             Cita cita = new Cita();
             cita.setMedico((Medico) s.get(Medico.class, idMedico));
@@ -492,21 +494,22 @@ public class DAO {
             cita.setFecha(java.sql.Date.valueOf(fecha));
             cita.setHora(fechaO);
             cita.setEstado(estado);
-            flag = (int)s.save(cita);
+            flag = (int) s.save(cita);
             t.commit();
-            s.close();
             return flag;
         } catch (Exception ex) {
             System.out.println("ERROR: " + ex.getMessage() + " CAUSA: " + ex.getCause() + " LOCALIZACION: " + ex.getLocalizedMessage());
-            s.close();
+            
             return -1;
+        }finally{
+                s.close();
         }
     }
 
     public static int guardarSector(String barrio, String distrito) {
+         s = sf.openSession();
         try {
             int ss;
-            s = sf.openSession();
             Transaction t = s.beginTransaction();
             Sector sector = new Sector();
             sector.setBarrio(barrio);
@@ -514,19 +517,20 @@ public class DAO {
             ss = (int) s.save(sector);//Retorna el ID con el que guardo            
             t.commit();
             // return true;
-            s.close();
             return ss;// ss contiene el ID del objeto que se guarda en la base de datos
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-            s.close();
+         
             return -1;
+        }finally{
+                s.close();
         }
     }
 
     public static int GuardarHorarioMedico(int idDiaMedico, String horaInicio, String horaFinal) {
+         s = sf.openSession();
         try {
             int flag;
-            s = sf.openSession();
             Transaction t = s.beginTransaction();
             HorarioMedico horarioMedico = new HorarioMedico();
             horarioMedico.setDiasMedico((DiasMedico) s.get(DiasMedico.class, idDiaMedico));
@@ -534,19 +538,19 @@ public class DAO {
             horarioMedico.setHoraSalida(horaFinal);
             flag = (int) s.save(horarioMedico);//Retorna el ID con el que guardo            
             t.commit();
-            s.close();
             return flag;
         } catch (Exception ex) {
             System.out.println(ex.getMessage() + " CAUSA: " + ex.getCause());
-            s.close();
             return -1;
-        }
+        }finally{
+                s.close();
+            }
     }
 
     public static int GuardarDiaMedico(int idMedico, boolean Lunes, boolean Martes, boolean Miercoles, boolean Jueves, boolean Viernes, boolean Sabado, boolean Domingo) {
+         s = sf.openSession();
         try {
             int id;
-            s = sf.openSession();
             Transaction t = s.beginTransaction();
             DiasMedico diasMedico = new DiasMedico();
             diasMedico.setMedico((Medico) s.get(Medico.class, idMedico));
@@ -559,47 +563,47 @@ public class DAO {
             diasMedico.setDomingo(Domingo);
             id = (int) s.save(diasMedico);//Retorna el ID con el que guardo            
             t.commit();
-            s.close();
             return id;
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-            s.close();
             return -1;
-        }
+        }finally{
+                s.close();
+            }
     }
 
     public static int GuardarCatalogoExamen(CatalogoExamen c) {
+         s = sf.openSession();
         try {
             int ss;
-            s = sf.openSession();
             Transaction t = s.beginTransaction();
             ss = (int) s.save(c);//Retorna el ID con el que guardo            
             t.commit();
             // return true;
-            s.close();
             return ss;// ss contiene el ID del objeto que se guarda en la base de datos
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-            s.close();
             return -1;
+        }finally{
+                s.close();
         }
 
     }
 
     public static int GuardarProcedimiento(ProcedimientosEspeciales c) {
+         s = sf.openSession();
         try {
             int ss;
-            s = sf.openSession();
             Transaction t = s.beginTransaction();
             ss = (int) s.save(c);//Retorna el ID con el que guardo            
             t.commit();
-            s.close();
             // return true;
             return ss;// ss contiene el ID del objeto que se guarda en la base de datos
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-            s.close();
             return -1;
+        }finally{
+                s.close();
         }
 
     }
@@ -610,10 +614,9 @@ public class DAO {
             System.out.println("USUARIO NO REGISTRADO!");
         }
         System.out.println("USUARIO REGISTRADO!");
-
+         s = sf.openSession();
         try {
             int bandera;
-            s = sf.openSession();
             Transaction t = s.beginTransaction();
             Medico medico = new Medico();
             medico.setPrimernombre(nombre);
@@ -628,18 +631,23 @@ public class DAO {
             medico.setFoto(fotos);
             bandera = (int) s.save(medico);
             t.commit();
-            s.close();
             return bandera;
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage() + "  CAUSA: " + ex.getCause());
-            s.close();
             return -1;
+        }finally {
+                s.close();
         }
 
     }
 
     public static int ActualizarDiasMedico(DiasMedico dMedico) {
         int flag;
+        if (s.isOpen()) {
+            s.close();
+            System.out.println("SESSION ABIERTA EN DIA MEDICO!!!");
+        }
+         s = sf.openSession();
         try {
             s.beginTransaction();
             s.update(dMedico);
@@ -648,15 +656,20 @@ public class DAO {
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage() + "  CAUSA: " + ex.getCause() + " LUGAR: " + ex.getLocalizedMessage());
             flag = -1;
+        }finally {
+                s.close();
         }
-        s.close();
         return flag;
     }
 
     public static int ActualizarHorasMedico(HorarioMedico hMedico) {
         int flag;
+        if (s.isOpen()) {
+            s.close();
+            System.out.println("SESSION ABIERTA EN HORAS MEDICO!!!");
+        }
+        s = sf.openSession();
         try {
-            s = sf.openSession();
             s.beginTransaction();
             s.update(hMedico);
             s.getTransaction().commit();
@@ -664,41 +677,37 @@ public class DAO {
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage() + "  CAUSA: " + ex.getCause());
             flag = -1;
+        } finally {
+                s.close();
         }
-        s.close();
         return flag;
     }
 
     public static int ActualizarMedico(String usuarioNuevo, Medico medico, String pass) {
         int flag;
-        valid = Usuarios.ActualizarUsuario(usuarioNuevo, medico.getUsuario(), pass);
-        if (!valid) {
-            System.out.println("USUARIO NO ACTUALIZADO!");
-        }
+         s = sf.openSession();
+        //valid = Usuarios.ActualizarUsuario(usuarioNuevo, pass);
+        //if (!valid) {
+        //    System.out.println("USUARIO NO ACTUALIZADO!");
+        //}
         System.out.println("USUARIO ACTUALIZADO!");
-
-        if (medico.getUsuario().equals(usuarioNuevo)) {
-            System.out.println("NOMBRE USUARIO REPETIDO!");
-            medico.setUsuario(usuarioNuevo);
-        }
-        medico.setUsuario(usuarioNuevo);
         try {
-            s = sf.openSession();
             s.beginTransaction();
             s.update(medico);
             s.getTransaction().commit();
             flag = 1;
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage() + "  CAUSA: " + ex.getCause());
-            s.close();
+            System.out.println("Medico no Actualizado");
+            System.out.println("Error: " + ex.getMessage() + "  CAUSA: " + ex.getCause() + " LUGAR: " + ex.getLocalizedMessage());
             flag = -1;
+        }finally {
+                s.close();
         }
-        s.close();
         return flag;
     }
 
     public static boolean ActualizarEspecialidad(int id, String nombre, String descripcion) {
-        s = sf.openSession();
+         s = sf.openSession();
         Especialidad especialidad = new Especialidad();
         especialidad.setIdEspecialidad(id);
         especialidad.setNombreEspecialidad(nombre);
@@ -712,7 +721,7 @@ public class DAO {
 
 //------------- Fin Metodos Guardar Objetos ----------------------------------- 
     public static boolean ActualizarCatalogoEx(CatalogoExamen ce) {
-        s = sf.openSession();
+         s = sf.openSession();
         s.beginTransaction();
         s.update(ce);
         s.getTransaction().commit();
@@ -721,7 +730,7 @@ public class DAO {
     }
 
     public static boolean ActualizarProcEsp(ProcedimientosEspeciales ce) {
-        s = sf.openSession();
+         s = sf.openSession();
         s.beginTransaction();
         s.update(ce);
         s.getTransaction().commit();
@@ -730,7 +739,7 @@ public class DAO {
     }
 
     public static boolean ActualizarCajero(Cajero ce) {
-        s = sf.openSession();
+         s = sf.openSession();
         s.beginTransaction();
         s.update(ce);
         s.getTransaction().commit();
@@ -739,7 +748,7 @@ public class DAO {
     }
 
     public static boolean ActualizarFacturaExamen(FacturaExamen fe) {
-        s = sf.openSession();
+         s = sf.openSession();
         s.beginTransaction();
         s.update(fe);
         s.getTransaction().commit();
@@ -749,7 +758,7 @@ public class DAO {
     }
 
     public static List<FacturaExamen> ListarFacturaExamen() {
-        s = sf.openSession();
+         s = sf.openSession();
         List<FacturaExamen> lista = (List<FacturaExamen>) s.createQuery("from FacturaExamen").list();
         return lista;
     }
@@ -775,8 +784,8 @@ public class DAO {
      */
 
     public static int GuardarFacturaex(FacturaExamen fex) {
+         s = sf.openSession();
         try {
-            s = sf.openSession();
             int id = -1;
             Transaction t = s.beginTransaction();
             id = (int) s.save(fex);//Retorna el ID con el que guardo            
@@ -785,12 +794,15 @@ public class DAO {
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             return -1;
+        }finally{
+                s.close();
+            
         }
     }
 
     public static boolean GuardarDetalleFacturaPro(DetalleFactpro ex) {
+         s = sf.openSession();
         try {
-            s = sf.openSession();
             Transaction t = s.beginTransaction();
             s.save(ex);//Retorna el ID con el que guardo            
             t.commit();
@@ -798,12 +810,15 @@ public class DAO {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
+        }finally{
+                s.close();
+            
         }
     }
 
     public static boolean GuardarDetalleFacturaEx(DetalleFacturaEx ex) {
+         s = sf.openSession();
         try {
-            s = sf.openSession();
             Transaction t = s.beginTransaction();
             s.save(ex);//Retorna el ID con el que guardo            
             t.commit();
@@ -811,13 +826,16 @@ public class DAO {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
+        }finally{
+                s.close();
+            
         }
     }
 
     public static boolean BorrarExamen(String nombre) {
+         s = sf.openSession();
         try {
             int id = 0;
-            s = sf.openSession();
             Transaction t = s.beginTransaction();
             List<CatalogoExamen> lista = s.createQuery("from CatalogoExamen").list();
             for (CatalogoExamen ce : lista) {
@@ -832,14 +850,16 @@ public class DAO {
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             return false;
+        }finally{
+                s.close();
+            
         }
     }
 
     public static boolean BorrarPE(String nombre) {
-
+         s = sf.openSession();
         try {
             int id = 0;
-            s = sf.openSession();
             Transaction t = s.beginTransaction();
             List<ProcedimientosEspeciales> lista = s.createQuery("from ProcedimientosEspeciales").list();
             for (ProcedimientosEspeciales ce : lista) {
@@ -854,6 +874,8 @@ public class DAO {
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             return false;
+        }finally{
+                s.close();
         }
     }
 }

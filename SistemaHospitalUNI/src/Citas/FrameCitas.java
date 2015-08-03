@@ -50,7 +50,6 @@ public class FrameCitas extends javax.swing.JInternalFrame {
      * Creates new form FrameCitas
      */
     SessionFactory sf;
-    Session s;
 
     RangeEvaluator evaluator = new RangeEvaluator();
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -102,6 +101,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
      jCalendario.getDayChooser().addDateEvaluator(evaluator);
      }*/
     public void llenarComboCitas() {
+        Session s;
         DAO d = new DAO(sf);
         List<Especialidad> lstEspecialidades = DAO.Listar_Especialidades();
         for (Especialidad especialidades : lstEspecialidades) {
@@ -146,6 +146,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
     }
 
     public void llenarComboPacientes() {
+        Session s;
         DAO d = new DAO(sf);
         List<Paciente> lstPacientes = DAO.Listar_Pacientes();
         for (Paciente p : lstPacientes) {
@@ -388,6 +389,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
     }
 
     public void ListarMedicoDiaUnico(String cedula) {
+        Session s;
         s = sf.openSession();
         List<Medico> lstMedico = (List<Medico>) s.createQuery("from Medico").list();
         for (Medico medico : lstMedico) {
@@ -401,6 +403,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
     }
 
     public void ListarDiaHorarioUnico(int idDias) {
+        Session s;
         s = sf.openSession();
         int idMedic;
         List<DiasMedico> lstDiasMedic = (List<DiasMedico>) s.createQuery("from DiasMedico").list();
@@ -420,6 +423,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
     
     public void ListarHorarioMedicoUnico(int idDiaMedico) {
         limpiar();
+        Session s;
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         s = sf.openSession();
         List<HorarioMedico> lstHorario = new ArrayList<>();
@@ -709,7 +713,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
         selectedDate = ((JCalendar) evt.getSource()).getDate();
         today.setTime(selectedDate);
         if (today.get(Calendar.DAY_OF_WEEK) == lunes || today.get(Calendar.DAY_OF_WEEK) == martes || today.get(Calendar.DAY_OF_WEEK) == miercoles || today.get(Calendar.DAY_OF_WEEK) == jueves || today.get(Calendar.DAY_OF_WEEK) == viernes || today.get(Calendar.DAY_OF_WEEK) == sabado || today.get(Calendar.DAY_OF_WEEK) == domingo) {
-
+            System.out.println("Dia Disponible");
         } else {
             System.out.println("Dia Indispuesto");
         }

@@ -10,6 +10,7 @@ import Especialidades.FrameEspecialidades;
 import FramePrincipal.Logueo;
 import InternalFrames.*;
 import Medicos.FrameMedicos;
+import Medicos.ListarMedicos;
 import PermisosUsuarios.AsignacionPermisos;
 import Pojo.AlergiaMedicamento;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
@@ -153,7 +154,12 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         menuMedico.add(jMenuItem5);
 
         menuHorarioMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x_office_calendar.png"))); // NOI18N
-        menuHorarioMedico.setText("Horario Médico");
+        menuHorarioMedico.setText("Listado Medicos");
+        menuHorarioMedico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuHorarioMedicoActionPerformed(evt);
+            }
+        });
         menuMedico.add(menuHorarioMedico);
 
         jMenu1.add(menuMedico);
@@ -547,6 +553,15 @@ public class SistemaPrincipal extends javax.swing.JFrame {
             Logger.getLogger(SistemaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void menuHorarioMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHorarioMedicoActionPerformed
+        // TODO add your handling code here:
+            ListarMedicos citas = new ListarMedicos(sf);
+            if (activo(citas)) {
+                this.jDesktopPane1.add(citas);
+                citas.setVisible(true);
+            }
+    }//GEN-LAST:event_menuHorarioMedicoActionPerformed
 
     /**
      * @param args the command line arguments
