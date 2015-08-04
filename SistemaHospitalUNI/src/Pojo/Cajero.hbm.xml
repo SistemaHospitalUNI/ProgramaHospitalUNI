@@ -29,9 +29,10 @@
         <property name="estadocivil" type="string">
             <column name="estadocivil" length="20" not-null="true" />
         </property>
-        <property name="usuario" type="string">
+  <!--     <property name="usuario" type="string">
             <column name="usuario" length="25" not-null="true" />
         </property>
+   -->
         <property name="estado" type="boolean">
             <column name="estado" not-null="true" />
         </property>

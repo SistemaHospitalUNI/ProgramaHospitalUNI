@@ -7,6 +7,7 @@ package InternalFrames;
 
 import Conexion.DAO;
 import Decoracion.RedimensionarImagen;
+import FramePrincipal.Logueo;
 import Pojo.CatalogoExamen;
 import Pojo.DetalleFactpro;
 import Pojo.DetalleFacturaEx;
@@ -49,6 +50,7 @@ public class FacturaExt extends javax.swing.JInternalFrame {
     float t=0;
     DecimalFormat df = new DecimalFormat("0.0"); 
     String cajeronombre, cajeroapellido;
+    int idcajero=-1;
     public FacturaExt(SessionFactory sf) {
         
             initComponents();
@@ -59,11 +61,13 @@ public class FacturaExt extends javax.swing.JInternalFrame {
             int num = listafex.size()+ listfactc.size() +1;
             this.n0factura.setText(String.valueOf(num));
             
+            //Obtener id del cajero
+            idcajero= Integer.parseInt(Logueo.getUser().substring(6));
             DefaultTableModel dft = new DefaultTableModel();
             dft.addColumn("Nombre");dft.addColumn("Precio");
             this.jTable1.setModel(dft);
             
-            Pojo.Cajero c = d.busquedaCajeroId(1);
+            Pojo.Cajero c = d.busquedaCajeroId(idcajero);
             if(c==null){JOptionPane.showMessageDialog(this,"No hay cajeros disponibles","Error",JOptionPane.ERROR_MESSAGE);}
             else{
                 try {
@@ -85,8 +89,9 @@ public class FacturaExt extends javax.swing.JInternalFrame {
         
             LlenarExamenes();
             LlenarProcedimientos();
-       
-    }
+            }   
+    
+    
     
     public void LlenarExamenes(){
     DAO d = new DAO(s);
@@ -163,6 +168,7 @@ public class FacturaExt extends javax.swing.JInternalFrame {
         jButton2.setText("jButton2");
 
         setClosable(true);
+        setTitle("Facturar");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -528,16 +534,10 @@ public class FacturaExt extends javax.swing.JInternalFrame {
            ComprobarPaciente();
            DAO d = new DAO(s);
            
-             //Obtener id del cajero
-           List<Pojo.Cajero> cajeros= d.Listar_Cajero();
-       int idcajero =0;
-       for(Pojo.Cajero c:cajeros){
-           if(c.getNombre().equals(cajeronombre)&& c.getApellido().equals(cajeroapellido)){
-                idcajero=c.getIdCajero();
-           }
-       }
+             
            FacturaExamen fe = new FacturaExamen();
         fe.setCajero(d.busquedaCajeroId(idcajero));
+        fe.setNumfactura(Integer.parseInt(n0factura.getText()));
         fe.setFecha(new Date());
         fe.setPaciente(d.busquedaPacienteId(Integer.parseInt(this.jTextField4.getText())));
         fe.setTotal(0);

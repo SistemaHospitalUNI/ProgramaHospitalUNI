@@ -19,7 +19,7 @@ public class Cajero  implements java.io.Serializable {
      private String telefono;
      private String correo;
      private String estadocivil;
-     private String usuario;
+//     private String usuario;
      private boolean estado;
      private byte[] foto;
      private Set facturaExamens = new HashSet(0);
@@ -29,7 +29,7 @@ public class Cajero  implements java.io.Serializable {
     }
 
 	
-    public Cajero(String nombre, String apellido, String cedula, String direccion, String telefono, String correo, String estadocivil, String usuario, boolean estado) {
+    public Cajero(String nombre, String apellido, String cedula, String direccion, String telefono, String correo, String estadocivil, boolean estado) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.cedula = cedula;
@@ -37,10 +37,10 @@ public class Cajero  implements java.io.Serializable {
         this.telefono = telefono;
         this.correo = correo;
         this.estadocivil = estadocivil;
-        this.usuario = usuario;
+//        this.usuario = usuario;
         this.estado = estado;
     }
-    public Cajero(String nombre, String apellido, String cedula, String direccion, String telefono, String correo, String estadocivil, String usuario, boolean estado, byte[] foto, Set facturaExamens, Set facturaConsultas) {
+    public Cajero(String nombre, String apellido, String cedula, String direccion, String telefono, String correo, String estadocivil, boolean estado, byte[] foto, Set facturaExamens, Set facturaConsultas) {
        this.nombre = nombre;
        this.apellido = apellido;
        this.cedula = cedula;
@@ -48,7 +48,7 @@ public class Cajero  implements java.io.Serializable {
        this.telefono = telefono;
        this.correo = correo;
        this.estadocivil = estadocivil;
-       this.usuario = usuario;
+//       this.usuario = usuario;
        this.estado = estado;
        this.foto = foto;
        this.facturaExamens = facturaExamens;
@@ -111,13 +111,13 @@ public class Cajero  implements java.io.Serializable {
     public void setEstadocivil(String estadocivil) {
         this.estadocivil = estadocivil;
     }
-    public String getUsuario() {
-        return this.usuario;
-    }
-    
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
+//    public String getUsuario() {
+//        return this.usuario;
+//    }
+//    
+//    public void setUsuario(String usuario) {
+//        this.usuario = usuario;
+//    }
     public boolean isEstado() {
         return this.estado;
     }

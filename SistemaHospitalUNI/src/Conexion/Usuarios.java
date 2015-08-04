@@ -51,13 +51,18 @@ public static boolean ActualizarUsuarioCajero(String nombreUsuario, String passw
             s = sf.openSession();
             Transaction t = s.beginTransaction();
 //            String query2 = "RENAME USER '" + nombreUsuario + "'@localhost TO '" + nombreUsuarioNuevo + "'@localhost;";
-            String query = "UPDATE mysql.user SET Password=PASSWORD('" + password + "')" + "Where User='" + nombreUsuario + "' AND Host='localhost';";
+            String query = "update mysql.user set password= PASSWORD('" + password + "') " + "where user= '" + nombreUsuario + "';";
+            String query1= "flush privileges;";
 //            Query q2 = s.createSQLQuery(query2);
 //            q2.executeUpdate();
             
             System.out.println("" + query);
             Query q = s.createSQLQuery(query);
             q.executeUpdate();
+            
+            q= s.createSQLQuery(query1);
+            q.executeUpdate();
+            
             t.commit();
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage() + " CAUSA: " + e.getCause());
@@ -282,10 +287,9 @@ public static boolean ActualizarUsuarioCajero(String nombreUsuario, String passw
         public static boolean CrearUsuarioCajero(String usuario, String password) {
         try {
             s = sf.openSession();
-            String user = "ca"+usuario;
             Transaction t = s.beginTransaction();
-            String query= "use SistemaHospital";
-            String query0 = "Create user '"+user+"' identified by '"+password+"';";
+            String query= "use SistemaHospital;";
+            String query0 = "Create user '"+usuario+"' identified by '"+ password+"';";
             String query1 = "Grant select, insert, update on SistemaHospital.FacturaExamen to '" + usuario + "';";
             String query2 = "Grant select, insert, update on SistemaHospital.FacturaConsulta to  '" + usuario + "';";
             String query4 = "Grant select, insert, update on SistemaHospital.Detalle_factpro to '" + usuario + "';";
@@ -296,6 +300,8 @@ public static boolean ActualizarUsuarioCajero(String nombreUsuario, String passw
             String query9 = "Grant select on SistemaHospital.Catalogo_Examen to '" + usuario + "';";
             String query10 = "Grant select on SistemaHospital.ProcedimientosEspeciales to '" + usuario + "';";
             String query11 = "Grant select on SistemaHospital.Consulta to '" + usuario + "';";
+            String query12= "Grant select, update on mysql.user to '" + usuario +"' ;";
+            String query13= "Grant reload on *.* to '"+ usuario +"' ;";
            
             Query q = s.createSQLQuery(query);
             q.executeUpdate();
@@ -331,6 +337,12 @@ public static boolean ActualizarUsuarioCajero(String nombreUsuario, String passw
             q.executeUpdate();
 
             q = s.createSQLQuery(query11);
+            q.executeUpdate();
+            
+            q = s.createSQLQuery(query12);
+            q.executeUpdate();
+            
+            q = s.createSQLQuery(query13);
             q.executeUpdate();
 
             t.commit();

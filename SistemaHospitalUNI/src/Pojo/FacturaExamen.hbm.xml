@@ -14,6 +14,9 @@
         <many-to-one name="paciente" class="Pojo.Paciente" fetch="select">
             <column name="id_paciente" not-null="true" />
         </many-to-one>
+        <property name="numfactura" type="int">
+            <column name="numfactura" not-null="true" />
+        </property>
         <property name="fecha" type="timestamp">
             <column name="fecha" length="19" not-null="true" />
         </property>

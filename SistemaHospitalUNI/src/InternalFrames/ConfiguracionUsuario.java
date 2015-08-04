@@ -28,6 +28,9 @@ public class ConfiguracionUsuario extends javax.swing.JInternalFrame {
         if(Logueo.getUser().charAt(0) == 'c' && Logueo.getUser().charAt(1)=='a'){
         this.jLabel7.setText("Cajero");
         }
+        if(Logueo.getUser().equalsIgnoreCase("root")){
+        this.jLabel7.setText("Admin");
+        }
     }
 
     /**
@@ -86,15 +89,15 @@ public class ConfiguracionUsuario extends javax.swing.JInternalFrame {
 
         jPasswordField1.setEnabled(false);
         jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jPasswordField1KeyTyped(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyReleased(evt);
             }
         });
 
         jPasswordField2.setEnabled(false);
         jPasswordField2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jPasswordField2KeyTyped(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jPasswordField2KeyReleased(evt);
             }
         });
 
@@ -114,8 +117,6 @@ public class ConfiguracionUsuario extends javax.swing.JInternalFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/aceptar16.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -147,8 +148,8 @@ public class ConfiguracionUsuario extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel5)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(204, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
@@ -177,8 +178,8 @@ public class ConfiguracionUsuario extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(42, 42, 42))
         );
@@ -196,36 +197,36 @@ public class ConfiguracionUsuario extends javax.swing.JInternalFrame {
        else{JOptionPane.showMessageDialog(this, "Introduzca su contraseña actual","Error",JOptionPane.ERROR_MESSAGE);}
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jPasswordField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyTyped
-       if(this.jPasswordField2.getText().length() == this.jPasswordField1.getText().length()){
-       if(this.jPasswordField2.getText().equals(this.jPasswordField1.getText())){
-       this.jLabel5.setIcon(new ImageIcon(getClass().getResource("../Imagenes/aceptar16.png").toString()));
-       }
-       else{
-       this.jLabel5.setIcon(new ImageIcon(getClass().getResource("../Imagenes/cerrar16.png").toString()));}
-       }
-       else{this.jLabel5.setIcon(null);}
-    }//GEN-LAST:event_jPasswordField1KeyTyped
-
-    private void jPasswordField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField2KeyTyped
-        // TODO add your handling code here:
-        if(this.jPasswordField2.getText().length() != this.jPasswordField1.getText().length()){
-        this.jLabel5.setIcon(null);
-        }
-    }//GEN-LAST:event_jPasswordField2KeyTyped
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
       if(Logueo.getUser().equals("root")){JOptionPane.showMessageDialog(this,"No se pueden realizar cambios al usuario root");}
       else{
        Usuarios us = new Usuarios(s);
        if(us.ActualizarUsuarioCajero(Logueo.getUser(),this.jPasswordField1.getText())==true){
        JOptionPane.showMessageDialog(this, "Cambios Guardados");
+       this.dispose();
        }
        else{
        JOptionPane.showMessageDialog(this, "Error al guardar cambios","Error",JOptionPane.ERROR_MESSAGE);
        }
       }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jPasswordField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField2KeyReleased
+          if(this.jPasswordField2.getText().length() != this.jPasswordField1.getText().length()){
+          this.jLabel5.setIcon(null);
+          }
+    }//GEN-LAST:event_jPasswordField2KeyReleased
+
+    private void jPasswordField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyReleased
+       if(this.jPasswordField2.getText().length() == this.jPasswordField1.getText().length()){
+       if(this.jPasswordField2.getText().equals(this.jPasswordField1.getText())){
+       this.jLabel5.setIcon(new ImageIcon(getClass().getResource("../Imagenes/aceptar16.png")));
+       }
+       else{
+       this.jLabel5.setIcon(new ImageIcon(getClass().getResource("../Imagenes/cerrar16.png")));}
+       }
+       else{this.jLabel5.setIcon(null);}
+    }//GEN-LAST:event_jPasswordField1KeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

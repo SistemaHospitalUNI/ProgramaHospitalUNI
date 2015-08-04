@@ -893,7 +893,7 @@ try{
     private void CrearUsuario(String id, String nombre) {
    try{
    
-   String usuario = nombre.substring(0,3)+id;
+   String usuario = "ca-"+nombre.substring(0,3)+id;
    String pass = "12345";
    Usuarios us = new Usuarios(sf);
    us.CrearUsuarioCajero(usuario,pass);

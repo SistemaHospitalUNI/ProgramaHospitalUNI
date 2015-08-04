@@ -13,6 +13,7 @@ public class FacturaConsulta  implements java.io.Serializable {
      private Integer idFactura;
      private Cajero cajero;
      private Consulta consulta;
+     private int numfactura;
      private Date fecha;
      private float total;
      private float pago;
@@ -21,9 +22,10 @@ public class FacturaConsulta  implements java.io.Serializable {
     public FacturaConsulta() {
     }
 
-    public FacturaConsulta(Cajero cajero, Consulta consulta, Date fecha, float total, float pago, float cambio) {
+    public FacturaConsulta(Cajero cajero, Consulta consulta,int numfactura, Date fecha, float total, float pago, float cambio) {
        this.cajero = cajero;
        this.consulta = consulta;
+       this.numfactura= numfactura;
        this.fecha = fecha;
        this.total = total;
        this.pago = pago;
@@ -78,6 +80,14 @@ public class FacturaConsulta  implements java.io.Serializable {
     
     public void setCambio(float cambio) {
         this.cambio = cambio;
+    }
+
+    public int getNumfactura() {
+        return numfactura;
+    }
+
+    public void setNumfactura(int numfactura) {
+        this.numfactura = numfactura;
     }
 
 

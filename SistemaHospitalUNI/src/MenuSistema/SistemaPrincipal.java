@@ -277,6 +277,11 @@ public class SistemaPrincipal extends javax.swing.JFrame {
 
         menuFactura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lists.png"))); // NOI18N
         menuFactura.setText("Factura");
+        menuFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuFacturaActionPerformed(evt);
+            }
+        });
 
         facturaConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
         facturaConsulta.setText("Factura Consulta");
@@ -292,6 +297,11 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         menuFactura.add(menuExayProc);
 
         jMenuItem4.setText("Ver Facturas");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         menuFactura.add(jMenuItem4);
 
         jMenu1.add(menuFactura);
@@ -493,6 +503,10 @@ public class SistemaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuAgregarEnfermedadActionPerformed
 
     private void menuExayProcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExayProcActionPerformed
+if(!Logueo.getUser().substring(0, 2).equals("ca")){
+        JOptionPane.showMessageDialog(this,"Necesita ser un cajero para acceder","",JOptionPane.ERROR_MESSAGE);
+        }
+else{
         FacturaExt fext = new FacturaExt(sf);
          if (activo(fext)) {
             this.jDesktopPane1.add(fext);
@@ -503,6 +517,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
                 Logger.getLogger(SistemaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+}
     }//GEN-LAST:event_menuExayProcActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -562,6 +577,23 @@ public class SistemaPrincipal extends javax.swing.JFrame {
                 citas.setVisible(true);
             }
     }//GEN-LAST:event_menuHorarioMedicoActionPerformed
+
+    private void menuFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFacturaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuFacturaActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+       VerFacturas cf = new VerFacturas(sf);
+       if(activo(cf)){
+           try {
+               this.jDesktopPane1.add(cf);
+               cf.setMaximum(true);
+               cf.setVisible(true);
+           } catch (PropertyVetoException ex) {
+               Logger.getLogger(SistemaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+           }
+       }
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments

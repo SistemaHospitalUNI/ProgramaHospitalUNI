@@ -7,8 +7,11 @@ package InternalFrames;
 
 import Conexion.DAO;
 import Pojo.*;
+import java.sql.ResultSet;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 /**
@@ -42,16 +45,24 @@ public class VerFacturas extends javax.swing.JInternalFrame {
         List<Pojo.Cajero> listac = d.Listar_Cajero();
         
         for(FacturaExamen fe : listafe){
-        for(FacturaConsulta fc: listafc){
-        for(Paciente p : listap){
         for(Pojo.Cajero c : listac){
-            
+        if(c.getIdCajero() == fe.getCajero().getIdCajero()){
+        for(Pojo.Paciente p : listap){
+        if(p.getIdPaciente() == fe.getPaciente().getIdPaciente()){
+        String fila []= {String.valueOf(fe.getNumfactura()),String.valueOf( fe.getFecha()),String.valueOf(fe.getTotal()), String.valueOf(fe.getPago()),String.valueOf(fe.getCambio()), p.getNombre(), p.getApellido(),c.getNombre(),c.getApellido()};
+        dft.addRow(fila);
+        }
         }
         }
         }
         }
         
+        this.jTable1.setModel(dft);
         
+//        Session se =sf.openSession();
+//        String query = "Select * from VerFacturas";
+//        Query q = se.createSQLQuery(query);
+//        List lista =q.list();
     }
 
     /**
@@ -73,6 +84,7 @@ public class VerFacturas extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
+        setClosable(true);
         setTitle("Facturas");
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
 

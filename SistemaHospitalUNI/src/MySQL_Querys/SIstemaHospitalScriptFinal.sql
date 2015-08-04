@@ -155,7 +155,6 @@ Create Table Cajero(
     telefono varchar(8) not null,
     correo varchar(50) not null,
     estadocivil varchar(20) not null,
-    usuario varchar(25)not null,
     estado boolean not null default true,
     check (cedula like '[0-9]''[0-9]''[0-9]''-''[0-9]''[0-9]''[0-9]''[0-9]''[0-9]''[0-9]''-''[0-9]''[0-9]''[0-9]''[0-9]''[A-Z]'),
     foto longblob
@@ -167,6 +166,7 @@ Create Table FacturaExamen(
     foreign key(id_paciente)references Paciente(id_paciente),
     id_cajero int not null,
     foreign key (id_cajero)references Cajero(id_cajero),
+    numfactura int not null,
     fecha datetime not null,
     total float not null,
     pago float not null,
@@ -211,6 +211,7 @@ Create Table FacturaConsulta(
     id_consulta int not null unique,
     foreign key (id_consulta) references Consulta(id_consulta),
     foreign key(id_cajero)references Cajero(id_cajero),
+    numfactura int not null,
     fecha time not null,
     total float not null,
     pago float not null,
@@ -249,3 +250,4 @@ Create Table Receta(
     dosis varchar(200)not null,
     cantidad int not null
 );
+
