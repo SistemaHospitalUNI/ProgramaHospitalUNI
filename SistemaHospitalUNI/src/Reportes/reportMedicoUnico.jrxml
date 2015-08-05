@@ -210,7 +210,7 @@ Where m.id_medico = $P{ParametroID};]]>
 					<textElement>
 						<font size="11" isBold="true" isItalic="false" isUnderline="false"/>
 					</textElement>
-					<text><![CDATA[Hospital UNI]]></text>
+					<text><![CDATA[Clinica UNI]]></text>
 				</staticText>
 				<image scaleImage="FillFrame">
 					<reportElement x="461" y="7" width="114" height="72" uuid="7b2795bf-f02a-47b8-86ac-d534c1682536"/>

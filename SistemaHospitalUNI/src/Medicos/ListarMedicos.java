@@ -6,6 +6,7 @@
 package Medicos;
 
 import Conexion.DAO;
+import static Decoracion.CentrarInternal.Centrar;
 import Pojo.Medico;
 import java.beans.PropertyVetoException;
 import java.sql.Connection;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
@@ -44,7 +46,7 @@ public class ListarMedicos extends javax.swing.JInternalFrame {
 
     Session session;
     SessionFactory sf;
-    public int IdMedico;
+    public int IdMedico = 0;
 
     public void InicializarTabla() {
         dtm.addColumn("Id");
@@ -62,7 +64,7 @@ public class ListarMedicos extends javax.swing.JInternalFrame {
                 new String[]{"Id", "Nombre Completo", "Cedula", "Usuario", "Estado"}
         ) {
             Class[] types = new Class[]{
-                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
 
         });
@@ -163,7 +165,7 @@ public class ListarMedicos extends javax.swing.JInternalFrame {
             jTable1.setModel(modelo);
         }
     }
-    
+
     public void BuscarNombre(String idCriteria) {
         String est;
         limpiar();
@@ -241,6 +243,7 @@ public class ListarMedicos extends javax.swing.JInternalFrame {
         btnReporteMedico = new javax.swing.JButton();
         btnReporteGeneral = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -338,11 +341,11 @@ public class ListarMedicos extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnMostrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap(392, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(Buscar, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                        .addGap(284, 284, 284))))
+                        .addGap(284, 284, 284))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnMostrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(370, 370, 370))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -383,27 +386,37 @@ public class ListarMedicos extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton1.setText("Modificar Medico");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnReporteMedico, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                .addGap(126, 126, 126)
-                .addComponent(btnReporteGeneral, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                .addGap(133, 133, 133)
+                .addComponent(btnReporteMedico, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                .addGap(44, 44, 44)
+                .addComponent(btnReporteGeneral, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                .addGap(57, 57, 57)
+                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                .addGap(51, 51, 51)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(4, 4, 4)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnReporteMedico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnReporteGeneral, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
+                    .addComponent(btnReporteGeneral, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -543,6 +556,15 @@ public class ListarMedicos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnMostrarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        System.out.println("ID SELECCIONADO: " + IdMedico);
+        //JOptionPane.showMessageDialog(this, "Debe Seleccionar una celda para editar", "Seleccion Medico", JOptionPane.ERROR_MESSAGE);
+        FrameMedicos frMedicos = new FrameMedicos(sf, IdMedico);
+        Centrar(frMedicos, getDesktopPane());
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Buscar;
@@ -552,6 +574,7 @@ public class ListarMedicos extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnMostrar;
     private javax.swing.JButton btnReporteGeneral;
     private javax.swing.JButton btnReporteMedico;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;

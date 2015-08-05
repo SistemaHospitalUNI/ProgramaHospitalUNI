@@ -43,7 +43,6 @@ import org.hibernate.SessionFactory;
  * @author crdzbird
  */
 public class FrameMedicos extends javax.swing.JInternalFrame {
-
     DefaultTableModel dtm = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
@@ -81,10 +80,33 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         //InicializarTabla();
         cmbInicio.setSelectedIndex(0);
         cmbFinal.setSelectedIndex(0);
+        jTable1.setModel(dtm);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jTable1.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.sf = sf;
+    }
+
+    public FrameMedicos(SessionFactory sf, int idMedicoSeleccionado) {
+        try {
+            initComponents();
+            this.sf = sf;
+            IdModificar = idMedicoSeleccionado;
+            idMedicoAntiguo = IdModificar;
+            System.out.println("id Modificar:" + idMedicoSeleccionado);
+            System.out.println("id Antiguo:" + idMedicoAntiguo);
+            this.btnRegistrar.setText("Modificar");
+            this.chkEditarMedico.setSelected(true);
+            jTable1.setEnabled(true);
+            jTable1.setModel(dtm);
+            jTable1.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+            txtUsuario.setEditable(false);
+            txtUsuario.setEnabled(false);
+            MostrarDiasActualizados(IdModificar);
+            ModificarMedico(IdModificar);
+        } catch (Exception ex) {
+            System.out.println("ERROR: " + ex.getMessage() + " CAUSADO POR: " + ex.getCause());
+        }
     }
 
     public int getReturnStatus() {
@@ -354,11 +376,11 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
+            .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+            .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
 
         jButton3.setText("Tomar Fotografia");
@@ -384,7 +406,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
             }
         ));
         jTable1.setEnabled(false);
-        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
@@ -477,9 +499,9 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
                                                 .addGap(228, 228, 228)
                                                 .addComponent(cmbId, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
                                                 .addGap(152, 152, 152)
-                                                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)))
                                         .addGap(31, 31, 31))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(chkEditarMedico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -728,7 +750,6 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
                         System.out.println("ESPECIALIDAD: " + cmbEspecialidad.getItemAt(i).toString());
                         cmbEspecialidad.setSelectedIndex(i);
                         idEspecial = medico.getEspecialidad().getIdEspecialidad();
-
                     }
                 }
                 if (medico.getIdMedico().equals(IdModificar)) {
@@ -750,7 +771,6 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
                         }
                     }
                     if (medico.getFoto() != null) {
-
                         try {
                             int height = lblImagen.getHeight();
                             int width = lblImagen.getWidth();
@@ -766,10 +786,10 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
                     txtContraseña.setText(title);
                 }
             }
-            
+
         } catch (Exception ex) {
             System.out.println("ERRORES!!");
-        }finally{
+        } finally {
             s.close();
         }
     }
