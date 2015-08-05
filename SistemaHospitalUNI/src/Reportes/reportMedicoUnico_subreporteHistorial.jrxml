@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportMedicoUnico_subreporteHistorial" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0602f08f-41b8-4959-9f36-dad8970e4484">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="parametroIDMed" class="java.lang.Integer" isForPrompting="false">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     cita.id_cita,
+     cita.id_medico,
+     cita.id_paciente,
+     paciente.nombre,
+     paciente.apellido,
+     DATE_FORMAT(cita.fecha,'%d-%m-%Y'),
+     time(cita.hora),
+     paciente.estado,
+     cita.estado
+FROM Cita cita
+Inner Join Paciente paciente
+On paciente.id_paciente = cita.id_paciente
+Where cita.id_medico = $P{parametroIDMed}]]>
+	</queryString>
+	<field name="id_cita" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_medico" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_paciente" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="apellido" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DATE_FORMAT(cita.fecha,&apos;%d-%m-%Y&apos;)" class="java.lang.String"/>
+	<field name="time(cita.hora)" class="java.sql.Time"/>
+	<field name="estado" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<title>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="63" height="20" backcolor="#9E80FA" uuid="fae4b6df-5ec8-486a-bc30-f8ab481e5fc5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[n°Cita]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="63" y="0" width="186" height="20" backcolor="#9E80FA" uuid="3ce68ef2-512b-498b-a4aa-c293f65cf241"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Paciente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="249" y="0" width="161" height="20" backcolor="#9E80FA" uuid="0f97910c-856c-4e1a-a449-c19ca73321e7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha y Hora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="410" y="0" width="145" height="20" backcolor="#9E80FA" uuid="bdee0f8a-4fdd-4a40-8fdf-6db9a9bb8262"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado de la Cita]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="63" height="20" uuid="bc8b1e5f-a112-45c3-9197-fd35c3dfb380"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id_cita}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="63" y="0" width="186" height="20" uuid="5ccd5659-7569-434e-8cab-8eb1730d206f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre} + ' ' + $F{apellido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="249" y="0" width="161" height="20" uuid="069e27c7-5019-49e1-b713-da27e10ce164"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DATE_FORMAT(cita.fecha,'%d-%m-%Y')} + " " + new SimpleDateFormat("HH:mm:ss").format($F{time(cita.hora)})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="0" width="145" height="20" uuid="9f760666-5c74-4806-b831-ca1936258b4b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estado}==true ? "Realizada" : "Pendiente"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
