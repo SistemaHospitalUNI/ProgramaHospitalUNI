@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" uuid="29f0c1f9-87e7-4283-b756-0ba5d7658fbd">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="466"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#FFFFFF" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+   p.nombre,
+    p.apellido,
+    p.direccion,
+    p.telefono,
+    p.cedula,
+    a.nombre as Alergia,
+    co.nombre as Enfermedad,
+    s.barrio,
+    s.distrito
+from 
+Paciente p inner join 
+Sector s on s.id_sector = p.id_sector inner join
+padecimiento_am am on am.id_paciente = p.id_paciente inner join
+alergiamedicamento a on a.id_alergia = am.id_alergia inner join
+padecimiento_ec ec on ec.id_paciente = p.id_paciente inner join
+enfermedad_cronica co on co.id_ec = ec.id_ec 
+where p.id_paciente = $P{id}]]>
+	</queryString>
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="apellido" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="direccion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="telefono" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cedula" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Alergia" class="java.lang.String"/>
+	<field name="Enfermedad" class="java.lang.String"/>
+	<field name="barrio" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="distrito" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band height="822" splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="151" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="95" y="0" width="344" height="103" forecolor="#99CCFF" uuid="c87652c1-ff02-4b46-ba5c-db748c4d69c6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="36" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[Expediente Médico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="184" y="86" width="222" height="37" uuid="911e0bf9-1aa9-41d0-8e02-ce270771689d"/>
+				<textElement textAlignment="Center">
+					<font size="26"/>
+				</textElement>
+				<text><![CDATA[Clínica XXXXXX]]></text>
+			</staticText>
+			<image>
+				<reportElement x="424" y="0" width="129" height="140" uuid="a1efe113-38d8-4ffc-8fce-e0eb98991c0b"/>
+				<imageExpression><![CDATA["C:\\Users\\Cristhian\\Desktop\\ProgramaHospitalUNI\\SistemaHospitalUNI\\src\\Imagenes\\logo-medicina.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="8" y="103" width="146" height="20" uuid="d354a72a-482c-4947-b2fc-63b9bf698eef"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Telf: 2222 - 2211]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="123" width="188" height="20" uuid="f4bba40a-19a7-40d7-9da1-5f8db76a7048"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Correo: clinica00@gmail.com]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="373" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="4e21df69-f6a3-4b49-a181-79105c1edc08"/>
+			</line>
+			<rectangle>
+				<reportElement x="2" y="20" width="553" height="315" uuid="7d6371bc-fa4d-44d6-b539-2627c1d6560d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="2" y="20" width="553" height="26" backcolor="#99CCFF" uuid="890dcba8-7e44-414f-9bf9-d678f7fdd865"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="23" y="20" width="227" height="26" forecolor="#FFFFFF" uuid="20e17e80-4bdd-4eca-9898-78a4c821b5d6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Información del Paciente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="60" width="49" height="14" uuid="f780367b-7e87-4ce8-bf28-e8be9f3f5632"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<rectangle radius="10">
+				<reportElement x="84" y="54" width="100" height="20" uuid="b303b656-5a60-4931-ae7f-bd08bf962982"/>
+			</rectangle>
+			<textField>
+				<reportElement style="Detail" x="97" y="54" width="66" height="20" uuid="273e8112-662e-4cc9-83dd-fa926eb8c6d8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="210" y="60" width="49" height="14" uuid="5a1c02ec-6e82-4ea2-8b6a-9bb70e790f74"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Apellido:]]></text>
+			</staticText>
+			<rectangle radius="10">
+				<reportElement x="261" y="54" width="100" height="20" uuid="d67c5820-7df6-469d-8600-f321e6b85ae7"/>
+			</rectangle>
+			<textField>
+				<reportElement style="Detail" x="259" y="54" width="97" height="20" uuid="6df2b83e-2c71-4efc-a0f3-d508dbfc0b91"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="382" y="60" width="49" height="14" uuid="56e06a0e-0c40-4c76-8a27-eba4a3a17250"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Distrito:]]></text>
+			</staticText>
+			<rectangle radius="10">
+				<reportElement x="439" y="54" width="77" height="20" uuid="ca7cd74d-5481-402f-af70-687fe787d7ac"/>
+			</rectangle>
+			<textField>
+				<reportElement style="Detail" x="439" y="54" width="77" height="20" uuid="9e40e508-59b4-4b76-bf3e-e858bc9f9bcb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{distrito}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="23" y="141" width="49" height="14" uuid="f6ad9f82-f09f-490f-a10c-2bffffd69c80"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Cédula:]]></text>
+			</staticText>
+			<rectangle radius="10">
+				<reportElement x="84" y="93" width="112" height="20" uuid="170c582d-264f-4de9-916b-292e7b5ab846"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="23" y="99" width="49" height="14" uuid="2c851af2-63ef-48b9-ad0e-3884a11c6d0f"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Barrio:]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Detail" x="84" y="93" width="112" height="20" uuid="a3c3ffe2-728e-43d3-96d3-26f20f7ce265"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{barrio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="210" y="99" width="49" height="14" uuid="1ea1d170-acfe-4122-89c4-2036a0188d89"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Alergia:]]></text>
+			</staticText>
+			<rectangle radius="10">
+				<reportElement x="261" y="93" width="100" height="20" uuid="5985f54d-09db-4add-9dd7-2a77ed29b90f"/>
+			</rectangle>
+			<textField>
+				<reportElement style="Detail" x="261" y="93" width="95" height="20" uuid="683e469b-cd2d-4c9a-ac30-0fe35f371767"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Alergia}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="382" y="99" width="49" height="14" uuid="8a1aae57-17c0-4873-a033-feca33b06e43"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Telf:]]></text>
+			</staticText>
+			<rectangle radius="10">
+				<reportElement x="439" y="93" width="104" height="20" uuid="d5f0e6ab-0b64-4aa4-8f3f-91452128c0d5"/>
+			</rectangle>
+			<textField>
+				<reportElement style="Detail" x="439" y="93" width="104" height="20" uuid="bca7f829-69da-4fcc-b4a2-791bcd72dc6f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
+			</textField>
+			<rectangle radius="10">
+				<reportElement x="84" y="135" width="152" height="20" uuid="4f42b47a-ce76-47b6-a610-f4c7f47e6037"/>
+			</rectangle>
+			<textField>
+				<reportElement style="Detail" x="85" y="135" width="151" height="20" uuid="51e50641-6f55-4312-a083-657cc9048eb0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="250" y="141" width="121" height="14" uuid="d0f82aa8-ed1d-41df-b55f-4dd75ecc94af"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Enfermedad Crónica:]]></text>
+			</staticText>
+			<rectangle radius="10">
+				<reportElement x="371" y="135" width="133" height="20" uuid="811c9879-0ce3-4976-9463-57ad8433b004"/>
+			</rectangle>
+			<textField>
+				<reportElement style="Detail" x="371" y="135" width="133" height="20" uuid="61908c64-85f1-4548-b7b2-27466d98000c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Enfermedad}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="23" y="192" width="61" height="14" uuid="fe021e45-9cdd-4a51-a676-e5a12b02c5e9"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Dirección:]]></text>
+			</staticText>
+			<rectangle radius="10">
+				<reportElement x="85" y="192" width="433" height="109" uuid="98eef6db-a8cd-437f-b994-74af8b9afe14"/>
+			</rectangle>
+			<textField>
+				<reportElement style="Detail" x="88" y="192" width="430" height="109" uuid="f6bf0227-ebe3-435b-822e-282b913d4200"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{direccion}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="2" y="335" width="553" height="12" backcolor="#99CCFF" uuid="04fb5bc0-1e30-4bfa-a50e-cbd8317fe8b5"/>
+			</rectangle>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="28" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="424" y="0" width="131" height="20" forecolor="#000000" uuid="cc08fbfd-6de6-4a53-8676-f46ad731688a"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="28" y="0" width="80" height="20" uuid="41b42d59-c88a-4d5f-b251-bdeed463d302"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="108" y="0" width="40" height="20" uuid="f597ee37-af1e-482c-90b1-4f69f8464a4a"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

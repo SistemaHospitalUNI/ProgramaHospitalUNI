@@ -1,5 +1,5 @@
 package Pojo;
-// Generated Aug 1, 2015 12:23:44 AM by Hibernate Tools 4.3.1
+// Generated 08-07-2015 05:56:50 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -22,10 +22,10 @@ public class FacturaConsulta  implements java.io.Serializable {
     public FacturaConsulta() {
     }
 
-    public FacturaConsulta(Cajero cajero, Consulta consulta,int numfactura, Date fecha, float total, float pago, float cambio) {
+    public FacturaConsulta(Cajero cajero, Consulta consulta, int numfactura, Date fecha, float total, float pago, float cambio) {
        this.cajero = cajero;
        this.consulta = consulta;
-       this.numfactura= numfactura;
+       this.numfactura = numfactura;
        this.fecha = fecha;
        this.total = total;
        this.pago = pago;
@@ -52,6 +52,13 @@ public class FacturaConsulta  implements java.io.Serializable {
     
     public void setConsulta(Consulta consulta) {
         this.consulta = consulta;
+    }
+    public int getNumfactura() {
+        return this.numfactura;
+    }
+    
+    public void setNumfactura(int numfactura) {
+        this.numfactura = numfactura;
     }
     public Date getFecha() {
         return this.fecha;
@@ -80,14 +87,6 @@ public class FacturaConsulta  implements java.io.Serializable {
     
     public void setCambio(float cambio) {
         this.cambio = cambio;
-    }
-
-    public int getNumfactura() {
-        return numfactura;
-    }
-
-    public void setNumfactura(int numfactura) {
-        this.numfactura = numfactura;
     }
 
 

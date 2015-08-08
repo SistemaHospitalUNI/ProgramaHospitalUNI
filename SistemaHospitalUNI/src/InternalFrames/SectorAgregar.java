@@ -139,7 +139,7 @@ public class SectorAgregar extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel2.setText("Distrito");
 
-        jcbDistrito.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccion una opcion....", "Distrito I", "Distrito II", "Distrito III", "Distrito IV", "Distrito V", "Distrito VI", "Distrito VII", " " }));
+        jcbDistrito.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccion una opcion....", "I", "II", "III", "IV", "V", "VI", "VII", " " }));
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 

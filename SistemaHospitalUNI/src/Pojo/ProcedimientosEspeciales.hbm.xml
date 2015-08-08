@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Aug 1, 2015 12:23:44 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated 08-07-2015 05:57:00 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="Pojo.ProcedimientosEspeciales" table="ProcedimientosEspeciales" catalog="SistemaHospital" optimistic-lock="version">
+    <class name="Pojo.ProcedimientosEspeciales" table="ProcedimientosEspeciales" catalog="SistemaHospital">
         <id name="idProc" type="java.lang.Integer">
             <column name="id_proc" />
-            <generator class="identity" />
+            <generator class="identity"></generator>
         </id>
         <property name="nombre" type="string">
             <column name="nombre" length="100" not-null="true" />

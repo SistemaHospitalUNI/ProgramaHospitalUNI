@@ -105,7 +105,7 @@ public class Logueo extends javax.swing.JFrame {
         jPanel3.setOpaque(false);
         jPanel3.setPreferredSize(new java.awt.Dimension(186, 48));
 
-        btnInicio.setText("Iniciar Sesion");
+        btnInicio.setText("Iniciar Sesión");
         btnInicio.setPreferredSize(new java.awt.Dimension(130, 38));
         btnInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -308,7 +308,6 @@ public class Logueo extends javax.swing.JFrame {
                 Transport t = ss.getTransport("smtp");
                 t.connect("cristhianaguirre75@gmail.com", "doihwfymjviitkpe");
                 t.sendMessage(mensaje, mensaje.getAllRecipients());
-                System.out.println("Mensaje Enviado!!");
                 t.close();
         }catch(Exception ex){
             System.out.println(ex.getMessage());
@@ -340,7 +339,6 @@ public class Logueo extends javax.swing.JFrame {
         } else {
             sf = NewHibernateUtil.conexion(txtUsuario.getText(), txtPassword.getText(), "3306", "localhost");
             if (sf != null) {
-                JOptionPane.showMessageDialog(this, "Hola " + txtUsuario.getText() + " se ha conectado con exito a la base de datos!!", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
                 SistemaPrincipal sisPrin = new SistemaPrincipal(sf);
                 sisPrin.setVisible(true);
                 this.dispose();
