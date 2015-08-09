@@ -14,6 +14,10 @@ import Medicos.ListarMedicos;
 import PermisosUsuarios.AsignacionPermisos;
 import Pojo.AlergiaMedicamento;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
+import static java.awt.Frame.MAXIMIZED_BOTH;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Toolkit;
 import java.beans.PropertyVetoException;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -35,7 +39,9 @@ public class SistemaPrincipal extends javax.swing.JFrame {
      * Creates new form SistemaPrincipal
      */
     private static SessionFactory sf;
-
+    boolean pantallacompleta = false;
+    GraphicsDevice grafica = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+    
     public SistemaPrincipal(SessionFactory sf) {
         initComponents();
         SistemaPrincipal.sf = sf;
@@ -88,6 +94,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuUsuarios = new javax.swing.JMenu();
         jMenuItemVerusuariosmedicos = new javax.swing.JMenuItem();
@@ -360,6 +367,15 @@ public class SistemaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem7);
+
+        jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F11, 0));
+        jMenuItem8.setText("FullScreen");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem8);
 
         jMenuBar1.add(jMenu2);
 
@@ -653,6 +669,25 @@ else{
                 "Información de la Aplicación", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // TODO add your handling code here:
+        if (!pantallacompleta) {
+            pantallacompleta = true;
+            this.setResizable(false);
+            this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+            this.setVisible(true);
+            this.toFront();
+            this.setAlwaysOnTop(true);
+        } else {
+            setResizable(true);
+            grafica.setFullScreenWindow(null);
+            this.setExtendedState(MAXIMIZED_BOTH);
+            setVisible(true);
+            pantallacompleta = false;
+            this.setAlwaysOnTop(false);
+        }
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -705,6 +740,7 @@ else{
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem jMenuItemVerUsuarios;
     private javax.swing.JMenuItem jMenuItemVerusuariosmedicos;
