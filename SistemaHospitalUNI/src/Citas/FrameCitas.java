@@ -8,6 +8,7 @@ package Citas;
 import Conexion.DAO;
 import Decoracion.RangeEvaluator;
 import static Medicos.FrameMedicos.IdModificar;
+import Pojo.Cita;
 import Pojo.DiasMedico;
 import Pojo.Especialidad;
 import Pojo.HorarioMedico;
@@ -50,7 +51,8 @@ public class FrameCitas extends javax.swing.JInternalFrame {
      * Creates new form FrameCitas
      */
     SessionFactory sf;
-
+    HorarioMedico horarioCitaMedico;
+    List<Cita>lstCitaMedico = new ArrayList<>();
     RangeEvaluator evaluator = new RangeEvaluator();
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     Date hoy = new Date();
@@ -59,7 +61,6 @@ public class FrameCitas extends javax.swing.JInternalFrame {
     String horaInicios, horaFinals, tiempoDia;
 
     public FrameCitas(SessionFactory sf) throws ParseException {
-        
         initComponents();
         hoy = new Date();
         InicializarTabla();
@@ -68,24 +69,6 @@ public class FrameCitas extends javax.swing.JInternalFrame {
         cmbMedico.setSelectedIndex(0);
         cmbPacientes.setSelectedIndex(0);
         this.sf = sf;
-    }
-
-    public void FechaLoading() {
-        try {
-            Calendar min = Calendar.getInstance();
-            min.add(Calendar.DAY_OF_MONTH, 15);
-            Calendar max = Calendar.getInstance();
-            max.add(Calendar.DAY_OF_MONTH, 2000000);
-            RangeEvaluator re = new RangeEvaluator();
-            re.setMinSelectableDate(min.getTime());
-            re.setMaxSelectableDate(max.getTime());
-// JCalendar jc = new JCalendar();
-
-            jCalendario.setMinSelectableDate(re.getMinSelectableDate());
-            jCalendario.setMaxSelectableDate(re.getMaxSelectableDate());
-        } catch (Exception ex) {
-            System.out.println("ERROR: " + ex.getMessage() + " CAUSA: " + ex.getCause());
-        }
     }
 
     Date fechas;
@@ -115,7 +98,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
         limpiar();
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         for (int i = 0; i < horas.length; i++) {
-            modelo.addRow(new Object[]{horas[i]+":00"});
+            modelo.addRow(new Object[]{horas[i] + ":00"});
         }
         jTable1.setModel(modelo);
     }
@@ -156,10 +139,11 @@ public class FrameCitas extends javax.swing.JInternalFrame {
         }
     }
     int idPacienteGuardar;
-    public void ObtenerPacienteSeleccionado(int idPaciente){
+
+    public void ObtenerPacienteSeleccionado(int idPaciente) {
         DAO d = new DAO(sf);
         Paciente paci = DAO.busquedaPacienteId(idPaciente);
-        idPacienteGuardar=paci.getIdPaciente();
+        idPacienteGuardar = paci.getIdPaciente();
     }
 
     public void InicializarTabla() {
@@ -409,7 +393,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
         List<DiasMedico> lstDiasMedic = (List<DiasMedico>) s.createQuery("from DiasMedico").list();
         for (DiasMedico diaMedic : lstDiasMedic) {
             idMedic = diaMedic.getMedico().getIdMedico();
-            
+
             if (diaMedic.getIdDiaMedico().equals(idDias)) {
                 System.out.println("MEDICO: " + diaMedic.getMedico().getPrimernombre());
                 System.out.println("ID HORARIO: " + diaMedic.getHorarioMedicos().size());
@@ -421,7 +405,20 @@ public class FrameCitas extends javax.swing.JInternalFrame {
 
     int MedicoBuscado;
     
+    public void ListarTodasCitas(){
+        DAO d = new DAO(sf);
+        lstCitaMedico = DAO.Listar_Cita_Medico_Especifico();
+        for(Cita cit : lstCitaMedico){
+            System.out.println("ID CITA:" + cit.getIdCita());
+            System.out.println("HORA DE LA CITA:" + cit.getHora());
+            System.out.println("FECHA DE LA CITA:" + dateFormat.format(cit.getFecha()));
+            System.out.println("MEDICO A CARGO:" + cit.getMedico().getPrimernombre() + " " + cit.getMedico().getSegundonombre() + " " + cit.getMedico().getPrimerapellido() + " " + cit.getMedico().getSegundoapellido());
+            System.out.println("PACIENTE DE LA CITA:" + cit.getPaciente().getNombre() + " " + cit.getPaciente().getApellido());
+        }
+    }
+
     public void ListarHorarioMedicoUnico(int idDiaMedico) {
+
         limpiar();
         Session s;
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
@@ -431,6 +428,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
         for (HorarioMedico hMedico : lstHorarioMedico) {
             if (hMedico.getIdHorariomedico().equals(idDiaMedico)) {
                 MedicoBuscado = hMedico.getDiasMedico().getMedico().getIdMedico();
+                horarioCitaMedico = hMedico;
                 medicoDias = hMedico.getDiasMedico();
                 System.out.println("MEDICO: " + hMedico.getDiasMedico().getMedico().getPrimernombre() + " " + hMedico.getDiasMedico().getMedico().getPrimerapellido());
                 System.out.println("HORA: " + hMedico.getHoraEntrada() + "   " + "HORA SALIDA: " + hMedico.getHoraSalida());
@@ -438,17 +436,18 @@ public class FrameCitas extends javax.swing.JInternalFrame {
                 ValidacionHoraFinal(hMedico.getHoraSalida());
                 diferencia = horaFinalC - horaInicioC;
                 for (int i = 1; i <= diferencia; i++) {
-                  /*  if (i >= 12) {
-                        tiempoDia = "PM";
-                    } else {
-                        tiempoDia = "AM";
-                    }*/
+                    /*  if (i >= 12) {
+                     tiempoDia = "PM";
+                     } else {
+                     tiempoDia = "AM";
+                     }*/
                     System.out.println("Diferencias: " + i);
                     modelo.addRow(new Object[]{i + ":00:00", "Disponible"});
                 }
 
             }
         }
+        s.close();
         jTable1.setModel(modelo);
         FechasCargadas();
     }
@@ -608,7 +607,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(cmbPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -625,18 +624,20 @@ public class FrameCitas extends javax.swing.JInternalFrame {
                             .addComponent(jLabel4)
                             .addComponent(cmbEstadoCita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(25, 25, 25)
-                        .addComponent(jCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbID, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbID, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(43, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(jScrollPane1)
+                        .addGap(43, 43, 43))))
         );
 
         pack();
@@ -654,6 +655,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
         } catch (PropertyVetoException ex) {
             Logger.getLogger(FrameCitas.class.getName()).log(Level.SEVERE, null, ex);
         }
+        ListarTodasCitas();
         jCalendario.setMinSelectableDate(hoy);
         llenarComboCitas();
         llenarComboPacientes();
@@ -678,7 +680,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cmbMedicoItemStateChanged
 
     int lunes, martes, miercoles, jueves, viernes, sabado, domingo;
-
+    
     public void FechasCargadas() {
         if (medicoDias.isLunes()) {
             lunes = 2;
@@ -703,10 +705,11 @@ public class FrameCitas extends javax.swing.JInternalFrame {
         }
 
     }
-    
+
     Date selectedDate;
     Calendar today;
-    
+    boolean diaTrabajo=false;
+
     private void jCalendarioPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarioPropertyChange
         // TODO add your handling code here:
         today = Calendar.getInstance();
@@ -714,15 +717,17 @@ public class FrameCitas extends javax.swing.JInternalFrame {
         today.setTime(selectedDate);
         if (today.get(Calendar.DAY_OF_WEEK) == lunes || today.get(Calendar.DAY_OF_WEEK) == martes || today.get(Calendar.DAY_OF_WEEK) == miercoles || today.get(Calendar.DAY_OF_WEEK) == jueves || today.get(Calendar.DAY_OF_WEEK) == viernes || today.get(Calendar.DAY_OF_WEEK) == sabado || today.get(Calendar.DAY_OF_WEEK) == domingo) {
             System.out.println("Dia Disponible");
+            diaTrabajo=true;
         } else {
             System.out.println("Dia Indispuesto");
+            diaTrabajo=false;
         }
 
         System.out.println("FECHA: " + today.get(Calendar.DAY_OF_WEEK));
         /*Domingo =1, Lunes=2, Martes=3, Miercoles=4, Jueves=5, Viernes=6, Sabado=7*/
     }//GEN-LAST:event_jCalendarioPropertyChange
 
-    String HoraCita="";
+    String HoraCita = "";
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
@@ -745,18 +750,19 @@ public class FrameCitas extends javax.swing.JInternalFrame {
         if (cmbEstadoCita.getSelectedItem().toString().equals("Inactivo")) {
             Estado = false;
         }
-
+        if (!diaTrabajo) {
+            JOptionPane.showMessageDialog(this, "Medico no disponible en el dia seleccionado","Medico Indisponible",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         if (HoraCita.equals("")) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar una hora de consulta", "Informacion del Sistema", JOptionPane.INFORMATION_MESSAGE);
         } else if (today.get(Calendar.DAY_OF_WEEK) == lunes || today.get(Calendar.DAY_OF_WEEK) == martes || today.get(Calendar.DAY_OF_WEEK) == miercoles || today.get(Calendar.DAY_OF_WEEK) == jueves || today.get(Calendar.DAY_OF_WEEK) == viernes || today.get(Calendar.DAY_OF_WEEK) == sabado || today.get(Calendar.DAY_OF_WEEK) == domingo) {
             String fechaGuardar = sdfr.format(fecha);
             System.out.println("FECHA: " + fechaGuardar);
-            GuardarCitaMedica(fechaGuardar,HoraCita,Estado);
+            GuardarCitaMedica(fechaGuardar, HoraCita, Estado);
         } else {
             JOptionPane.showMessageDialog(this, "EL dia elegido " + selectedDate.toString() + "\n el medico " + "no puede trabajar", "Fecha Erronea", JOptionPane.ERROR_MESSAGE);
         }
-
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
 //    Insert into Cita(id_medico,id_paciente,fecha,hora,estado) values(1,1,'2015-08-06','2015-08-06 11:00:00',true);
@@ -768,10 +774,10 @@ public class FrameCitas extends javax.swing.JInternalFrame {
         System.out.println("HORA DE CITA:" + horaCita);
         System.out.println("ESTADO CITA:" + Estado);
         int citaGuardada;
-        citaGuardada = DAO.GuardarCita(MedicoBuscado,idPacienteGuardar,fecha,fechaGuardada,horaCita,Estado);
-        if (citaGuardada!=-1) {
-            JOptionPane.showMessageDialog(this, "Cita Registrada","Guardado",JOptionPane.INFORMATION_MESSAGE);
-        }else{
+        citaGuardada = DAO.GuardarCita(MedicoBuscado, idPacienteGuardar, fechaGuardada, horaCita, Estado);
+        if (citaGuardada != -1) {
+            JOptionPane.showMessageDialog(this, "Cita Registrada", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+        } else {
             JOptionPane.showMessageDialog(this, "Error en la cita", "Error de Codigo", JOptionPane.ERROR_MESSAGE);
         }
     }

@@ -56,12 +56,6 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        menuEspe = new javax.swing.JMenu();
-        menuItemEspc = new javax.swing.JMenuItem();
-        menuMedico = new javax.swing.JMenu();
-        menuItemAgregarMedico = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        menuHorarioMedico = new javax.swing.JMenuItem();
         menuPaciente = new javax.swing.JMenu();
         menuItemSector = new javax.swing.JMenuItem();
         menuItemPaciente = new javax.swing.JMenuItem();
@@ -81,6 +75,14 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         facturaConsulta = new javax.swing.JMenuItem();
         menuExayProc = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        menuEspe = new javax.swing.JMenu();
+        menuItemEspc = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        menuMedico = new javax.swing.JMenu();
+        menuItemAgregarMedico = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        menuHorarioMedico = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
@@ -103,11 +105,11 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 717, Short.MAX_VALUE)
+            .addGap(0, 1013, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 424, Short.MAX_VALUE)
+            .addGap(0, 371, Short.MAX_VALUE)
         );
 
         getContentPane().add(jDesktopPane1, java.awt.BorderLayout.CENTER);
@@ -118,51 +120,6 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436181702_vector_65_13.png"))); // NOI18N
         jMenu1.setText("Catalogo");
         jMenu1.setMargin(new java.awt.Insets(0, 0, 0, 20));
-
-        menuEspe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/diagram_v2_26.png"))); // NOI18N
-        menuEspe.setText("Especialidad");
-
-        menuItemEspc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
-        menuItemEspc.setText("Nueva Especialidad");
-        menuItemEspc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemEspcActionPerformed(evt);
-            }
-        });
-        menuEspe.add(menuItemEspc);
-
-        jMenu1.add(menuEspe);
-
-        menuMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436173501_Doctor.png"))); // NOI18N
-        menuMedico.setText("Médico");
-
-        menuItemAgregarMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
-        menuItemAgregarMedico.setText("Agregar Médico");
-        menuItemAgregarMedico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemAgregarMedicoActionPerformed(evt);
-            }
-        });
-        menuMedico.add(menuItemAgregarMedico);
-
-        jMenuItem5.setText("Citas Medicas");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
-        menuMedico.add(jMenuItem5);
-
-        menuHorarioMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x_office_calendar.png"))); // NOI18N
-        menuHorarioMedico.setText("Listado Medicos");
-        menuHorarioMedico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuHorarioMedicoActionPerformed(evt);
-            }
-        });
-        menuMedico.add(menuHorarioMedico);
-
-        jMenu1.add(menuMedico);
 
         menuPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436247377_8.png"))); // NOI18N
         menuPaciente.setText("Paciente");
@@ -307,6 +264,59 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenu1.add(menuFactura);
 
         jMenuBar1.add(jMenu1);
+
+        jMenu7.setText("Especialidades");
+
+        menuEspe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/diagram_v2_26.png"))); // NOI18N
+        menuEspe.setText("Especialidad");
+
+        menuItemEspc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
+        menuItemEspc.setText("Nueva Especialidad");
+        menuItemEspc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemEspcActionPerformed(evt);
+            }
+        });
+        menuEspe.add(menuItemEspc);
+
+        jMenu7.add(menuEspe);
+
+        jMenuBar1.add(jMenu7);
+
+        jMenu6.setText("Medicos");
+
+        menuMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436173501_Doctor.png"))); // NOI18N
+        menuMedico.setText("Médico");
+
+        menuItemAgregarMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
+        menuItemAgregarMedico.setText("Agregar Médico");
+        menuItemAgregarMedico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemAgregarMedicoActionPerformed(evt);
+            }
+        });
+        menuMedico.add(menuItemAgregarMedico);
+
+        jMenuItem5.setText("Citas Medicas");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        menuMedico.add(jMenuItem5);
+
+        menuHorarioMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x_office_calendar.png"))); // NOI18N
+        menuHorarioMedico.setText("Listado Medicos");
+        menuHorarioMedico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuHorarioMedicoActionPerformed(evt);
+            }
+        });
+        menuMedico.add(menuHorarioMedico);
+
+        jMenu6.add(menuMedico);
+
+        jMenuBar1.add(jMenu6);
 
         jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436182029_my-reports.png"))); // NOI18N
         jMenu4.setText("   Reportes");
@@ -639,6 +649,8 @@ else{
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;

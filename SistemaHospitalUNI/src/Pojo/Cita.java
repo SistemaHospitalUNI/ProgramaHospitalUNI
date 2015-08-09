@@ -14,13 +14,13 @@ public class Cita  implements java.io.Serializable {
      private Medico medico;
      private Paciente paciente;
      private Date fecha;
-     private Date hora;
+     private String hora;
      private boolean estado;
 
     public Cita() {
     }
 
-    public Cita(Medico medico, Paciente paciente, Date fecha, Date hora, boolean estado) {
+    public Cita(Medico medico, Paciente paciente, Date fecha, String hora, boolean estado) {
        this.medico = medico;
        this.paciente = paciente;
        this.fecha = fecha;
@@ -56,11 +56,11 @@ public class Cita  implements java.io.Serializable {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-    public Date getHora() {
+    public String getHora() {
         return this.hora;
     }
     
-    public void setHora(Date hora) {
+    public void setHora(String hora) {
         this.hora = hora;
     }
     public boolean isEstado() {
