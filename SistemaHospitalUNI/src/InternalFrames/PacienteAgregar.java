@@ -7,6 +7,7 @@ package InternalFrames;
 
 import Pojo.Paciente;
 import Pojo.Sector;
+import java.awt.Color;
 import java.util.Iterator;
 import java.util.List;
 import org.hibernate.SessionFactory;
@@ -35,6 +36,7 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
         this.btnActualizar.setEnabled(false);
         this.tablaPaciente.setEnabled(false);
         this.lblMensaje.setVisible(false);
+        this.jcbEstado.setEnabled(false);
         llenarCbDistrito(cbDistrito);
         llenarTabla(this.tablaPaciente);
     }
@@ -48,22 +50,55 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
         modelo.addColumn("Apellido");
         modelo.addColumn("Distrito");
         modelo.addColumn("Barrio");
-        String hql = "select p.idPaciente, p.nombre,p.apellido,p.sector.distrito,p.sector.barrio from Paciente p\n" +
+//        modelo.addColumn("Estado");
+        //borrar el false
+        String hql = "select p.idPaciente, p.nombre,p.apellido,p.sector.distrito,p.sector.barrio,p.estado from Paciente p\n" +
+        "inner join p.sector  where p.estado = true order by p.idPaciente";
+        
+//         String hql = "select p.idPaciente, p.nombre,p.apellido,p.sector.distrito,p.sector.barrio,p.estado from Paciente p\n" +
+//        "inner join p.sector order by p.idPaciente";
+        Query query = s.createQuery(hql);
+        Iterator ite = query.list().iterator();
+
+        while(ite.hasNext()){
+          Object[] object = (Object[])ite.next();
+          modelo.addRow(object);
+        }
+        tabla.setModel(modelo);
+    }
+    
+    public void verTodos(JTable tabla){
+        
+        Session s = sf.openSession();
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("Id");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Apellido");
+        modelo.addColumn("Distrito");
+        modelo.addColumn("Barrio");
+        modelo.addColumn("Estado");
+        //borrar el false
+//        String hql = "select p.idPaciente, p.nombre,p.apellido,p.sector.distrito,p.sector.barrio,p.estado from Paciente p\n" +
+//        "inner join p.sector  where p.estado = true order by p.idPaciente";
+//        
+         String hql = "select p.idPaciente, p.nombre,p.apellido,p.sector.distrito,p.sector.barrio,p.estado from Paciente p\n" +
         "inner join p.sector order by p.idPaciente";
         Query query = s.createQuery(hql);
         Iterator ite = query.list().iterator();
+
         while(ite.hasNext()){
-            Object[] object = (Object[])ite.next();
-            modelo.addRow(object);
+          Object[] object = (Object[])ite.next();
+          modelo.addRow(object);
         }
         tabla.setModel(modelo);
+        
     }
     
     public void llenarCbDistrito(JComboBox distrito){
         
         Session s = sf.openSession();
         List<Object> items = s.createQuery("select distinct distrito from Sector").list();
-        distrito.addItem("Seleccione una opcion...");
+        distrito.addItem("Seleccione una opción...");
         for (Object ob:items) {
             distrito.addItem(ob);
         }
@@ -78,7 +113,7 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
         query.setParameter("nombre", seleccion);
         
          List<Object> items = query.list();
-         barrio.addItem("Seleccione una opcion...");
+         barrio.addItem("Seleccione una opción...");
          for (Object obj:items) {
             barrio.addItem(obj);
         }
@@ -93,13 +128,19 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         btnActualizar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        lblGuardar = new javax.swing.JLabel();
+        lblActualizar = new javax.swing.JLabel();
+        lbleliminar = new javax.swing.JLabel();
+        btnVeractivos = new javax.swing.JButton();
+        btnVertodos = new javax.swing.JButton();
+        lblActivos = new javax.swing.JLabel();
+        lblVertodos = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         txtNombre = new javax.swing.JTextField();
         txtApellido = new javax.swing.JTextField();
@@ -114,16 +155,24 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
         txtTel = new javax.swing.JFormattedTextField();
         cbDistrito = new javax.swing.JComboBox();
         lblMensaje = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtDireccion = new javax.swing.JTextArea();
         jButton2 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jcbBarrio = new javax.swing.JComboBox();
+        jLabel8 = new javax.swing.JLabel();
+        txtCedula = new javax.swing.JFormattedTextField();
+        chbEliminar = new javax.swing.JCheckBox();
+        jPanel3 = new javax.swing.JPanel();
+        jTaskPaneGroup1 = new com.l2fprod.common.swing.JTaskPaneGroup();
+        jLinkButton1 = new com.l2fprod.common.swing.JLinkButton();
+        jLinkButton2 = new com.l2fprod.common.swing.JLinkButton();
+        jLinkButton3 = new com.l2fprod.common.swing.JLinkButton();
+        jLinkButton4 = new com.l2fprod.common.swing.JLinkButton();
+        jLinkButton5 = new com.l2fprod.common.swing.JLinkButton();
+        jLabel9 = new javax.swing.JLabel();
+        jcbEstado = new javax.swing.JComboBox();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
@@ -149,29 +198,99 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436251990_trash.png"))); // NOI18N
         jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        lblGuardar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        lblGuardar.setText("Guardar");
+
+        lblActualizar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        lblActualizar.setText("Actualizar");
+
+        lbleliminar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        lbleliminar.setText("Eliminar");
+
+        btnVeractivos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/type_list.png"))); // NOI18N
+        btnVeractivos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVeractivos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVeractivosActionPerformed(evt);
+            }
+        });
+
+        btnVertodos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/format_indent_more.png"))); // NOI18N
+        btnVertodos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVertodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVertodosActionPerformed(evt);
+            }
+        });
+
+        lblActivos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        lblActivos.setText("Ver Activos");
+
+        lblVertodos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        lblVertodos.setText("Ver todos");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnActualizar)
-                    .addComponent(btnGuardar)
-                    .addComponent(jButton5))
-                .addContainerGap(17, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addContainerGap(19, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbleliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnActualizar, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblGuardar)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(lblActualizar)
+                                .addGap(3, 3, 3)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnGuardar, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnVeractivos, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnVertodos, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addComponent(lblActivos))
+                            .addComponent(lblVertodos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(18, 18, 18)
                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblGuardar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addGap(2, 2, 2)
+                .addComponent(lblActualizar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(288, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbleliminar)
+                .addGap(18, 18, 18)
+                .addComponent(btnVeractivos, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblActivos)
+                .addGap(28, 28, 28)
+                .addComponent(btnVertodos, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblVertodos)
+                .addContainerGap(109, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel4, java.awt.BorderLayout.LINE_START);
@@ -222,41 +341,8 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
         lblMensaje.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblMensaje.setText("Seleccione una registro para actualizar");
 
-        jPanel1.setLayout(new java.awt.GridBagLayout());
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436254886_Search.png"))); // NOI18N
-        jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        jPanel1.add(jButton1, gridBagConstraints);
-
-        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 183;
-        jPanel1.add(jTextField1, gridBagConstraints);
-
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel6.setText("Buscar");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 3);
-        jPanel1.add(jLabel6, gridBagConstraints);
-
         jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel2.setText("Direccion");
+        jLabel2.setText("Dirección");
 
         txtDireccion.setColumns(20);
         txtDireccion.setRows(5);
@@ -273,6 +359,95 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
         jLabel7.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel7.setText("Barrio");
 
+        jLabel8.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel8.setText("Cédula");
+
+        try {
+            txtCedula.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-######-####U")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        chbEliminar.setText("Habilitar Eliminar");
+        chbEliminar.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                chbEliminarStateChanged(evt);
+            }
+        });
+
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
+        jTaskPaneGroup1.setBackground(new java.awt.Color(0, 51, 102));
+        jTaskPaneGroup1.setForeground(new java.awt.Color(102, 204, 255));
+        jTaskPaneGroup1.setTitle("Opciones");
+
+        jLinkButton1.setText("Guardar");
+        jLinkButton1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLinkButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLinkButton1MouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLinkButton1MouseExited(evt);
+            }
+        });
+        jTaskPaneGroup1.getContentPane().add(jLinkButton1);
+
+        jLinkButton2.setText("Actualizar");
+        jLinkButton2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLinkButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLinkButton2MouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLinkButton2MouseExited(evt);
+            }
+        });
+        jTaskPaneGroup1.getContentPane().add(jLinkButton2);
+
+        jLinkButton3.setText("Eliminar");
+        jLinkButton3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLinkButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLinkButton3MouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLinkButton3MouseExited(evt);
+            }
+        });
+        jTaskPaneGroup1.getContentPane().add(jLinkButton3);
+
+        jLinkButton4.setText("Ver Todos");
+        jLinkButton4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLinkButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLinkButton4MouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLinkButton4MouseExited(evt);
+            }
+        });
+        jTaskPaneGroup1.getContentPane().add(jLinkButton4);
+
+        jLinkButton5.setText("Ver Activos");
+        jLinkButton5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLinkButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLinkButton5MouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLinkButton5MouseExited(evt);
+            }
+        });
+        jTaskPaneGroup1.getContentPane().add(jLinkButton5);
+
+        jPanel3.add(jTaskPaneGroup1, java.awt.BorderLayout.CENTER);
+
+        jLabel9.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel9.setText("Estado");
+
+        jcbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Activo", "Inactivo" }));
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -280,60 +455,73 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(7, 7, 7)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel7))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                            .addComponent(txtTel, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                            .addComponent(cbDistrito, 0, 170, Short.MAX_VALUE)
+                            .addComponent(jcbBarrio, 0, 170, Short.MAX_VALUE))
+                        .addGap(31, 31, 31)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9))
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jcbEstado, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtCedula, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 779, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 29, Short.MAX_VALUE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(checkActualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2))
+                        .addComponent(chbEliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2)
+                        .addGap(51, 51, 51))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(200, 200, 200)
+                        .addGap(205, 205, 205)
                         .addComponent(lblMensaje)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel7))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                                    .addComponent(txtTel, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                                    .addComponent(cbDistrito, 0, 170, Short.MAX_VALUE)
-                                    .addComponent(jcbBarrio, 0, 170, Short.MAX_VALUE))
-                                .addGap(27, 27, 27)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane2)))))
-                .addGap(34, 34, 34))
+                        .addContainerGap())))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel8)
+                    .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel9)
+                    .addComponent(jcbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
@@ -342,20 +530,22 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(jcbBarrio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addComponent(lblMensaje)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkActualizar)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                .addGap(51, 51, 51)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chbEliminar)
+                    .addComponent(checkActualizar))
+                .addGap(282, 282, 282))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -363,7 +553,7 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
-        setBounds(0, 0, 784, 565);
+        setBounds(0, 0, 928, 624);
     }// </editor-fold>//GEN-END:initComponents
 
     private void checkActualizarStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_checkActualizarStateChanged
@@ -372,17 +562,15 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
            this.tablaPaciente.setEnabled(true);
            this.lblMensaje.setVisible(true);
            this.btnGuardar.setEnabled(false);
+           this.jcbEstado.setEnabled(true);
        }else{
            this.btnActualizar.setEnabled(false);
            this.tablaPaciente.setEnabled(false);
            this.lblMensaje.setVisible(false);
            this.btnGuardar.setEnabled(true);
+           this.jcbEstado.setEnabled(false);
        }
     }//GEN-LAST:event_checkActualizarStateChanged
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      //busqueda.....
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cbDistritoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbDistritoItemStateChanged
         String seleccion = cbDistrito.getSelectedItem().toString();
@@ -396,6 +584,7 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
         this.txtTel.setText("");
         this.jcbBarrio.setSelectedIndex(0);
         this.cbDistrito.setSelectedIndex(0);
+        this.txtCedula.setText("");
     }
     
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -420,6 +609,8 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
             paciente.setApellido(txtApellido.getText());
             paciente.setDireccion(txtDireccion.getText());
             paciente.setTelefono(txtTel.getText());
+            paciente.setCedula(txtCedula.getText());
+            paciente.setEstado(true);
             paciente.setSector(sector);
             
             s.save(paciente);
@@ -453,8 +644,14 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
          txtApellido.setText(p.getApellido());
          txtDireccion.setText(p.getDireccion());
          txtTel.setText(p.getTelefono());
+         txtCedula.setText(p.getCedula());
          cbDistrito.setSelectedItem(tablaPaciente.getValueAt(fila, 3).toString());
          jcbBarrio.setSelectedItem(tablaPaciente.getValueAt(fila, 4).toString());
+         if (tablaPaciente.getValueAt(fila, 5).toString().equals("true")) {
+             jcbEstado.setSelectedIndex(0);
+        }else{
+             jcbEstado.setSelectedIndex(1);
+         }
          
          ss.close();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -481,6 +678,12 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
             p.setApellido(txtApellido.getText());
             p.setTelefono(txtTel.getText());
             p.setDireccion(txtDireccion.getText());
+            p.setCedula(txtCedula.getText());
+            if (jcbEstado.getSelectedItem().toString().equals("Activo")) {
+                p.setEstado(true);
+            }else{
+                p.setEstado(false);
+            }
             se.setBarrio(barrio);
             se.setDistrito(distrito);
             
@@ -491,24 +694,111 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Registro Actualizado Correctamente!",
                         "Mensaje de Informacion",JOptionPane.INFORMATION_MESSAGE);
             llenarTabla(tablaPaciente);
-            
+            jcbEstado.setSelectedIndex(0);
+            limpiar();
         }catch(Exception ex){
              JOptionPane.showMessageDialog(this, "Ocurrio un error al actualizar, pruebe nuevamente!",
                     "ERROR",JOptionPane.ERROR_MESSAGE);
             
         }
-        
-       
-         
+              
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void chbEliminarStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_chbEliminarStateChanged
+        
+        if (chbEliminar.isSelected()) {
+            this.btnGuardar.setEnabled(false);
+            this.btnActualizar.setEnabled(false);
+            this.tablaPaciente.setEnabled(true);
+        }else{
+            this.btnGuardar.setEnabled(true);
+            this.tablaPaciente.setEnabled(false);
+        }
+        
+    }//GEN-LAST:event_chbEliminarStateChanged
+
+    private void jLinkButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLinkButton1MouseClicked
+        lblGuardar.setForeground(Color.RED);
+    }//GEN-LAST:event_jLinkButton1MouseClicked
+
+    private void jLinkButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLinkButton1MouseExited
+         lblGuardar.setForeground(Color.BLACK);
+    }//GEN-LAST:event_jLinkButton1MouseExited
+
+    private void jLinkButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLinkButton2MouseClicked
+       lblActualizar.setForeground(Color.RED);
+    }//GEN-LAST:event_jLinkButton2MouseClicked
+
+    private void jLinkButton2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLinkButton2MouseExited
+        lblActualizar.setForeground(Color.BLACK);
+    }//GEN-LAST:event_jLinkButton2MouseExited
+
+    private void jLinkButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLinkButton3MouseClicked
+       lbleliminar.setForeground(Color.RED);
+    }//GEN-LAST:event_jLinkButton3MouseClicked
+
+    private void jLinkButton3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLinkButton3MouseExited
+         lbleliminar.setForeground(Color.BLACK);
+    }//GEN-LAST:event_jLinkButton3MouseExited
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+       
+         int opcion = JOptionPane.showConfirmDialog(this, "Desea borrar al paciente?","Borrar",JOptionPane.YES_NO_OPTION);
+         
+         if (opcion == JOptionPane.YES_OPTION) {
+            int fila = tablaPaciente.getSelectedRow();
+            Session ss = sf.openSession();
+
+            int idPaciente = Integer.parseInt(tablaPaciente.getValueAt(fila, 0).toString());
+
+            Criteria cpa = ss.createCriteria(Paciente.class);
+            p = (Paciente) cpa.add(Restrictions.idEq(idPaciente)).uniqueResult();
+
+            p.setIdPaciente(idPaciente);
+            p.setEstado(false);
+           
+            ss.update(p);
+            ss.beginTransaction().commit();
+            llenarTabla(tablaPaciente);
+            limpiar();
+            ss.close();
+        }
+         
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void btnVertodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVertodosActionPerformed
+        verTodos(tablaPaciente);
+    }//GEN-LAST:event_btnVertodosActionPerformed
+
+    private void btnVeractivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVeractivosActionPerformed
+       llenarTabla(tablaPaciente);
+    }//GEN-LAST:event_btnVeractivosActionPerformed
+
+    private void jLinkButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLinkButton4MouseClicked
+        lblVertodos.setForeground(Color.RED);
+    }//GEN-LAST:event_jLinkButton4MouseClicked
+
+    private void jLinkButton4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLinkButton4MouseExited
+       lblVertodos.setForeground(Color.BLACK);
+    }//GEN-LAST:event_jLinkButton4MouseExited
+
+    private void jLinkButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLinkButton5MouseClicked
+       lblActivos.setForeground(Color.RED);
+    }//GEN-LAST:event_jLinkButton5MouseClicked
+
+    private void jLinkButton5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLinkButton5MouseExited
+       lblActivos.setForeground(Color.BLACK);
+    }//GEN-LAST:event_jLinkButton5MouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnVeractivos;
+    private javax.swing.JButton btnVertodos;
     private javax.swing.JComboBox cbDistrito;
+    private javax.swing.JCheckBox chbEliminar;
     private javax.swing.JCheckBox checkActualizar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
@@ -516,20 +806,33 @@ public class PacienteAgregar extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private com.l2fprod.common.swing.JLinkButton jLinkButton1;
+    private com.l2fprod.common.swing.JLinkButton jLinkButton2;
+    private com.l2fprod.common.swing.JLinkButton jLinkButton3;
+    private com.l2fprod.common.swing.JLinkButton jLinkButton4;
+    private com.l2fprod.common.swing.JLinkButton jLinkButton5;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
+    private com.l2fprod.common.swing.JTaskPaneGroup jTaskPaneGroup1;
     private javax.swing.JComboBox jcbBarrio;
+    private javax.swing.JComboBox jcbEstado;
+    private javax.swing.JLabel lblActivos;
+    private javax.swing.JLabel lblActualizar;
+    private javax.swing.JLabel lblGuardar;
     private javax.swing.JLabel lblMensaje;
+    private javax.swing.JLabel lblVertodos;
+    private javax.swing.JLabel lbleliminar;
     private javax.swing.JTable tablaPaciente;
     private javax.swing.JTextField txtApellido;
+    private javax.swing.JFormattedTextField txtCedula;
     private javax.swing.JTextArea txtDireccion;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JFormattedTextField txtTel;

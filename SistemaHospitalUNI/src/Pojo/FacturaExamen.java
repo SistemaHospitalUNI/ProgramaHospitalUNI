@@ -1,5 +1,5 @@
 package Pojo;
-// Generated Aug 1, 2015 12:23:44 AM by Hibernate Tools 4.3.1
+// Generated 08-07-2015 05:56:50 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -27,10 +27,10 @@ public class FacturaExamen  implements java.io.Serializable {
     }
 
 	
-    public FacturaExamen(Cajero cajero, Paciente paciente,int numfactura, Date fecha, float total, float pago, float cambio) {
+    public FacturaExamen(Cajero cajero, Paciente paciente, int numfactura, Date fecha, float total, float pago, float cambio) {
         this.cajero = cajero;
         this.paciente = paciente;
-        this.numfactura= numfactura;
+        this.numfactura = numfactura;
         this.fecha = fecha;
         this.total = total;
         this.pago = pago;
@@ -39,7 +39,7 @@ public class FacturaExamen  implements java.io.Serializable {
     public FacturaExamen(Cajero cajero, Paciente paciente, int numfactura, Date fecha, float total, float pago, float cambio, Set detalleFactpros, Set detalleFacturaExes) {
        this.cajero = cajero;
        this.paciente = paciente;
-       this.numfactura= numfactura;
+       this.numfactura = numfactura;
        this.fecha = fecha;
        this.total = total;
        this.pago = pago;
@@ -68,6 +68,13 @@ public class FacturaExamen  implements java.io.Serializable {
     
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
+    }
+    public int getNumfactura() {
+        return this.numfactura;
+    }
+    
+    public void setNumfactura(int numfactura) {
+        this.numfactura = numfactura;
     }
     public Date getFecha() {
         return this.fecha;
@@ -110,14 +117,6 @@ public class FacturaExamen  implements java.io.Serializable {
     
     public void setDetalleFacturaExes(Set detalleFacturaExes) {
         this.detalleFacturaExes = detalleFacturaExes;
-    }
-
-    public int getNumfactura() {
-        return numfactura;
-    }
-
-    public void setNumfactura(int numfactura) {
-        this.numfactura = numfactura;
     }
 
 

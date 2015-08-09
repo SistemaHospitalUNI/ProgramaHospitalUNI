@@ -1,5 +1,5 @@
 package Pojo;
-// Generated Aug 1, 2015 12:23:44 AM by Hibernate Tools 4.3.1
+// Generated 08-07-2015 05:56:50 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -18,6 +18,7 @@ public class Paciente  implements java.io.Serializable {
      private String telefono;
      private String direccion;
      private boolean estado;
+     private String cedula;
      private Set padecimientoEcs = new HashSet(0);
      private Set citas = new HashSet(0);
      private Set facturaExamens = new HashSet(0);
@@ -27,21 +28,23 @@ public class Paciente  implements java.io.Serializable {
     }
 
 	
-    public Paciente(Sector sector, String nombre, String apellido, String telefono, String direccion, boolean estado) {
+    public Paciente(Sector sector, String nombre, String apellido, String telefono, String direccion, boolean estado, String cedula) {
         this.sector = sector;
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
         this.direccion = direccion;
         this.estado = estado;
+        this.cedula = cedula;
     }
-    public Paciente(Sector sector, String nombre, String apellido, String telefono, String direccion, boolean estado, Set padecimientoEcs, Set citas, Set facturaExamens, Set padecimientoAms) {
+    public Paciente(Sector sector, String nombre, String apellido, String telefono, String direccion, boolean estado, String cedula, Set padecimientoEcs, Set citas, Set facturaExamens, Set padecimientoAms) {
        this.sector = sector;
        this.nombre = nombre;
        this.apellido = apellido;
        this.telefono = telefono;
        this.direccion = direccion;
        this.estado = estado;
+       this.cedula = cedula;
        this.padecimientoEcs = padecimientoEcs;
        this.citas = citas;
        this.facturaExamens = facturaExamens;
@@ -96,6 +99,13 @@ public class Paciente  implements java.io.Serializable {
     
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+    public String getCedula() {
+        return this.cedula;
+    }
+    
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
     }
     public Set getPadecimientoEcs() {
         return this.padecimientoEcs;

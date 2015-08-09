@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Aug 1, 2015 12:23:44 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated 08-07-2015 05:57:00 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="Pojo.PadecimientoEc" table="Padecimiento_EC" catalog="SistemaHospital" optimistic-lock="version">
+    <class name="Pojo.PadecimientoEc" table="Padecimiento_EC" catalog="SistemaHospital">
         <id name="idPadecimientoec" type="java.lang.Integer">
             <column name="id_padecimientoec" />
-            <generator class="identity" />
+            <generator class="identity"></generator>
         </id>
         <many-to-one name="enfermedadCronica" class="Pojo.EnfermedadCronica" fetch="select">
             <column name="id_ec" not-null="true" />
@@ -14,8 +14,6 @@
         <many-to-one name="paciente" class="Pojo.Paciente" fetch="select">
             <column name="id_paciente" not-null="true" />
         </many-to-one>
-        <property name="descripcion" type="string">
-            <column name="descripcion" length="500" not-null="true" />
-        </property>
+ 
     </class>
 </hibernate-mapping>
