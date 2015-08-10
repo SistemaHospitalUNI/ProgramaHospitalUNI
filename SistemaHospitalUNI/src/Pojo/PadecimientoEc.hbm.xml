@@ -14,8 +14,6 @@
         <many-to-one name="paciente" class="Pojo.Paciente" fetch="select">
             <column name="id_paciente" not-null="true" />
         </many-to-one>
-        <property name="descripcion" type="string">
-            <column name="descripcion" length="500" not-null="true" />
-        </property>
+  
     </class>
 </hibernate-mapping>
