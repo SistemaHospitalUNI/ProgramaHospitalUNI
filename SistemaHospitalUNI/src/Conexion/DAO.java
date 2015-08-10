@@ -775,6 +775,25 @@ public class DAO {
         List<FacturaExamen> lista = (List<FacturaExamen>) s.createQuery("from FacturaExamen").list();
         return lista;
     }
+    
+    public int GuardarFacturaConsulta(FacturaConsulta fc){
+      s = sf.openSession();
+        try {
+            int id = -1;
+            Transaction t = s.beginTransaction();
+            id = (int) s.save(fc);//Retorna el ID con el que guardo            
+            t.commit();
+            return id;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return -1;
+        } finally {
+            s.close();
+
+        }
+    
+    }
+    
     /*
      public static List<FacturaProcedimiento> ListarFacturaProcedimiento() {
      s = sf.openSession();

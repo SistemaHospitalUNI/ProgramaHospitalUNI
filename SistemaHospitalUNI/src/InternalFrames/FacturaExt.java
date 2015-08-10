@@ -63,6 +63,7 @@ public class FacturaExt extends javax.swing.JInternalFrame {
             
             //Obtener id del cajero
             idcajero= Integer.parseInt(Logueo.getUser().substring(6));
+            
             DefaultTableModel dft = new DefaultTableModel();
             dft.addColumn("Nombre");dft.addColumn("Precio");
             this.jTable1.setModel(dft);
