@@ -456,8 +456,6 @@ public class ListarMedicos extends javax.swing.JInternalFrame {
         this.session = sf.openSession();
         SFI = (SessionFactoryImplementor) session.getSessionFactory();
 
-        String ruta = "/home/crdzbird/NetBeansProjects/GitHub/ProgramaFinal/ProgramaHospitalUNI/SistemaHospitalUNI/src/Reportes/reportMedicoUnico.jasper";
-
         try {
             con = (Connection) SFI.getConnectionProvider().getConnection();
         } catch (SQLException ex) {
@@ -467,7 +465,7 @@ public class ListarMedicos extends javax.swing.JInternalFrame {
         try {
             Map parametro = new HashMap();
             parametro.put("ParametroID", IdMedico);
-            jr = (JasperReport) JRLoader.loadObjectFromFile(ruta);
+            jr = (JasperReport) JRLoader.loadObject(this.getClass().getResource("/Reportes/reportMedicoUnico.jasper"));
             JasperPrint jp = JasperFillManager.fillReport(jr, parametro, con);
             JasperViewer jv = new JasperViewer(jp, false);
             jv.setTitle("Reporte de Medico General");
@@ -480,7 +478,6 @@ public class ListarMedicos extends javax.swing.JInternalFrame {
 
     private void btnReporteGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteGeneralActionPerformed
         // TODO add your handling code here:
-        String ruta = "/home/crdzbird/NetBeansProjects/GitHub/ProgramaFinal/ProgramaHospitalUNI/SistemaHospitalUNI/src/Reportes/reporteGlobalMedicos.jasper";
         JasperReport jr = null;
         Connection con = null;
         SessionFactoryImplementor SFI = null;
@@ -495,7 +492,7 @@ public class ListarMedicos extends javax.swing.JInternalFrame {
         }
         try {
             Map parametro = new HashMap();
-            jr = (JasperReport) JRLoader.loadObjectFromFile(ruta);
+            jr = (JasperReport) JRLoader.loadObject(this.getClass().getResource("/Reportes/reporteGlobalMedicos.jasper"));
             JasperPrint jp = JasperFillManager.fillReport(jr, parametro, con);
             JasperViewer jv = new JasperViewer(jp, false);
             jv.setTitle("Reporte de Medico General");

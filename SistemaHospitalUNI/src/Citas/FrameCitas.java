@@ -726,29 +726,35 @@ public class FrameCitas extends javax.swing.JInternalFrame {
     Date selectedDate;
     Calendar today;
     boolean diaTrabajo = false;
+    String []horasMedicoCitas;
 
     public void TablaCitaMedico(Date fechaSeleccionada) {
 
         String estado = "";
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         SimpleDateFormat sdfr = new SimpleDateFormat("yyyy-MM-dd");
-
+        citaMedicoFecha.setHora(citaMedicoFecha.getHora().replace(':', ' '));
         System.out.println("NUEVA HORA: " + citaMedicoFecha.getHora());
-
-        for (Cita ccc : lstCitaMedico) {
-            ccc.setHora(citaMedicoFecha.getHora().replace(':', ' '));
-            for (int i = horaInicioC; i <= horaFinalC; i++) {
+        int diferencia = horaFinalC - horaFinalC;
+        int x=0;
+        
+        for (int i = horaInicioC; i <= horaFinalC; i++) {
+            
+            for (Cita ccc : lstCitaMedico) {
+                ccc.setHora(ccc.getHora().replace(':', ' '));
 
                 if (sdfr.format(fechaSeleccionada).equals(sdfr.format(ccc.getFecha())) && ((ccc.getHora().startsWith(String.valueOf(i)))) && (ccc.getMedico().getIdMedico()).equals(idMedicoHorario)) {
+
                     estado = "Ocupado por " + ccc.getPaciente().getNombre() + " " + ccc.getPaciente().getApellido();
+
                 } else {
+
                     estado = "Disponible";
                 }
-
-                modelo.addRow(new Object[]{i + ":00", estado});
-
             }
+            modelo.addRow(new Object[]{i+":00",estado});
         }
+        
         jTable1.setModel(modelo);
     }
 
