@@ -51,8 +51,9 @@ public class FrameCitas extends javax.swing.JInternalFrame {
      * Creates new form FrameCitas
      */
     SessionFactory sf;
+    Cita citaMedicoFecha;
     HorarioMedico horarioCitaMedico;
-    List<Cita>lstCitaMedico = new ArrayList<>();
+    List<Cita> lstCitaMedico = new ArrayList<>();
     RangeEvaluator evaluator = new RangeEvaluator();
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     Date hoy = new Date();
@@ -63,6 +64,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
     public FrameCitas(SessionFactory sf) throws ParseException {
         initComponents();
         hoy = new Date();
+        jCalendario.setMinSelectableDate(hoy);
         InicializarTabla();
         llenartabla();
         cmbEspecialidad.setSelectedIndex(0);
@@ -98,7 +100,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
         limpiar();
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         for (int i = 0; i < horas.length; i++) {
-            modelo.addRow(new Object[]{horas[i] + ":00"});
+            modelo.addRow(new Object[]{horas[i]});
         }
         jTable1.setModel(modelo);
     }
@@ -404,11 +406,11 @@ public class FrameCitas extends javax.swing.JInternalFrame {
     DiasMedico medicoDias;
 
     int MedicoBuscado;
-    
-    public void ListarTodasCitas(){
+
+    public void ListarTodasCitas() {
         DAO d = new DAO(sf);
         lstCitaMedico = DAO.Listar_Cita_Medico_Especifico();
-        for(Cita cit : lstCitaMedico){
+        for (Cita cit : lstCitaMedico) {
             System.out.println("ID CITA:" + cit.getIdCita());
             System.out.println("HORA DE LA CITA:" + cit.getHora());
             System.out.println("FECHA DE LA CITA:" + dateFormat.format(cit.getFecha()));
@@ -416,6 +418,9 @@ public class FrameCitas extends javax.swing.JInternalFrame {
             System.out.println("PACIENTE DE LA CITA:" + cit.getPaciente().getNombre() + " " + cit.getPaciente().getApellido());
         }
     }
+
+    int idMedicoHorario;
+    String[] horasMedicoCita;
 
     public void ListarHorarioMedicoUnico(int idDiaMedico) {
 
@@ -429,26 +434,37 @@ public class FrameCitas extends javax.swing.JInternalFrame {
             if (hMedico.getIdHorariomedico().equals(idDiaMedico)) {
                 MedicoBuscado = hMedico.getDiasMedico().getMedico().getIdMedico();
                 horarioCitaMedico = hMedico;
+                idMedicoHorario = hMedico.getDiasMedico().getMedico().getIdMedico();
                 medicoDias = hMedico.getDiasMedico();
                 System.out.println("MEDICO: " + hMedico.getDiasMedico().getMedico().getPrimernombre() + " " + hMedico.getDiasMedico().getMedico().getPrimerapellido());
                 System.out.println("HORA: " + hMedico.getHoraEntrada() + "   " + "HORA SALIDA: " + hMedico.getHoraSalida());
                 ValidacionHoraInicio(hMedico.getHoraEntrada());
                 ValidacionHoraFinal(hMedico.getHoraSalida());
                 diferencia = horaFinalC - horaInicioC;
-                for (int i = 1; i <= diferencia; i++) {
+
+                for (int i = horaInicioC; i <= horaFinalC; i++) {
                     /*  if (i >= 12) {
                      tiempoDia = "PM";
                      } else {
                      tiempoDia = "AM";
                      }*/
                     System.out.println("Diferencias: " + i);
-                    modelo.addRow(new Object[]{i + ":00:00", "Disponible"});
+                    modelo.addRow(new Object[]{i + ":00", "Disponible"});
                 }
 
             }
         }
+
+        SimpleDateFormat sdfr = new SimpleDateFormat("yyyy-MM-dd");
+        DAO dd = new DAO(sf);
+        citaMedicoFecha = DAO.busquedaCitaId(MedicoBuscado);
+        System.out.println("CITA ID: " + citaMedicoFecha.getIdCita());
+        System.out.println("MEDICO: " + citaMedicoFecha.getMedico().getPrimernombre());
+        System.out.println("FECHA CITA: " + sdfr.format(citaMedicoFecha.getFecha()));
+        System.out.println("HORA CITA: " + citaMedicoFecha.getHora());
         s.close();
         jTable1.setModel(modelo);
+        jCalendario.setEnabled(true);
         FechasCargadas();
     }
 
@@ -522,6 +538,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
             }
         });
 
+        jCalendario.setEnabled(false);
         jCalendario.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 jCalendarioPropertyChange(evt);
@@ -680,7 +697,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cmbMedicoItemStateChanged
 
     int lunes, martes, miercoles, jueves, viernes, sabado, domingo;
-    
+
     public void FechasCargadas() {
         if (medicoDias.isLunes()) {
             lunes = 2;
@@ -708,19 +725,48 @@ public class FrameCitas extends javax.swing.JInternalFrame {
 
     Date selectedDate;
     Calendar today;
-    boolean diaTrabajo=false;
+    boolean diaTrabajo = false;
+
+    public void TablaCitaMedico(Date fechaSeleccionada) {
+
+        String estado = "";
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        SimpleDateFormat sdfr = new SimpleDateFormat("yyyy-MM-dd");
+        citaMedicoFecha.setHora(citaMedicoFecha.getHora().replace(':', ' '));
+        System.out.println("NUEVA HORA: " + citaMedicoFecha.getHora());
+       
+        for (int i = horaInicioC; i <= horaFinalC; i++) {
+            
+            if (sdfr.format(fechaSeleccionada).equals(sdfr.format(citaMedicoFecha.getFecha())) && ( (citaMedicoFecha.getHora().startsWith(String.valueOf(i)))) && (citaMedicoFecha.getMedico().getIdMedico()).equals(idMedicoHorario)) {
+                estado = "Ocupado por " + citaMedicoFecha.getPaciente().getNombre() + " " + citaMedicoFecha.getPaciente().getApellido();
+            } else {
+                estado = "Disponible";
+            }
+
+            modelo.addRow(new Object[]{i + ":00", estado});
+
+        }
+        jTable1.setModel(modelo);
+    }
+
 
     private void jCalendarioPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendarioPropertyChange
         // TODO add your handling code here:
         today = Calendar.getInstance();
         selectedDate = ((JCalendar) evt.getSource()).getDate();
+        System.out.println("FECHA " + selectedDate);
         today.setTime(selectedDate);
         if (today.get(Calendar.DAY_OF_WEEK) == lunes || today.get(Calendar.DAY_OF_WEEK) == martes || today.get(Calendar.DAY_OF_WEEK) == miercoles || today.get(Calendar.DAY_OF_WEEK) == jueves || today.get(Calendar.DAY_OF_WEEK) == viernes || today.get(Calendar.DAY_OF_WEEK) == sabado || today.get(Calendar.DAY_OF_WEEK) == domingo) {
             System.out.println("Dia Disponible");
-            diaTrabajo=true;
+
+          //  ValidacionHoraInicio(horarioCitaMedico.getHoraEntrada());
+            //  ValidacionHoraFinal(horarioCitaMedico.getHoraSalida());
+            diaTrabajo = true;
+            limpiar();
+            TablaCitaMedico(selectedDate);
         } else {
             System.out.println("Dia Indispuesto");
-            diaTrabajo=false;
+            diaTrabajo = false;
         }
 
         System.out.println("FECHA: " + today.get(Calendar.DAY_OF_WEEK));
@@ -741,6 +787,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         ObtenerPacienteSeleccionado(cmbPacientes.getSelectedIndex());
         fecha = today.getTime();
+        
         //SimpleDateFormat sdfr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat sdfr = new SimpleDateFormat("yyyy-MM-dd");
         boolean Estado = true;
@@ -751,7 +798,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
             Estado = false;
         }
         if (!diaTrabajo) {
-            JOptionPane.showMessageDialog(this, "Medico no disponible en el dia seleccionado","Medico Indisponible",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Medico no disponible en el dia seleccionado", "Medico Indisponible", JOptionPane.ERROR_MESSAGE);
             return;
         }
         if (HoraCita.equals("")) {

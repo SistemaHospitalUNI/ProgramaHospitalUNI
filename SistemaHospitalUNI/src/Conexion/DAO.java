@@ -269,8 +269,8 @@ public class DAO {
         s = sf.openSession();
         List<Cita> lstCita = (List<Cita>) s.createQuery("from Cita").list();
         for (Cita cita : lstCita) {
-            if (id == cita.getIdCita()) {
-                s.close();
+            if (id == cita.getMedico().getIdMedico()) {
+                System.out.println("CITA ENCONTRADA!!");
                 return cita;
             }
         }
@@ -625,12 +625,8 @@ public class DAO {
 
     }
 
-    public static int GuardarMedico(String nombre, String SNombre, String Apellido, String SApellido, String cedula, int idEspecialidad, String usuario, String pass, String direccion, boolean estado, byte[] fotos) {
-        valid = Usuarios.CrearUsuario(usuario, pass);
-        if (!valid) {
-            System.out.println("USUARIO NO REGISTRADO!");
-        }
-        System.out.println("USUARIO REGISTRADO!");
+    public static int GuardarMedico(String nombre, String SNombre, String Apellido, String SApellido, String cedula, int idEspecialidad, String usuario, String direccion, boolean estado, byte[] fotos) {
+        
         s = sf.openSession();
         try {
             int bandera;

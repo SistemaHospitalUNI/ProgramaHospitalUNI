@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 08-07-2015 05:57:00 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Aug 9, 2015 5:24:41 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="Pojo.EnfermedadCronica" table="Enfermedad_Cronica" catalog="SistemaHospital">
+    <class name="Pojo.EnfermedadCronica" table="Enfermedad_Cronica" catalog="SistemaHospital" optimistic-lock="version">
         <id name="idEc" type="java.lang.Integer">
             <column name="id_ec" />
-            <generator class="identity"></generator>
+            <generator class="identity" />
         </id>
         <property name="nombre" type="string">
             <column name="nombre" length="50" not-null="true" />

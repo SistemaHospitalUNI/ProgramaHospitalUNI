@@ -624,7 +624,13 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         DAO d = new DAO(sf);
         idEspecialidad = DAO.busquedaEspecialidadId(n).getIdEspecialidad();
         System.out.println("Especialidad: " + idEspecialidad);
-        GuardarMedico(idEspecialidad);
+        Usuarios uses = new Usuarios(sf);
+        boolean est = uses.CrearUsuario(txtUsuario.getText().trim(), txtContraseña.getText());
+        if (est) {
+         GuardarMedico(idEspecialidad);    
+        }else{
+            System.out.println("USUARIO NO GUARDADO, MEDICO NO REGISTRADO!");
+        }
     }
 
     public void MostrarDiasActualizados(int idMedicos) {
@@ -725,7 +731,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
             estado = false;
         }
         DAO d = new DAO(sf);
-        idMedico = DAO.GuardarMedico(txtNombre.getText().trim(), txtSNombre.getText().trim(), txtApellido.getText().trim(), txtSApellido.getText().trim(), txtCedula.getText().trim(), idEspecial, txtUsuario.getText().trim(), txtContraseña.getText(), txtDireccion.getText().trim(), estado, arregloImagenCamara);
+        idMedico = DAO.GuardarMedico(txtNombre.getText().trim(), txtSNombre.getText().trim(), txtApellido.getText().trim(), txtSApellido.getText().trim(), txtCedula.getText().trim(), idEspecial, txtUsuario.getText().trim(), txtDireccion.getText().trim(), estado, arregloImagenCamara);
         System.out.println("MEDICO: " + idMedico);
         GuardarDias(idMedico);
     }
