@@ -732,19 +732,22 @@ public class FrameCitas extends javax.swing.JInternalFrame {
         String estado = "";
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         SimpleDateFormat sdfr = new SimpleDateFormat("yyyy-MM-dd");
-        citaMedicoFecha.setHora(citaMedicoFecha.getHora().replace(':', ' '));
+
         System.out.println("NUEVA HORA: " + citaMedicoFecha.getHora());
-       
-        for (int i = horaInicioC; i <= horaFinalC; i++) {
-            
-            if (sdfr.format(fechaSeleccionada).equals(sdfr.format(citaMedicoFecha.getFecha())) && ( (citaMedicoFecha.getHora().startsWith(String.valueOf(i)))) && (citaMedicoFecha.getMedico().getIdMedico()).equals(idMedicoHorario)) {
-                estado = "Ocupado por " + citaMedicoFecha.getPaciente().getNombre() + " " + citaMedicoFecha.getPaciente().getApellido();
-            } else {
-                estado = "Disponible";
+
+        for (Cita ccc : lstCitaMedico) {
+            ccc.setHora(citaMedicoFecha.getHora().replace(':', ' '));
+            for (int i = horaInicioC; i <= horaFinalC; i++) {
+
+                if (sdfr.format(fechaSeleccionada).equals(sdfr.format(ccc.getFecha())) && ((ccc.getHora().startsWith(String.valueOf(i)))) && (ccc.getMedico().getIdMedico()).equals(idMedicoHorario)) {
+                    estado = "Ocupado por " + ccc.getPaciente().getNombre() + " " + ccc.getPaciente().getApellido();
+                } else {
+                    estado = "Disponible";
+                }
+
+                modelo.addRow(new Object[]{i + ":00", estado});
+
             }
-
-            modelo.addRow(new Object[]{i + ":00", estado});
-
         }
         jTable1.setModel(modelo);
     }
@@ -759,7 +762,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
         if (today.get(Calendar.DAY_OF_WEEK) == lunes || today.get(Calendar.DAY_OF_WEEK) == martes || today.get(Calendar.DAY_OF_WEEK) == miercoles || today.get(Calendar.DAY_OF_WEEK) == jueves || today.get(Calendar.DAY_OF_WEEK) == viernes || today.get(Calendar.DAY_OF_WEEK) == sabado || today.get(Calendar.DAY_OF_WEEK) == domingo) {
             System.out.println("Dia Disponible");
 
-          //  ValidacionHoraInicio(horarioCitaMedico.getHoraEntrada());
+            //  ValidacionHoraInicio(horarioCitaMedico.getHoraEntrada());
             //  ValidacionHoraFinal(horarioCitaMedico.getHoraSalida());
             diaTrabajo = true;
             limpiar();
@@ -787,7 +790,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         ObtenerPacienteSeleccionado(cmbPacientes.getSelectedIndex());
         fecha = today.getTime();
-        
+
         //SimpleDateFormat sdfr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat sdfr = new SimpleDateFormat("yyyy-MM-dd");
         boolean Estado = true;
