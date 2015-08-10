@@ -54,7 +54,6 @@ Create Table Padecimiento_EC(
 	id_padecimientoec int primary key auto_increment not null,
     id_paciente int not null,
     id_ec int not null,
-    descripcion varchar(500)not null,
     foreign key (id_paciente)references Paciente(id_paciente),
     foreign key (id_ec)references Enfermedad_Cronica(id_ec)
 );

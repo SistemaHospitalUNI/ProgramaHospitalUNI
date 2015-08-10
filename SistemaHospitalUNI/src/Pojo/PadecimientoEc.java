@@ -12,15 +12,15 @@ public class PadecimientoEc  implements java.io.Serializable {
      private Integer idPadecimientoec;
      private EnfermedadCronica enfermedadCronica;
      private Paciente paciente;
-     private String descripcion;
+    
 
     public PadecimientoEc() {
     }
 
-    public PadecimientoEc(EnfermedadCronica enfermedadCronica, Paciente paciente, String descripcion) {
+    public PadecimientoEc(EnfermedadCronica enfermedadCronica, Paciente paciente) {
        this.enfermedadCronica = enfermedadCronica;
        this.paciente = paciente;
-       this.descripcion = descripcion;
+      
     }
    
     public Integer getIdPadecimientoec() {
@@ -44,15 +44,6 @@ public class PadecimientoEc  implements java.io.Serializable {
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
     }
-    public String getDescripcion() {
-        return this.descripcion;
-    }
-    
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-
 
 
 }
