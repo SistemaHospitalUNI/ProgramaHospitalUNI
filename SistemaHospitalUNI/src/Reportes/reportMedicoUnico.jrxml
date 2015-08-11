@@ -216,10 +216,6 @@ Where m.id_medico = $P{ParametroID};]]>
 					<reportElement x="461" y="7" width="114" height="72" uuid="7b2795bf-f02a-47b8-86ac-d534c1682536"/>
 					<imageExpression><![CDATA[$F{foto}]]></imageExpression>
 				</image>
-				<image>
-					<reportElement x="20" y="10" width="90" height="57" uuid="9d8dc002-4477-4a1d-85e8-3978ebcf1900"/>
-					<imageExpression><![CDATA["/home/crdzbird/NetBeansProjects/GitHub/ProgramaFinal/ProgramaHospitalUNI/SistemaHospitalUNI/src/Imagenes/logo-uni.png"]]></imageExpression>
-				</image>
 				<textField>
 					<reportElement x="130" y="20" width="313" height="23" uuid="547266bd-a93c-43b8-8763-9ec47c2e767a"/>
 					<textElement textAlignment="Center">

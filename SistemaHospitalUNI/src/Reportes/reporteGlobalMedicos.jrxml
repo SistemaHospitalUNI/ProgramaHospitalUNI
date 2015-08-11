@@ -90,7 +90,7 @@ on hMedico.id_diaMedico = dMedico.id_diaMedico;]]>
 					<textElement>
 						<font size="11" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Hospital UNI]]></text>
+					<text><![CDATA[Clinica UNI]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="125" y="7" width="435" height="43" forecolor="#FFFFFF" uuid="0d1fc225-9143-4526-a21a-a7d586aa07f2"/>
@@ -99,10 +99,6 @@ on hMedico.id_diaMedico = dMedico.id_diaMedico;]]>
 					</textElement>
 					<text><![CDATA[Reporte General de Medicos]]></text>
 				</staticText>
-				<image scaleImage="FillFrame" hAlign="Center">
-					<reportElement x="17" y="7" width="103" height="56" uuid="3e6ae767-7672-46f0-bf28-a55541600edc"/>
-					<imageExpression><![CDATA["/home/crdzbird/NetBeansProjects/GitHub/ProgramaFinal/ProgramaHospitalUNI/SistemaHospitalUNI/src/Imagenes/logo-uni.png"]]></imageExpression>
-				</image>
 				<staticText>
 					<reportElement x="156" y="62" width="74" height="20" forecolor="#FFFFFF" uuid="e397a0e9-65ad-4e05-88bc-4ccd6beed66d"/>
 					<text><![CDATA[Creado a las:]]></text>
