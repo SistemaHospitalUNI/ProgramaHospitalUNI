@@ -48,8 +48,21 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         menuUsuario.setText(Logueo.getUser());
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.jDesktopPane1.setBorder(new ImagenFondo());
+        BloqueoCajero();
     }
 
+    
+    public void BloqueoCajero(){
+    if(Logueo.getUser().substring(0, 2).equals("ca")){
+        
+    this.jMenu1.setEnabled(false);
+    this.menuPaciente.setEnabled(false);
+    this.menuMedico.setEnabled(false);
+    this.menuCajero.setEnabled(false);
+    this.jMenu4.setEnabled(false);
+    this.jMenuUsuarios.setEnabled(false);
+    }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -129,7 +142,13 @@ public class SistemaPrincipal extends javax.swing.JFrame {
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436181702_vector_65_13.png"))); // NOI18N
         jMenu1.setText("Catálogo");
+        jMenu1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jMenu1.setMargin(new java.awt.Insets(0, 0, 0, 20));
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
 
         menuBarInformacion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         menuBarInformacion.setText("Opciones Generales");
@@ -201,8 +220,11 @@ public class SistemaPrincipal extends javax.swing.JFrame {
 
         jMenu1.add(menuCatalogo);
 
+        jMenuBar1.add(jMenu1);
+
         menuFactura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lists.png"))); // NOI18N
         menuFactura.setText("Factura");
+        menuFactura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menuFactura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuFacturaActionPerformed(evt);
@@ -211,6 +233,11 @@ public class SistemaPrincipal extends javax.swing.JFrame {
 
         facturaConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
         facturaConsulta.setText("Factura Consulta");
+        facturaConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                facturaConsultaActionPerformed(evt);
+            }
+        });
         menuFactura.add(facturaConsulta);
 
         menuExayProc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
@@ -222,6 +249,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         });
         menuFactura.add(menuExayProc);
 
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/hacer-una-lista-icono-7189-16.png"))); // NOI18N
         jMenuItem4.setText("Ver Facturas");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,12 +258,11 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         });
         menuFactura.add(jMenuItem4);
 
-        jMenu1.add(menuFactura);
-
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(menuFactura);
 
         menuPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436247377_8.png"))); // NOI18N
         menuPaciente.setText("Paciente");
+        menuPaciente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menuPaciente.setMargin(new java.awt.Insets(0, 20, 0, 0));
 
         menuItemSector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
@@ -283,6 +310,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
 
         menuMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436173501_Doctor.png"))); // NOI18N
         menuMedico.setText("Médico");
+        menuMedico.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menuMedico.setMargin(new java.awt.Insets(0, 20, 0, 0));
 
         menuItemAgregarMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
@@ -315,6 +343,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
 
         menuCajero.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/man_black.png"))); // NOI18N
         menuCajero.setText("Cajero");
+        menuCajero.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menuCajero.setMargin(new java.awt.Insets(0, 20, 0, 0));
 
         menuItemCajero.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
@@ -330,6 +359,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
 
         jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436182029_my-reports.png"))); // NOI18N
         jMenu4.setText("   Reportes");
+        jMenu4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jMenu4.setMargin(new java.awt.Insets(0, 20, 0, 0));
 
         menuItemExpediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1439028669_add-notes.png"))); // NOI18N
@@ -345,6 +375,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436182141_Information.png"))); // NOI18N
         jMenu2.setText("   Info");
+        jMenu2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jMenu2.setMargin(new java.awt.Insets(0, 40, 0, 0));
         jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -382,10 +413,13 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436172711_help-browser.png"))); // NOI18N
         jMenu3.setText("    Ayuda");
         jMenu3.setActionCommand("   Ayuda");
+        jMenu3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jMenu3.setMargin(new java.awt.Insets(0, 40, 0, 0));
         jMenuBar1.add(jMenu3);
 
+        jMenuUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/usuario-icono-7991-32.png"))); // NOI18N
         jMenuUsuarios.setText("Usuarios");
+        jMenuUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jMenuItemVerusuariosmedicos.setText("Ver usuarios medicos");
         jMenuItemVerusuariosmedicos.addActionListener(new java.awt.event.ActionListener() {
@@ -402,6 +436,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
 
         menuUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436182236_preferences-contact-list.png"))); // NOI18N
         menuUsuario.setText("   Usuario");
+        menuUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menuUsuario.setMargin(new java.awt.Insets(0, 20, 0, 0));
         menuUsuario.setPreferredSize(new java.awt.Dimension(113, 51));
         menuUsuario.setRequestFocusEnabled(false);
@@ -665,7 +700,7 @@ else{
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "Programa Realizado por: \n  -Cristhian Aguirre\n  -Luis Cardoza\n  -Rossel Morales \nBase de datos II 2015",
+        JOptionPane.showMessageDialog(this, "Programa Realizado por: \n  -Cristhian Aguirre\n  -Luis Cardoza\n  -Rossel Thompson \nBase de datos II 2015",
                 "Información de la Aplicación", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
@@ -687,6 +722,28 @@ else{
             this.setAlwaysOnTop(false);
         }
     }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void facturaConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_facturaConsultaActionPerformed
+    if(!Logueo.getUser().substring(0, 2).equals("ca")){
+        JOptionPane.showMessageDialog(this,"Necesita ser un cajero para acceder","",JOptionPane.ERROR_MESSAGE);
+        }
+else{
+        FacturaCons fext = new FacturaCons(sf);
+         if (activo(fext)) {
+            this.jDesktopPane1.add(fext);
+            fext.setVisible(true);
+            try {
+                fext.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(SistemaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+}
+    }//GEN-LAST:event_facturaConsultaActionPerformed
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+      
+    }//GEN-LAST:event_jMenu1ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -7,12 +7,22 @@ package InternalFrames;
 
 import Conexion.DAO;
 import Pojo.*;
+import java.beans.PropertyVetoException;
 import java.sql.ResultSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import org.exolab.castor.types.Date;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -33,36 +43,53 @@ public class VerFacturas extends javax.swing.JInternalFrame {
         dft.addColumn("Total");
         dft.addColumn("Pago");
         dft.addColumn("Cambio");
-        dft.addColumn("Paciente nombre");
-        dft.addColumn("Paciente apellido");
+        dft.addColumn("No. Paciente/Consulta");
         dft.addColumn("Cajero nombre");
         dft.addColumn("Cajero apellido");
         
         DAO d = new DAO(sf);
-        List<FacturaExamen> listafe = d.ListarFacturaExamen();
-        List<FacturaConsulta> listafc = d.ListarFacturaConsulta();
+Session se = sf.openSession();
+        Criteria cr = se.createCriteria(FacturaExamen.class);
+cr.addOrder(Order.desc("fecha"));
+Criteria crf = se.createCriteria(Pojo.FacturaConsulta.class);
+crf.addOrder(Order.desc("fecha"));
+List<Pojo.FacturaExamen> listafe = cr.list();
+List<Pojo.FacturaConsulta> listafc = crf.list();
         List<Paciente> listap = d.Listar_Pacientes();
         List<Pojo.Cajero> listac = d.Listar_Cajero();
+        List<Pojo.Consulta> listacons = d.Listar_Consulta();
         
         for(FacturaExamen fe : listafe){
         for(Pojo.Cajero c : listac){
         if(c.getIdCajero() == fe.getCajero().getIdCajero()){
         for(Pojo.Paciente p : listap){
         if(p.getIdPaciente() == fe.getPaciente().getIdPaciente()){
-        String fila []= {String.valueOf(fe.getNumfactura()),String.valueOf( fe.getFecha()),String.valueOf(fe.getTotal()), String.valueOf(fe.getPago()),String.valueOf(fe.getCambio()), p.getNombre(), p.getApellido(),c.getNombre(),c.getApellido()};
+        String fila []= {String.valueOf(fe.getNumfactura()),String.valueOf( fe.getFecha()),String.valueOf(fe.getTotal()), String.valueOf(fe.getPago()),String.valueOf(fe.getCambio()), String.valueOf(p.getIdPaciente()), c.getNombre(),c.getApellido()};
         dft.addRow(fila);
         }
         }
         }
         }
         }
+    
+        for(FacturaConsulta fc : listafc){
+        for(Pojo.Cajero c : listac){
+        if(c.getIdCajero() == fc.getCajero().getIdCajero()){
+        for(Pojo.Consulta co : listacons){
+        if(co.getIdConsulta() == fc.getConsulta().getIdConsulta()){
+        String fila []= {String.valueOf(fc.getNumfactura()),String.valueOf( fc.getFecha()),String.valueOf(fc.getTotal()), String.valueOf(fc.getPago()),String.valueOf(fc.getCambio()),String.valueOf(co.getIdConsulta()),c.getNombre(),c.getApellido()};
+        dft.addRow(fila);
+        }
+        }
+        }
+        }
+        }
+    
         
         this.jTable1.setModel(dft);
         
-//        Session se =sf.openSession();
-//        String query = "Select * from VerFacturas";
-//        Query q = se.createSQLQuery(query);
-//        List lista =q.list();
+        
+        
     }
 
     /**
@@ -74,12 +101,14 @@ public class VerFacturas extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jTextField1 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -100,15 +129,19 @@ public class VerFacturas extends javax.swing.JInternalFrame {
             }
         });
 
-        jRadioButton1.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
-        jRadioButton1.setText("Paciente");
+        jLabel1.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        jLabel1.setText("Fecha inicial");
 
-        jRadioButton2.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
-        jRadioButton2.setText("Cajero");
+        jLabel2.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        jLabel2.setText("Fecha Final");
 
-        jRadioButton3.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
-        jRadioButton3.setText("Fecha");
-        jRadioButton3.setToolTipText("dd-MM-yyyy");
+        jButton1.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        jButton1.setText("Ver Todos");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -116,31 +149,32 @@ public class VerFacturas extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(70, 70, 70)
-                .addComponent(jButton2)
-                .addGap(48, 48, 48)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2))
-                    .addComponent(jRadioButton3))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(82, 82, 82)
+                .addComponent(jLabel1)
                 .addGap(24, 24, 24)
-                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(74, 74, 74)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton3))
-                    .addComponent(jButton2)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
 
         getContentPane().add(jPanel1);
@@ -169,20 +203,89 @@ public class VerFacturas extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      
+
+        try {
+            SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            java.util.Date fechai = formatoDelTexto.parse(this.jTextField2.getText());
+            java.util.Date fechaf= formatoDelTexto.parse(this.jTextField3.getText());
+            
+            
+                
+                Session s = sf.openSession();
+                DAO d=  new DAO(sf);
+                DefaultTableModel dft = new DefaultTableModel();
+                Criteria cr = s.createCriteria(FacturaExamen.class);
+                cr.add(Restrictions.between("fecha",fechai,fechaf));
+                Criteria crf = s.createCriteria(Pojo.FacturaConsulta.class);
+                crf.add(Restrictions.between("fecha",fechai,fechaf));
+                List<Pojo.FacturaExamen> listafe = cr.list();
+                List<Pojo.FacturaConsulta> listafc = crf.list();
+                List<Paciente> listap = d.Listar_Pacientes();
+                List<Pojo.Cajero> listac = d.Listar_Cajero();
+                List<Pojo.Consulta> listacons = d.Listar_Consulta();
+                
+                for(FacturaExamen fe : listafe){
+                    for(Pojo.Cajero c : listac){
+                        if(c.getIdCajero() == fe.getCajero().getIdCajero()){
+                            for(Pojo.Paciente p : listap){
+                                if(p.getIdPaciente() == fe.getPaciente().getIdPaciente()){
+                                    String fila []= {String.valueOf(fe.getNumfactura()),String.valueOf( fe.getFecha()),String.valueOf(fe.getTotal()), String.valueOf(fe.getPago()),String.valueOf(fe.getCambio()), String.valueOf(p.getIdPaciente()), c.getNombre(),c.getApellido()};
+                                    dft.addRow(fila);
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                for(FacturaConsulta fc : listafc){
+                    for(Pojo.Cajero c : listac){
+                        if(c.getIdCajero() == fc.getCajero().getIdCajero()){
+                            for(Pojo.Consulta co : listacons){
+                                if(co.getIdConsulta() == fc.getConsulta().getIdConsulta()){
+                                    String fila []= {String.valueOf(fc.getNumfactura()),String.valueOf( fc.getFecha()),String.valueOf(fc.getTotal()), String.valueOf(fc.getPago()),String.valueOf(fc.getCambio()),String.valueOf(co.getIdConsulta()),c.getNombre(),c.getApellido()};
+                                    dft.addRow(fila);
+                                }
+                            }
+                        }
+                    }
+                
+
+                
+                this.jTable1.setModel(dft);
+                
+                
+                
+                
+            }       } catch (ParseException ex) {
+            Logger.getLogger(VerFacturas.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            VerFacturas c = new VerFacturas(sf);
+            this.getDesktopPane().add(c);
+            c.setMaximum(true);
+            c.setVisible(true);
+            this.dispose();
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(VerFacturas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }

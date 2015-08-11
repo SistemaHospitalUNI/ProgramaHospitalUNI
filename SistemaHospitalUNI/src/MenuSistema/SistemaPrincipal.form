@@ -18,10 +18,16 @@
               <Image iconType="3" name="/Imagenes/1436181702_vector_65_13.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Cat&#xe1;logo"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor de Mano"/>
+            </Property>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[0, 0, 0, 20]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenu1ActionPerformed"/>
+          </Events>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menuBarInformacion">
               <Properties>
@@ -128,46 +134,55 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
-            <Menu class="javax.swing.JMenu" name="menuFactura">
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="menuFactura">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Imagenes/lists.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Factura"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor de Mano"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuFacturaActionPerformed"/>
+          </Events>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="facturaConsulta">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Imagenes/lists.png"/>
+                  <Image iconType="3" name="/Imagenes/file_add 16x16.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Factura"/>
+                <Property name="text" type="java.lang.String" value="Factura Consulta"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuFacturaActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="facturaConsultaActionPerformed"/>
               </Events>
-              <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="facturaConsulta">
-                  <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/Imagenes/file_add 16x16.png"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Factura Consulta"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="menuExayProc">
-                  <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/Imagenes/file_add 16x16.png"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Facura Examenes y Procedimientos"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuExayProcActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Ver Facturas"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem4ActionPerformed"/>
-                  </Events>
-                </MenuItem>
-              </SubComponents>
-            </Menu>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuExayProc">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Imagenes/file_add 16x16.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Facura Examenes y Procedimientos"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuExayProcActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Imagenes/hacer-una-lista-icono-7189-16.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Ver Facturas"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem4ActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuPaciente">
@@ -176,6 +191,9 @@
               <Image iconType="3" name="/Imagenes/1436247377_8.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Paciente"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor de Mano"/>
+            </Property>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[0, 20, 0, 0]"/>
             </Property>
@@ -243,6 +261,9 @@
               <Image iconType="3" name="/Imagenes/1436173501_Doctor.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="M&#xe9;dico"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor de Mano"/>
+            </Property>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[0, 20, 0, 0]"/>
             </Property>
@@ -286,6 +307,9 @@
               <Image iconType="3" name="/Imagenes/man_black.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Cajero"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor de Mano"/>
+            </Property>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[0, 20, 0, 0]"/>
             </Property>
@@ -310,6 +334,9 @@
               <Image iconType="3" name="/Imagenes/1436182029_my-reports.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="   Reportes"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor de Mano"/>
+            </Property>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[0, 20, 0, 0]"/>
             </Property>
@@ -334,6 +361,9 @@
               <Image iconType="3" name="/Imagenes/1436182141_Information.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="   Info"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor de Mano"/>
+            </Property>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[0, 40, 0, 0]"/>
             </Property>
@@ -378,6 +408,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="    Ayuda"/>
             <Property name="actionCommand" type="java.lang.String" value="   Ayuda"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor de Mano"/>
+            </Property>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[0, 40, 0, 0]"/>
             </Property>
@@ -385,7 +418,13 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenuUsuarios">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Imagenes/usuario-icono-7991-32.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Usuarios"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor de Mano"/>
+            </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemVerusuariosmedicos">
@@ -409,6 +448,9 @@
               <Image iconType="3" name="/Imagenes/1436182236_preferences-contact-list.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="   Usuario"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor de Mano"/>
+            </Property>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[0, 20, 0, 0]"/>
             </Property>
