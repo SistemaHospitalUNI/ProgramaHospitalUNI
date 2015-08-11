@@ -17,8 +17,8 @@
         <property name="numfactura" type="int">
             <column name="numfactura" not-null="true" />
         </property>
-        <property name="fecha" type="time">
-            <column name="fecha" length="8" not-null="true" />
+        <property name="fecha" type="timestamp">
+            <column name="fecha" length="19" not-null="true" />
         </property>
         <property name="total" type="float">
             <column name="total" precision="12" scale="0" not-null="true" />

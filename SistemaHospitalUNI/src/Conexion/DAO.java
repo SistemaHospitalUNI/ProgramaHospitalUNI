@@ -161,6 +161,19 @@ public class DAO {
         s.close();
         return null;
     }
+      public static FacturaConsulta busquedaFacturaConsultaId(int id) {
+
+        s = sf.openSession();
+        List<FacturaConsulta> listfactex = s.createQuery("from FacturaConsulta").list();
+        for (FacturaConsulta fe : listfactex) {
+            if (fe.getIdFactura() == id) {
+                s.close();
+                return fe;
+            }
+        }
+        s.close();
+        return null;
+    }
 
     public static Especialidad busquedaEspecialidadId(int id) {
         s = sf.openSession();
@@ -447,9 +460,22 @@ public class DAO {
         return lstSector;
     }
 
-    public static List<FacturaConsulta> ListarFacturaConsulta() {
+    public  List<FacturaConsulta> ListarFacturaConsulta() {
         s = sf.openSession();
         List<FacturaConsulta> lista = s.createQuery("from FacturaConsulta").list();
+        s.close();
+        return lista;
+    }
+    public  List<DetalleFacturaEx> ListarDetFactEx() {
+        s = sf.openSession();
+        List<DetalleFacturaEx> lista = s.createQuery("from DetalleFacturaEx").list();
+        s.close();
+        return lista;
+    }
+    
+    public  List<DetalleFactpro> ListarDetFactPro() {
+        s = sf.openSession();
+        List<DetalleFactpro> lista = s.createQuery("from DetalleFactpro").list();
         s.close();
         return lista;
     }
@@ -770,7 +796,7 @@ public class DAO {
 
     }
 
-    public static List<FacturaExamen> ListarFacturaExamen() {
+    public  List<FacturaExamen> ListarFacturaExamen() {
         s = sf.openSession();
         List<FacturaExamen> lista = (List<FacturaExamen>) s.createQuery("from FacturaExamen").list();
         return lista;

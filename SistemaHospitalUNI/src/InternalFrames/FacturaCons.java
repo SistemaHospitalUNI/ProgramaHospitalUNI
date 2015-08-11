@@ -12,6 +12,7 @@ import Pojo.Consulta;
 import Pojo.FacturaConsulta;
 import Pojo.FacturaExamen;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyVetoException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -122,6 +123,12 @@ public class FacturaCons extends javax.swing.JInternalFrame {
 
         fechalbl.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
 
+        jTextField4.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField4FocusLost(evt);
+            }
+        });
+
         n0factura.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
 
         jComboBox1.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
@@ -221,7 +228,14 @@ public class FacturaCons extends javax.swing.JInternalFrame {
             }
         });
 
+        totaltextfield.setEditable(false);
         totaltextfield.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        totaltextfield.setText("0");
+        totaltextfield.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                totaltextfieldFocusGained(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel1.setText("Total:");
@@ -310,11 +324,31 @@ public class FacturaCons extends javax.swing.JInternalFrame {
                 fc.setCambio(Float.parseFloat(this.cambiotextfield.getText()));
                 int i =d.GuardarFacturaConsulta(fc);
                 if(i!=-1){JOptionPane.showMessageDialog(this,"Facutra Registrada");Limpiar();}
-                else{JOptionPane.showMessageDialog(this, "Error","Error al guardar Factura",JOptionPane.ERROR_MESSAGE);}
+                else{JOptionPane.showMessageDialog(this,"Consulta ya Pagada","Error",JOptionPane.ERROR_MESSAGE);}
                 }
-        }catch(NumberFormatException ee){JOptionPane.showMessageDialog(this, "Dato incorrecto en el numero de paciente, introduzca un número");}
+        }catch(NumberFormatException ee){JOptionPane.showMessageDialog(this, "Dato incorrecto en el numero de paciente, introduzca un número");} catch (PropertyVetoException ex) {
+            Logger.getLogger(FacturaCons.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTextField4FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField4FocusLost
+       
+    }//GEN-LAST:event_jTextField4FocusLost
+
+    private void totaltextfieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_totaltextfieldFocusGained
+        try{
+        DAO d = new DAO(sf);
+        Consulta c= d.busquedaConsultaId(Integer.parseInt(this.jTextField4.getText()));
+        if(c==null){JOptionPane.showMessageDialog(this,"El No de consulta no existe","Error",JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+        this.totaltextfield.setText(String.valueOf(c.getPrecio()));}
+        
+        }catch(NumberFormatException e){
+        JOptionPane.showMessageDialog(this,"No de consulta incorrecto","Error",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_totaltextfieldFocusGained
 
  public void CargarFoto(Icon icono){
         RedimensionarImagen redimImagen = new RedimensionarImagen();
@@ -344,10 +378,11 @@ public class FacturaCons extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     
-    private void Limpiar() {
+    private void Limpiar() throws PropertyVetoException {
         FacturaCons c = new FacturaCons(sf);
        this.getDesktopPane().add(c);
        c.setVisible(true);
+       c.setMaximum(true);
         this.dispose();
     }
 

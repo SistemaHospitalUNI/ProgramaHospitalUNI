@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.exolab.castor.types.Date;
 import org.hibernate.Criteria;
@@ -112,10 +113,12 @@ List<Pojo.FacturaConsulta> listafc = crf.list();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setClosable(true);
         setTitle("Facturas");
-        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -160,7 +163,7 @@ List<Pojo.FacturaConsulta> listafc = crf.list();
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,8 +180,6 @@ List<Pojo.FacturaConsulta> listafc = crf.list();
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanel1);
-
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
 
         jTable1.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
@@ -193,11 +194,44 @@ List<Pojo.FacturaConsulta> listafc = crf.list();
 
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jPanel2.add(jScrollPane1);
 
-        getContentPane().add(jPanel2);
+        jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.LINE_AXIS));
+
+        jTextArea1.setEditable(false);
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Vani", 0, 14)); // NOI18N
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
+
+        jPanel3.add(jScrollPane2);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -205,7 +239,7 @@ List<Pojo.FacturaConsulta> listafc = crf.list();
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
         try {
-            SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             java.util.Date fechai = formatoDelTexto.parse(this.jTextField2.getText());
             java.util.Date fechaf= formatoDelTexto.parse(this.jTextField3.getText());
             
@@ -213,7 +247,15 @@ List<Pojo.FacturaConsulta> listafc = crf.list();
                 
                 Session s = sf.openSession();
                 DAO d=  new DAO(sf);
-                DefaultTableModel dft = new DefaultTableModel();
+                DefaultTableModel df = new DefaultTableModel();
+        df.addColumn("Numero de Factura");
+        df.addColumn("Fecha");
+        df.addColumn("Total");
+        df.addColumn("Pago");
+        df.addColumn("Cambio");
+        df.addColumn("No. Paciente/Consulta");
+        df.addColumn("Cajero nombre");
+        df.addColumn("Cajero apellido");
                 Criteria cr = s.createCriteria(FacturaExamen.class);
                 cr.add(Restrictions.between("fecha",fechai,fechaf));
                 Criteria crf = s.createCriteria(Pojo.FacturaConsulta.class);
@@ -230,7 +272,7 @@ List<Pojo.FacturaConsulta> listafc = crf.list();
                             for(Pojo.Paciente p : listap){
                                 if(p.getIdPaciente() == fe.getPaciente().getIdPaciente()){
                                     String fila []= {String.valueOf(fe.getNumfactura()),String.valueOf( fe.getFecha()),String.valueOf(fe.getTotal()), String.valueOf(fe.getPago()),String.valueOf(fe.getCambio()), String.valueOf(p.getIdPaciente()), c.getNombre(),c.getApellido()};
-                                    dft.addRow(fila);
+                                    df.addRow(fila);
                                 }
                             }
                         }
@@ -243,21 +285,20 @@ List<Pojo.FacturaConsulta> listafc = crf.list();
                             for(Pojo.Consulta co : listacons){
                                 if(co.getIdConsulta() == fc.getConsulta().getIdConsulta()){
                                     String fila []= {String.valueOf(fc.getNumfactura()),String.valueOf( fc.getFecha()),String.valueOf(fc.getTotal()), String.valueOf(fc.getPago()),String.valueOf(fc.getCambio()),String.valueOf(co.getIdConsulta()),c.getNombre(),c.getApellido()};
-                                    dft.addRow(fila);
+                                    df.addRow(fila);
                                 }
                             }
                         }
                     }
-                
+                }
 
                 
-                this.jTable1.setModel(dft);
+                this.jTable1.setModel(df);
                 
                 
                 
-                
-            }       } catch (ParseException ex) {
-            Logger.getLogger(VerFacturas.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ParseException ex) {
+                        JOptionPane.showMessageDialog(this,"Formato yyyy-MM-dd HH:mm","Error",JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -274,6 +315,50 @@ List<Pojo.FacturaConsulta> listafc = crf.list();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        if(this.jTable1.getSelectedRow()!= -1){
+        int numfact = Integer.parseInt(String.valueOf(this.jTable1.getValueAt(this.jTable1.getSelectedRow(), 0)));
+        DAO d = new DAO(sf);
+        List<FacturaExamen> listafe = d.ListarFacturaExamen();
+        List<FacturaConsulta> listafc = d.ListarFacturaConsulta();
+        List<DetalleFactpro> listadfp = d.ListarDetFactPro();
+        List<DetalleFacturaEx> listadfe = d.ListarDetFactEx();
+        
+        FacturaExamen fe = null;
+        FacturaConsulta fc = null;
+        
+        for(FacturaExamen factex : listafe){
+        if(factex.getNumfactura()==numfact){fe = factex;}
+        }
+        
+        for(FacturaConsulta factcon : listafc){
+        if(factcon.getNumfactura() == numfact){fc = factcon;}
+        }
+        
+        if(fe!=null){
+        this.jTextArea1.setText("--Factura Externa--"+"\n"+"ID Factura Externa: "+fe.getIdFacturaex()+"\n");
+        for(DetalleFacturaEx dfe : listadfe){
+        if(dfe.getFacturaExamen().getIdFacturaex() == fe.getIdFacturaex()){
+        this.jTextArea1.setText(this.jTextArea1.getText()+dfe.getCatalogoExamen().getNombre()+"----- U$"+String.valueOf(dfe.getCatalogoExamen().getPrecio())+"\n");
+        }
+        }
+        for(DetalleFactpro dfp : listadfp){
+        if(dfp.getFacturaExamen().getIdFacturaex() == fe.getIdFacturaex()){
+        this.jTextArea1.setText(this.jTextArea1.getText()+dfp.getProcedimientosEspeciales().getNombre()+"----- U$"+String.valueOf(dfp.getProcedimientosEspeciales().getPrecio())+"\n"); 
+        }
+        }
+        }
+        
+        
+        else{
+        this.jTextArea1.setText("--Factura Consulta--"+"\n"+"ID Factura Consulta: "+fc.getIdFactura()+"\n" +"ID Consulta: "+String.valueOf(fc.getConsulta().getIdConsulta())+"\n");
+        }
+        
+        
+        }
+        
+    }//GEN-LAST:event_jTable1MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -283,8 +368,11 @@ List<Pojo.FacturaConsulta> listafc = crf.list();
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
