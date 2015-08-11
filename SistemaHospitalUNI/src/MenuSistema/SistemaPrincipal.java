@@ -49,8 +49,15 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.jDesktopPane1.setBorder(new ImagenFondo());
         BloqueoCajero();
+        BloqueoMedico();
     }
 
+    public void BloqueoMedico(){
+        if (Logueo.getUser().substring(0,2).equals("med")) {
+            this.menuCajero.setEnabled(false);
+            this.menuFactura.setEnabled(false);
+        }
+    }
     
     public void BloqueoCajero(){
     if(Logueo.getUser().substring(0, 2).equals("ca")){
