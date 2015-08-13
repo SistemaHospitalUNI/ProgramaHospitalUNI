@@ -107,6 +107,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         menuItemAgregarMedico = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         menuHorarioMedico = new javax.swing.JMenuItem();
+        jMenuItemconsulta = new javax.swing.JMenuItem();
         menuCajero = new javax.swing.JMenu();
         menuItemCajero = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
@@ -149,7 +150,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436181702_vector_65_13.png"))); // NOI18N
         jMenu1.setText("Catálogo");
-        jMenu1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenu1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jMenu1.setMargin(new java.awt.Insets(0, 0, 0, 20));
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -231,7 +232,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
 
         menuFactura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lists.png"))); // NOI18N
         menuFactura.setText("Factura");
-        menuFactura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuFactura.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         menuFactura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuFacturaActionPerformed(evt);
@@ -269,7 +270,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
 
         menuPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436247377_8.png"))); // NOI18N
         menuPaciente.setText("Paciente");
-        menuPaciente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuPaciente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         menuPaciente.setMargin(new java.awt.Insets(0, 20, 0, 0));
 
         menuItemSector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
@@ -317,7 +318,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
 
         menuMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436173501_Doctor.png"))); // NOI18N
         menuMedico.setText("Médico");
-        menuMedico.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuMedico.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         menuMedico.setMargin(new java.awt.Insets(0, 20, 0, 0));
 
         menuItemAgregarMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
@@ -346,11 +347,19 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         });
         menuMedico.add(menuHorarioMedico);
 
+        jMenuItemconsulta.setText("Consultas");
+        jMenuItemconsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemconsultaActionPerformed(evt);
+            }
+        });
+        menuMedico.add(jMenuItemconsulta);
+
         jMenuBar1.add(menuMedico);
 
         menuCajero.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/man_black.png"))); // NOI18N
         menuCajero.setText("Cajero");
-        menuCajero.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuCajero.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         menuCajero.setMargin(new java.awt.Insets(0, 20, 0, 0));
 
         menuItemCajero.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/file_add 16x16.png"))); // NOI18N
@@ -366,7 +375,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
 
         jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436182029_my-reports.png"))); // NOI18N
         jMenu4.setText("   Reportes");
-        jMenu4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenu4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jMenu4.setMargin(new java.awt.Insets(0, 20, 0, 0));
 
         menuItemExpediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1439028669_add-notes.png"))); // NOI18N
@@ -382,7 +391,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436182141_Information.png"))); // NOI18N
         jMenu2.setText("   Info");
-        jMenu2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenu2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jMenu2.setMargin(new java.awt.Insets(0, 40, 0, 0));
         jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -420,13 +429,13 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436172711_help-browser.png"))); // NOI18N
         jMenu3.setText("    Ayuda");
         jMenu3.setActionCommand("   Ayuda");
-        jMenu3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenu3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jMenu3.setMargin(new java.awt.Insets(0, 40, 0, 0));
         jMenuBar1.add(jMenu3);
 
         jMenuUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/usuario-icono-7991-32.png"))); // NOI18N
         jMenuUsuarios.setText("Usuarios");
-        jMenuUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jMenuItemVerusuariosmedicos.setText("Ver usuarios medicos");
         jMenuItemVerusuariosmedicos.addActionListener(new java.awt.event.ActionListener() {
@@ -443,7 +452,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
 
         menuUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1436182236_preferences-contact-list.png"))); // NOI18N
         menuUsuario.setText("   Usuario");
-        menuUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         menuUsuario.setMargin(new java.awt.Insets(0, 20, 0, 0));
         menuUsuario.setPreferredSize(new java.awt.Dimension(113, 51));
         menuUsuario.setRequestFocusEnabled(false);
@@ -752,6 +761,19 @@ else{
       
     }//GEN-LAST:event_jMenu1ActionPerformed
 
+    private void jMenuItemconsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemconsultaActionPerformed
+       Consulta fext = new Consulta(sf);
+         if (activo(fext)) {
+            this.jDesktopPane1.add(fext);
+            fext.setVisible(true);
+            try {
+                fext.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(SistemaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         }
+    }//GEN-LAST:event_jMenuItemconsultaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -808,6 +830,7 @@ else{
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem jMenuItemVerUsuarios;
     private javax.swing.JMenuItem jMenuItemVerusuariosmedicos;
+    private javax.swing.JMenuItem jMenuItemconsulta;
     private javax.swing.JMenu jMenuUsuarios;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenuItem menuAgregarEnfermedad;
