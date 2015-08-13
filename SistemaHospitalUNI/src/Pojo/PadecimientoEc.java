@@ -1,5 +1,5 @@
 package Pojo;
-// Generated Aug 9, 2015 5:24:41 PM by Hibernate Tools 4.3.1
+// Generated Aug 12, 2015 9:23:15 PM by Hibernate Tools 4.3.1
 
 
 
@@ -12,7 +12,6 @@ public class PadecimientoEc  implements java.io.Serializable {
      private Integer idPadecimientoec;
      private EnfermedadCronica enfermedadCronica;
      private Paciente paciente;
-    
 
     public PadecimientoEc() {
     }
@@ -20,7 +19,6 @@ public class PadecimientoEc  implements java.io.Serializable {
     public PadecimientoEc(EnfermedadCronica enfermedadCronica, Paciente paciente) {
        this.enfermedadCronica = enfermedadCronica;
        this.paciente = paciente;
-      
     }
    
     public Integer getIdPadecimientoec() {
@@ -44,6 +42,8 @@ public class PadecimientoEc  implements java.io.Serializable {
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
     }
+
+
 
 
 }

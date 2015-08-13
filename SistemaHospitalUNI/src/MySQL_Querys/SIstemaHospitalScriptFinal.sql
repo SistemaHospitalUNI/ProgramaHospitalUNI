@@ -172,8 +172,10 @@ Create Table Detalle_factpro(
 
 Create Table Consulta(
 	id_consulta int primary key auto_increment not null,
+    id_cita int NOT NULL unique,
     descripcion varchar(200)not null,
-    precio float
+    precio float,
+    foreign key(id_cita) references Cita(id_cita)
 );
 
 
