@@ -241,6 +241,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         txtDireccion = new javax.swing.JTextArea();
         chkEditarMedico = new javax.swing.JCheckBox();
         cmbId = new javax.swing.JComboBox();
+        jLabel10 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -380,7 +381,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
         );
 
         jButton3.setText("Tomar Fotografia");
@@ -436,6 +437,8 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel10.setText("med-");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -470,7 +473,10 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
                                             .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jLabel12))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel12)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel10)))
                                 .addGap(15, 15, 15)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel11)
@@ -554,7 +560,8 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
                             .addComponent(jLabel12)
                             .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11))
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel10))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -625,7 +632,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         idEspecialidad = DAO.busquedaEspecialidadId(n).getIdEspecialidad();
         System.out.println("Especialidad: " + idEspecialidad);
         Usuarios uses = new Usuarios(sf);
-        boolean est = uses.CrearUsuario(txtUsuario.getText().trim(), txtContraseña.getText());
+        boolean est = uses.CrearUsuario("med-"+txtUsuario.getText().trim(), txtContraseña.getText());
         if (est) {
          GuardarMedico(idEspecialidad);    
         }else{
@@ -1004,6 +1011,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;

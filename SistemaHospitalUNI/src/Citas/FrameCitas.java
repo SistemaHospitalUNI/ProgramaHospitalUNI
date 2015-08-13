@@ -457,7 +457,7 @@ public class FrameCitas extends javax.swing.JInternalFrame {
 
         SimpleDateFormat sdfr = new SimpleDateFormat("yyyy-MM-dd");
         DAO dd = new DAO(sf);
-        citaMedicoFecha = DAO.busquedaCitaId(MedicoBuscado);
+        citaMedicoFecha = dd.busquedaCitaId(MedicoBuscado);
         System.out.println("CITA ID: " + citaMedicoFecha.getIdCita());
         System.out.println("MEDICO: " + citaMedicoFecha.getMedico().getPrimernombre());
         System.out.println("FECHA CITA: " + sdfr.format(citaMedicoFecha.getFecha()));

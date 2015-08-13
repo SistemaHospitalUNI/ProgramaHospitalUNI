@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Aug 9, 2015 5:24:41 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Aug 12, 2015 9:23:16 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="Pojo.FacturaConsulta" table="FacturaConsulta" catalog="SistemaHospital" optimistic-lock="version">
         <id name="idFactura" type="java.lang.Integer">
@@ -17,8 +17,8 @@
         <property name="numfactura" type="int">
             <column name="numfactura" not-null="true" />
         </property>
-        <property name="fecha" type="timestamp">
-            <column name="fecha" length="19" not-null="true" />
+        <property name="fecha" type="time">
+            <column name="fecha" length="8" not-null="true" />
         </property>
         <property name="total" type="float">
             <column name="total" precision="12" scale="0" not-null="true" />
