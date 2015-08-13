@@ -253,20 +253,20 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
         setName(""); // NOI18N
         setPreferredSize(new java.awt.Dimension(823, 702));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
-            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
-                formInternalFrameOpened(evt);
-            }
-            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
             }
-            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
             }
-            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
             }
-            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
             }
         });
 
@@ -485,7 +485,7 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
                                             .addComponent(txtSApellido, javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtSNombre, javax.swing.GroupLayout.Alignment.LEADING))
                                         .addGap(2, 2, 2))
-                                    .addComponent(cmbEspecialidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(cmbEspecialidad, 0, 1, Short.MAX_VALUE))
                                 .addGap(88, 88, 88))
                             .addComponent(jScrollPane1)
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -942,9 +942,9 @@ public class FrameMedicos extends javax.swing.JInternalFrame {
             ActualizarMedico(idMedicoAntiguo);
         } else {
             ObtenerEspecialidad();
-            //GuardarMedico();
-            // GuardarDias();
-            // GuardarHorario();
+//            GuardarMedico();
+//             GuardarDias();
+//             GuardarHorario();
         }
         this.dispose();
     }//GEN-LAST:event_btnRegistrarActionPerformed

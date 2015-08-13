@@ -106,7 +106,6 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         menuItemExpediente = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuUsuarios = new javax.swing.JMenu();
@@ -390,14 +389,6 @@ public class SistemaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem6);
-
-        jMenuItem7.setText("Help & Manual");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem7);
 
         jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F11, 0));
         jMenuItem8.setText("FullScreen");
@@ -694,10 +685,6 @@ else{
         }     
     }//GEN-LAST:event_menuItemExpedienteActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
-
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(this, "Programa Realizado por: \n  -Cristhian Aguirre\n  -Luis Cardoza\n  -Rossel Thompson \nBase de datos II 2015",
@@ -796,7 +783,6 @@ else{
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem jMenuItemVerUsuarios;
