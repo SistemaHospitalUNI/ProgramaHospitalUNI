@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="09960571-0f63-42b7-8d49-67056fedab5d">
+	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fechai" class="java.sql.Time">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaf" class="java.sql.Time">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     FacturaExamen.`numfactura` AS FacturaExamen_numfactura,
+     FacturaExamen.`fecha` AS FacturaExamen_fecha,
+     FacturaExamen.`total` AS FacturaExamen_total,
+     FacturaExamen.`pago` AS FacturaExamen_pago,
+     FacturaExamen.`cambio` AS FacturaExamen_cambio,
+     Cajero.`nombre` AS Cajero_nombre,
+     Cajero.`apellido` AS Cajero_apellido,
+     Paciente.`nombre` AS Paciente_nombre,
+     Paciente.`apellido` AS Paciente_apellido
+FROM
+     `FacturaExamen` FacturaExamen INNER JOIN `Cajero` Cajero ON FacturaExamen.`id_cajero` = Cajero.`id_cajero`
+     INNER JOIN `Paciente` Paciente ON FacturaExamen.`id_paciente` = Paciente.`id_paciente`
+WHERE
+     FacturaExamen.fecha BETWEEN $P{fechai} and $P{fechaf}
+ORDER BY
+     FacturaExamen.fecha DESC]]>
+	</queryString>
+	<field name="FacturaExamen_numfactura" class="java.lang.Integer"/>
+	<field name="FacturaExamen_fecha" class="java.sql.Timestamp"/>
+	<field name="FacturaExamen_total" class="java.lang.Float"/>
+	<field name="FacturaExamen_pago" class="java.lang.Float"/>
+	<field name="FacturaExamen_cambio" class="java.lang.Float"/>
+	<field name="Cajero_nombre" class="java.lang.String"/>
+	<field name="Cajero_apellido" class="java.lang.String"/>
+	<field name="Paciente_nombre" class="java.lang.String"/>
+	<field name="Paciente_apellido" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="821" height="92" backcolor="#006699" uuid="f6bdce70-b092-4023-85f5-a29e4aa8c8c5"/>
+				<staticText>
+					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="5a83fb4a-0572-4691-a503-d791983c3adf"/>
+					<textElement>
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Facturas]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="cef9a455-38ca-4abc-b060-fb17961b1d53"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Consultorio UNI]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="8b8ccbce-0617-44ab-9a23-c6e0e311dd94"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="61" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="d74e5820-5f0f-4b38-8068-1ddef1d1e783"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N0.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="61" y="0" width="61" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="493e16e9-33f8-459a-9771-dab4c0265ed6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="122" y="0" width="61" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="0877ba94-9712-4c88-80d6-fe9800369d6e"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="183" y="0" width="51" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="c27174d6-0a6f-4b66-bb0c-7d64983fe330"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="234" y="0" width="60" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="2eb2d4c6-c7f3-439c-b379-1c2e59da9b84"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cambio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="294" y="0" width="120" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="3de3b3fa-2f1f-4031-aaba-8a2e9e196ab5"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cajero Nombres]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="414" y="0" width="127" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="b4e2b07d-9469-42a7-a4ef-fab49c14b5b2"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cajero Apellidos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="541" y="0" width="128" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="1cbd6d57-e29b-4482-9246-e616a7167ac3"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Paciente Nombres]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="669" y="1" width="133" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="b60c56aa-3481-4349-b3f6-8ca54d7c7bef"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Paciente Apellidos]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="40363c68-2300-4bd7-b110-5835eb24bbd2"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="61" height="20" uuid="4645ba14-664f-4653-b613-651ce5a983f7"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FacturaExamen_numfactura}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="61" y="0" width="61" height="20" uuid="8fa833b0-31db-4416-a316-ebd9db170975"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FacturaExamen_fecha}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="122" y="0" width="61" height="20" uuid="1a395c78-be71-4b72-ba53-556284e3ebdf"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FacturaExamen_total}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="183" y="0" width="51" height="20" uuid="c5c2f67e-5841-4cd4-981e-9a57790e5a3a"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FacturaExamen_pago}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="234" y="0" width="60" height="20" uuid="431a7efa-caee-4247-9589-e5bba76e5717"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FacturaExamen_cambio}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="294" y="0" width="120" height="20" uuid="47d979fe-1f8b-4e63-af97-47c44245ae16"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cajero_nombre}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="541" y="0" width="128" height="20" uuid="c435a431-4bf0-4d50-bb21-0144b0bb1231"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Paciente_nombre}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="414" y="0" width="127" height="20" uuid="41401c49-4a0c-43a4-b32f-de685eb009d9"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cajero_apellido}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="669" y="0" width="133" height="20" uuid="80bba0e7-14be-424c-b789-01428ff5868b"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Paciente_apellido}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="89a96841-305d-4b7a-8710-d0d93874ccfa"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="287" height="13" backcolor="#E6E6E6" uuid="c7c6b1e4-d1b2-4985-ba3e-88c6224b5219"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="8be456c7-7965-4879-a8fc-d78fec1cc748"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

@@ -112,6 +112,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         menuItemCajero = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         menuItemExpediente = new javax.swing.JMenuItem();
+        jMenuItemFact = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -386,6 +387,10 @@ public class SistemaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu4.add(menuItemExpediente);
+
+        jMenuItemFact.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1439028669_add-notes.png"))); // NOI18N
+        jMenuItemFact.setText("Facturas");
+        jMenu4.add(jMenuItemFact);
 
         jMenuBar1.add(jMenu4);
 
@@ -828,6 +833,7 @@ else{
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenuItem jMenuItemFact;
     private javax.swing.JMenuItem jMenuItemVerUsuarios;
     private javax.swing.JMenuItem jMenuItemVerusuariosmedicos;
     private javax.swing.JMenuItem jMenuItemconsulta;
