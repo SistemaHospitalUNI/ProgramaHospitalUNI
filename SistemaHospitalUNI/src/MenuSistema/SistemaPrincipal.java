@@ -9,6 +9,7 @@ import Citas.FrameCitas;
 import Especialidades.FrameEspecialidades;
 import FramePrincipal.Logueo;
 import InternalFrames.*;
+import Medicos.Diagnostico_Receta;
 import Medicos.FrameMedicos;
 import Medicos.ListarMedicos;
 import PermisosUsuarios.AsignacionPermisos;
@@ -53,7 +54,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
     }
 
     public void BloqueoMedico(){
-        if (Logueo.getUser().substring(0,2).equals("med")) {
+        if (Logueo.getUser().substring(0,3).equals("med")) {
             this.menuCajero.setEnabled(false);
             this.menuFactura.setEnabled(false);
         }
@@ -108,6 +109,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         menuHorarioMedico = new javax.swing.JMenuItem();
         jMenuItemconsulta = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         menuCajero = new javax.swing.JMenu();
         menuItemCajero = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
@@ -353,6 +355,14 @@ public class SistemaPrincipal extends javax.swing.JFrame {
             }
         });
         menuMedico.add(jMenuItemconsulta);
+
+        jMenuItem7.setText("Diagnostico y Receta");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        menuMedico.add(jMenuItem7);
 
         jMenuBar1.add(menuMedico);
 
@@ -761,6 +771,20 @@ else{
          }
     }//GEN-LAST:event_jMenuItemconsultaActionPerformed
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+        Diagnostico_Receta drec = new Diagnostico_Receta(sf);
+         if (activo(drec)) {
+            this.jDesktopPane1.add(drec);
+            drec.setVisible(true);
+            try {
+                drec.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(SistemaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         }
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -812,6 +836,7 @@ else{
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem jMenuItemVerUsuarios;
