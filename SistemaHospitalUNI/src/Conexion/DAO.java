@@ -161,7 +161,8 @@ public class DAO {
         s.close();
         return null;
     }
-      public static FacturaConsulta busquedaFacturaConsultaId(int id) {
+
+    public static FacturaConsulta busquedaFacturaConsultaId(int id) {
 
         s = sf.openSession();
         List<FacturaConsulta> listfactex = s.createQuery("from FacturaConsulta").list();
@@ -290,6 +291,7 @@ public class DAO {
         s.close();
         return null;
     }
+
     public Cita busquedaCitaId2(int id) {
         s = sf.openSession();
         List<Cita> lstCita = (List<Cita>) s.createQuery("from Cita").list();
@@ -351,11 +353,11 @@ public class DAO {
         return lstCatalogoExamen;
     }
 
-    public  List<Cita> Listar_Citas(){
-    s= sf.openSession();
-    List<Cita> listacitas = s.createQuery("from Cita").list();
-    s.close();
-    return listacitas;
+    public List<Cita> Listar_Citas() {
+        s = sf.openSession();
+        List<Cita> listacitas = s.createQuery("from Cita").list();
+        s.close();
+        return listacitas;
     }
 
     public static List<Cita> Listar_Cita_Medico_Especifico() {
@@ -477,13 +479,14 @@ public class DAO {
         s.close();
         return lista;
     }
+
     public static List<DetalleFacturaEx> ListarDetFactEx() {
         s = sf.openSession();
         List<DetalleFacturaEx> lista = s.createQuery("from DetalleFacturaEx").list();
         s.close();
         return lista;
     }
-    
+
     public static List<DetalleFactpro> ListarDetFactPro() {
         s = sf.openSession();
         List<DetalleFactpro> lista = s.createQuery("from DetalleFactpro").list();
@@ -535,8 +538,9 @@ public class DAO {
         s.close();
         return id;
     }
+
     public static int GuardarConsulta(Consulta consulta) {
-    
+
         int id = -1;
         s = sf.openSession();
         s.beginTransaction();
@@ -544,7 +548,7 @@ public class DAO {
         s.getTransaction().commit();
         s.close();
         return id;
-    
+
     }
 
     public static int GuardarCita(int idMedico, int idPaciente, String fecha, String hora, boolean estado) {
@@ -590,6 +594,46 @@ public class DAO {
         } finally {
             s.close();
         }
+    }
+
+    public static int GuardarDiagnostico(int idConsulta, String descripcion) {
+        int flag;
+        s = sf.openSession();
+        try {
+            Transaction t = s.beginTransaction();
+            Diagnostico diagnostico = new Diagnostico();
+            diagnostico.setConsulta((Consulta) s.get(Consulta.class, idConsulta));
+            diagnostico.setDescripcion(descripcion);
+            flag = (int) s.save(diagnostico);
+            t.commit();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage() + " CAUSA: " + ex.getCause());
+            flag = -1;
+        } finally {
+            s.close();
+        }
+        return flag;
+    }
+
+    public static int GuardarReceta(int idDiagnostico, String medicamento, String dosis, int cantidad) {
+        int flag;
+        s = sf.openSession();
+        try {
+            Transaction t = s.beginTransaction();
+            Receta receta = new Receta();
+            receta.setDiagnostico((Diagnostico) s.get(Diagnostico.class, idDiagnostico));
+            receta.setMedicamento(medicamento);
+            receta.setDosis(dosis);
+            receta.setCantidad(cantidad);
+            flag = (int) s.save(receta);
+            t.commit();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage() + " CAUSA: " + ex.getCause());
+            flag = -1;
+        } finally {
+            s.close();
+        }
+        return flag;
     }
 
     public static int GuardarHorarioMedico(int idDiaMedico, String horaInicio, String horaFinal) {
@@ -674,7 +718,7 @@ public class DAO {
     }
 
     public static int GuardarMedico(String nombre, String SNombre, String Apellido, String SApellido, String cedula, int idEspecialidad, String usuario, String direccion, boolean estado, byte[] fotos) {
-        
+
         s = sf.openSession();
         try {
             int bandera;
@@ -807,7 +851,8 @@ public class DAO {
         s.close();
         return true;
     }
-     public static boolean ActualizarCita(Cita ce) {
+
+    public static boolean ActualizarCita(Cita ce) {
         ce.setEstado(false);
         s = sf.openSession();
         s.beginTransaction();
@@ -816,7 +861,8 @@ public class DAO {
         s.close();
         return true;
     }
-     public static boolean ActualizarConsulta(Consulta ce) {
+
+    public static boolean ActualizarConsulta(Consulta ce) {
         s = sf.openSession();
         s.beginTransaction();
         s.update(ce);
@@ -835,14 +881,14 @@ public class DAO {
 
     }
 
-    public static  List<FacturaExamen> ListarFacturaExamen() {
+    public static List<FacturaExamen> ListarFacturaExamen() {
         s = sf.openSession();
         List<FacturaExamen> lista = (List<FacturaExamen>) s.createQuery("from FacturaExamen").list();
         return lista;
     }
-    
-    public  int GuardarFacturaConsulta(FacturaConsulta fc){
-      s = sf.openSession();
+
+    public int GuardarFacturaConsulta(FacturaConsulta fc) {
+        s = sf.openSession();
         try {
             int id = -1;
             Transaction t = s.beginTransaction();
@@ -856,9 +902,9 @@ public class DAO {
             s.close();
 
         }
-    
+
     }
-    
+
     /*
      public static List<FacturaProcedimiento> ListarFacturaProcedimiento() {
      s = sf.openSession();
@@ -879,7 +925,6 @@ public class DAO {
      }
      }
      */
-
     public static int GuardarFacturaex(FacturaExamen fex) {
         s = sf.openSession();
         try {

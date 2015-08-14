@@ -193,12 +193,39 @@ public class VentanaReporteExpediente extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
        try {
-                    
+                   
+            Session s = sf.openSession();
             int fila = jTable1.getSelectedRow();
             int idPaciente = Integer.parseInt(jTable1.getValueAt(fila, 0).toString());
             String ruta = "src\\Reportes\\Expediente.jasper";
             Map parametro = new HashMap();
             parametro.put("id",idPaciente);
+            
+            String verAlergia = "select a.alergiaMedicamento.nombre from Paciente p inner join p.padecimientoAms a inner join a.alergiaMedicamento\n" +
+            "where p.idPaciente = :id";
+            Query query = s.createQuery(verAlergia);
+            query.setParameter("id", idPaciente);
+            Iterator ite = query.list().iterator();
+            
+            if (query.list().size()>0) {
+               parametro.put("alergia", ite.next());
+            }else{
+                parametro.put("alergia", " - ");
+            }
+         
+            
+            String verEC = "select a.enfermedadCronica.nombre from Paciente p inner join p.padecimientoEcs a inner join a.enfermedadCronica\n" +
+            "where p.idPaciente = :id";
+            Query q = s.createQuery(verEC);
+            q.setParameter("id", idPaciente);
+            Iterator it = q.list().iterator();
+           
+            if (q.list().size()>0) {
+                parametro.put("enfermedad", it.next());
+            }else{
+                parametro.put("enfermedad", " - ");
+            }
+       
             JasperPrint informe = JasperFillManager.fillReport(ruta,parametro,getConnection());
             JOptionPane.showMessageDialog(this, 
             "Esta acción puede durar unos minutos espere por favor","Cargando...",JOptionPane.WARNING_MESSAGE);

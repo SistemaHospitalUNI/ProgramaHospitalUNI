@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Aug 12, 2015 9:23:16 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Aug 13, 2015 4:52:51 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="Pojo.Especialidad" table="Especialidad" catalog="SistemaHospital" optimistic-lock="version">
         <id name="idEspecialidad" type="java.lang.Integer">

@@ -9,6 +9,7 @@ import Citas.FrameCitas;
 import Especialidades.FrameEspecialidades;
 import FramePrincipal.Logueo;
 import InternalFrames.*;
+import Medicos.Diagnostico_Receta;
 import Medicos.FrameMedicos;
 import Medicos.ListarMedicos;
 import PermisosUsuarios.AsignacionPermisos;
@@ -53,7 +54,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
     }
 
     public void BloqueoMedico(){
-        if (Logueo.getUser().substring(0,2).equals("med")) {
+        if (Logueo.getUser().substring(0,3).equals("med")) {
             this.menuCajero.setEnabled(false);
             this.menuFactura.setEnabled(false);
         }
@@ -108,6 +109,7 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         menuHorarioMedico = new javax.swing.JMenuItem();
         jMenuItemconsulta = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         menuCajero = new javax.swing.JMenu();
         menuItemCajero = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
@@ -115,7 +117,6 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenuItemFact = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuUsuarios = new javax.swing.JMenu();
@@ -356,6 +357,14 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         });
         menuMedico.add(jMenuItemconsulta);
 
+        jMenuItem7.setText("Diagnostico y Receta");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        menuMedico.add(jMenuItem7);
+
         jMenuBar1.add(menuMedico);
 
         menuCajero.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/man_black.png"))); // NOI18N
@@ -411,14 +420,6 @@ public class SistemaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem6);
-
-        jMenuItem7.setText("Help & Manual");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem7);
 
         jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F11, 0));
         jMenuItem8.setText("FullScreen");
@@ -715,10 +716,6 @@ else{
         }     
     }//GEN-LAST:event_menuItemExpedienteActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
-
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(this, "Programa Realizado por: \n  -Cristhian Aguirre\n  -Luis Cardoza\n  -Rossel Thompson \nBase de datos II 2015",
@@ -778,6 +775,20 @@ else{
             }
          }
     }//GEN-LAST:event_jMenuItemconsultaActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+        Diagnostico_Receta drec = new Diagnostico_Receta(sf);
+         if (activo(drec)) {
+            this.jDesktopPane1.add(drec);
+            drec.setVisible(true);
+            try {
+                drec.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(SistemaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         }
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**
      * @param args the command line arguments
