@@ -457,6 +457,11 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenu3.setActionCommand("   Ayuda");
         jMenu3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jMenu3.setMargin(new java.awt.Insets(0, 40, 0, 0));
+        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu3MouseClicked(evt);
+            }
+        });
         jMenu3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenu3ActionPerformed(evt);
@@ -829,11 +834,20 @@ else{
     private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
        Desktop d = Desktop.getDesktop();
         try {
-            d.open(new File("src\\Ayuda\\Ayuda.chm"));
+            d.open(new File("src\\Ayuda\\help.chm"));
         } catch (IOException ex) {
-            Logger.getLogger(SistemaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
     }//GEN-LAST:event_jMenu3ActionPerformed
+
+    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
+        Desktop d = Desktop.getDesktop();
+        try {
+            d.open(new File("src\\Ayuda\\help.chm"));
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_jMenu3MouseClicked
 
     /**
      * @param args the command line arguments
