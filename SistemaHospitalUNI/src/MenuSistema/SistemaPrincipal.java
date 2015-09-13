@@ -9,18 +9,28 @@ import Citas.FrameCitas;
 import Especialidades.FrameEspecialidades;
 import FramePrincipal.Logueo;
 import InternalFrames.*;
+import static InternalFrames.VentanaReporteExpediente.getConnection;
 import Medicos.Diagnostico_Receta;
 import Medicos.FrameMedicos;
 import Medicos.ListarMedicos;
 import PermisosUsuarios.AsignacionPermisos;
 import Pojo.AlergiaMedicamento;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
+import java.awt.Desktop;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.beans.PropertyVetoException;
+import java.io.File;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Box;
@@ -29,6 +39,11 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  *
@@ -399,6 +414,11 @@ public class SistemaPrincipal extends javax.swing.JFrame {
 
         jMenuItemFact.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1439028669_add-notes.png"))); // NOI18N
         jMenuItemFact.setText("Facturas");
+        jMenuItemFact.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemFactActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItemFact);
 
         jMenuBar1.add(jMenu4);
@@ -437,6 +457,11 @@ public class SistemaPrincipal extends javax.swing.JFrame {
         jMenu3.setActionCommand("   Ayuda");
         jMenu3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jMenu3.setMargin(new java.awt.Insets(0, 40, 0, 0));
+        jMenu3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu3ActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(jMenu3);
 
         jMenuUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/usuario-icono-7991-32.png"))); // NOI18N
@@ -789,6 +814,26 @@ else{
             }
          }
     }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+ 
+    
+    private void jMenuItemFactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFactActionPerformed
+       ReporteFacturas cf = new ReporteFacturas();
+       if(activo(cf)){        
+               this.jDesktopPane1.add(cf);          
+               cf.setVisible(true);
+          
+        }  
+    }//GEN-LAST:event_jMenuItemFactActionPerformed
+
+    private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
+       Desktop d = Desktop.getDesktop();
+        try {
+            d.open(new File("src\\Ayuda\\Ayuda.chm"));
+        } catch (IOException ex) {
+            Logger.getLogger(SistemaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenu3ActionPerformed
 
     /**
      * @param args the command line arguments

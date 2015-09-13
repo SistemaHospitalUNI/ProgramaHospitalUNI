@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 /**
@@ -41,26 +42,34 @@ public class Diagnostico_Receta extends javax.swing.JInternalFrame {
         jTable1.setEnabled(true);
         jTable1.setModel(dtm);
         jTable1.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        llenartabla();
+        
     }
 
     public void llenartabla() {
         String est;
-        limpiar();
         DAO d = new DAO(sf);
-        List<Consulta> listaConsulta = DAO.Listar_Consulta();
+        List<Consulta> listaConsulta = d.Listar_Consulta();
         if (listaConsulta.isEmpty()) {
             System.out.println("Lista Vacia");
-            return;
         } else {
-            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-            for (Consulta consulta : listaConsulta) {
-                if (consulta.getCita().isEstado() == true) {
-                    est = "Activo";
-                } else {
-                    est = "Inactivo";
+            DefaultTableModel modelo = new DefaultTableModel(){
+                @Override
+                public boolean isCellEditable(int row, int column){
+                    return false;
                 }
-                modelo.addRow(new Object[]{consulta.getIdConsulta(), consulta.getCita().getMedico().getPrimernombre() + " " + consulta.getCita().getMedico().getSegundonombre() + " " + consulta.getCita().getMedico().getPrimerapellido() + " " + consulta.getCita().getMedico().getSegundoapellido(), consulta.getCita().getPaciente().getNombre() + " " + consulta.getCita().getPaciente().getApellido(), est});
+            };
+            
+            modelo.addColumn("Id consulta");
+            modelo.addColumn("Medico");
+            modelo.addColumn("Paciente");
+            modelo.addColumn("Estado");
+            for (Consulta consulta : listaConsulta) {                
+                if (consulta.getCita().isEstado()==true) {
+                    est = "Pendiente";
+                }else{
+                    est = "Realizada";
+                }
+                modelo.addRow(new Object[]{consulta.getIdConsulta(), consulta.getCita().getMedico().getPrimernombre() + " " + consulta.getCita().getMedico().getSegundonombre() + " " + consulta.getCita().getMedico().getPrimerapellido() + " " + consulta.getCita().getMedico().getSegundoapellido(), consulta.getCita().getPaciente().getNombre() + " " + consulta.getCita().getPaciente().getApellido(),est});
             }
             jTable1.setModel(modelo);
         }
@@ -69,7 +78,7 @@ public class Diagnostico_Receta extends javax.swing.JInternalFrame {
     public void limpiar() {
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
-                new String[]{"Id Consulta", "Medico", "Paciente", "Estado"}
+                new String[]{"Id Consulta", "Medico", "Paciente"}
         ) {
             Class[] types = new Class[]{
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
@@ -114,20 +123,20 @@ public class Diagnostico_Receta extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setTitle("Desarrollo de Diagnostico y Receta ");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
-            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
-                formInternalFrameOpened(evt);
-            }
-            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
             }
-            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
             }
-            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
             }
-            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
             }
         });
 
@@ -141,6 +150,11 @@ public class Diagnostico_Receta extends javax.swing.JInternalFrame {
 
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jTable1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 jTable1PropertyChange(evt);
@@ -152,7 +166,7 @@ public class Diagnostico_Receta extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane1)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,9 +286,9 @@ public class Diagnostico_Receta extends javax.swing.JInternalFrame {
                                 .addComponent(jScrollPane2))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
                         .addGap(528, 528, 528)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)))
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -300,7 +314,7 @@ public class Diagnostico_Receta extends javax.swing.JInternalFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -315,6 +329,8 @@ public class Diagnostico_Receta extends javax.swing.JInternalFrame {
         } catch (PropertyVetoException ex) {
             Logger.getLogger(Diagnostico_Receta.class.getName()).log(Level.SEVERE, null, ex);
         }
+        llenartabla();
+        
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -332,12 +348,17 @@ public class Diagnostico_Receta extends javax.swing.JInternalFrame {
 
     private void jTable1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTable1PropertyChange
         // TODO add your handling code here:
+       
+    }//GEN-LAST:event_jTable1PropertyChange
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
         int fila = this.jTable1.getSelectedRow();
         idTablaSeleccionada = Integer.parseInt(jTable1.getValueAt(fila, 0).toString());
         txtMedico.setText(jTable1.getValueAt(fila, 1).toString());
         txtPaciente.setText(jTable1.getValueAt(fila, 2).toString());
         txtEstado.setText(jTable1.getValueAt(fila, 3).toString());
-    }//GEN-LAST:event_jTable1PropertyChange
+    }//GEN-LAST:event_jTable1MouseClicked
 
     public void GuardarDiagnostico(int idConsulta) {
         int idDiagnostico = 0;

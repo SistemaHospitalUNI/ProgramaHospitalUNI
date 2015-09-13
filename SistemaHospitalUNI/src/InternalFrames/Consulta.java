@@ -310,6 +310,9 @@ this.jTable1.setModel(dft);
         int idcita = Integer.parseInt(String.valueOf(this.jComboBox1.getSelectedItem()));
         DAO d = new DAO(sf);
         Cita c = d.busquedaCitaId2(idcita);
+        if(sf.openSession().isOpen()){
+            sf.openSession().close();
+        }
         System.out.println("Cambio: "+c.getIdCita());
         this.lblmedico.setText(c.getMedico().getPrimernombre()+" "+c.getMedico().getSegundonombre()+" "+c.getMedico().getPrimerapellido()+" "+c.getMedico().getSegundoapellido());
         this.lblpaciente.setText(c.getPaciente().getNombre()+" "+c.getPaciente().getApellido());
@@ -326,13 +329,16 @@ this.jTable1.setModel(dft);
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             DAO d = new DAO(sf);
+            
             Pojo.Consulta consulta = new Pojo.Consulta();
             Pojo.Cita cita = d.busquedaCitaId2(Integer.parseInt(String.valueOf(this.jComboBox1.getSelectedItem())));
             System.out.println("Cita#: "+cita.getIdCita());
             consulta.setCita(cita);
             consulta.setPrecio(Float.parseFloat(this.jTextField1.getText()));
             consulta.setDescripcion(this.jTextArea1.getText());
+     
             if(d.ActualizarCita(cita)==true){
+               
             if(d.GuardarConsulta(consulta)!=-1){
                 JOptionPane.showMessageDialog(this,"Consulta Registrada");
                 

@@ -41,6 +41,7 @@ public class NewHibernateUtil {
                     .addResource("Pojo/CatalogoExamen.hbm.xml")
                     .addResource("Pojo/Cita.hbm.xml")
                     .addResource("Pojo/Consulta.hbm.xml")
+                    .addResource("POJO/Pensum.hbm.xml")
                     .addResource("Pojo/DetalleConsulta.hbm.xml")
                     .addResource("Pojo/DetalleFactpro.hbm.xml")
                     .addResource("Pojo/DetalleFacturaEx.hbm.xml")

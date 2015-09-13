@@ -377,8 +377,20 @@ public class DAO {
 
     public static List<Consulta> Listar_Consulta() {
         s = sf.openSession();
-        List<Consulta> lstConsulta = s.createQuery("from Consulta").list();
-        s.close();
+        
+        if (s.isOpen()) {
+            System.out.println("La sesion esta abierta");
+        }
+        
+        List<Consulta> lstConsulta = (List<Consulta>)s.createQuery("from Consulta").list();
+        for (Consulta con : lstConsulta) {
+            System.out.println(con.getPrecio());
+            System.out.println(con.getCita().getMedico().getPrimernombre());
+            System.out.println("PACIENTE: " + con.getCita().getPaciente().getNombre());
+        }
+        if (s.isOpen()) {
+            s.close();
+        }
         return lstConsulta;
     }
 
@@ -854,7 +866,11 @@ public class DAO {
 
     public static boolean ActualizarCita(Cita ce) {
         ce.setEstado(false);
+        if(sf.openSession().isOpen()){
+            sf.openSession().close();
+        }
         s = sf.openSession();
+        
         s.beginTransaction();
         s.update(ce);
         s.getTransaction().commit();

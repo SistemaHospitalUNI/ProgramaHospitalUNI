@@ -145,7 +145,7 @@ private Connection getConnection() {
         }
         
         try {
-            con =  DriverManager.getConnection(url, "root", "rosseluni2015");
+            con =  DriverManager.getConnection(url, "root", "1234");
         } catch (SQLException ex) {
             System.out.println("Error");
         }
@@ -178,14 +178,14 @@ private Connection getConnection() {
                     "Esta acción puede durar unos minutos espere por favor","Cargando...",JOptionPane.WARNING_MESSAGE);
            
             JasperViewer ventana = new JasperViewer(informe,false);
-            ventana.setTitle("Expediente");
+            ventana.setTitle("Facturas");
             ventana.setVisible(true);
         } catch (JRException ex) {
                 JOptionPane.showMessageDialog(this,"Error al generar REporte","Error",JOptionPane.ERROR_MESSAGE);
      
         } catch (ParseException ex) {
                JOptionPane.showMessageDialog(this,"Formato yyyy-MM-dd HH:mm","Error",JOptionPane.ERROR_MESSAGE);
-     
+//     
         }
     }
 
